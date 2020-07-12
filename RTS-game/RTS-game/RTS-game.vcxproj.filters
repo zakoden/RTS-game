@@ -18,9 +18,17 @@
     <ClCompile Include="Source.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Game_Map.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game_Map.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

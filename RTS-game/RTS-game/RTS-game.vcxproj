@@ -148,11 +148,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game_Map.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game_Map.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
