@@ -93,6 +93,8 @@ typedef struct SDL_FRect
 } SDL_FRect;
 
 
+
+#pragma warning disable 26812
 /**
  *  \brief Returns true if point resides inside a rectangle.
  */
@@ -101,6 +103,7 @@ SDL_FORCE_INLINE SDL_bool SDL_PointInRect(const SDL_Point *p, const SDL_Rect *r)
     return ( (p->x >= r->x) && (p->x < (r->x + r->w)) &&
              (p->y >= r->y) && (p->y < (r->y + r->h)) ) ? SDL_TRUE : SDL_FALSE;
 }
+#pragma warning restore 26812
 
 /**
  *  \brief Returns true if the rectangle has no area.
