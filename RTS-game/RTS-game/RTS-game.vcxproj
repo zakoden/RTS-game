@@ -150,6 +150,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Game_Map.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="units\unit.cpp" />
     <ClCompile Include="units\unit_factory.cpp">
@@ -162,6 +164,8 @@
     <Library Include="..\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Game_Map.h" />
     <ClInclude Include="behaviors\behavior.h" />
     <ClInclude Include="cell.h" />
     <ClInclude Include="units\abstract_unit.h" />

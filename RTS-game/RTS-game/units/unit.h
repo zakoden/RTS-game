@@ -3,6 +3,7 @@
 #include "abstract_unit.h"
 
 #include <bitset>
+#include <memory>
 
 #include "../status_effects.h"
 #include "../behaviors/behavior.h"
