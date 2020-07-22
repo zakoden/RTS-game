@@ -1,106 +1,103 @@
-#include "SDL.h"
-
-#include <cassert>
-#include <vector>
 #include <iostream>
 
-#include "units/unit.h"
-#include "units/unit_factory.h"
+#include "SDL.h"
 
-const size_t kScreenWidth = 800;
-const size_t kScreenHeight = 600;
+#include "Game_Map.h"
+#include "Camera.h"
 
-SDL_Window *gWindow = NULL;
-SDL_Surface *gSurface = NULL;
-SDL_Renderer* gRenderer = NULL;
+#include <vector>
 
-class Image {
-private:
-	SDL_Surface* image_ = NULL;
-
-public:
-	Image(const std::string& file_path) {
-		image_ = SDL_LoadBMP(file_path.c_str());
+int main(int argc, char* argv[]) {
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+		std::cout << "SDL_Init ERROR : " << SDL_GetError() << std::endl;
+		return 1;
 	}
 
-	~Image() {
-		SDL_FreeSurface(image_);
-		image_ = NULL;
+	SDL_Window* win = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+	if (win == nullptr) {
+		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+		return 1;
+	}
+	SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (ren == nullptr) {
+		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
+		return 1;
 	}
 
-	operator SDL_Surface* () const { return image_; }
-};
+	Camera* camera = new Camera();
+	camera->MoveTo(300, 200);
+	GameMap* game_map = new GameMap(ren, 200, 200);
+	game_map->TestGenerate();
 
-bool Init() {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		std::cerr << "SDL wasn't initialized! SDL_Error: " << SDL_GetError() << std::endl;
-		return false;
-	}
+	SDL_RenderClear(ren);
+	SDL_RenderPresent(ren);
 
-	gWindow = SDL_CreateWindow("RTS-game",
-		SDL_WINDOWPOS_UNDEFINED,
-		SDL_WINDOWPOS_UNDEFINED,
-		kScreenWidth,
-		kScreenHeight,
-		SDL_WINDOW_SHOWN
-	);
-	if (gWindow == NULL) {
-		std::cerr << "Window wasn't created! SDL_Error: " << SDL_GetError() << std::endl;
-		return false;
-	}
 
-	gSurface = SDL_GetWindowSurface(gWindow);
-	if (gSurface == NULL) {
-		std::cerr << "Surface wasn't created! SDL_Error: " << SDL_GetError() << std::endl;
-		return false;
-	}
 
-	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-	if (gRenderer == NULL) {
-		std::cerr << "Renderer wasn't created! SDL_Error: " << SDL_GetError() << std::endl;
-		return false;
-	}
-
-	return true;
-}
- 
-int main(int argc, char *argv[]) {
-	Init();
-	UnitFactory au(gRenderer);
-	au.MakeFireSmall().Move({ 0, 0 });
-	au.MakeFireSmall().Draw();
-	Unit u1 = au.MakeFireSmall(), u2 = au.MakeFireSmall();
-	u1.Attack(u2);
-	u2.RemoveEffect(ON_FIRE);
-	
-	std::vector<int> d;
-
-	Image fire{"assets/fire.bmp"};
-	SDL_UpdateWindowSurface(gWindow);
-
-	SDL_Event event_handler;
-	for (bool quit = false; !quit; ) {
-		while (SDL_PollEvent(&event_handler) != 0) {
-			if (event_handler.type == SDL_QUIT) {
-				quit = true;
-			}
-
-			if (event_handler.type == SDL_KEYDOWN) {
-				switch (event_handler.key.keysym.sym) {
-					case SDLK_UP:
-					case SDLK_DOWN:
-					case SDLK_LEFT:
-					case SDLK_RIGHT:
-						SDL_BlitSurface(fire, NULL, gSurface, NULL);
-						SDL_UpdateWindowSurface(gWindow);
-					default:
-						break;
+	bool close = false;
+	SDL_Event event;
+	while (!close)
+	{
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				close = true;
+				break;
+			case SDL_MOUSEWHEEL:
+				camera->AddScale(0.1 * event.wheel.y);
+				break;
+			case SDL_KEYDOWN:
+				/*
+				int32_t coef = 10;
+				switch (event.key.keysym.sym) {
+				case SDLK_UP:
+					camera->Move(0, (int32_t)(-coef / camera->GetScale()));
+					break;
+				case SDLK_DOWN:
+					camera->Move(0, (int32_t)(coef / camera->GetScale()));
+					break;
+				case SDLK_LEFT:
+					camera->Move((int32_t)(-coef / camera->GetScale()), 0);
+					break;
+				case SDLK_RIGHT:
+					camera->Move((int32_t)(coef / camera->GetScale()), 0);
+					break;
 				}
+				*/
+				break;
 			}
-
 		}
+
+		const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
+
+		int32_t coef = 10;
+		if (keyboard_state[SDL_SCANCODE_UP]) {
+			camera->Move(0, (int32_t)(-coef / camera->GetScale()));
+		}
+		if (keyboard_state[SDL_SCANCODE_DOWN]) {
+			camera->Move(0, (int32_t)(coef / camera->GetScale()));
+		}
+		if (keyboard_state[SDL_SCANCODE_LEFT]) {
+			camera->Move((int32_t)(-coef / camera->GetScale()), 0);
+		}
+		if (keyboard_state[SDL_SCANCODE_RIGHT]) {
+			camera->Move((int32_t)(coef / camera->GetScale()), 0);
+		}
+
+		SDL_RenderClear(ren);
+		SDL_RenderSetScale(ren, camera->GetScale(), camera->GetScale());
+
+		//std::cout << camera->GetScale() << " " << camera->GetCornerX(ren) << " " << camera->GetCornerY(ren) << std::endl;
+
+		game_map->Draw(ren, camera);
+		SDL_RenderPresent(ren);
 	}
-	
-	SDL_DestroyWindow(gWindow);
+
+
+	SDL_DestroyRenderer(ren);
+	SDL_DestroyWindow(win);
+	SDL_Quit();
+
+
 	return 0;
 }

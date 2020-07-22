@@ -1,5 +1,7 @@
 #pragma once
 
+#include "abstract_unit_factory.h"
+
 #include <array>
 #include <string>
 #include <unordered_map>
@@ -8,7 +10,7 @@
 
 #include "unit.h"
 
-class UnitFactory {
+class UnitFactory : public AbstractUnitFactory {
 private:
 	SDL_Renderer* renderer_;  // –ендерер
 
@@ -26,7 +28,7 @@ public:
 	explicit UnitFactory(SDL_Renderer* renderer);
 
 	// —оздаЄт юнита "Small fire"
-	Unit MakeFireSmall();
+	Unit MakeFireSmall() override;
 	
 	// ”дал€ет фабрику, удал€€ все текстуры
 	~UnitFactory();

@@ -2,6 +2,11 @@
 
 #include "abstract_unit.h"
 
+#include <bitset>
+
+#include "../status_effects.h"
+#include "../behaviors/behavior.h"
+
 class Unit : public AbstractUnit {
 protected:
 	// Атака, защита, текущее здоровье, максимальное здоровье
@@ -11,7 +16,7 @@ protected:
 	Cell position_ = {-1, -1};			 // Позиция
 	std::bitset<EFFECT_SIZE> effects_;   // Битсет из эффектов
 	std::string name_;					 // Имя
-	std::shared_ptr<Behavior> behavior;  // Поведение
+	std::shared_ptr<Behavior> behavior_;  // Поведение
 
 public:
 	Unit() = default;
@@ -27,6 +32,15 @@ public:
 	virtual void Attack(AbstractUnit& other) override;
 
 	virtual SDL_Texture* Draw() const override;
+
+	void SetPosition(const Cell& position);	 // Присваивает новую позицию
+	void SetBehavior(Behavior* behavior);    // Присваивает поведение
+
+	std::string GetName() const;  // Возвращает имя юнита
+
+	void AddEffect(Effect effect);		  // Добавляет эффект к юниту
+	void RemoveEffect(Effect effect);	  // Удаляет эффект у юнита (если он есть)
+	bool HasEffect(Effect effect) const;  // Возвращает 1 если такой эффект есть и 0 иначе
 
 	virtual ~Unit() = default;
 };
