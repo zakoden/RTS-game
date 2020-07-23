@@ -4,30 +4,36 @@
 #include <string>
 #include <unordered_map>
 
-#include "SDL.h"
+#include "../game_map.h"
+#include "../camera.h"
 
+#include "../managers/texture_manager.h"
+
+#include "../behaviors/behavior_random.h"
+#include "../behaviors/behavior_tower.h"
+#include "../behaviors/behavior_stay.h"
+
+#include "abstract_unit_factory.h"
 #include "unit.h"
 
-class UnitFactory {
+#include "../player/player.h"
+#include "../player/players_info.h"
+
+class UnitFactory : AbstractUnitFactory {
 private:
-	SDL_Renderer* renderer_;  // Рендерер
+	std::vector<Player*> players_;
 
-	// Здесь хранятся текстуры юнитов (для оптимизации)
-	std::unordered_map<std::string, SDL_Texture*> units_textures_;  
-
-	// Функция достаёт текстуру юнита
-	SDL_Texture* GetTexture(const Unit& unit);
-
-	// Функция берёт юнита и рисует ему текстуру
-	SDL_Texture* MakeTexture(const Unit& unit);
+	GameMap* game_map_;
+	TextureManager* texture_manager_;
 
 public:
-	// Строит фабрику по рендереру
-	explicit UnitFactory(SDL_Renderer* renderer);
+	void AddPlayer(Player* player);
 
-	// Создаёт юнита "Small fire"
-	Unit MakeFireSmall();
-	
-	// Удаляет фабрику, удаляя все текстуры
-	~UnitFactory();
+	void SetMap(GameMap* game_map);
+	void SetTextureManager(TextureManager* texture_manager);
+
+	AbstractUnit* CreateTest(size_t player, int x, int y) override;
+    AbstractUnit* CreateTest1(size_t player, int x, int y) override;
+
+	AbstractUnit* CreateBulletFire1(size_t player, int x, int y) override;
 };

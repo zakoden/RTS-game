@@ -1,42 +1,35 @@
 #pragma once
 
 #include <bitset>
+#include <cmath>
 #include <memory>
+
+#include <iostream>
 
 #include "SDL.h"
 
+#include "../camera.h"
+
 #include "../behaviors/behavior.h"
-#include "../cell.h"
-#include "../status_effects.h"
+#include "../behaviors/status_effects.h"
 
 class AbstractUnit {
-protected:
-	// Атака, защита, текущее здоровье, максимальное здоровье
-	int attack_ = 0, defense_ = 0, health_ = 0, max_health_ = 0;
-	uint32_t speed_ = 0;				  // Скорость
-	SDL_Texture* texture_ = NULL;		  // Текстура
-	Cell position_ = {-1, -1};		  	  // Позиция
-	std::bitset<EFFECT_SIZE> effects_;    // Битсет из эффектов
-	std::string name_;					  // Имя
-	std::shared_ptr<Behavior> behavior_;  // Поведение
-
 public:
-	// Двигает юнита на другую клетку
-	virtual void Move(const Cell& destination) = 0;
 
-	// Заставляет юнита атаковать другого
-	virtual void Attack(AbstractUnit& other) = 0;
+	virtual int GetX() = 0;
+	virtual int GetY() = 0;
+	virtual void SetPosition(int x, int y) = 0;
+	virtual void SetVector(int dx, int dy) = 0;
+	virtual void VectorApply() = 0;
 	
-	virtual SDL_Texture* Draw() const = 0;  // Рисует и возвращает текстуру юнита
+	virtual void DoAction() = 0; 
 
-	void SetPosition(const Cell& position);	 // Присваивает новую позицию
-	void SetBehavior(Behavior* behavior);    // Присваивает поведение
+	virtual void Draw(SDL_Renderer* renderer, Camera* camera) const = 0; 
 
-	std::string GetName() const;  // Возвращает имя юнита
+	virtual void SetBehavior(Behavior* behavior) = 0;   
+	virtual void SetPlayer(size_t player) = 0;
 
-	void AddEffect(Effect effect);		  // Добавляет эффект к юниту
-	void RemoveEffect(Effect effect);	  // Удаляет эффект у юнита (если он есть)
-	bool HasEffect(Effect effect) const;  // Возвращает 1 если такой эффект есть и 0 иначе
-
-	virtual ~AbstractUnit() = default;
+	virtual void AddEffect(Effect effect) = 0;		 
+	virtual void RemoveEffect(Effect effect) = 0;	  
+	virtual bool HasEffect(Effect effect) const = 0;  
 };

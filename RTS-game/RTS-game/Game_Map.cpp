@@ -1,11 +1,14 @@
-#include "Game_Map.h"
+#include "game_map.h"
 
-
+size_t GameMap::GetInd(uint32_t x, uint32_t y) {
+	return x + y * width_;
+}
 
 GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height) {
 	width_ = width;
 	height_ = height;
 	blocks_.resize(width_ * height_);
+	units_in_block_.resize(width_ * height_);
 
 	// load texture
 	SDL_Surface* surface = SDL_LoadBMP("pictures/test.bmp");
@@ -17,6 +20,23 @@ GameMap::~GameMap() {
 
 }
 
+uint32_t GameMap::GetHeight() {
+	return height_;
+}
+
+uint32_t GameMap::GetWidth() {
+	return width_;
+}
+
+void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
+	units_in_block_[GetInd(x, y)].insert(unit);
+}
+
+void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
+	if (units_in_block_[GetInd(x, y)].find(unit) != units_in_block_[GetInd(x, y)].end()) {
+		units_in_block_[GetInd(x, y)].erase(unit);
+	}
+}
 
 uint8_t GameMap::GetBlock(uint32_t x, uint32_t y) {
 	return blocks_[x + y * width_];
@@ -28,6 +48,9 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
 	uint8_t block = blocks_[x + y * width_];
+	if (!units_in_block_[x + y * width_].empty()) {
+		block = 0;
+	}
 	SDL_Rect from, to;
 	from.x = (block % BLOCKS_IN_LINE) * BLOCK_SIZE;
 	from.y = (block / BLOCKS_IN_LINE) * BLOCK_SIZE;
