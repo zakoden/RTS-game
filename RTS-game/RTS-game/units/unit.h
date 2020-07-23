@@ -7,7 +7,7 @@
 #include <bitset>
 #include <memory>
 
-#include "../status_effects.h"
+#include "../behaviors/status_effects.h"
 #include "../behaviors/behavior.h"
 
 class Unit : public AbstractUnit {

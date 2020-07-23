@@ -75,10 +75,6 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
-void GameMap::GenerateMap() {
-
-}
-
 void GameMap::TestGenerate() {
 	
 	for (uint32_t y = 0; y < height_; ++y) {
