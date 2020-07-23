@@ -7,7 +7,7 @@ SDL_Texture* Unit::Draw() const {
 	return NULL;
 }
 
-void Unit::Move(const Cell& destination) {
+void Unit::Move(uint32_t x, uint32_t y) {
 	std::cout << "Gay" << std::endl;
 }
 
@@ -15,7 +15,7 @@ void Unit::Attack(AbstractUnit& other) {
 	std::cout << "CHARGE!" << std::endl;
 }
 
-void Unit::SetPosition(const Cell& position) { position_ = position; }
+void Unit::SetPosition(uint32_t x, uint32_t y) { x_ = x; y_ = y; }
 void Unit::SetBehavior(Behavior* behavior) { behavior_.reset(behavior); }
 
 std::string Unit::GetName() const { return name_; }

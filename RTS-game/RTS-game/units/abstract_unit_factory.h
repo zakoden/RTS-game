@@ -5,6 +5,6 @@
 class AbstractUnitFactory {
 public:
 
-	// Создаёт юнита "Small fire"
+	// Makes "Small fire" unit
 	virtual Unit MakeFireSmall() = 0;
 };

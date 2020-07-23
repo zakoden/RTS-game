@@ -12,24 +12,23 @@
 
 class UnitFactory : public AbstractUnitFactory {
 private:
-	SDL_Renderer* renderer_;  // Рендерер
+	SDL_Renderer* renderer_;
 
-	// Здесь хранятся текстуры юнитов (для оптимизации)
+	// Textures of units are kept there, so we don't have to download multiple textures
 	std::unordered_map<std::string, SDL_Texture*> units_textures_;  
 
-	// Функция достаёт текстуру юнита
+	// Gets texture from an unit
 	SDL_Texture* GetTexture(const Unit& unit);
 
-	// Функция берёт юнита и рисует ему текстуру
+	// Makes texture for an unit
 	SDL_Texture* MakeTexture(const Unit& unit);
 
 public:
-	// Строит фабрику по рендереру
 	explicit UnitFactory(SDL_Renderer* renderer);
 
-	// Создаёт юнита "Small fire"
+	// Makes "Small fire" unit
 	Unit MakeFireSmall() override;
 	
-	// Удаляет фабрику, удаляя все текстуры
+	// Destroys factory, and destroys all textures in units_textures_
 	~UnitFactory();
 };

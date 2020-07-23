@@ -2,15 +2,14 @@
 
 #include "SDL.h"
 
-#include "../cell.h"
-
 class AbstractUnit {
 public:
-	// Двигает юнита на другую клетку
-	virtual void Move(const Cell& destination) = 0;
+	// Moves this unit to destination
+	virtual void Move(uint32_t x, uint32_t y) = 0;
 
-	// Заставляет юнита атаковать другого
+	// Makes this unit to attack other
 	virtual void Attack(AbstractUnit& other) = 0;
 	
-	virtual SDL_Texture* Draw() const = 0;  // Рисует и возвращает текстуру юнита
+	// Draws and returns texture of this unit
+	virtual SDL_Texture* Draw() const = 0;
 };
