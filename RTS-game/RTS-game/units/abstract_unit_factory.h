@@ -9,5 +9,4 @@ public:
 	virtual AbstractUnit* CreateTest1(size_t player, int x, int y) = 0;
 
 	virtual AbstractUnit* CreateBulletFire1(size_t player, int x, int y) = 0;
-	
 };

@@ -1,14 +1,15 @@
 #include "game_map.h"
 
 size_t GameMap::GetInd(uint32_t x, uint32_t y) {
-	return x + y * width_;
+	return static_cast<size_t>(x + y * width_);
 }
 
 GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height) {
 	width_ = width;
 	height_ = height;
-	blocks_.resize(width_ * height_);
-	units_in_block_.resize(width_ * height_);
+
+        blocks_.resize(static_cast<size_t>(width_) * height_);
+	units_in_block_.resize(static_cast<size_t>(width_) * height_);
 
 	// load texture
 	SDL_Surface* surface = SDL_LoadBMP("pictures/test.bmp");
@@ -38,16 +39,17 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	}
 }
 
+
 uint8_t GameMap::GetBlock(uint32_t x, uint32_t y) {
-	return blocks_[x + y * width_];
+	return blocks_[GetInd(x, y)];
 }
 
 void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
-	blocks_[x + y * width_] = value;
+	blocks_[GetInd(x, y)] = value;
 }
 
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
-	uint8_t block = blocks_[x + y * width_];
+        uint8_t block = blocks_[GetInd(x, y)];
 	if (!units_in_block_[x + y * width_].empty()) {
 		block = 0;
 	}
@@ -73,18 +75,20 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
+void GameMap::GenerateMap() {
 
+}
 
 void GameMap::TestGenerate() {
 	
 	for (uint32_t y = 0; y < height_; ++y) {
 		for (uint32_t x = 0; x < width_; ++x) {
-			uint32_t ind = x + y * width_;
+			uint32_t ind = GetInd(x, y);
 			blocks_[ind] = 0;
 		}
 	}
 	blocks_[0 + 0 * width_] = rand() % 70;
-	blocks_[width_ - 1 + 0 * width_] = rand() % 70;
+	blocks_[GetInd(width_ - 1, 0) ] = rand() % 70;
 	blocks_[0 + (height_ - 1) * width_] = rand() % 70;
 	blocks_[width_ * height_ - 1] = rand() % 70;
 	RecGenerate(0, 0, width_ - 1, height_ - 1);

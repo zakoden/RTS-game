@@ -4,6 +4,12 @@
 #include "../game_map.h"
 #include "../managers/texture_manager.h"
 
+#include <bitset>
+#include <memory>
+
+#include "../status_effects.h"
+#include "../behaviors/behavior.h"
+
 class Unit : public AbstractUnit {
 protected:
 	// --base parameters--

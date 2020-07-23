@@ -1,5 +1,7 @@
 #pragma once
 
+#include "abstract_unit_factory.h"
+
 #include <array>
 #include <string>
 #include <unordered_map>
