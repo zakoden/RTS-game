@@ -1,15 +1,35 @@
 #pragma once
 
+#include <bitset>
+#include <cmath>
+#include <memory>
+
+#include <iostream>
+
 #include "SDL.h"
+
+#include "../camera.h"
+
+#include "../behaviors/behavior.h"
+#include "../behaviors/status_effects.h"
 
 class AbstractUnit {
 public:
-	// Moves this unit to destination
-	virtual void Move(uint32_t x, uint32_t y) = 0;
 
-	// Makes this unit to attack other
-	virtual void Attack(AbstractUnit& other) = 0;
+	virtual int GetX() = 0;
+	virtual int GetY() = 0;
+	virtual void SetPosition(int x, int y) = 0;
+	virtual void SetVector(int dx, int dy) = 0;
+	virtual void VectorApply() = 0;
 	
-	// Draws and returns texture of this unit
-	virtual SDL_Texture* Draw() const = 0;
+	virtual void DoAction() = 0; 
+
+	virtual void Draw(SDL_Renderer* renderer, Camera* camera) const = 0; 
+
+	virtual void SetBehavior(Behavior* behavior) = 0;   
+	virtual void SetPlayer(size_t player) = 0;
+
+	virtual void AddEffect(Effect effect) = 0;		 
+	virtual void RemoveEffect(Effect effect) = 0;	  
+	virtual bool HasEffect(Effect effect) const = 0;  
 };

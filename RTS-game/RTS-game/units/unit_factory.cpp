@@ -1,29 +1,40 @@
 #include "unit_factory.h"
 
-#include <iostream>
-
-SDL_Texture* UnitFactory::GetTexture(const Unit& unit) {
-	return units_textures_.count(unit.GetName()) ?
-		units_textures_[unit.GetName()] : NULL;
+void UnitFactory::AddPlayer(Player* player) {
+	players_.push_back(player);
 }
 
-SDL_Texture* UnitFactory::MakeTexture(const Unit& unit) {
-	if (!units_textures_.count(unit.GetName()))
-		units_textures_[unit.GetName()] = unit.Draw();
-	return GetTexture(unit);
+void UnitFactory::SetMap(GameMap* game_map) {
+	game_map_ = game_map;
 }
 
-UnitFactory::UnitFactory(SDL_Renderer* renderer) : renderer_(renderer) {}
-
-// attack, defense, max_health, speed, texture, name
-Unit UnitFactory::MakeFireSmall() {
-	const std::string SMALL_FIRE_NAME = "Small fire";
-	Unit res(1, 0, 5, 1, units_textures_[SMALL_FIRE_NAME], SMALL_FIRE_NAME);
-	res.AddEffect(ON_FIRE);
-	return res;
+void UnitFactory::SetTextureManager(TextureManager* texture_manager) {
+	texture_manager_ = texture_manager;
 }
 
-UnitFactory::~UnitFactory() {
-	for (auto name_texture : units_textures_)
-		SDL_DestroyTexture(name_texture.second);
+AbstractUnit* UnitFactory::CreateTest(size_t player, int x, int y) {
+	Unit* unit = new Unit(1, 1, 1, 1, 2, texture_manager_, game_map_);
+	unit->SetPosition(x, y);
+	unit->SetPlayer(player);
+	BehaviorRandom* behavior = new BehaviorRandom(unit);
+	unit->SetBehavior(behavior);
+	players_[player]->AddUnit(unit);
+	return unit;
+}
+
+AbstractUnit* UnitFactory::CreateTest1(size_t player, int x, int y) {
+	Unit* unit = new Unit(1, 1, 1, 1, 1, texture_manager_, game_map_);
+	unit->SetPosition(x, y);
+	unit->SetPlayer(player);
+	BehaviorStay* behavior = new BehaviorStay(unit);
+	unit->SetBehavior(behavior);
+	players_[player]->AddUnit(unit);
+	return unit;
+}
+
+AbstractUnit* UnitFactory::CreateBulletFire1(size_t player, int x, int y) {
+	//Unit* unit = new Unit(1, 1, 1, 1, NULL, "kek");
+	//players_[player]->AddUnit(unit);
+	//return unit;
+	return NULL;
 }

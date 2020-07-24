@@ -6,29 +6,36 @@
 #include <string>
 #include <unordered_map>
 
-#include "SDL.h"
+#include "../game_map.h"
+#include "../camera.h"
 
+#include "../managers/texture_manager.h"
+
+#include "../behaviors/behavior_random.h"
+#include "../behaviors/behavior_tower.h"
+#include "../behaviors/behavior_stay.h"
+
+#include "abstract_unit_factory.h"
 #include "unit.h"
 
-class UnitFactory : public AbstractUnitFactory {
+#include "../player/player.h"
+#include "../player/players_info.h"
+
+class UnitFactory : AbstractUnitFactory {
 private:
-	SDL_Renderer* renderer_;
+	std::vector<Player*> players_;
 
-	// Textures of units are kept there, so we don't have to download multiple textures
-	std::unordered_map<std::string, SDL_Texture*> units_textures_;  
-
-	// Gets texture from an unit
-	SDL_Texture* GetTexture(const Unit& unit);
-
-	// Makes texture for an unit
-	SDL_Texture* MakeTexture(const Unit& unit);
+	GameMap* game_map_;
+	TextureManager* texture_manager_;
 
 public:
-	explicit UnitFactory(SDL_Renderer* renderer);
+	void AddPlayer(Player* player);
 
-	// Makes "Small fire" unit
-	Unit MakeFireSmall() override;
-	
-	// Destroys factory, and destroys all textures in units_textures_
-	~UnitFactory();
+	void SetMap(GameMap* game_map);
+	void SetTextureManager(TextureManager* texture_manager);
+
+	AbstractUnit* CreateTest(size_t player, int x, int y) override;
+    AbstractUnit* CreateTest1(size_t player, int x, int y) override;
+
+	AbstractUnit* CreateBulletFire1(size_t player, int x, int y) override;
 };

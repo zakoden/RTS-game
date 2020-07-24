@@ -1,10 +1,12 @@
 #pragma once
 
-#include "unit.h"
+#include "abstract_unit.h"
 
 class AbstractUnitFactory {
+protected:
 public:
+	virtual AbstractUnit* CreateTest(size_t player, int x, int y) = 0;
+	virtual AbstractUnit* CreateTest1(size_t player, int x, int y) = 0;
 
-	// Makes "Small fire" unit
-	virtual Unit MakeFireSmall() = 0;
+	virtual AbstractUnit* CreateBulletFire1(size_t player, int x, int y) = 0;
 };

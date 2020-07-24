@@ -150,10 +150,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="behaviors\behavior.cpp" />
+    <ClCompile Include="behaviors\behavior_random.cpp" />
+    <ClCompile Include="behaviors\behavior_stay.cpp" />
+    <ClCompile Include="behaviors\behavior_tower.cpp" />
     <ClCompile Include="camera.cpp" />
-    <ClCompile Include="game_map.cpp" />
     <ClCompile Include="managers\game_manager.cpp" />
+    <ClCompile Include="game_map.cpp" />
+    <ClCompile Include="player\player.cpp" />
+    <ClCompile Include="player\players_info.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="managers\texture_manager.cpp" />
     <ClCompile Include="units\unit.cpp" />
     <ClCompile Include="units\unit_factory.cpp">
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -175,6 +182,10 @@
     <ClInclude Include="managers\game_manager.h" />
     <ClInclude Include="game_map.h" />
     <ClInclude Include="behaviors\behavior.h" />
+    <ClInclude Include="player\player.h" />
+    <ClInclude Include="player\players_info.h" />
+    <ClInclude Include="behaviors\status_effects.h" />
+    <ClInclude Include="managers\texture_manager.h" />
     <ClInclude Include="units\abstract_unit.h" />
     <ClInclude Include="units\unit.h" />
     <ClInclude Include="units\unit_factory.h" />

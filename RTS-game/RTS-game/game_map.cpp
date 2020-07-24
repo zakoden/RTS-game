@@ -1,4 +1,5 @@
 #include "game_map.h"
+<<<<<<< HEAD:RTS-game/RTS-game/Game_Map.cpp
 
 #include <cassert>
 #include <ctime>
@@ -8,11 +9,19 @@
 #include <vector>
 
 using std::vector;
+=======
+
+size_t GameMap::GetInd(uint32_t x, uint32_t y) {
+	return static_cast<size_t>(x + y * width_);
+}
+>>>>>>> zakoden:RTS-game/RTS-game/game_map.cpp
 
 GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height) {
 	width_ = width;
 	height_ = height;
-	blocks_.resize(static_cast<size_t>(width_) * height_);
+
+        blocks_.resize(static_cast<size_t>(width_) * height_);
+	units_in_block_.resize(static_cast<size_t>(width_) * height_);
 
 	// load texture
 	SDL_Surface* surface = SDL_LoadBMP("pictures/test.bmp");
@@ -24,9 +33,24 @@ GameMap::~GameMap() {
 
 }
 
-size_t GameMap::GetInd(uint32_t x, uint32_t y) {
-	return static_cast<size_t>(x + y * width_);
+uint32_t GameMap::GetHeight() {
+	return height_;
 }
+
+uint32_t GameMap::GetWidth() {
+	return width_;
+}
+
+void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
+	units_in_block_[GetInd(x, y)].insert(unit);
+}
+
+void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
+	if (units_in_block_[GetInd(x, y)].find(unit) != units_in_block_[GetInd(x, y)].end()) {
+		units_in_block_[GetInd(x, y)].erase(unit);
+	}
+}
+
 
 uint8_t GameMap::GetBlock(uint32_t x, uint32_t y) {
 	return blocks_[GetInd(x, y)];
@@ -37,8 +61,13 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 }
 
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
+<<<<<<< HEAD:RTS-game/RTS-game/Game_Map.cpp
     uint8_t block = blocks_[GetInd(x, y)];
 	if (!units_in_block_[GetInd(x, y)].empty()) {
+=======
+        uint8_t block = blocks_[GetInd(x, y)];
+	if (!units_in_block_[x + y * width_].empty()) {
+>>>>>>> zakoden:RTS-game/RTS-game/game_map.cpp
 		block = 0;
 	}
 	SDL_Rect from, to;
@@ -63,6 +92,7 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
+<<<<<<< HEAD:RTS-game/RTS-game/Game_Map.cpp
 void GameMap::Generate() {
 	// 1. Scattering random points
 	const uint32_t CHUNK_SIZE = 128;
@@ -144,6 +174,8 @@ void GameMap::Generate() {
 }
 
 /*
+=======
+>>>>>>> zakoden:RTS-game/RTS-game/game_map.cpp
 void GameMap::TestGenerate() {
 	
 	for (uint32_t y = 0; y < height_; ++y) {
