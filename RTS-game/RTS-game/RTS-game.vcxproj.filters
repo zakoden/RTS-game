@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Game_Map.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="units\unit.cpp" />
     <ClCompile Include="units\unit_factory.cpp" />
+    <ClCompile Include="game_map.cpp" />
+    <ClCompile Include="camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -14,9 +14,35 @@
     <ClInclude Include="units\abstract_unit.h" />
     <ClInclude Include="units\unit.h" />
     <ClInclude Include="units\unit_factory.h" />
+    <ClInclude Include="block_type.h" />
+    <ClInclude Include="units\abstract_unit_factory.h" />
+    <ClInclude Include="behaviors\behavior_random.h" />
+    <ClInclude Include="behaviors\behavior_stay.h" />
+    <ClInclude Include="behaviors\behavior_tower.h" />
+    <ClInclude Include="managers\game_manager.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game_map.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\abstract_unit.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\unit.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\unit_factory.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviors\behavior.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

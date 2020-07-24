@@ -150,8 +150,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Game_Map.cpp" />
+    <ClCompile Include="camera.cpp" />
+    <ClCompile Include="game_map.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="units\unit.cpp" />
     <ClCompile Include="units\unit_factory.cpp">
@@ -164,8 +164,14 @@
     <Library Include="..\SDL2main.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Game_Map.h" />
+    <ClInclude Include="block_type.h" />
+    <ClInclude Include="units\abstract_unit_factory.h" />
+    <ClInclude Include="behaviors\behavior_random.h" />
+    <ClInclude Include="behaviors\behavior_stay.h" />
+    <ClInclude Include="behaviors\behavior_tower.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="managers\game_manager.h" />
+    <ClInclude Include="game_map.h" />
     <ClInclude Include="behaviors\behavior.h" />
     <ClInclude Include="units\abstract_unit.h" />
     <ClInclude Include="units\unit.h" />

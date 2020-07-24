@@ -1,4 +1,4 @@
-#include "Camera.h"
+#include "camera.h"
 
 void Camera::SetScale(float new_scale) {
 	scale_ = new_scale;
