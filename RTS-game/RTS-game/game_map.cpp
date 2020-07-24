@@ -1,5 +1,4 @@
 #include "game_map.h"
-<<<<<<< HEAD:RTS-game/RTS-game/Game_Map.cpp
 
 #include <cassert>
 #include <ctime>
@@ -9,12 +8,10 @@
 #include <vector>
 
 using std::vector;
-=======
 
 size_t GameMap::GetInd(uint32_t x, uint32_t y) {
-	return static_cast<size_t>(x + y * width_);
+	return x + static_cast<size_t>(y) * width_;
 }
->>>>>>> zakoden:RTS-game/RTS-game/game_map.cpp
 
 GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height) {
 	width_ = width;
@@ -61,13 +58,8 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 }
 
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
-<<<<<<< HEAD:RTS-game/RTS-game/Game_Map.cpp
     uint8_t block = blocks_[GetInd(x, y)];
 	if (!units_in_block_[GetInd(x, y)].empty()) {
-=======
-        uint8_t block = blocks_[GetInd(x, y)];
-	if (!units_in_block_[x + y * width_].empty()) {
->>>>>>> zakoden:RTS-game/RTS-game/game_map.cpp
 		block = 0;
 	}
 	SDL_Rect from, to;
@@ -92,7 +84,6 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
-<<<<<<< HEAD:RTS-game/RTS-game/Game_Map.cpp
 void GameMap::Generate() {
 	// 1. Scattering random points
 	const uint32_t CHUNK_SIZE = 128;
@@ -165,7 +156,7 @@ void GameMap::Generate() {
 
 	// 4-?. WIP
 
-	// ?. Give result to blocks_ array
+	// ?. Give the result to blocks_ array
 	for (uint32_t i = 0; i < GetHeight(); ++i) {
 		for (uint32_t j = 0; j < GetWidth(); ++j) {
 			blocks_[GetInd(j, i)] = cluster_type[cluster[j][i]];
@@ -174,8 +165,6 @@ void GameMap::Generate() {
 }
 
 /*
-=======
->>>>>>> zakoden:RTS-game/RTS-game/game_map.cpp
 void GameMap::TestGenerate() {
 	
 	for (uint32_t y = 0; y < height_; ++y) {
