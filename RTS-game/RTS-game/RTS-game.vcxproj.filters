@@ -6,6 +6,7 @@
     <ClCompile Include="units\unit_factory.cpp" />
     <ClCompile Include="game_map.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="managers\game_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -24,6 +25,7 @@
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
+    <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_map.h">
