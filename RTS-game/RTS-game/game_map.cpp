@@ -84,19 +84,28 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
+// Generates random map
 void GameMap::Generate() {
-	// 1. Scattering random points
-	const uint32_t CHUNK_SIZE = 128;
-	const uint32_t CHUNKS_COUNT = (GetHeight() * GetWidth()) / CHUNK_SIZE;
+	uint32_t height = GetHeight(), width = GetWidth();
+	// 1. Scattering random points (that will be centers of clusters)
+	const uint32_t CHUNK_SIZE = 100;
+	const uint32_t CHUNKS_COUNT = (height * width) / CHUNK_SIZE;
 
 	srand(static_cast<unsigned int>(time(0)));
 
-	vector<vector<double>> distance(GetHeight(), vector<double>(GetWidth(), INT_MAX));
-	vector<vector<int>> cluster(GetHeight(), vector<int>(GetWidth(), -1));
+	float max_distance = height + width;  // A suboptimal distance between opposing corners
+
+	// Distance between some point and closest cluster point
+	vector<vector<float>> distance(height, vector<float>(width, max_distance));
+
+	// To which cluster this point belongs (-1 for "no cluster")
+	vector<vector<int>> cluster(height, vector<int>(width, -1));
+
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
-		uint32_t x = rand() % GetWidth(), y = rand() % GetHeight();
+		uint32_t x = rand() % width, y = rand() % height;  // The random point
+		// Repicking the point until it doesn't intersect with others
 		while (cluster[y][x] != -1)
-			x = rand() % GetWidth(), y = rand() % GetHeight();
+			x = rand() % width, y = rand() % height;
 		cluster[y][x] = i;
 		distance[y][x] = 0;
 	}
@@ -105,14 +114,17 @@ void GameMap::Generate() {
 		How? Let's do dijkstra algorithm from all current points,
 		then for each cell c we'll find the closest point,
 		and c will belong to closest point's cluster
-		That will take O(area * log(area)) (area = height * width)
+		That will take O(area * log(area)) (area = height_ * width_)
 	*/
-	std::priority_queue<std::pair<double, std::pair<uint32_t, uint32_t>>> dijkstra;
+	std::priority_queue<std::pair<float, std::pair<uint32_t, uint32_t>>> dijkstra;
+	// Elements in dijkstra are in form {-distance, {x, y} (point)}
+
+	const float EPS = 1e-3;
 	
 	// Inititalizing priority queue
-	for (uint32_t i = 0; i < GetHeight(); ++i) {
-		for (uint32_t j = 0; j < GetWidth(); ++j) {
-			if (distance[i][j] == 0)
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			if (distance[i][j] < EPS)
 				dijkstra.push({ 0, {j, i}});
 		}
 	}
@@ -121,30 +133,31 @@ void GameMap::Generate() {
 		auto pair = dijkstra.top();
 		dijkstra.pop();
 		uint32_t x = pair.second.first, y = pair.second.second;
-		if (std::abs(-pair.first - distance[y][x]) < 1e-6) { // -pair.first == distance[y][x]
-			// Going through all neighboring points
-			for (int dx = -1; dx <= 1; ++dx) {
-				if ((dx == -1 && x == 0) || (dx == 1 && x + 1 == GetWidth()))
-					continue;
+		if (std::abs(-pair.first - distance[y][x]) > EPS)  // -pair.first != distance[y][x]
+			continue;
 
-				for (int dy = -1; dy <= 1; ++dy) {
-					if ((dy == -1 && y == 0) || (dy == 1 && y + 1 == GetHeight()))
-						continue;
-					
-					double dist = std::sqrt(dx * dx + dy * dy);
-					uint32_t to_x = x + dx, to_y = y + dy;  // Neighboring point
-					if (distance[to_y][to_x] > distance[y][x] + dist) {
-						distance[to_y][to_x] = distance[y][x] + dist;
-						cluster[to_y][to_x] = cluster[y][x];
-						dijkstra.push({ -distance[to_y][to_x], {to_y, to_x} });
-					}
+		// Going through all neighboring points
+		for (int dx = -1; dx <= 1; ++dx) {
+			if ((dx == -1 && x == 0) || (dx == 1 && x + 1 == width))  // x is out of bounds
+				continue;
+
+			for (int dy = -1; dy <= 1; ++dy) {
+				if ((dy == -1 && y == 0) || (dy == 1 && y + 1 == height))  // y is out of bounds
+					continue;
+				
+				float dist = std::sqrtf(static_cast<float>(dx * dx + dy * dy));
+				uint32_t to_x = x + dx, to_y = y + dy;  // Neighboring point
+				if (distance[to_y][to_x] > distance[y][x] + dist) {
+					distance[to_y][to_x] = distance[y][x] + dist;
+					cluster[to_y][to_x] = cluster[y][x];
+					dijkstra.push({ -distance[to_y][to_x], {to_y, to_x} });
 				}
 			}
 		}
 	}
 	/*
-	for (uint32_t i = 0; i < GetHeight(); ++i)
-		for (uint32_t j = 0; j < GetWidth(); ++j)
+	for (uint32_t i = 0; i < height; ++i)
+		for (uint32_t j = 0; j < width; ++j)
 			assert(cluster[i][j] != -1);
 			*/
 
@@ -157,8 +170,8 @@ void GameMap::Generate() {
 	// 4-?. WIP
 
 	// ?. Give the result to blocks_ array
-	for (uint32_t i = 0; i < GetHeight(); ++i) {
-		for (uint32_t j = 0; j < GetWidth(); ++j) {
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
 			blocks_[GetInd(j, i)] = cluster_type[cluster[j][i]];
 		}
 	}
