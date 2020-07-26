@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <queue>
+#include <unordered_map>
 #include <vector>
 
 using std::vector;
@@ -101,11 +102,14 @@ void GameMap::Generate() {
 	// To which cluster this point belongs (-1 for "no cluster")
 	vector<vector<int>> cluster(height, vector<int>(width, -1));
 
+	vector<SDL_Point> centers(CHUNKS_COUNT);
+
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
-		uint32_t x = rand() % width, y = rand() % height;  // The random point
+		int x = rand() % width, y = rand() % height;  // The random point
 		// Repicking the point until it doesn't intersect with others
 		while (cluster[y][x] != -1)
 			x = rand() % width, y = rand() % height;
+		centers[i] = { x, y };
 		cluster[y][x] = i;
 		distance[y][x] = 0;
 	}
@@ -116,50 +120,47 @@ void GameMap::Generate() {
 		and c will belong to closest point's cluster
 		That will take O(area * log(area)) (area = height_ * width_)
 	*/
-	std::priority_queue<std::pair<float, std::pair<uint32_t, uint32_t>>> dijkstra;
-	// Elements in dijkstra are in form {-distance, {x, y} (point)}
+	{
+		std::priority_queue<std::pair<float, std::pair<uint32_t, uint32_t>>> dijkstra;
+		// Elements in dijkstra are in form {-distance, {x, y} (point)}
 
-	const float EPS = 1e-3;
-	
-	// Inititalizing priority queue
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			if (distance[i][j] < EPS)
-				dijkstra.push({ 0, {j, i}});
+		const float EPS = 1e-3;
+
+		// Inititalizing priority queue
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (distance[i][j] < EPS)
+					dijkstra.push({ 0, {j, i} });
+			}
 		}
-	}
 
-	while (!dijkstra.empty()) {
-		auto pair = dijkstra.top();
-		dijkstra.pop();
-		uint32_t x = pair.second.first, y = pair.second.second;
-		if (std::abs(-pair.first - distance[y][x]) > EPS)  // -pair.first != distance[y][x]
-			continue;
-
-		// Going through all neighboring points
-		for (int dx = -1; dx <= 1; ++dx) {
-			if ((dx == -1 && x == 0) || (dx == 1 && x + 1 == width))  // x is out of bounds
+		while (!dijkstra.empty()) {
+			auto pair = dijkstra.top();
+			dijkstra.pop();
+			uint32_t x = pair.second.first, y = pair.second.second;
+			if (std::abs(-pair.first - distance[y][x]) > EPS)  // -pair.first != distance[y][x]
 				continue;
 
-			for (int dy = -1; dy <= 1; ++dy) {
-				if ((dy == -1 && y == 0) || (dy == 1 && y + 1 == height))  // y is out of bounds
+			// Going through all neighboring points
+			for (int dx = -1; dx <= 1; ++dx) {
+				if ((dx == -1 && x == 0) || (dx == 1 && x + 1 == width))  // x is out of bounds
 					continue;
-				
-				float dist = std::sqrtf(static_cast<float>(dx * dx + dy * dy));
-				uint32_t to_x = x + dx, to_y = y + dy;  // Neighboring point
-				if (distance[to_y][to_x] > distance[y][x] + dist) {
-					distance[to_y][to_x] = distance[y][x] + dist;
-					cluster[to_y][to_x] = cluster[y][x];
-					dijkstra.push({ -distance[to_y][to_x], {to_y, to_x} });
+
+				for (int dy = -1; dy <= 1; ++dy) {
+					if ((dy == -1 && y == 0) || (dy == 1 && y + 1 == height))  // y is out of bounds
+						continue;
+
+					float dist = std::sqrtf(static_cast<float>(dx * dx + dy * dy));
+					uint32_t to_x = x + dx, to_y = y + dy;  // Neighboring point
+					if (distance[to_y][to_x] > distance[y][x] + dist) {
+						distance[to_y][to_x] = distance[y][x] + dist;
+						cluster[to_y][to_x] = cluster[y][x];
+						dijkstra.push({ -distance[to_y][to_x], {to_x, to_y} });
+					}
 				}
 			}
 		}
 	}
-	/*
-	for (uint32_t i = 0; i < height; ++i)
-		for (uint32_t j = 0; j < width; ++j)
-			assert(cluster[i][j] != -1);
-			*/
 
 	// 3. Give to each cluster random tile
 	const vector<BlockType> allowed_blocks = { WATER, DESERT, GRASS_LIGHT, GRASS_DARK, GRASS };
@@ -167,7 +168,49 @@ void GameMap::Generate() {
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i)
 		cluster_type[i] = allowed_blocks[rand() % allowed_blocks.size()];
 
-	// 4-?. WIP
+	// 4. Unite all small clusters with big ones
+	{
+		// 4.1. Find area of clusters
+		vector<std::pair<uint32_t, uint32_t>> area{ CHUNKS_COUNT };
+		for (size_t i = 0; i < area.size(); ++i)
+			area[i] = { 0, i };
+
+		for (uint32_t i = 0; i < height; ++i)
+			for (uint32_t j = 0; j < width; ++j)
+				++area[cluster[i][j]].first;
+
+		// 4.2 Remove 10% of smallest by area clusters
+		sort(area.begin(), area.end());
+		std::unordered_map<uint32_t, uint32_t> chunks_to_remove;
+		const size_t AREA_MIN = 80;
+		for (size_t i = 0; i < area.size() && area[i].first < AREA_MIN; ++i)
+			chunks_to_remove.insert({ area[i].second, 0 });
+		std::cerr << chunks_to_remove.size() << std::endl;
+
+		for (auto& pair : chunks_to_remove) {
+			uint32_t from = pair.first;
+			uint32_t min_distance = UINT_MAX;
+			for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
+				if (!chunks_to_remove.count(i)) {
+					uint32_t distance = (centers[i].x - centers[from].x) * (centers[i].x - centers[from].x) +
+						(centers[i].y - centers[from].y) * (centers[i].y - centers[from].y);
+					if (min_distance < distance) {
+						min_distance = distance;
+						pair.second = i;
+					}
+				}
+			}
+		}
+
+		// 4.3. Reflect changes on a map
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (chunks_to_remove.count(cluster[i][j])) {
+					cluster[i][j] = chunks_to_remove[cluster[i][j]];
+				}
+			}
+		}
+	}
 
 	// ?. Give the result to blocks_ array
 	for (uint32_t i = 0; i < height; ++i) {
@@ -176,48 +219,3 @@ void GameMap::Generate() {
 		}
 	}
 }
-
-/*
-void GameMap::TestGenerate() {
-	
-	for (uint32_t y = 0; y < height_; ++y) {
-		for (uint32_t x = 0; x < width_; ++x) {
-			size_t ind = GetInd(x, y);
-			blocks_[ind] = 0;
-		}
-	}
-
-	blocks_[0 + 0 * width_] = rand() % 70;
-	blocks_[GetInd(width_ - 1, 0) ] = rand() % 70;
-	blocks_[0 + (height_ - 1) * width_] = rand() % 70;
-	blocks_[static_cast<size_t>(width_) * height_ - 1] = rand() % 70;
-	RecGenerate(0, 0, width_ - 1, height_ - 1);
-	for (uint32_t i = 0; i < (width_ * height_); ++i) {
-		blocks_[i] /= 10;
-	}
-
-}
-
-
-void GameMap::RecGenerate(uint32_t l, uint32_t u, uint32_t r, uint32_t d) {
-	if ((r - l) < 2 || (d - u) < 2) return;
-	uint32_t cx, cy;
-	cx = (l + r) / 2;
-	cy = (d + u) / 2;
-		blocks_[l + cy * width_] = (blocks_[l + u * width_] + blocks_[l + d * width_]) / 2;
-		blocks_[r + cy * width_] = (blocks_[r + u * width_] + blocks_[r + d * width_]) / 2;
-		blocks_[cx + u * width_] = (blocks_[l + u * width_] + blocks_[r + u * width_]) / 2;
-		blocks_[cx + d * width_] = (blocks_[l + d * width_] + blocks_[r + d * width_]) / 2;
-
-	if ((r - l) < 7 || (d - u) < 7) {
-		blocks_[cx + cy * width_] = (blocks_[cx + u * width_] + blocks_[cx + d * width_] +
-			                         blocks_[l + cy * width_] + blocks_[r + cy * width_]) / 4;
-	} else {
-		blocks_[cx + cy * width_] = rand() % 70;
-	}
-	RecGenerate(l, u, cx, cy);
-	RecGenerate(cx, u, r, cy);
-	RecGenerate(l, cy, cx, d);
-	RecGenerate(cx, cy, r, d);
-}
-*/

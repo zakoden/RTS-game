@@ -38,6 +38,4 @@ public:
 	void Draw(SDL_Renderer* renderer, Camera* camera); 
 
 	void Generate();
-	//void TestGenerate();
-	//void RecGenerate(uint32_t l, uint32_t u, uint32_t r, uint32_t d);
 };
