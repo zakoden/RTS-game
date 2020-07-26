@@ -85,6 +85,10 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
+uint32_t GameMap::SquaredDistance(const SDL_Point& a, const SDL_Point& b) const {
+	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+}
+
 // Generates random map
 void GameMap::Generate() {
 	uint32_t height = GetHeight(), width = GetWidth();
@@ -127,12 +131,10 @@ void GameMap::Generate() {
 		const float EPS = 1e-3;
 
 		// Inititalizing priority queue
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
+		for (uint32_t i = 0; i < height; ++i)
+			for (uint32_t j = 0; j < width; ++j)
 				if (distance[i][j] < EPS)
 					dijkstra.push({ 0, {j, i} });
-			}
-		}
 
 		while (!dijkstra.empty()) {
 			auto pair = dijkstra.top();
@@ -174,12 +176,11 @@ void GameMap::Generate() {
 		vector<std::pair<uint32_t, uint32_t>> area{ CHUNKS_COUNT };
 		for (size_t i = 0; i < area.size(); ++i)
 			area[i] = { 0, i };
-
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				++area[cluster[i][j]].first;
 
-		// 4.2 Remove 10% of smallest by area clusters
+		// 4.2 Remove chunks with area < AREA_MIN
 		sort(area.begin(), area.end());
 		std::unordered_map<uint32_t, uint32_t> chunks_to_remove;
 		const size_t AREA_MIN = 80;
@@ -192,8 +193,7 @@ void GameMap::Generate() {
 			uint32_t min_distance = UINT_MAX;
 			for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
 				if (!chunks_to_remove.count(i)) {
-					uint32_t distance = (centers[i].x - centers[from].x) * (centers[i].x - centers[from].x) +
-						(centers[i].y - centers[from].y) * (centers[i].y - centers[from].y);
+					uint32_t distance = SquaredDistance(centers[from], centers[i]);
 					if (min_distance < distance) {
 						min_distance = distance;
 						pair.second = i;
@@ -212,10 +212,17 @@ void GameMap::Generate() {
 		}
 	}
 
-	// ?. Give the result to blocks_ array
+	// 5. Give the result to blocks_ array
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
 			blocks_[GetInd(j, i)] = cluster_type[cluster[j][i]];
+		}
+	}
+
+	// 6. Giving subtypes to tiles
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			blocks_[GetInd(j, i)] = GetSubtype(blocks_[GetInd(j, i)], j, i);
 		}
 	}
 }
