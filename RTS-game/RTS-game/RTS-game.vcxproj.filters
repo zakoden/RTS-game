@@ -54,6 +54,9 @@
     <ClCompile Include="managers\texture_manager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="behaviors\behavior_bullet.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
@@ -77,6 +80,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="behaviors\behavior.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="block_type.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviors\behavior_bullet.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -14,7 +14,27 @@ Player::~Player() {
 void Player::DoAction() {
 	// to do
 	for (auto& unit : army_) {
-		unit->DoAction();
+		if (unit->IsAlive()) {
+			unit->DeadCheck();
+			unit->DoAction();
+		}
+	}
+
+	// dead check
+	for (auto& unit : army_) {
+		if (unit->IsAlive()) {
+			unit->DeadCheck();
+		}
+	}
+	auto it = army_.begin();
+	while (it != army_.end()) {
+		if ((*it)->IsAlive()) {
+			it++;
+		} else {
+			AbstractUnit* unit = *it;
+			it = army_.erase(it);
+			delete unit;
+		}
 	}
 }
 

@@ -38,6 +38,14 @@ uint32_t GameMap::GetWidth() {
 	return width_;
 }
 
+uint32_t GameMap::GetBlockSize() {
+	return BLOCK_SIZE;
+}
+
+std::unordered_set<AbstractUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t y) {
+	return &units_in_block_[GetInd(x, y)];
+}
+
 void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	units_in_block_[GetInd(x, y)].insert(unit);
 }
@@ -59,9 +67,9 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
     uint8_t block = blocks_[GetInd(x, y)];
-	if (!units_in_block_[GetInd(x, y)].empty()) {
-		block = 0;
-	}
+	//if (!units_in_block_[GetInd(x, y)].empty()) {
+	//	block = 0;
+	//}
 	SDL_Rect from, to;
 	from.x = (block % BLOCKS_IN_LINE) * BLOCK_SIZE;
 	from.y = (block / BLOCKS_IN_LINE) * BLOCK_SIZE;
@@ -88,7 +96,7 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 void GameMap::Generate() {
 	uint32_t height = GetHeight(), width = GetWidth();
 	// 1. Scattering random points (that will be centers of clusters)
-	const uint32_t CHUNK_SIZE = 100;
+	const uint32_t CHUNK_SIZE = 160;
 	const uint32_t CHUNKS_COUNT = (height * width) / CHUNK_SIZE;
 
 	srand(static_cast<unsigned int>(time(0)));
@@ -150,7 +158,7 @@ void GameMap::Generate() {
 				if (distance[to_y][to_x] > distance[y][x] + dist) {
 					distance[to_y][to_x] = distance[y][x] + dist;
 					cluster[to_y][to_x] = cluster[y][x];
-					dijkstra.push({ -distance[to_y][to_x], {to_y, to_x} });
+					dijkstra.push({ -distance[to_y][to_x], {to_x, to_y} });
 				}
 			}
 		}
@@ -173,6 +181,7 @@ void GameMap::Generate() {
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
 			blocks_[GetInd(j, i)] = cluster_type[cluster[j][i]];
+			//std::cout << cluster[j][i] << std::endl;
 		}
 	}
 }

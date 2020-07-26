@@ -1,8 +1,10 @@
 #include "behavior_tower.h"
 
-BehaviorTower::BehaviorTower(AbstractUnit* unit) {
+BehaviorTower::BehaviorTower(AbstractUnit* unit, AbstractUnitFactory* unit_factory) {
 	unit_ = unit;
+	unit_factory_ = unit_factory;
 	max_steps_[Steps::FIND] = 30;
+	cur_steps_[Steps::RELOAD] = rand() % 50;
 	max_steps_[Steps::RELOAD] = 50;
 }
 
@@ -26,16 +28,32 @@ void BehaviorTower::DoAction() {
 
 	if (cur_steps_[Steps::RELOAD] == 0) {
 		for (size_t i = 0; i < targets_.size(); ++i) {
-			Attack(targets_[i]);
+			Attack(*targets_.begin());
 		}
 	}
 	
 }
 
 void BehaviorTower::Attack(AbstractUnit* enemy) {
-
+	unit_factory_->CreateBulletFire1(unit_->GetPlayer(), unit_->GetX(), unit_->GetY(), enemy->GetX(), enemy->GetY());
 }
 
 void BehaviorTower::FindTarget() {
+	AbstractUnit* target = unit_->FindEnemyInRadius(radius_);
+	if (target != NULL) {
+		if (targets_.empty()) {
+			targets_.insert(target);
+		}
+	}
+}
 
+void BehaviorTower::DeadCheck() {
+	auto it = targets_.begin();
+	while (it != targets_.end()) {
+		if ((*it)->IsAlive()) {
+			it++;
+		} else {
+			it = targets_.erase(it);
+		}
+	}
 }

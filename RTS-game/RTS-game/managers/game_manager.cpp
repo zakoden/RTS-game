@@ -28,24 +28,38 @@ int GameManager::Init() {
 	//game_map_->TestGenerate();
 	game_map_->Generate();
 	texture_manager_ = new TextureManager(renderer_);
+	players_info_ = new PlayersInfo(2);
 	unit_factory_ = new UnitFactory();
 	unit_factory_->SetMap(game_map_);
 	unit_factory_->SetTextureManager(texture_manager_);
+	unit_factory_->SetPlayersInfo(players_info_);
+	players_info_->SetStatus(0, 0, PlayersStatus::PEACE);
+	players_info_->SetStatus(1, 1, PlayersStatus::PEACE);
 }
 
 void GameManager::Run() {
 
 	Player* player0 = new Player(0);
+	Player* player1 = new Player(1);
 	players_.push_back(player0);
-	unit_factory_->AddPlayer(player0);
+	players_.push_back(player1);
 
-	unit_factory_->CreateTest(0, 100, 100);
-	for (int i = 0; i < 5; ++i) {
-		unit_factory_->CreateTest(0, 100, 100 + 20 * i);
+	for (size_t i = 0; i < players_.size(); ++i) {
+		unit_factory_->AddPlayer(players_[i]);
+	}
+
+	unit_factory_->CreateTest(1, 100, 100);
+	for (int i = 0; i < 30; ++i) {
+		unit_factory_->CreateTest(1, 150 + 10 * i, 150 + rand() % 20);
 	}
 
 	unit_factory_->CreateTest1(0, 160, 96);
-
+	for (int i = 0; i < 15; ++i) {
+		unit_factory_->CreateTest1(0, 200 + 20 * i, 200 + rand() % 20);
+	}
+	for (int i = 0; i < 15; ++i) {
+		unit_factory_->CreateTest1(0, 200 + 20 * i, 270 + rand() % 20);
+	}
 	
 	while (!close_) {
 		RunStep();

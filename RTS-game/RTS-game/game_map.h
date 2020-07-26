@@ -28,6 +28,8 @@ public:
 	~GameMap();
 	uint32_t GetHeight();
 	uint32_t GetWidth();
+	uint32_t GetBlockSize();
+	std::unordered_set<AbstractUnit*>* GetUnitsInBlock(uint32_t x, uint32_t y);
 
 	void AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 	void DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y);

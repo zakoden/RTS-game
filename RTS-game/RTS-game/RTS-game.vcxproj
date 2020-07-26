@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="behaviors\behavior.cpp" />
+    <ClCompile Include="behaviors\behavior_bullet.cpp" />
     <ClCompile Include="behaviors\behavior_random.cpp" />
     <ClCompile Include="behaviors\behavior_stay.cpp" />
     <ClCompile Include="behaviors\behavior_tower.cpp" />
@@ -173,6 +174,7 @@
     <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="behaviors\behavior_bullet.h" />
     <ClInclude Include="block_type.h" />
     <ClInclude Include="units\abstract_unit_factory.h" />
     <ClInclude Include="behaviors\behavior_random.h" />

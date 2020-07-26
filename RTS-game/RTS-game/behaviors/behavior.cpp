@@ -6,3 +6,8 @@ Behavior::Behavior() {
 
 Behavior::~Behavior() {
 }
+
+
+void Behavior::DeadCheck() {
+
+}

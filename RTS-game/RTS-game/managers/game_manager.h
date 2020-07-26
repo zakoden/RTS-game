@@ -31,6 +31,7 @@ protected:
 	bool close_ = false;
 	UnitFactory* unit_factory_;
 	std::vector<Player*> players_;
+	PlayersInfo* players_info_;
 public:
 	GameManager();
 	~GameManager();
