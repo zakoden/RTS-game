@@ -46,6 +46,11 @@ std::unordered_set<AbstractUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t
 	return &units_in_block_[GetInd(x, y)];
 }
 
+bool GameMap::IsPositionInMap(int x, int y) {
+	return (x >= 0 && y >= 0 &&
+		    x < (BLOCK_SIZE * width_) && y < (BLOCK_SIZE * height_));
+}
+
 void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	units_in_block_[GetInd(x, y)].insert(unit);
 }
@@ -56,6 +61,13 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	}
 }
 
+uint8_t GameMap::SetSubtype(uint32_t x, uint32_t y, BlockType type) {
+	if (type == BlockType::GRASS) {
+		// 10 - 19
+		return 10 + rand() % 10;
+	}
+	return type;
+}
 
 uint8_t GameMap::GetBlock(uint32_t x, uint32_t y) {
 	return blocks_[GetInd(x, y)];
@@ -67,9 +79,9 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
     uint8_t block = blocks_[GetInd(x, y)];
-	//if (!units_in_block_[GetInd(x, y)].empty()) {
-	//	block = 0;
-	//}
+	if (!units_in_block_[GetInd(x, y)].empty()) {
+		block = 0;
+	}
 	SDL_Rect from, to;
 	from.x = (block % BLOCKS_IN_LINE) * BLOCK_SIZE;
 	from.y = (block / BLOCKS_IN_LINE) * BLOCK_SIZE;

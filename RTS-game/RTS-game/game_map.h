@@ -13,7 +13,7 @@
 class GameMap {
 private:
 	const uint32_t BLOCK_SIZE = 8; // ðàçìåð áëîêà
-	const uint32_t BLOCKS_IN_LINE = 4; // êîëè÷åñòâî áëîêîâ â ôàéëå ñ òåêñòóðîé
+	const uint32_t BLOCKS_IN_LINE = 10; // êîëè÷åñòâî áëîêîâ â ôàéëå ñ òåêñòóðîé
 
     uint32_t width_, height_; // øèðèíà, âûñîòà êàðòû
 	std::vector<uint8_t> blocks_; // áëîêè êàðòû
@@ -31,8 +31,12 @@ public:
 	uint32_t GetBlockSize();
 	std::unordered_set<AbstractUnit*>* GetUnitsInBlock(uint32_t x, uint32_t y);
 
+	bool IsPositionInMap(int x, int y);
+
 	void AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 	void DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
+
+	uint8_t SetSubtype(uint32_t x, uint32_t y, BlockType type);
 
 	uint8_t GetBlock(uint32_t x, uint32_t y);
 	void SetBlock(uint32_t x, uint32_t y, uint8_t value);

@@ -17,7 +17,7 @@ void UnitFactory::SetPlayersInfo(PlayersInfo* players_info) {
 }
 
 AbstractUnit* UnitFactory::CreateTest(size_t player, int x, int y) {
-	Unit* unit = new Unit(10, 1, 35, 0.2, 2, texture_manager_, game_map_);
+	Unit* unit = new Unit(10, 1, 35, 1.0, 2, texture_manager_, game_map_);
 	unit->SetPosition(x, y);
 	unit->SetPlayer(player);
 	unit->SetPlayersInfo(players_info_);

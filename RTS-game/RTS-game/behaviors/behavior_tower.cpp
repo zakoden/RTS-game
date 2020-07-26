@@ -35,7 +35,9 @@ void BehaviorTower::DoAction() {
 }
 
 void BehaviorTower::Attack(AbstractUnit* enemy) {
-	unit_factory_->CreateBulletFire1(unit_->GetPlayer(), unit_->GetX(), unit_->GetY(), enemy->GetX(), enemy->GetY());
+	unit_factory_->CreateBulletFire1(unit_->GetPlayer(), 
+		unit_->GetCenterX(), unit_->GetCenterY(),
+		enemy->GetCenterX(), enemy->GetCenterY());
 }
 
 void BehaviorTower::FindTarget() {

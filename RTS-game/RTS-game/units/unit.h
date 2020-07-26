@@ -60,6 +60,8 @@ public:
 
 	int GetX() override;
 	int GetY() override;
+	int GetCenterX() override;
+	int GetCenterY() override;
 	int GetSpeed() override;
 	int GetAttack() override;
 	void SetType(UnitType type) override;

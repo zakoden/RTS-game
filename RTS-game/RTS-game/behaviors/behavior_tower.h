@@ -23,7 +23,7 @@ protected:
 	std::unordered_set<AbstractUnit*> targets_;
 	size_t targets_num_ = 1;
 
-	int radius_ = 100;
+	int radius_ = 200;
 
 	AbstractUnitFactory* unit_factory_;
 public:

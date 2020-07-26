@@ -72,6 +72,14 @@ int Unit::GetY() {
 	return y_;
 }
 
+int Unit::GetCenterX() {
+	return (int)x_ + deltaX_ + width_ / 2;
+}
+
+int Unit::GetCenterY() {
+	return (int)y_ + deltaY_ + height_ / 2;
+}
+
 int Unit::GetSpeed() {
 	return speed_;
 }
@@ -183,6 +191,13 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) const {
 		SDL_RenderDrawLine(renderer, to.x, to.y, to.x + life_len - 1, to.y);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	}
+
+	SDL_Rect hitbox;
+	hitbox.x = to.x + deltaX_;
+	hitbox.y = to.y + deltaY_;
+	hitbox.w = width_;
+	hitbox.h = height_;
+	SDL_RenderDrawRect(renderer, &hitbox);
 }
 
 // to do : change this shit
@@ -208,6 +223,9 @@ AbstractUnit* Unit::FindEnemyInRadius(int radius) {
 }
 
 AbstractUnit* Unit::GetEnemyInPoint(int x, int y) {
+	if (!game_map_->IsPositionInMap(x, y)) 
+		return NULL;
+
 	uint32_t x_block = x / game_map_->GetBlockSize();
 	uint32_t y_block = y / game_map_->GetBlockSize();
 	//game_map_->SetBlock(x_block, y_block, 1);

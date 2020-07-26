@@ -26,6 +26,8 @@ public:
 	virtual ~AbstractUnit() = default;
 	virtual int GetX() = 0;
 	virtual int GetY() = 0;
+	virtual int GetCenterX() = 0;
+	virtual int GetCenterY() = 0;
 	virtual int GetSpeed() = 0;
 	virtual int GetAttack() = 0;
 	virtual void SetType(UnitType type) = 0;
