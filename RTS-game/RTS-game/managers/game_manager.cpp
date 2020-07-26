@@ -25,7 +25,6 @@ int GameManager::Init() {
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
 	game_map_ = new GameMap(renderer_, 200, 200);
-	//game_map_->TestGenerate();
 	game_map_->Generate();
 	texture_manager_ = new TextureManager(renderer_);
 	players_info_ = new PlayersInfo(2);

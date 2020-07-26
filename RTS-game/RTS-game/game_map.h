@@ -43,7 +43,8 @@ public:
 	void BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y);
 	void Draw(SDL_Renderer* renderer, Camera* camera); 
 
+
+	uint32_t SquaredDistance(const SDL_Point& a, const SDL_Point& b) const;
+	BlockType SetSubtype(const BlockType& block_type, uint32_t x, uint32_t y);
 	void Generate();
-	//void TestGenerate();
-	//void RecGenerate(uint32_t l, uint32_t u, uint32_t r, uint32_t d);
 };
