@@ -62,7 +62,7 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	}
 }
 
-uint8_t GameMap::SetSubtype(uint32_t x, uint32_t y, BlockType type) {
+uint8_t GameMap::GetSubtype(BlockType type, uint32_t x, uint32_t y) {
 	if (type == BlockType::GRASS) {
 		// 10 - 19
 		return 10 + rand() % 10;
@@ -243,7 +243,7 @@ void GameMap::Generate() {
 	// 6. Giving subtypes to tiles
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
-			blocks_[GetInd(j, i)] = GetSubtype(blocks_[GetInd(j, i)], j, i);
+			blocks_[GetInd(j, i)] = GetSubtype((BlockType)blocks_[GetInd(j, i)], j, i);
 		}
 	}
 }

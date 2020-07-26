@@ -36,7 +36,7 @@ public:
 	void AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 	void DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 
-	uint8_t SetSubtype(uint32_t x, uint32_t y, BlockType type);
+	uint8_t GetSubtype(BlockType type, uint32_t x, uint32_t y);
 
 	uint8_t GetBlock(uint32_t x, uint32_t y);
 	void SetBlock(uint32_t x, uint32_t y, uint8_t value);
