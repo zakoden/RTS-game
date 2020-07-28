@@ -49,7 +49,7 @@ std::unordered_set<AbstractUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t
 
 bool GameMap::IsPositionInMap(int x, int y) {
 	return (x >= 0 && y >= 0 &&
-		    x < (BLOCK_SIZE * width_) && y < (BLOCK_SIZE * height_));
+		    (uint32_t)x < (BLOCK_SIZE * width_) && (uint32_t)y < (BLOCK_SIZE * height_));
 }
 
 void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
@@ -63,9 +63,29 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 }
 
 uint8_t GameMap::GetSubtype(BlockType type, uint32_t x, uint32_t y) {
+	if (type == BlockType::WATER_DEEP) {
+		return 0;
+	}
+	if (type == BlockType::WATER) {
+		return 1;
+	}
+	if (type == BlockType::WATER_SHALLOW) {
+		return 2;
+	}
+	if (type == BlockType::DESERT) {
+		return 3;
+	}
 	if (type == BlockType::GRASS) {
-		// 10 - 19
-		return 10 + rand() % 10;
+		return 10 + rand() % 9;
+	}
+	if (type == BlockType::GRASS_PURPLE) {
+		return 20 + rand() % 10;
+	}
+	if (type == BlockType::MOUNTAIN_LOW) {
+		return 30 + rand() % 6;
+	}
+	if (type == BlockType::MOUNTAIN_HIGH) {
+		return 40 + rand() % 4;
 	}
 	return type;
 }
@@ -185,7 +205,7 @@ void GameMap::Generate() {
 	}
 
 	// 3. Give to each cluster random tile
-	const vector<BlockType> allowed_blocks = { WATER, DESERT, GRASS_LIGHT, GRASS_DARK, GRASS };
+	const vector<BlockType> allowed_blocks = { WATER, DESERT, GRASS, GRASS_PURPLE, MOUNTAIN_LOW, MOUNTAIN_HIGH};
 	vector<BlockType> cluster_type{ CHUNKS_COUNT };
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i)
 		cluster_type[i] = allowed_blocks[rand() % allowed_blocks.size()];
