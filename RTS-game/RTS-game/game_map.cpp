@@ -8,6 +8,10 @@
 #include <unordered_map>
 #include <vector>
 
+#include "grid_function.h"
+
+using grid_function::operator==;
+using grid_function::Point;
 using std::vector;
 
 size_t GameMap::GetInd(uint32_t x, uint32_t y) {
@@ -125,10 +129,6 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 	}
 }
 
-uint32_t GameMap::SquaredDistance(const SDL_Point& a, const SDL_Point& b) const {
-	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
-}
-
 // Generates random map
 void GameMap::Generate() {
 	uint32_t height = GetHeight(), width = GetWidth();
@@ -138,7 +138,8 @@ void GameMap::Generate() {
 
 	srand(static_cast<unsigned int>(time(0)));
 
-	float max_distance = height + width;  // A suboptimal distance between opposing corners
+	float max_distance = static_cast<float>(height + width);
+	// A suboptimal distance between opposing corners
 
 	// Distance between some point and closest cluster point
 	vector<vector<float>> distance(height, vector<float>(width, max_distance));
@@ -146,10 +147,10 @@ void GameMap::Generate() {
 	// To which cluster this point belongs (-1 for "no cluster")
 	vector<vector<int>> cluster(height, vector<int>(width, -1));
 
-	vector<SDL_Point> centers(CHUNKS_COUNT);
+	vector<Point> centers(CHUNKS_COUNT);
 
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
-		int x = rand() % width, y = rand() % height;  // The random point
+		uint32_t x = rand() % width, y = rand() % height;  // The random point
 		// Repicking the point until it doesn't intersect with others
 		while (cluster[y][x] != -1)
 			x = rand() % width, y = rand() % height;
@@ -164,45 +165,7 @@ void GameMap::Generate() {
 		and c will belong to closest point's cluster
 		That will take O(area * log(area)) (area = height_ * width_)
 	*/
-	{
-		std::priority_queue<std::pair<float, std::pair<uint32_t, uint32_t>>> dijkstra;
-		// Elements in dijkstra are in form {-distance, {x, y} (point)}
-
-		const float EPS = 1e-3;
-
-		// Inititalizing priority queue
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				if (distance[i][j] < EPS)
-					dijkstra.push({ 0, {j, i} });
-
-		while (!dijkstra.empty()) {
-			auto pair = dijkstra.top();
-			dijkstra.pop();
-			uint32_t x = pair.second.first, y = pair.second.second;
-			if (std::abs(-pair.first - distance[y][x]) > EPS)  // -pair.first != distance[y][x]
-				continue;
-
-			// Going through all neighboring points
-			for (int dx = -1; dx <= 1; ++dx) {
-				if ((dx == -1 && x == 0) || (dx == 1 && x + 1 == width))  // x is out of bounds
-					continue;
-
-				for (int dy = -1; dy <= 1; ++dy) {
-					if ((dy == -1 && y == 0) || (dy == 1 && y + 1 == height))  // y is out of bounds
-						continue;
-
-					float dist = std::sqrtf(static_cast<float>(dx * dx + dy * dy));
-					uint32_t to_x = x + dx, to_y = y + dy;  // Neighboring point
-					if (distance[to_y][to_x] > distance[y][x] + dist) {
-						distance[to_y][to_x] = distance[y][x] + dist;
-						cluster[to_y][to_x] = cluster[y][x];
-						dijkstra.push({ -distance[to_y][to_x], {to_x, to_y} });
-					}
-				}
-			}
-		}
-	}
+	grid_function::Dijkstra(&distance, &cluster);
 
 	// 3. Give to each cluster random tile
 	const vector<BlockType> allowed_blocks = { WATER, DESERT, GRASS, GRASS_PURPLE, MOUNTAIN_LOW, MOUNTAIN_HIGH};
@@ -213,21 +176,20 @@ void GameMap::Generate() {
 	// 4. Unite all small clusters with big ones
 	{
 		// 4.1. Find area of clusters
-		vector<std::pair<uint32_t, uint32_t>> area{ CHUNKS_COUNT };
-		for (size_t i = 0; i < area.size(); ++i)
-			area[i] = { 0, i };
+		vector<uint32_t> area(CHUNKS_COUNT, 0);
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
-				++area[cluster[i][j]].first;
+				++area[cluster[i][j]];
 
 		// 4.2 Remove chunks with area < AREA_MIN
-		sort(area.begin(), area.end());
-		std::unordered_map<uint32_t, uint32_t> chunks_to_remove;
 		const size_t AREA_MIN = 80;
-		for (size_t i = 0; i < area.size() && area[i].first < AREA_MIN; ++i)
-			chunks_to_remove.insert({ area[i].second, 0 });
-		std::cerr << chunks_to_remove.size() << std::endl;
+		std::unordered_map<uint32_t, uint32_t> chunks_to_remove;
+		for (size_t i = 0; i < area.size(); ++i)
+			if (area[i] < AREA_MIN)
+				chunks_to_remove.insert({ i, 0 });
+		std::cerr << "Removed " << chunks_to_remove.size() << " clusters" << std::endl;
 
+		// 4.3 Replace removed chunk with the closest ones
 		for (auto& pair : chunks_to_remove) {
 			uint32_t from = pair.first;
 			uint32_t min_distance = UINT_MAX;
@@ -252,18 +214,73 @@ void GameMap::Generate() {
 		}
 	}
 
-	// 5. Give the result to blocks_ array
+	// -3. Give the result to blocks_ array
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
-			blocks_[GetInd(j, i)] = cluster_type[cluster[j][i]];
+			blocks_[GetInd(j, i)] = cluster_type[cluster[i][j]];
 			//std::cout << cluster[j][i] << std::endl;
 		}
 	}
 
-	// 6. Giving subtypes to tiles
+	// -2. Give subtypes to tiles
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
 			blocks_[GetInd(j, i)] = GetSubtype((BlockType)blocks_[GetInd(j, i)], j, i);
 		}
+	}
+
+	// -1. Make water look more deep
+	// -1.1. Find distances from each water cell to the nearest land cell
+	{
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				distance[i][j] = (blocks_[GetInd(j, i)] == WATER) ? max_distance : 0;
+			}
+		}
+		grid_function::Dijkstra(&distance, nullptr);
+
+		// -1.2. Make closest to land cells to have shallow water, similiar with farthest
+		const uint32_t WATER_SHALLOW_MAX_DISTANCE = 2;
+		const uint32_t WATER_DEEP_MIN_DISTANCE = 4;
+
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (blocks_[GetInd(j, i)] == WATER) {
+					if (distance[i][j] <= WATER_SHALLOW_MAX_DISTANCE)
+						blocks_[GetInd(j, i)] = WATER_SHALLOW;
+					else if (distance[i][j] >= WATER_DEEP_MIN_DISTANCE)
+						blocks_[GetInd(j, i)] = WATER_DEEP;
+				}
+			}
+		}
+
+		// -1.3. Remove deep water tiles with very low area
+		const uint32_t DEEP_WATER_AREA_MIN = 6;
+		vector<vector<bool>> visited(height, vector<bool>(width, false));
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (blocks_[GetInd(j, i)] == WATER_DEEP && !visited[i][j]) {
+					vector<Point> bfs;
+					bfs.push_back({ j, i });
+					for (size_t i = 0; i < bfs.size(); ++i) {
+						Point current = bfs[i];
+						for (Point p : grid_function::GetNeighbors(current, height, width)) {
+							if (blocks_[GetInd(p.x, p.y)] == WATER_DEEP && !visited[p.y][p.x]) {
+								bfs.push_back(p);
+								visited[p.y][p.x] = true;
+							}
+						}
+					}
+
+					if (bfs.size() < DEEP_WATER_AREA_MIN) {
+						for (Point point : bfs)
+							blocks_[GetInd(point.x, point.y)] = WATER;
+					}
+				}
+			}
+		}
+
+		// -1.3.2. Calculate area
+
 	}
 }

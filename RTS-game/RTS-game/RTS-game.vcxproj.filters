@@ -57,6 +57,9 @@
     <ClCompile Include="behaviors\behavior_bullet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="grid_function.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
@@ -86,6 +89,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="behaviors\behavior_bullet.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="grid_function.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -135,5 +141,22 @@
     <ClInclude Include="managers\texture_manager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pictures\test.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\testunit.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\testunit1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\testunit2.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\testunit3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>
