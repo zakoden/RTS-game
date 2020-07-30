@@ -8,7 +8,7 @@
 
 #include "SDL.h"
 
-#include "../camera.h"
+#include "../map/camera.h"
 
 #include "../behaviors/behavior.h"
 #include "../behaviors/status_effects.h"

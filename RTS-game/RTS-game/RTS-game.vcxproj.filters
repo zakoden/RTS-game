@@ -18,12 +18,6 @@
     <ClCompile Include="Source.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="game_map.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="camera.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="units\unit.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -57,7 +51,16 @@
     <ClCompile Include="behaviors\behavior_bullet.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="grid_function.cpp">
+    <ClCompile Include="map\camera.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\game_map.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\grid_function.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\point.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,12 +70,6 @@
     <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game_map.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="units\abstract_unit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -85,13 +82,31 @@
     <ClInclude Include="behaviors\behavior.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="block_type.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="behaviors\behavior_bullet.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="grid_function.h">
+    <ClInclude Include="point.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="grid.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\block_type.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\camera.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\game_map.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\grid.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\grid_function.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\point.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

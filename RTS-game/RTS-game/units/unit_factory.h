@@ -6,8 +6,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "../game_map.h"
-#include "../camera.h"
+#include "../map/game_map.h"
+#include "../map/camera.h"
 
 #include "../managers/texture_manager.h"
 

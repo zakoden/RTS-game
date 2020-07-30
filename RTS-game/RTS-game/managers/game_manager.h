@@ -5,8 +5,8 @@
 
 #include "SDL.h"
 
-#include "../game_map.h"
-#include "../camera.h"
+#include "../map/game_map.h"
+#include "../map/camera.h"
 
 #include "texture_manager.h"
 

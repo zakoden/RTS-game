@@ -8,7 +8,8 @@
 
 #include "block_type.h"
 #include "camera.h"
-#include "units/abstract_unit.h"
+#include "point.h"
+#include "../units/abstract_unit.h"
 
 class GameMap {
 private:
@@ -20,7 +21,7 @@ private:
 	std::vector<std::unordered_set<AbstractUnit*>> units_in_block_; // þíèòû íà êàðòå
 	SDL_Texture* tiles_ = nullptr; // òåêñòóðà ñî âñåìè áëîêàìè
 
-	size_t GetInd(uint32_t x, uint32_t y);
+	size_t GetInd(uint32_t x, uint32_t y) const;
 
 public:
 
@@ -43,5 +44,5 @@ public:
 	void BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y);
 	void Draw(SDL_Renderer* renderer, Camera* camera); 
 
-	void Generate();
+	void Generate();  // Generates random map
 };

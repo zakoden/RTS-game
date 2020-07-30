@@ -1,7 +1,7 @@
 #pragma once
 
 #include "abstract_unit.h"
-#include "../game_map.h"
+#include "../map/game_map.h"
 #include "../managers/texture_manager.h"
 
 #include <bitset>
