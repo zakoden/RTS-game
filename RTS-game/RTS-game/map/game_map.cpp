@@ -67,9 +67,19 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 }
 
 uint8_t GameMap::GetSubtype(BlockType type, uint32_t x, uint32_t y) {
-	if (type == BlockType::GRASS) {
-		// 10 - 19
-		return 10 + rand() % 10;
+	switch (type) {
+		case GRASS:
+			return GRASS + rand() % 10;
+		case GRASS_PURPLE:
+			return GRASS_PURPLE + rand() % 10;
+		case DESERT:
+			return DESERT + rand() % 3;
+		case DESERT_PURPLE:
+			return DESERT_PURPLE + rand() % 4;
+		case MOUNTAIN_HIGH:
+			return MOUNTAIN_HIGH + rand() % 4;
+		case MOUNTAIN_LOW:
+			return MOUNTAIN_LOW + rand() % 4;
 	}
 	return type;
 }
@@ -148,16 +158,20 @@ void GameMap::Generate() {
 	grid_function::Dijkstra(&distance, &cluster);
 
 	// 3. Give to each cluster random tile
-	const vector<BlockType> allowed_blocks = { WATER, DESERT, GRASS_LIGHT, GRASS_DARK, GRASS };
+	const vector<BlockType> ALLOWED_BLOCKS = { WATER, DESERT, GRASS_LIGHT, GRASS, GRASS_OTHER};
+	const vector<BlockType> RARE_BLOCKS = { AMBER, GRASS_PURPLE, DESERT_PURPLE };
 	vector<BlockType> cluster_type{ CHUNKS_COUNT };
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
-		cluster_type[i] = allowed_blocks[rand() % allowed_blocks.size()];
+		if (rand() % 5 == 0)
+			cluster_type[i] = RARE_BLOCKS[rand() % RARE_BLOCKS.size()];
+		else
+			cluster_type[i] = ALLOWED_BLOCKS[rand() % ALLOWED_BLOCKS.size()];
 	}
 
 	// 4. Unite all small clusters with big ones
+	vector<uint32_t> area(CHUNKS_COUNT, 0);
 	{
 		// 4.1. Find area of clusters
-		vector<uint32_t> area(CHUNKS_COUNT, 0);
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				++area[cluster[i][j]];
@@ -218,14 +232,7 @@ void GameMap::Generate() {
 		}
 	}
 
-	// 6. Give subtypes to tiles
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			blocks[i][j] = (BlockType)GetSubtype((BlockType)blocks[i][j], j, i);
-		}
-	}
-
-	// 7. Make water look more deep
+	// 6. Make water look more deep
 	Grid<uint32_t> deep_water_area(height, width, 0);
 	// Area of a deep water in corner-wise connectivity of that cell
 	{   // 7.1. Find distances from each water cell to the nearest land cell
@@ -280,7 +287,7 @@ void GameMap::Generate() {
 		}
 	}
 
-	//8. Add rivers
+	//7. Add rivers
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
 	{
 		// 8.1. Choose possible river sources
@@ -370,25 +377,61 @@ void GameMap::Generate() {
 		}
 	}
 
-	// 9. Add mountains
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			if (on_border[i][j] && !WATER_TYPES.count(blocks[i][j])) {
-				blocks[i][j] = MOUNTAIN;
-				for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
-					if (blocks[point] == WATER_SHALLOW)
-						blocks[point] = MOUNTAIN;
+	// 8. Add mountains
+	{
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (on_border[i][j] && !WATER_TYPES.count(blocks[i][j])) {
+					bool has_area_bigger = false;
+					for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+						if (blocks[i][j] != blocks[point] &&
+							blocks[i][j] != WATER && blocks[point] != WATER
+							&& blocks[i][j] != blocks[point]) {
+							if (area[cluster[i][j]] < area[cluster[point]]) {
+								has_area_bigger = true;
+								break;
+							}
+						}
+					}
+
+					if (has_area_bigger)
+						continue;
+
+					blocks[i][j] = MOUNTAIN_HIGH;
+					for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+						if (blocks[point] == WATER_SHALLOW)
+							blocks[point] = MOUNTAIN_HIGH;
+					}
+				}
+			}
+		}
+
+
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (blocks[i][j] == MOUNTAIN_HIGH) {
+					for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+						if (blocks[point] != MOUNTAIN_HIGH)
+							blocks[point] = MOUNTAIN_LOW;
+					}
 				}
 			}
 		}
 	}
 
-	// 10. Add passages between mountains
+	// 9. Add passages between mountains
 	for (uint32_t i = 0; i < height; ++i) {
 
 	}
 
-	// 11. Add trees
+	// 10. Add trees
+
+	// 11. Give subtypes to tiles
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			blocks[i][j] = (BlockType)GetSubtype((BlockType)blocks[i][j], j, i);
+		}
+	}
 
 	// 12. Fill blocks_ array with the result from blocks
 	for (uint32_t i = 0; i < height; ++i)

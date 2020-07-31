@@ -26,9 +26,9 @@ class UnitFactory : AbstractUnitFactory {
 private:
 	std::vector<Player*> players_;
 
-	GameMap* game_map_;
-	TextureManager* texture_manager_;
-	PlayersInfo* players_info_;
+	GameMap* game_map_ = NULL;
+	TextureManager* texture_manager_ = NULL;
+	PlayersInfo* players_info_ = NULL;
 
 public:
 	void AddPlayer(Player* player);
