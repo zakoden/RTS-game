@@ -77,7 +77,7 @@ uint8_t GameMap::GetSubtype(BlockType type, uint32_t x, uint32_t y) {
 		return 2;
 	}
 	if (type == BlockType::DESERT) {
-		return 3;
+		return 70 + rand() % 3;
 	}
 	if (type == BlockType::GRASS) {
 		return 10 + rand() % 9;
