@@ -111,13 +111,12 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 
 void GameMap::Generate() {
 	std::time_t starting_time = time(0);
+	srand(static_cast<unsigned int>(time(0)));
 
 	uint32_t height = GetHeight(), width = GetWidth();
 	// 1. Scattering random points (that will be centers of clusters)
 	const uint32_t CHUNK_SIZE = 160;
 	const uint32_t CHUNKS_COUNT = (height * width) / CHUNK_SIZE;
-
-	srand(static_cast<unsigned int>(time(0)));
 
 	float max_distance = static_cast<float>(height + width);
 	// A suboptimal distance between opposing corners
@@ -151,8 +150,9 @@ void GameMap::Generate() {
 	// 3. Give to each cluster random tile
 	const vector<BlockType> allowed_blocks = { WATER, DESERT, GRASS_LIGHT, GRASS_DARK, GRASS };
 	vector<BlockType> cluster_type{ CHUNKS_COUNT };
-	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i)
+	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
 		cluster_type[i] = allowed_blocks[rand() % allowed_blocks.size()];
+	}
 
 	// 4. Unite all small clusters with big ones
 	{
@@ -197,33 +197,37 @@ void GameMap::Generate() {
 
 	// Intermission. Make on_border grid
 	Grid<bool> on_border(height, width, false);
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
-				on_border[i][j] = on_border[i][j] || (blocks[i][j] != blocks[point] &&
-					blocks[i][j] != WATER && blocks[point] != WATER);
+	{
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+					on_border[i][j] = on_border[i][j] || (blocks[i][j] != blocks[point] &&
+						blocks[i][j] != WATER && blocks[point] != WATER
+						&& blocks[i][j] != blocks[point]);
+				}
 			}
 		}
-	}
 
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
-				on_border[i][j] = on_border[i][j] ||
-					(blocks[i][j] == WATER && blocks[point] != WATER && on_border[point.y][point.x]);
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+					on_border[i][j] = on_border[i][j] ||
+						(blocks[i][j] == WATER && blocks[point] != WATER && on_border[point.y][point.x]);
+				}
 			}
 		}
 	}
 
 	// 6. Give subtypes to tiles
-	for (uint32_t i = 0; i < height; ++i)
-		for (uint32_t j = 0; j < width; ++j)
-			blocks[i][j] = (BlockType) GetSubtype((BlockType)blocks[i][j], j, i);
-
-	Grid<uint32_t> deep_water_area(height, width, 0);
-	// Area of a deep water in corner-wise connectivity of that cell
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			blocks[i][j] = (BlockType)GetSubtype((BlockType)blocks[i][j], j, i);
+		}
+	}
 
 	// 7. Make water look more deep
+	Grid<uint32_t> deep_water_area(height, width, 0);
+	// Area of a deep water in corner-wise connectivity of that cell
 	{   // 7.1. Find distances from each water cell to the nearest land cell
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
@@ -275,13 +279,6 @@ void GameMap::Generate() {
 			}
 		}
 	}
-
-	/*
-	for (size_t i = 0; i < height; ++i)
-		for (size_t j = 0; j < width; ++j)
-			if (on_border[i][j])
-				blocks[i][j] = (BlockType) 7;
-	*/
 
 	//8. Add rivers
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
@@ -374,7 +371,23 @@ void GameMap::Generate() {
 	}
 
 	// 9. Add mountains
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			if (on_border[i][j] && !WATER_TYPES.count(blocks[i][j])) {
+				blocks[i][j] = MOUNTAIN;
+				for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+					if (blocks[point] == WATER_SHALLOW)
+						blocks[point] = MOUNTAIN;
+				}
+			}
+		}
+	}
+
 	// 10. Add passages between mountains
+	for (uint32_t i = 0; i < height; ++i) {
+
+	}
+
 	// 11. Add trees
 
 	// 12. Fill blocks_ array with the result from blocks

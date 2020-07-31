@@ -8,7 +8,7 @@ enum BlockType {
 	GRASS_LIGHT = 4,
 	GRASS_DARK = 5,
 	GRASS = 6,
-	RED = 7,
+	MOUNTAIN = 7,
 	BLACK = 8,
 	WHITE = 9,
 	GREEN = 10,
