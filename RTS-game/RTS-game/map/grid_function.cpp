@@ -65,32 +65,30 @@ void grid_function::Dijkstra(Grid<float>* distance_ptr,
 	}
 }
 
-Grid<Point> grid_function::ProcessBFS(const Grid<bool>& allowed_points, const Point& start) {
-	Grid<Point> ancestor(allowed_points.size(), allowed_points[0].size());
-	for (uint32_t i = 0; i < allowed_points.size(); ++i)
-		for (uint32_t j = 0; j < allowed_points[i].size(); ++j)
-			ancestor[i][j] = { j, i };
-	std::queue<Point> bfs;
-	bfs.push(start);
-	while (!bfs.empty()) {
-		Point cur = bfs.front();
-		bfs.pop();
-		for (Point point : GetNeighbors(cur, allowed_points.size(), allowed_points[0].size())) {
-			if (ancestor[point] == point && allowed_points[point]) {
-				bfs.push(point);
-				ancestor[point] = cur;
+Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
+	size_t height = clusters.size(), width = clusters[0].size();
+	Grid<bool> visited(height, width, false);
+	Grid<uint32_t> result(height, width);
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			if (!visited[i][j]) {
+				vector<Point> bfs;
+				bfs.push_back({ j, i });
+				for (size_t i = 0; i < bfs.size(); ++i) {
+					Point current = bfs[i];
+					for (Point p : grid_function::GetNeighbors(current, height, width)) {
+							if (clusters[p] == clusters[current] && !visited[p.y][p.x]) {
+							bfs.push_back(p);
+							visited[p.y][p.x] = true;
+						}
+					}
+				}
+
+				for (Point point : bfs)
+					result[point] = static_cast<uint32_t>(bfs.size());
 			}
 		}
 	}
-	return ancestor;
-}
-
-vector<Point> grid_function::GetPath(const Grid<bool>& allowed_points, const Point& a, const Point& b) {
-	Grid<Point> ancestor = ProcessBFS(allowed_points, a);
-	vector<Point> result = { b };
-	while (result.back() != a)
-		result.push_back(ancestor[result.back()]);
-	reverse(result.begin(), result.end());
 	return result;
 }
 

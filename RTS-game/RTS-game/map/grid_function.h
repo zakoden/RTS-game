@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <vector>
 
+#include "block_type.h"
 #include "grid.h"
 
 using std::vector;
@@ -30,13 +31,14 @@ namespace grid_function {
 	*/
 	void Dijkstra(Grid<float>* distance_ptr, Grid<int>* cluster_ptr = nullptr);
 
-	// Uses 'bfs' on allowed points from `start` point and returns grid,
-	// where each cell shows cell from which this cell can be reached
-	Grid<Point> ProcessBFS(const Grid<bool>& allowed_points, const Point& start);
+	// For each cell returns the area of a cluster it's located in
+	Grid<uint32_t> GetAreas(const Grid<BlockType>& clusters);
 
-	// Finds the shortest path between points `a` and `b` via allowed points and returns it
-	vector<Point> GetPath(const Grid<bool>& allowed_points, const Point& a, const Point& b);
-
+	/* Finds the closest point from start if we:
+	1. Can only travel via allowed points
+	2. Must end at end point
+	3. Have distance at least min_distance
+	*/
 	vector<Point> FindClosest(const Point& start, const Grid<bool>& allowed_points,
 		const Grid<bool>& end_points, float min_distance = 0);
 };

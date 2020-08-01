@@ -80,6 +80,8 @@ uint8_t GameMap::GetSubtype(BlockType type, uint32_t x, uint32_t y) {
 			return MOUNTAIN_HIGH + rand() % 4;
 		case MOUNTAIN_LOW:
 			return MOUNTAIN_LOW + rand() % 4;
+		case ROCK:
+			return ROCK + rand() % 6;
 	}
 	return type;
 }
@@ -125,7 +127,7 @@ void GameMap::Generate() {
 
 	uint32_t height = GetHeight(), width = GetWidth();
 	// 1. Scattering random points (that will be centers of clusters)
-	const uint32_t CHUNK_SIZE = 160;
+	const uint32_t CHUNK_SIZE = 400;
 	const uint32_t CHUNKS_COUNT = (height * width) / CHUNK_SIZE;
 
 	float max_distance = static_cast<float>(height + width);
@@ -209,6 +211,9 @@ void GameMap::Generate() {
 	// 5. Give the result to blocks grid (not array)
 	Grid<BlockType> blocks = FromFunction<BlockType>(height, width, [&](size_t i, size_t j) {return cluster_type[cluster[i][j]]; });
 
+
+	std::cerr << "Building map time: " << (time(0) - starting_time) << " s" << std::endl;
+
 	// Intermission. Make on_border grid
 	Grid<bool> on_border(height, width, false);
 	{
@@ -232,18 +237,22 @@ void GameMap::Generate() {
 		}
 	}
 
+
+	std::cerr << "Building map time: " << (time(0) - starting_time) << " s" << std::endl;
+
+
 	// 6. Make water look more deep
 	Grid<uint32_t> deep_water_area(height, width, 0);
 	// Area of a deep water in corner-wise connectivity of that cell
-	{   // 7.1. Find distances from each water cell to the nearest land cell
+	{   // 6.1. Find distances from each water cell to the nearest land cell
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				distance[i][j] = (blocks[i][j] == WATER) ? max_distance : 0;
 		grid_function::Dijkstra(&distance);
 
-		// 7.2. Make closest to land cells to have shallow water, similiar with farthest
-		const uint32_t WATER_SHALLOW_MAX_DISTANCE = 2;
-		const uint32_t WATER_DEEP_MIN_DISTANCE = 4;
+		// 6.2. Make closest to land cells to have shallow water, similiar with farthest
+		const float WATER_SHALLOW_MAX_DISTANCE = 1.5;
+		const float WATER_DEEP_MIN_DISTANCE = 3.5;
 
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
@@ -256,36 +265,17 @@ void GameMap::Generate() {
 			}
 		}
 
-		// 7.3. Remove deep water tiles with very low area
+		// 6.3. Remove deep water tiles with very low area
 		const uint32_t DEEP_WATER_AREA_MIN = 6;
-		Grid<bool> visited(height, width, false);
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (blocks[i][j] == WATER_DEEP && !visited[i][j]) {
-					vector<Point> bfs;
-					bfs.push_back({ j, i });
-					for (size_t i = 0; i < bfs.size(); ++i) {
-						Point current = bfs[i];
-						for (Point p : grid_function::GetNeighbors(current, height, width)) {
-							if (blocks[p] == WATER_DEEP && !visited[p.y][p.x]) {
-								bfs.push_back(p);
-								visited[p.y][p.x] = true;
-							}
-						}
-					}
-
-					if (bfs.size() < DEEP_WATER_AREA_MIN) {
-						for (Point point : bfs)
-							blocks[point] = WATER;
-					}
-					else {
-						for (Point point : bfs)
-							deep_water_area[point] = static_cast<uint32_t>(bfs.size());
-					}
-				}
-			}
-		}
+		deep_water_area = grid_function::GetAreas(blocks);
+		for (uint32_t i = 0; i < height; ++i)
+			for (uint32_t j = 0; j < width; ++j)
+				if (blocks[i][j] == WATER_DEEP && deep_water_area[i][j] < DEEP_WATER_AREA_MIN)
+					blocks[i][j] = WATER;
 	}
+
+
+	std::cerr << "Building map time: " << (time(0) - starting_time) << " s" << std::endl;
 
 	//7. Add rivers
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
@@ -377,11 +367,17 @@ void GameMap::Generate() {
 		}
 	}
 
+
 	// 8. Add mountains
 	{
+		Grid<BlockType> previous_blocks = blocks;
+		/* 8.1. Add actual mountains
+		How? Let's go through all borders, pick part of the border that is on the larger cluster,
+		then make all cells in that border to be mountains
+		*/
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
-				if (on_border[i][j] && !WATER_TYPES.count(blocks[i][j])) {
+				if (on_border[i][j] && blocks[i][j] != WATER) {
 					bool has_area_bigger = false;
 					for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
 						if (blocks[i][j] != blocks[point] &&
@@ -406,13 +402,51 @@ void GameMap::Generate() {
 			}
 		}
 
+		// 8.2. Remove mountains that don't separate 2 non-water biomes
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (blocks[i][j] == MOUNTAIN_HIGH) {
+					std::unordered_set<BlockType> neighbors;
+					for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
+						if (!WATER_TYPES.count(blocks[point]) && blocks[point] != MOUNTAIN_HIGH)
+							neighbors.insert(blocks[point]);
+					}
+					if (neighbors.size() < 2)  // Should be removed
+						blocks[i][j] = previous_blocks[i][j];
+				}
+			}
+		}
 
+
+		/* 8.3. Make lower mountains
+		How? Let's go through all high mountains, and
+		if the neighbor is not water and not mountain, then it's a lower mountain
+		*/
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
 				if (blocks[i][j] == MOUNTAIN_HIGH) {
 					for (Point point : grid_function::GetNeighbors({ j, i }, height, width)) {
-						if (blocks[point] != MOUNTAIN_HIGH)
+						if (blocks[point] != MOUNTAIN_HIGH && blocks[point] != WATER)
 							blocks[point] = MOUNTAIN_LOW;
+					}
+				}
+			}
+		}
+		
+		// 8.4. Remove small areas
+		const uint32_t MIN_AREA = 100;
+		Grid<uint32_t> areas = grid_function::GetAreas(blocks);
+		for (uint32_t i = 0; i < height; ++i) {
+			for (uint32_t j = 0; j < width; ++j) {
+				if (areas[i][j] < MIN_AREA) {
+					const uint32_t MIN_WATER_SHALLOW_AREA = 10;
+					if (blocks[i][j] == WATER_SHALLOW ) {
+						if (areas[i][j] < MIN_WATER_SHALLOW_AREA)
+							blocks[i][j] = MOUNTAIN_HIGH;
+					} else {
+						if (blocks[i][j] != MOUNTAIN_HIGH && blocks[i][j] != MOUNTAIN_LOW
+							&& !WATER_TYPES.count(blocks[i][j]))
+							blocks[i][j] = MOUNTAIN_HIGH;
 					}
 				}
 			}
