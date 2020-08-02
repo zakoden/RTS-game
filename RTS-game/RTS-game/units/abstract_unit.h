@@ -30,7 +30,7 @@ public:
 	virtual int GetCenterY() = 0;
 	virtual int GetSpeed() = 0;
 	virtual int GetAttack() = 0;
-	virtual void SetType(UnitType type) = 0;
+
 	virtual void SetPosition(int x, int y) = 0;
 	virtual void SetPosition(double x, double y) = 0;
 	virtual void SetVector(int dx, int dy) = 0;
@@ -38,14 +38,18 @@ public:
 	virtual void VectorApply() = 0;
 	virtual void VectorApplyBullet() = 0;
 	virtual void DamageApply(int damage) = 0;
+	virtual void AttackEnd() = 0;
 	
 	virtual void DoAction() = 0; 
 
-	virtual void Draw(SDL_Renderer* renderer, Camera* camera) const = 0; 
+	virtual void Draw(SDL_Renderer* renderer, Camera* camera) = 0; 
 
 	virtual AbstractUnit* FindEnemyInRadius(int radius) = 0;
 	virtual AbstractUnit* GetEnemyInPoint(int x, int y) = 0;
 
+	virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, size_t texture_delay,
+		                    size_t deltaX, size_t deltaY, size_t width, size_t height) = 0;
+	virtual void SetType(UnitType type) = 0;
 	virtual void SetBehavior(Behavior* behavior) = 0;   
 	virtual void SetPlayer(size_t player) = 0;
 	virtual void SetPlayersInfo(PlayersInfo* players_info) = 0;

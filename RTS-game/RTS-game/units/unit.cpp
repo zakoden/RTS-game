@@ -5,54 +5,52 @@
 // ----------protected-------------
 
 void Unit::InsertUnitToMap() {
-	int cx, cy;
-	cx = width_ / 2;
-	cy = height_ / 2;
-	for (int cur_y = 0; cur_y <= cy; cur_y += 8) {
-		for (int cur_x = 0; cur_x <= cx; cur_x += 8) {
-			int x1, x2, y1, y2;
-			x1 = (x_ + deltaX_ + cur_x) / 8;
-			y1 = (y_ + deltaY_ + cur_y) / 8;
-			x2 = (x_ + deltaX_ + width_ - 1 - cur_x) / 8;
-			y2 = (y_ + deltaY_ + height_ - 1 - cur_y) / 8;
-			game_map_->AddUnit(this, x1, y1);
-			game_map_->AddUnit(this, x1, y2);
-			game_map_->AddUnit(this, x2, y1);
-			game_map_->AddUnit(this, x2, y2);
+	int x, y;
+	x = floor(x_);
+	y = floor(y_);
+	int x1, x2, y1, y2;
+	x1 = (x + deltaX_) / game_map_->GetBlockSize();
+	y1 = (y + deltaY_) / game_map_->GetBlockSize();
+	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
+	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+
+	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
+		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
+			game_map_->AddUnit(this, cur_x, cur_y);
 		}
 	}
 }
 
 void Unit::DeleteUnitFromMap() {
-	int cx, cy;
-	cx = width_ / 2;
-	cy = height_ / 2;
-	for (int cur_y = 0; cur_y <= cy; cur_y += 8) {
-		for (int cur_x = 0; cur_x <= cx; cur_x += 8) {
-			int x1, x2, y1, y2;
-			x1 = (x_ + deltaX_ + cur_x) / 8;
-			y1 = (y_ + deltaY_ + cur_y) / 8;
-			x2 = (x_ + deltaX_ + width_ - 1 - cur_x) / 8;
-			y2 = (y_ + deltaY_ + height_ - 1 - cur_y) / 8;
-			game_map_->DeleteUnit(this, x1, y1);
-			game_map_->DeleteUnit(this, x1, y2);
-			game_map_->DeleteUnit(this, x2, y1);
-			game_map_->DeleteUnit(this, x2, y2);
+	int x, y;
+	x = floor(x_);
+	y = floor(y_);
+	int x1, x2, y1, y2;
+	x1 = (x + deltaX_) / game_map_->GetBlockSize();
+	y1 = (y + deltaY_) / game_map_->GetBlockSize();
+	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
+	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+
+	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
+		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
+			game_map_->DeleteUnit(this, cur_x, cur_y);
 		}
 	}
+}
+
+void MapCollisionCheck() {
+
 }
 
 // -----------public---------------
 
 Unit::Unit(int attack, int defense, int max_health, double speed,
-	       size_t texture_num,
 	       TextureManager* texture_manager, GameMap* game_map) {
 	attack_ = attack;
 	defense_ = defense;
 	health_ = max_health;
 	max_health_ = max_health;
 	speed_ = speed;
-	texture_num_ = texture_num;
 	texture_manager_ = texture_manager;
 	game_map_ = game_map;
 
@@ -86,10 +84,6 @@ int Unit::GetSpeed() {
 
 int Unit::GetAttack() {
 	return attack_;
-}
-
-void Unit::SetType(UnitType type) {
-	type_ = type;
 }
 
 void Unit::SetPosition(int x, int y) {
@@ -169,35 +163,70 @@ void Unit::DamageApply(int damage) {
 	}
 }
 
-void Unit::DoAction() { 
-	behavior_->DoAction(); 
+void Unit::AttackEnd() {
+	RemoveEffect(Effect::ATTACKING);
+	behavior_->AttackEnd();
 }
 
-void Unit::Draw(SDL_Renderer* renderer, Camera* camera) const {
+void Unit::DoAction() { 
+	RemoveEffect(Effect::MOVING);
+	behavior_->DoAction(); 
+	if (dx_ != 0 || dy_ != 0) {
+		AddEffect(Effect::MOVING);
+		is_right_side = !(dx_ < 0.0);
+	}
+}
+
+void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	SDL_Rect from, to;
-	from.x = 0;
-	from.y = 0;
+	// stay [0, 0]
+	// move [1, texture_move_num_]
+	// attack [texture_move_num_ + 1, texture_move_num_ + texture_attack_num_]
+	texture_cur_delay_++;
+	texture_cur_delay_ %= texture_delay_;
+	if (texture_cur_delay_ == 0) {
+		if (HasEffect(Effect::MOVING)) {
+			texture_pos_++;
+			if (texture_pos_ < 1 || texture_pos_ > texture_move_num_) {
+				texture_pos_ = 1;
+			}
+		}
+		if (HasEffect(Effect::ATTACKING)) {
+			texture_pos_++;
+			if (texture_pos_ < (texture_move_num_ + 1) || texture_pos_ >(texture_move_num_ + texture_attack_num_)) {
+				texture_pos_ = texture_move_num_ + 1;
+			}
+			if (texture_pos_ == (texture_move_num_ + texture_attack_num_)) {
+				AttackEnd();
+			}
+		}
+	}
+	from.x = 16 * texture_pos_;
+	from.y = (is_right_side ? 0 : 16);
 	from.w = 16;
 	from.h = 16;
 	to.x = -camera->GetCornerX(renderer) + x_;
 	to.y = -camera->GetCornerY(renderer) + y_;;
 	to.w = 16;
 	to.h = 16;
-	SDL_RenderCopy(renderer, texture_manager_->GetTexture(texture_num_), &from, &to);
-	if (type_ == UnitType::Ground) {
-		int life_len = (to.w * health_) / max_health_;
-		SDL_RenderDrawLine(renderer, to.x, to.y, to.x + to.w - 1, to.y);
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-		SDL_RenderDrawLine(renderer, to.x, to.y, to.x + life_len - 1, to.y);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	}
+	SDL_RenderCopy(renderer, texture_manager_->GetTexture(texture_ind_), &from, &to);
+
+
 
 	SDL_Rect hitbox;
 	hitbox.x = to.x + deltaX_;
 	hitbox.y = to.y + deltaY_;
 	hitbox.w = width_;
 	hitbox.h = height_;
-	SDL_RenderDrawRect(renderer, &hitbox);
+	//SDL_RenderDrawRect(renderer, &hitbox);
+
+	if (type_ == UnitType::Ground) {
+		int life_len = (hitbox.w * health_) / max_health_;
+		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + hitbox.w - 1, hitbox.y - 2);
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + life_len - 1, hitbox.y - 2);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	}
 }
 
 // to do : change this shit
@@ -248,6 +277,22 @@ void Unit::RemoveEffect(Effect effect) {
 
 bool Unit::HasEffect(Effect effect) const { 
 	return effects_.test(effect); 
+}
+
+void Unit::SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, size_t texture_delay,
+	                  size_t deltaX, size_t deltaY, size_t width, size_t height) {
+	texture_ind_ = texture_ind;
+	texture_move_num_ = move_cnt;
+    texture_attack_num_ = attack_cnt;
+	texture_delay_ = texture_delay;
+	deltaX_ = deltaX;
+	deltaY_ = deltaY;
+	width_ = width;
+	height_ = height;
+}
+
+void Unit::SetType(UnitType type) {
+	type_ = type;
 }
 
 void Unit::SetBehavior(Behavior* behavior) { 

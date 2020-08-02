@@ -15,6 +15,7 @@
 #include "../behaviors/behavior_tower.h"
 #include "../behaviors/behavior_stay.h"
 #include "../behaviors/behavior_bullet.h"
+#include "../behaviors/behavior_hunter.h"
 
 #include "abstract_unit_factory.h"
 #include "unit.h"
@@ -39,6 +40,7 @@ public:
 
 	AbstractUnit* CreateTest(size_t player, int x, int y) override;
     AbstractUnit* CreateTest1(size_t player, int x, int y) override;
+	AbstractUnit* CreateTestHunter(size_t player, int x, int y) override;
 
 	AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
 };

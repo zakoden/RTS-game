@@ -6,15 +6,16 @@
 
 class Camera {
 private:
-	float scale_ = 1.0;
-	int32_t x_ = 0, y_ = 0;
+	double scale_ = 1.0;
+	double x_ = 0.0, y_ = 0.0;
 public:
 	void SetScale(float new_scale);
 	void AddScale(float add_scale);
 	void MulScale(float mul_scale);
-	float GetScale();
-	void Move(int32_t dx, int32_t dy);
-	void MoveTo(int32_t x, int32_t y);
+	double GetScale();
+	double ConvertScale(double scale);
+	void Move(double dx, double dy);
+	void MoveTo(double x, double y);
 	int32_t GetX();
 	int32_t GetY();
 	int32_t GetCornerX(SDL_Renderer* renderer);

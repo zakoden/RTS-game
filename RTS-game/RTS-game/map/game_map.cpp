@@ -95,7 +95,7 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y) {
     uint8_t block = blocks_[GetInd(x, y)];
 	if (!units_in_block_[GetInd(x, y)].empty()) {
-		block = 0;
+	//	block = 0;
 	}
 	SDL_Rect from, to;
 	from.x = (block % BLOCKS_IN_LINE) * BLOCK_SIZE;
@@ -378,6 +378,7 @@ void GameMap::Generate() {
 	}
 
 	// 8. Add mountains
+	/*
 	{
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
@@ -418,6 +419,7 @@ void GameMap::Generate() {
 			}
 		}
 	}
+	*/
 
 	// 9. Add passages between mountains
 	for (uint32_t i = 0; i < height; ++i) {

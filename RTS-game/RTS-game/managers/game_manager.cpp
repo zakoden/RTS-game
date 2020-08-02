@@ -22,6 +22,8 @@ int GameManager::Init() {
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		return 3;
 	}
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
+
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
 	game_map_ = new GameMap(renderer_, 200, 200);
@@ -52,6 +54,9 @@ void GameManager::Run() {
 		unit_factory_->CreateTest(1, 150 + 10 * i, 150 + rand() % 20);
 	}
 
+	unit_factory_->CreateTestHunter(0, 200, 200);
+
+	/*
 	unit_factory_->CreateTest1(0, 160, 96);
 	for (int i = 0; i < 15; ++i) {
 		unit_factory_->CreateTest1(0, 200 + 20 * i, 200 + rand() % 20);
@@ -59,6 +64,11 @@ void GameManager::Run() {
 	for (int i = 0; i < 15; ++i) {
 		unit_factory_->CreateTest1(0, 200 + 20 * i, 270 + rand() % 20);
 	}
+	*/
+
+	ground_h_ = 0.0;
+	air_h_ = 0.14;
+	camera_h_ = 1.0;
 	
 	while (!close_) {
 		RunStep();
@@ -79,42 +89,83 @@ void GameManager::RunStep() {
 			close_ = true;
 			break;
 		case SDL_MOUSEWHEEL:
-			camera_->AddScale(0.1f * event.wheel.y);
+			if (event.wheel.y < 0) {
+				scale_status_--;
+			}
+			if (event.wheel.y > 0) {
+				scale_status_++;
+			}
+			scale_status_ = std::max(scale_status_, -3);
+			scale_status_ = std::min(scale_status_, 20);
 			break;
 		}
 	}
+	
 
 	const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
 
-	int32_t coef = 10;
+	double coef = 10.0;
 	if (keyboard_state[SDL_SCANCODE_UP]) {
-		camera_->Move(0, (int32_t)(-coef / camera_->GetScale()));
+		camera_->Move(0, -coef / camera_->GetScale());
 	}
 	if (keyboard_state[SDL_SCANCODE_DOWN]) {
-		camera_->Move(0, (int32_t)(coef / camera_->GetScale()));
+		camera_->Move(0, coef / camera_->GetScale());
 	}
 	if (keyboard_state[SDL_SCANCODE_LEFT]) {
-		camera_->Move((int32_t)(-coef / camera_->GetScale()), 0);
+		camera_->Move(-coef / camera_->GetScale(), 0);
 	}
 	if (keyboard_state[SDL_SCANCODE_RIGHT]) {
-		camera_->Move((int32_t)(coef / camera_->GetScale()), 0);
+		camera_->Move(coef / camera_->GetScale(), 0);
 	}
 
 	// clear
 	SDL_RenderClear(renderer_);
+	
+	if (scale_status_ >= 1) {
+		camera_->SetScale(scale_status_);
+	} else {
+		switch (scale_status_) {
+		case 0:
+			camera_->SetScale(0.8);
+			break;
+		case -1:
+			camera_->SetScale(0.6);
+			break;
+		case -2:
+			camera_->SetScale(0.4);
+			break;
+		case -3:
+			camera_->SetScale(0.2);
+			break;
+		}
+	}
+	
+	//camera_->SetScale(screen_h_ / (camera_h_ - ground_h_));
 	SDL_RenderSetScale(renderer_, camera_->GetScale(), camera_->GetScale());
 
+	
 	// move
 	for (size_t i = 0; i < players_.size(); ++i) {
 		players_[i]->DoAction();
 	}
-    //unit_->DoAction();
+ 
 
 	// draw
 	game_map_->Draw(renderer_, camera_);
 	for (size_t i = 0; i < players_.size(); ++i) {
 		players_[i]->Draw(renderer_, camera_);
 	}
-	//unit_->Draw(renderer_, camera_);
+
+	/*
+	if (camera_h_ > air_h_) {
+		camera_->SetScale(screen_h_ / (camera_h_ - air_h_));
+		SDL_RenderSetScale(renderer_, camera_->GetScale(), camera_->GetScale());
+		for (size_t i = 0; i < players_.size(); ++i) {
+			players_[i]->Draw(renderer_, camera_);
+		}
+	}
+	std::cout << camera_->GetScale() << std::endl;
+	*/
+
 	SDL_RenderPresent(renderer_);
 }

@@ -32,6 +32,11 @@ protected:
 	UnitFactory* unit_factory_;
 	std::vector<Player*> players_;
 	PlayersInfo* players_info_;
+
+	double camera_h_;
+	double ground_h_, air_h_;
+	double screen_h_ = 1.0;
+	int scale_status_ = 1;
 public:
 	GameManager();
 	~GameManager();
