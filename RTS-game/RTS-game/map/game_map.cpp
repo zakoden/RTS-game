@@ -369,7 +369,6 @@ void GameMap::Generate() {
 
 
 	// 8. Add mountains
-	/*
 	{
 		Grid<BlockType> previous_blocks = blocks;
 		/* 8.1. Add actual mountains
@@ -453,7 +452,6 @@ void GameMap::Generate() {
 			}
 		}
 	}
-	*/
 
 	// 9. Add passages between mountains
 	for (uint32_t i = 0; i < height; ++i) {

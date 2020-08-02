@@ -17,7 +17,6 @@ void BehaviorHunter::SetUnit(AbstractUnit* unit) {
 
 void BehaviorHunter::AttackEnd() {
 	target_->DamageApply(unit_->GetAttack());
-	std::cout << "attack end" << std::endl;
 }
 
 void BehaviorHunter::DoAction() {
@@ -47,7 +46,6 @@ void BehaviorHunter::Attack(AbstractUnit* enemy) {
 		unit_->VectorApply();
 		return;
 	}
-	std::cout << "attack begin" << std::endl;
 	unit_->SetVector(0.0, 0.0);
 	unit_->AddEffect(Effect::ATTACKING);
 }
