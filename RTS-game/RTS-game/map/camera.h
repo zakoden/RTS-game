@@ -14,6 +14,8 @@ public:
 	void MulScale(float mul_scale);
 	double GetScale();
 	double ConvertScale(double scale);
+	double ToMapX(SDL_Renderer* renderer, int x);
+	double ToMapY(SDL_Renderer* renderer, int y);
 	void Move(double dx, double dy);
 	void MoveTo(double x, double y);
 	int32_t GetX();

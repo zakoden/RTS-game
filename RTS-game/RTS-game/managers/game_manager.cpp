@@ -36,12 +36,16 @@ int GameManager::Init() {
 	unit_factory_->SetPlayersInfo(players_info_);
 	players_info_->SetStatus(0, 0, PlayersStatus::PEACE);
 	players_info_->SetStatus(1, 1, PlayersStatus::PEACE);
+	user_manager_ = new UserManager(game_map_, camera_);
 }
 
 void GameManager::Run() {
 
 	Player* player0 = new Player(0);
+	user_manager_->AddPlayer(player0);
 	Player* player1 = new Player(1);
+	player0->SetOwner(user_manager_);
+	player1->SetOwner(user_manager_);
 	players_.push_back(player0);
 	players_.push_back(player1);
 
@@ -101,10 +105,31 @@ void GameManager::RunStep() {
 		}
 	}
 	
+    double coef = 10.0;
+
+	int mouse_x, mouse_y;
+	uint32_t mouse_state = SDL_GetMouseState(&mouse_x, &mouse_y);
+	int mouse_move_size = 20;
+	int window_w, window_h;
+	SDL_GetWindowSize(window_, &window_w, &window_h);
+	if (mouse_x < mouse_move_size) {
+		camera_->Move(-coef / camera_->GetScale(), 0);
+		camera_->MoveTo(std::max(camera_->GetX(), 0), camera_->GetY());
+	}
+	if (mouse_x > (window_w - mouse_move_size)) {
+		camera_->Move(coef / camera_->GetScale(), 0);
+		camera_->MoveTo(std::min(camera_->GetX(), (int32_t)(game_map_->GetWidth() * game_map_->GetBlockSize())), camera_->GetY());
+	}
+	if (mouse_y < mouse_move_size) {
+		camera_->Move(0, -coef / camera_->GetScale());
+		camera_->MoveTo(camera_->GetX(), std::max(camera_->GetY(), 0));
+	}
+	if (mouse_y > (window_h - mouse_move_size)) {
+		camera_->Move(0, coef / camera_->GetScale());
+		camera_->MoveTo(camera_->GetX(), std::min(camera_->GetY(), (int32_t)(game_map_->GetHeight() * game_map_->GetBlockSize())));
+	}
 
 	const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
-
-	double coef = 10.0;
 	if (keyboard_state[SDL_SCANCODE_UP]) {
 		camera_->Move(0, -coef / camera_->GetScale());
 	}
@@ -145,16 +170,21 @@ void GameManager::RunStep() {
 
 	
 	// move
+
+	user_manager_->DoAction(renderer_);
+
 	for (size_t i = 0; i < players_.size(); ++i) {
 		players_[i]->DoAction();
 	}
- 
+
 
 	// draw
 	game_map_->Draw(renderer_, camera_);
 	for (size_t i = 0; i < players_.size(); ++i) {
 		players_[i]->Draw(renderer_, camera_);
 	}
+
+	user_manager_->Draw(renderer_, camera_);
 
 	/*
 	if (camera_h_ > air_h_) {

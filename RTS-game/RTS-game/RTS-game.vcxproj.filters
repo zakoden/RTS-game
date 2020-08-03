@@ -115,6 +115,9 @@
     <ClInclude Include="behaviors\behavior_hunter.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="player\player_owner.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="units\abstract_unit.h">

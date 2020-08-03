@@ -170,8 +170,11 @@ void Unit::AttackEnd() {
 
 void Unit::DoAction() { 
 	RemoveEffect(Effect::MOVING);
-	behavior_->DoAction(); 
-	if (dx_ != 0 || dy_ != 0) {
+	if (!HasEffect(Effect::UNDER_CONTROL)) {
+		behavior_->DoAction();
+	}
+	double EPS = 0.0001;
+	if (abs(dx_) > EPS || abs(dy_) > EPS) {
 		AddEffect(Effect::MOVING);
 		is_right_side = !(dx_ < 0.0);
 	}
@@ -185,6 +188,9 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	texture_cur_delay_++;
 	texture_cur_delay_ %= texture_delay_;
 	if (texture_cur_delay_ == 0) {
+		if (!HasEffect(Effect::MOVING) && !HasEffect(Effect::ATTACKING)) {
+			texture_pos_ = 0;
+		}
 		if (HasEffect(Effect::MOVING)) {
 			texture_pos_++;
 			if (texture_pos_ < 1 || texture_pos_ > texture_move_num_) {
@@ -206,7 +212,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	from.w = 16;
 	from.h = 16;
 	to.x = -camera->GetCornerX(renderer) + x_;
-	to.y = -camera->GetCornerY(renderer) + y_;;
+	to.y = -camera->GetCornerY(renderer) + y_;
 	to.w = 16;
 	to.h = 16;
 	SDL_RenderCopy(renderer, texture_manager_->GetTexture(texture_ind_), &from, &to);
