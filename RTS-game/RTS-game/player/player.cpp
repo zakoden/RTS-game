@@ -11,6 +11,10 @@ Player::Player(size_t num) {
 Player::~Player() {
 }
 
+void Player::SetOwner(PlayerOwner* owner) {
+	player_owner_ = owner;
+}
+
 void Player::DoAction() {
 	// to do
 	for (auto& unit : army_) {
@@ -26,6 +30,7 @@ void Player::DoAction() {
 			unit->DeadCheck();
 		}
 	}
+	player_owner_->DeadCheck();
 	auto it = army_.begin();
 	while (it != army_.end()) {
 		if ((*it)->IsAlive()) {

@@ -1,18 +1,31 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
+
+#include "SDL.h"
+
 #include "../map/game_map.h"
 
 #include "../player/player.h"
 #include "../player/players_info.h"
+#include "../player/player_owner.h"
 
+#include "../map/camera.h"
 
-class UserManager {
+class UserManager : public PlayerOwner {
 protected:
 	GameMap* game_map_ = NULL;
+	Camera* camera_ = NULL;
 	Player* player_ = NULL;
+
+	AbstractUnit* control_unit_ = NULL;
 public:
-	UserManager();
+	UserManager(GameMap* game_map, Camera* camera);
 	~UserManager();
 
+	void AddPlayer(Player* player);
 	void Draw(SDL_Renderer* renderer, Camera* camera);
+	void DoAction(SDL_Renderer* renderer);
+	void DeadCheck() override;
 };

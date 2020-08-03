@@ -20,6 +20,7 @@
 #include "../player/player.h"
 #include "../player/players_info.h"
 
+#include "user_manager.h"
 
 class GameManager {
 protected:
@@ -32,6 +33,7 @@ protected:
 	UnitFactory* unit_factory_;
 	std::vector<Player*> players_;
 	PlayersInfo* players_info_;
+	UserManager* user_manager_;
 
 	double camera_h_;
 	double ground_h_, air_h_;

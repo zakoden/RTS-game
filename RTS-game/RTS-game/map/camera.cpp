@@ -65,6 +65,14 @@ double Camera::ConvertScale(double scale) {
 	return scale;
 }
 
+double Camera::ToMapX(SDL_Renderer* renderer, int x) {
+	return ((double)x / scale_ + GetCornerX(renderer));
+}
+
+double Camera::ToMapY(SDL_Renderer* renderer, int y) {
+	return ((double)y / scale_ + GetCornerY(renderer));
+}
+
 void Camera::Move(double dx, double dy) {
 	x_ += dx;
 	y_ += dy;
