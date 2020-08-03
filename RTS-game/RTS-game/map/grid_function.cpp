@@ -67,7 +67,7 @@ void grid_function::Dijkstra(Grid<float>* distance_ptr,
 
 Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
 	size_t height = clusters.size(), width = clusters[0].size();
-	Grid<bool> visited(height, width, false);
+	Grid<char> visited(height, width, false);
 	Grid<uint32_t> result(height, width);
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
@@ -77,9 +77,9 @@ Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
 				for (size_t i = 0; i < bfs.size(); ++i) {
 					Point current = bfs[i];
 					for (Point p : grid_function::GetNeighbors(current, height, width)) {
-							if (clusters[p] == clusters[current] && !visited[p.y][p.x]) {
+						if (clusters[p] == clusters[current] && !visited[p]) {
 							bfs.push_back(p);
-							visited[p.y][p.x] = true;
+							visited[p] = true;
 						}
 					}
 				}
@@ -92,8 +92,8 @@ Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
 	return result;
 }
 
-vector<Point> grid_function::FindClosest(const Point& start, const Grid<bool>& allowed_points,
-	const Grid<bool>& end_points, float min_distance) {
+vector<Point> grid_function::FindClosest(const Point& start, const Grid<char>& allowed_points,
+	const Grid<char>& end_points, float min_distance) {
 	Grid<Point> ancestor = FromFunction<Point>(allowed_points.size(), allowed_points[0].size(),
 		[&](uint32_t i, uint32_t j) {return Point{j, i}; });
 

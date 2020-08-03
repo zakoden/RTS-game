@@ -39,8 +39,8 @@ namespace grid_function {
 	2. Must end at end point
 	3. Have distance at least min_distance
 	*/
-	vector<Point> FindClosest(const Point& start, const Grid<bool>& allowed_points,
-		const Grid<bool>& end_points, float min_distance = 0);
+	vector<Point> FindClosest(const Point& start, const Grid<char>& allowed_points,
+		const Grid<char>& end_points, float min_distance = 0);
 };
 
 
