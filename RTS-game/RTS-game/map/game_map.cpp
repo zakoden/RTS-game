@@ -161,7 +161,7 @@ void GameMap::Generate() {
 		and c will belong to closest point's cluster
 		That will take O(area * log(area)) (area = height_ * width_)
 	*/
-	grid_function::Dijkstra(&distance, &cluster);
+	grid_function::Dijkstra(neighbors, &distance, &cluster);
 
 	// 3. Give to each cluster random tile
 	const vector<BlockType> ALLOWED_BLOCKS = { WATER, DESERT, GRASS_LIGHT, GRASS, GRASS_OTHER};
@@ -252,7 +252,7 @@ void GameMap::Generate() {
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				distance[i][j] = (blocks[i][j] == WATER) ? max_distance : 0;
-		grid_function::Dijkstra(&distance);
+		grid_function::Dijkstra(neighbors, &distance);
 
 		// 6.2. Make closest to land cells to have shallow water, similiar with farthest
 		const float WATER_SHALLOW_MAX_DISTANCE = 1.5;
@@ -271,7 +271,7 @@ void GameMap::Generate() {
 
 		// 6.3. Remove deep water tiles with very low area
 		const uint32_t DEEP_WATER_AREA_MIN = 6;
-		deep_water_area = grid_function::GetAreas(blocks);
+		deep_water_area = grid_function::GetAreas(neighbors, blocks);
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				if (blocks[i][j] == WATER_DEEP && deep_water_area[i][j] < DEEP_WATER_AREA_MIN)
@@ -323,12 +323,12 @@ void GameMap::Generate() {
 			// 8.3. Make path
 
 			// 8.3.1. From source to border
-			vector<Point> path = grid_function::FindClosest(border, all_true, is_water);
+			vector<Point> path = grid_function::FindClosest(neighbors, border, all_true, is_water);
 			reverse(path.begin(), path.end());
 
 			// 8.3.2. From border to another border
 			const float MIN_DISTANCE = 20;
-			vector<Point> border_to_border2 = grid_function::FindClosest(border, on_border, is_water_shallow, MIN_DISTANCE);
+			vector<Point> border_to_border2 = grid_function::FindClosest(neighbors, border, on_border, is_water_shallow, MIN_DISTANCE);
 			if (border_to_border2.empty())
 				continue;
 			path.insert(path.end(), border_to_border2.begin(), border_to_border2.end());
@@ -336,7 +336,7 @@ void GameMap::Generate() {
 			// 8.3.3. From another border to sink
 			Point border2 = path.back();
 
-			vector<Point> border2_to_sink = grid_function::FindClosest(border2, all_true, is_water);
+			vector<Point> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water);
 			path.insert(path.end(), border2_to_sink.begin(), border2_to_sink.end());
 
 			// 8.4. Paint a river and decrease total_area_left
@@ -446,7 +446,7 @@ void GameMap::Generate() {
 	{
 		// 9.1. Remove small areas
 		const uint32_t MIN_AREA = 100;
-		Grid<uint32_t> areas = grid_function::GetAreas(blocks);
+		Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
 				if (areas[i][j] < MIN_AREA) {
@@ -463,13 +463,14 @@ void GameMap::Generate() {
 			}
 		}
 
-		// 9.2. Make shallow water cell a normal one if it's not near non-water blocks
+		// 9.2. Make shallow water cell a normal one if it's not near land blocks
+		const std::unordered_set<BlockType> MOUNTAIN_TYPES = { MOUNTAIN_LOW, MOUNTAIN_HIGH };
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
 				if (blocks[i][j] == WATER_SHALLOW) {
 					bool remove = true;
 					for (Point point : neighbors[i][j]) {
-						if (!WATER_TYPES.count(blocks[point])) {
+						if (!WATER_TYPES.count(blocks[point]) && !MOUNTAIN_TYPES.count(blocks[point])) {
 							remove = false;
 							break;
 						}

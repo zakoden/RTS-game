@@ -119,6 +119,8 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="map\grid_neighbors.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
     <ClInclude Include="player\player_owner.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

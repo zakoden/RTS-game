@@ -4,23 +4,6 @@
 
 #include <queue>
 
-vector<Point> grid_function::GetNeighbors(const Point& p, size_t height, size_t width) {
-	vector<Point> result;
-	for (int dx = -1; dx <= 1; ++dx) {
-		if ((dx == -1 && p.x == 0) || (dx == 1 && p.x == width - 1))  // x is out of bounds
-			continue;
-
-		for (int dy = -1; dy <= 1; ++dy) {
-			if ((dy == -1 && p.y == 0) || (dy == 1 && p.y == height - 1))  // y is out of bounds
-				continue;
-
-			result.push_back({ p.x + dx, p.y + dy });
-		}
-	}
-
-	return result;
-}
-
 inline uint32_t grid_function::SquaredDistance(const Point& a, const Point& b) {
 	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 }
@@ -29,8 +12,8 @@ inline float grid_function::Distance(const Point& a, const Point& b) {
 	return sqrtf(static_cast<float>(SquaredDistance(a, b)));
 }
 
-void grid_function::Dijkstra(Grid<float>* distance_ptr, 
-	Grid<int>* cluster_ptr) {
+void grid_function::Dijkstra(const GridNeighbors& neighbors, 
+	Grid<float>* distance_ptr, Grid<int>* cluster_ptr) {
 	assert(!distance_ptr -> empty());
 	Grid<float>& distance = *distance_ptr;
 
@@ -53,7 +36,7 @@ void grid_function::Dijkstra(Grid<float>* distance_ptr,
 			continue;
 
 		// Going through all neighboring points
-		for (Point point : GetNeighbors(current, distance.size(), distance[0].size())) {
+		for (Point point : neighbors[current]) {
 			float dist = Distance(point, current);
 			if (distance[point] > distance[current] + dist) {
 				distance[point] = distance[current] + dist;
@@ -65,7 +48,8 @@ void grid_function::Dijkstra(Grid<float>* distance_ptr,
 	}
 }
 
-Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
+Grid<uint32_t> grid_function::GetAreas(const GridNeighbors& neighbors, 
+	const Grid<BlockType>& clusters) {
 	size_t height = clusters.size(), width = clusters[0].size();
 	Grid<char> visited(height, width, false);
 	Grid<uint32_t> result(height, width);
@@ -76,7 +60,7 @@ Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
 				bfs.push_back({ j, i });
 				for (size_t i = 0; i < bfs.size(); ++i) {
 					Point current = bfs[i];
-					for (Point p : grid_function::GetNeighbors(current, height, width)) {
+					for (Point p : neighbors[current]) {
 						if (clusters[p] == clusters[current] && !visited[p]) {
 							bfs.push_back(p);
 							visited[p] = true;
@@ -92,8 +76,8 @@ Grid<uint32_t> grid_function::GetAreas(const Grid<BlockType>& clusters) {
 	return result;
 }
 
-vector<Point> grid_function::FindClosest(const Point& start, const Grid<char>& allowed_points,
-	const Grid<char>& end_points, float min_distance) {
+vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const Point& start,
+	const Grid<char>& allowed_points, const Grid<char>& end_points, float min_distance) {
 	Grid<Point> ancestor = FromFunction<Point>(allowed_points.size(), allowed_points[0].size(),
 		[&](uint32_t i, uint32_t j) {return Point{j, i}; });
 
@@ -119,7 +103,7 @@ vector<Point> grid_function::FindClosest(const Point& start, const Grid<char>& a
 		}
 
 		// Going through all neighboring points
-		for (Point point : GetNeighbors(current, distance.size(), distance[0].size())) {
+		for (Point point : neighbors[current]) {
 			if (!allowed_points[point])
 				continue;
 			float dist = Distance(point, current);
