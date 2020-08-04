@@ -160,9 +160,11 @@
     <ClCompile Include="managers\user_manager.cpp" />
     <ClCompile Include="map\camera.cpp" />
     <ClCompile Include="map\game_map.cpp" />
+    <ClCompile Include="map\game_map_generate.cpp" />
     <ClCompile Include="map\grid_function.cpp" />
     <ClCompile Include="map\grid_neighbors.cpp" />
     <ClCompile Include="map\point.cpp" />
+    <ClCompile Include="map\time_measurer.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="player\players_info.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -189,6 +191,7 @@
     <ClInclude Include="map\grid_function.h" />
     <ClInclude Include="map\grid_neighbors.h" />
     <ClInclude Include="map\point.h" />
+    <ClInclude Include="map\time_measurer.h" />
     <ClInclude Include="player\player_owner.h" />
     <ClInclude Include="units\abstract_unit_factory.h" />
     <ClInclude Include="behaviors\behavior_random.h" />
