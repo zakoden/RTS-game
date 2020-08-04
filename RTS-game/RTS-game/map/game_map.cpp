@@ -53,7 +53,7 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	}
 }
 
-uint8_t GameMap::GetSubtype(BlockType type, uint32_t x, uint32_t y) {
+uint8_t GameMap::GetSubtype(BlockType type) {
 	switch (type) {
 		case GRASS:
 			return GRASS + rand() % 10;

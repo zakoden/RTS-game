@@ -37,12 +37,11 @@ public:
 	void AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 	void DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 
-	uint8_t GetSubtype(BlockType type, uint32_t x, uint32_t y);
-
 	uint8_t GetBlock(uint32_t x, uint32_t y);
 	void SetBlock(uint32_t x, uint32_t y, uint8_t value);
 	void BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y);
 	void Draw(SDL_Renderer* renderer, Camera* camera); 
 
+	uint8_t GetSubtype(BlockType type);
 	void Generate();  // Generates random map
 };

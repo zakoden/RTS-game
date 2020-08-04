@@ -13,6 +13,9 @@ GridNeighbors::GridNeighbors(size_t height, size_t width) {
 					if ((dy == -1 && p.y == 0) || (dy == 1 && p.y == height - 1))  // y is out of bounds
 						continue;
 
+					if (dx == 0 && dy == 0)  // Point can't be its own neighbor
+						continue;
+
 					operator[](i)[j].push_back({ p.x + dx, p.y + dy });
 				}
 			}

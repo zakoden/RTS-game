@@ -2,7 +2,6 @@
 
 #include <cassert>
 #include <chrono>
-#include <ctime>
 
 #include <iostream>
 #include <queue>
@@ -17,9 +16,15 @@
 using grid_function::FromFunction;
 using std::vector;
 
+// Interesting seeds: 1596578997, 1596581941
+
+// FIX граница находит источник на очень далёком расстоянии, что даёт реки размера 1 (а они некрасивые)
+
 void GameMap::Generate() {
-	srand(static_cast<unsigned int>(time(0)));
+	unsigned int seed = 1596581941;//static_cast<unsigned int>(time(0));
 	TimeMeasurer time;
+	srand(seed);
+	std::cerr << "Seed is " << seed << std::endl;
 
 	uint32_t height = GetHeight(), width = GetWidth();
 	GridNeighbors neighbors{ height, width };
@@ -177,7 +182,6 @@ void GameMap::Generate() {
 
 
 	time.PrintTime("Make water look more deep");
-
 	//7. Add rivers
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
 	{
@@ -209,7 +213,7 @@ void GameMap::Generate() {
 		for (; total_river_area_left > 0;) {
 			//std::cerr << "Total river area left: " << total_river_area_left << std::endl;
 
-			// 8.2. Choose river border
+			// 7.2. Choose river border
 			size_t cluster_number = possible_clusters[rand() % possible_clusters.size()];
 			if (border_points[cluster_number].empty()) {
 				possible_clusters.erase(std::find(possible_clusters.begin(), possible_clusters.end(), cluster_number));
@@ -217,47 +221,46 @@ void GameMap::Generate() {
 			}
 			Point border = border_points[cluster_number][rand() % border_points[cluster_number].size()];
 
-			// 8.3. Make path
+			// 7.3. Make path
 
-			// 8.3.1. From source to border
+			// 7.3.1. From source to border
 			vector<Point> path = grid_function::FindClosest(neighbors, border, all_true, is_water);
 			reverse(path.begin(), path.end());
 
-			// 8.3.2. From border to another border
+			// 7.3.2. From border to another border
 			const float MIN_DISTANCE = 20;
 			vector<Point> border_to_border2 = grid_function::FindClosest(neighbors, border, on_border, is_water_shallow, MIN_DISTANCE);
 			if (border_to_border2.empty())
 				continue;
 			path.insert(path.end(), border_to_border2.begin(), border_to_border2.end());
 
-			// 8.3.3. From another border to sink
+			// 7.3.3. From another border to sink
 			Point border2 = path.back();
 
 			vector<Point> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water);
 			path.insert(path.end(), border2_to_sink.begin(), border2_to_sink.end());
 
-			// 8.4. Paint a river and decrease total_area_left
+			// 7.4. Paint a river and decrease total_area_left
 			std::cerr << "Drawing a river from (" << path.front().x << ", " << path.front().y << ") to ("
 				<< path.back().x << ", " << path.back().y << ")" << std::endl;
 
-			for (const Point& point : path) {
+			for (Point point : path) {
+				if (blocks[point] == WATER_SHALLOW)
+					is_water_shallow[point] = false;
 				blocks[point] = WATER;
 				is_water[point] = true;
 				--total_river_area_left;
 				for (Point other : neighbors[point]) {
-					if (on_border[other.y][other.x] && !WATER_TYPES.count(blocks[other])) {
+					if (on_border[other] && blocks[other] != WATER_DEEP) {
 						total_river_area_left -= blocks[other] != WATER;
-						blocks[other] = WATER;
-						is_water[other] = true;
-					}
-					else if (blocks[other] == WATER_SHALLOW) {
-						blocks[other] = WATER;
 						is_water_shallow[other] = false;
+						blocks[other] = WATER;
 						is_water[other] = true;
 					}
 				}
 			}
-			for (const Point& point : path) {
+
+			for (Point point : path) {
 				for (Point other : neighbors[point]) {
 					if (blocks[other] == WATER) {
 						for (Point very_other : neighbors[other]) {
@@ -273,14 +276,14 @@ void GameMap::Generate() {
 		}
 	}
 
+	time.PrintTime("Add rivers");
 
 	// 8. Add mountains
 	{
 		Grid<BlockType> previous_blocks = blocks;
-		/* 8.1. Add actual mountains
-		How? Let's go through all borders, pick part of the border that is on the larger cluster,
-		then make all cells in that border to be mountains
-		*/
+		// 8.1. Add actual mountains
+		// How? Let's go through all borders, pick part of the border that is on the larger cluster,
+		// then make all cells in that border to be mountains
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
 				if (on_border[i][j] && blocks[i][j] != WATER) {
@@ -324,21 +327,18 @@ void GameMap::Generate() {
 		}
 
 
-		/* 8.3. Make lower mountains
-		How? Let's go through all high mountains, and
-		if the neighbor is not water and not mountain, then it's a lower mountain
-		*/
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (blocks[i][j] == MOUNTAIN_HIGH) {
-					for (Point point : neighbors[i][j]) {
+		// 8.3. Make lower mountains
+		// How? Let's go through all high mountains, and
+		// if the neighbor is not water and not mountain, then it's a lower mountain
+		for (uint32_t i = 0; i < height; ++i)
+			for (uint32_t j = 0; j < width; ++j)
+				if (blocks[i][j] == MOUNTAIN_HIGH)
+					for (Point point : neighbors[i][j])
 						if (blocks[point] != MOUNTAIN_HIGH && blocks[point] != WATER)
 							blocks[point] = MOUNTAIN_LOW;
-					}
-				}
-			}
-		}
 	}
+
+	time.PrintTime("Add mountains");
 
 	// 9. Clear small areas
 	{
@@ -381,6 +381,8 @@ void GameMap::Generate() {
 		}
 	}
 
+	time.PrintTime("Clear small areas");
+
 	// 9. Add passages between mountains
 	for (uint32_t i = 0; i < height; ++i) {
 
@@ -389,11 +391,9 @@ void GameMap::Generate() {
 	// 10. Add trees
 
 	// 11. Give subtypes to tiles
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			blocks[i][j] = (BlockType)GetSubtype((BlockType)blocks[i][j], j, i);
-		}
-	}
+	for (uint32_t i = 0; i < height; ++i)
+		for (uint32_t j = 0; j < width; ++j)
+			blocks[i][j] = static_cast<BlockType>(GetSubtype(blocks[i][j]));
 
 	// 12. Fill blocks_ array with the result from blocks
 	for (uint32_t i = 0; i < height; ++i)

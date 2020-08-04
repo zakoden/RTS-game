@@ -12,13 +12,19 @@ class Grid : public vector<vector<T>> {
 public:
 	inline Grid() = default;
 
-	inline Grid(size_t height, size_t width, T default_value = T());
+	inline Grid(size_t height, size_t width);
+	inline Grid(size_t height, size_t width, T default_value);
 
 	inline vector<T>& operator[](size_t i);
 	inline const vector<T>& operator[](size_t i) const;
 	inline T& operator[](Point point);
 	inline const T& operator[](Point point) const;
 };
+
+template<typename T>
+inline Grid<T>::Grid(size_t height, size_t width) {
+	vector<vector<T>>::resize(height, vector<T>(width));
+}
 
 template<typename T>
 inline Grid<T>::Grid(size_t height, size_t width, T default_value) {
