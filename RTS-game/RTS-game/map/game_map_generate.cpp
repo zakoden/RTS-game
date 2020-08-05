@@ -16,12 +16,8 @@
 using grid_function::FromFunction;
 using std::vector;
 
-// Interesting seeds: 1596578997, 1596581941
-
-// FIX граница находит источник на очень далёком расстоянии, что даёт реки размера 1 (а они некрасивые)
-
 void GameMap::Generate() {
-	unsigned int seed = 1596581941;//static_cast<unsigned int>(time(0));
+	unsigned int seed = static_cast<unsigned int>(time(0));
 	TimeMeasurer time;
 	srand(seed);
 	std::cerr << "Seed is " << seed << std::endl;
@@ -197,13 +193,15 @@ void GameMap::Generate() {
 		vector<vector<Point>> border_points(CHUNKS_COUNT);
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
-				if (on_border[i][j])
+				if (on_border[i][j] && WATER_TYPES.count(blocks[i][j]))
 					border_points[cluster[i][j]].push_back({ j, i });
 
-		int total_river_area_left = 2500;
+		int total_river_area_left = 3000;
 		if (possible_clusters.empty())  // No clusters => no rivers
 			total_river_area_left = 0;
 
+		Grid<char> is_water_type = FromFunction<char>(height, width,
+			[&](size_t i, size_t j) { return WATER_TYPES.count(blocks[i][j]); });
 		Grid<char> all_true(height, width, true);
 		Grid<char> is_water = FromFunction<char>(height, width,
 			[&](size_t i, size_t j) { return blocks[i][j] == WATER; });
@@ -225,7 +223,6 @@ void GameMap::Generate() {
 
 			// 7.3.1. From source to border
 			vector<Point> path = grid_function::FindClosest(neighbors, border, all_true, is_water);
-			reverse(path.begin(), path.end());
 
 			// 7.3.2. From border to another border
 			const float MIN_DISTANCE = 20;
@@ -235,15 +232,12 @@ void GameMap::Generate() {
 			path.insert(path.end(), border_to_border2.begin(), border_to_border2.end());
 
 			// 7.3.3. From another border to sink
-			Point border2 = path.back();
+			Point border2 = border_to_border2.front();
 
 			vector<Point> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water);
 			path.insert(path.end(), border2_to_sink.begin(), border2_to_sink.end());
 
 			// 7.4. Paint a river and decrease total_area_left
-			std::cerr << "Drawing a river from (" << path.front().x << ", " << path.front().y << ") to ("
-				<< path.back().x << ", " << path.back().y << ")" << std::endl;
-
 			for (Point point : path) {
 				if (blocks[point] == WATER_SHALLOW)
 					is_water_shallow[point] = false;
