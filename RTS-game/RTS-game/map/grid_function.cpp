@@ -107,7 +107,7 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 			continue;
 		if (end_points[current] && distance[current] + EPS > min_distance) {
 			result.push_back(current);
-			std::cerr << distance[current] << std::endl;
+			//std::cerr << distance[current] << std::endl;
 			break;
 		}
 
@@ -128,6 +128,5 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 		return result;
 	while (result.back() != start)
 		result.push_back(ancestor[result.back()]);
-	reverse(result.begin(), result.end());
 	return result;
 }
