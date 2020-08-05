@@ -37,10 +37,25 @@ std::unordered_set<AbstractUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t
 	return &units_in_block_[GetInd(x, y)];
 }
 
+bool GameMap::IsBlockInMap(int x, int y) {
+	return (x >= 0 && y >= 0 &&
+		static_cast<uint32_t>(x) < width_ &&
+		static_cast<uint32_t>(y) < height_);
+}
+
 bool GameMap::IsPositionInMap(int x, int y) {
 	return (x >= 0 && y >= 0 &&
 		    static_cast<uint32_t>(x) < (BLOCK_SIZE * width_) && 
 			static_cast<uint32_t>(y) < (BLOCK_SIZE * height_));
+}
+
+SDL_Rect GameMap::GetBlockRect(uint32_t x, uint32_t y) {
+	SDL_Rect rect;
+	rect.x = x * BLOCK_SIZE;
+	rect.y = y * BLOCK_SIZE;
+	rect.w = BLOCK_SIZE;
+	rect.h = BLOCK_SIZE;
+	return rect;
 }
 
 void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {

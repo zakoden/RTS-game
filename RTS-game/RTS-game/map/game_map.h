@@ -32,7 +32,9 @@ public:
 	uint32_t GetBlockSize();
 	std::unordered_set<AbstractUnit*>* GetUnitsInBlock(uint32_t x, uint32_t y);
 
+	bool IsBlockInMap(int x, int y);
 	bool IsPositionInMap(int x, int y);
+	SDL_Rect GetBlockRect(uint32_t x, uint32_t y);
 
 	void AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
 	void DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y);

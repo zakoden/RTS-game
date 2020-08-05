@@ -53,7 +53,7 @@ void GameManager::Run() {
 		unit_factory_->AddPlayer(players_[i]);
 	}
 
-	unit_factory_->CreateTest(1, 100, 100);
+	unit_factory_->CreateTest(1, 150, 100);
 	for (int i = 0; i < 30; ++i) {
 		unit_factory_->CreateTest(1, 150 + 10 * i, 150 + rand() % 20);
 	}

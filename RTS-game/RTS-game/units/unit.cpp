@@ -38,8 +38,8 @@ void Unit::DeleteUnitFromMap() {
 	}
 }
 
-void MapCollisionCheck() {
-
+bool Unit::CanMoveOnBlock(uint32_t x, uint32_t y) {
+	return (game_map_->GetBlock(x, y) != BlockType::WATER_SHALLOW);
 }
 
 // -----------public---------------
@@ -114,6 +114,145 @@ void Unit::VectorApply() {
 	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
 	dx_ = (dx_ * speed_) / v_len;
 	dy_ = (dy_ * speed_) / v_len;
+
+	int x, y;
+	x = floor(x_);
+	y = floor(y_);
+	int x1, x2, y1, y2;
+	x1 = (x + deltaX_) / game_map_->GetBlockSize() - 1;
+	y1 = (y + deltaY_) / game_map_->GetBlockSize() - 1;
+	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize() + 1;
+	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize() + 1;
+
+	double up, down, left, right;
+	left = x_ + deltaX_;
+	up = y_ + deltaY_;
+	right = left + width_;
+	down = up + height_;
+
+	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
+		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
+			if (!game_map_->IsBlockInMap(cur_x, cur_y))
+				continue;
+			if (CanMoveOnBlock(cur_x, cur_y))
+				continue;
+
+			SDL_Rect block = game_map_->GetBlockRect(cur_x, cur_y);
+			double inner_up, inner_down, inner_left, inner_right;
+			double area;
+			inner_left = std::max(left + dx_, (double)block.x);
+			inner_up = std::max(up + dy_, (double)block.y);
+			inner_right = std::min(right + dx_, (double)block.x + block.w);
+			inner_down = std::min(down + dy_, (double)block.y + block.h);
+			if ((inner_right - inner_left) < EPS) continue;
+			if ((inner_down - inner_up) < EPS) continue;
+			area = (inner_right - inner_left) * (inner_down - inner_up);
+			if (area < EPS) continue;
+			int ind = -1; // collision from
+			// 0 - up
+			// 1 - left
+			// 2 - down
+			// 3 - right
+			double min_coef = 0.0;
+			double cur_coef, up_dist, left_dist, down_dist, right_dist;
+
+			up_dist = (down + dy_) - block.y;
+			if ((up + dy_) < block.y && (down + dy_) >= block.y &&
+				(right + dx_) >= block.x && (left + dx_) <= (block.x + block.w) &&
+				up_dist > EPS && dy_ > EPS) {
+				cur_coef = up_dist / dy_;
+				if (ind == -1 || (ind >= 0 && cur_coef < min_coef)) {
+					ind = 0;
+					min_coef = cur_coef;
+				}
+			}
+
+			left_dist = (right + dx_) - block.x;
+			if ((left + dx_) < block.x && (right + dx_) >= block.x &&
+				(down + dy_) >= block.y && (up + dy_) < (block.y + block.h) &&
+				left_dist > EPS && dx_ > EPS) {
+				cur_coef = left_dist / dx_;
+				if (ind == -1 || (ind >= 0 && cur_coef < min_coef)) {
+					ind = 1;
+					min_coef = cur_coef;
+				}
+			}
+
+			down_dist = (up + dy_) - (block.y + block.h);
+			if ((up + dy_) < (block.y + block.h) && (down + dy_) > (block.y + block.h) &&
+				(right + dx_) >= block.x && (left + dx_) <= (block.x + block.w) &&
+				down_dist < -EPS && dy_ < -EPS) {
+				cur_coef = down_dist / dy_;
+				if (ind == -1 || (ind >= 0 && cur_coef < min_coef)) {
+					ind = 2;
+					min_coef = cur_coef;
+				}
+			}
+
+			right_dist = (left + dx_) - (block.x + block.w);
+			if ((left + dx_) < (block.x + block.w) && (right + dx_) > (block.x + block.w) &&
+				(down + dy_) >= block.y && (up + dy_) < (block.y + block.h) &&
+				right_dist < -EPS && dx_ < -EPS) {
+				cur_coef = right_dist / dx_;
+				if (ind == -1 || (ind >= 0 && cur_coef < min_coef)) {
+					ind = 3;
+					min_coef = cur_coef;
+				}
+			}
+
+			switch (ind) {
+			case 0: {
+				double need_dy = block.y - down;
+				double coef = 1.0 - (need_dy / dy_);
+				if (coef > 1.0) coef = 1.0;
+				if (coef < 0.0) coef = 0.0;
+				dx_ *= coef;
+				up += need_dy;
+				down += need_dy;
+				y_ += need_dy;
+				dy_ = 0.0;
+				break;
+			}
+			case 1: {
+				double need_dx = block.x - right;
+				double coef = 1.0 - (need_dx / dx_);
+				if (coef > 1.0) coef = 1.0;
+				if (coef < 0.0) coef = 0.0;
+				dy_ *= coef;
+				left += need_dx;
+				right += need_dx;
+				x_ += need_dx;
+				dx_ = 0.0;
+				break;
+			}
+			case 2: {
+				double need_dy = (block.y + block.h) - up;
+				double coef = 1.0 - (need_dy / dy_);
+				if (coef > 1.0) coef = 1.0;
+				if (coef < 0.0) coef = 0.0;
+				dx_ *= coef;
+				up += need_dy;
+				down += need_dy;
+				y_ += need_dy;
+				dy_ = 0.0;
+				break;
+			}
+			case 3: {
+				double need_dx = (block.x + block.w) - left;
+				double coef = 1.0 - (need_dx / dx_);
+				if (coef > 1.0) coef = 1.0;
+				if (coef < 0.0) coef = 0.0;
+				dy_ *= coef;
+				left += need_dx;
+				right += need_dx;
+				x_ += need_dx;
+				dx_ = 0.0;
+				break;
+			}
+			}
+		}
+	}
+
 	x_ += dx_;
 	y_ += dy_;
 	if (x_ < 0) {
@@ -128,6 +267,7 @@ void Unit::VectorApply() {
 	if (y_ > (8 * game_map_->GetHeight() - height_)) {
 		y_ = (8 * game_map_->GetHeight() - height_);
 	}
+
 	InsertUnitToMap();
 }
 
@@ -176,7 +316,7 @@ void Unit::DoAction() {
 	double EPS = 0.0001;
 	if (abs(dx_) > EPS || abs(dy_) > EPS) {
 		AddEffect(Effect::MOVING);
-		is_right_side = !(dx_ < 0.0);
+		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
 	}
 }
 
@@ -224,7 +364,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	hitbox.y = to.y + deltaY_;
 	hitbox.w = width_;
 	hitbox.h = height_;
-	//SDL_RenderDrawRect(renderer, &hitbox);
+    SDL_RenderDrawRect(renderer, &hitbox);
 
 	if (type_ == UnitType::Ground) {
 		int life_len = (hitbox.w * health_) / max_health_;

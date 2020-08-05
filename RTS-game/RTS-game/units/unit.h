@@ -4,6 +4,7 @@
 #include "../map/game_map.h"
 #include "../managers/texture_manager.h"
 
+#include <algorithm>
 #include <bitset>
 #include <memory>
 
@@ -58,6 +59,7 @@ protected:
 
     void InsertUnitToMap();
 	void DeleteUnitFromMap();
+	bool CanMoveOnBlock(uint32_t x, uint32_t y);
 
 	//void MapCollisionCheck();
 public:
