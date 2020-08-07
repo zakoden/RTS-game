@@ -11,6 +11,7 @@ protected:
 	AbstractUnit* unit_;
 	int cur_steps_ = 0;
 	int steps_to_change_ = 50;
+	double dx_ = 0.0, dy_ = 0.0;
 public:
 	BehaviorRandom(AbstractUnit* unit = NULL);
 	~BehaviorRandom();

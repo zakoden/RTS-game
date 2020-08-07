@@ -20,6 +20,7 @@ TextureManager::TextureManager(SDL_Renderer* renderer) {
 	LoadTexture("pictures/testunit1.bmp");
 	LoadTexture("pictures/testunit2.bmp");
 	LoadTexture("pictures/testunit3.bmp");
+	LoadTexture("pictures/testunit2_1.bmp");
 
 	surface = NULL;
 	texture = NULL;

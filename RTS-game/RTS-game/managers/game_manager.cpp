@@ -27,7 +27,8 @@ int GameManager::Init() {
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
 	game_map_ = new GameMap(renderer_, 200, 200);
-	game_map_->Generate();
+	//game_map_->Generate();
+	game_map_->GenerateHeightMap();
 	texture_manager_ = new TextureManager(renderer_);
 	players_info_ = new PlayersInfo(2);
 	unit_factory_ = new UnitFactory();
@@ -175,6 +176,10 @@ void GameManager::RunStep() {
 
 	for (size_t i = 0; i < players_.size(); ++i) {
 		players_[i]->DoAction();
+	}
+
+	for (size_t i = 0; i < players_.size(); ++i) {
+		players_[i]->Move();
 	}
 
 

@@ -16,7 +16,6 @@ void Player::SetOwner(PlayerOwner* owner) {
 }
 
 void Player::DoAction() {
-	// to do
 	for (auto& unit : army_) {
 		if (unit->IsAlive()) {
 			unit->DeadCheck();
@@ -40,6 +39,12 @@ void Player::DoAction() {
 			it = army_.erase(it);
 			delete unit;
 		}
+	}
+}
+
+void Player::Move() {
+	for (auto& unit : army_) {
+		unit->Move();
 	}
 }
 

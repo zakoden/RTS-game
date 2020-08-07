@@ -122,3 +122,63 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
 		}
 	}
 }
+
+double KekDist(int x1, int y1, int x2, int y2) {
+	double ans;
+	double dx = abs(x1 - x2);
+	double dy = abs(y1 - y2);
+	ans = sqrt(dx * dx + dy * dy);
+	return ans;
+}
+
+void GameMap::GenerateHeightMap() {
+	int chunck_size = 10;
+	for (uint32_t y = 0; y < height_; y += chunck_size) {
+		for (uint32_t x = 0; x < width_; x += chunck_size) {
+			blocks_[GetInd(x, y)] = rand() % 256;
+		}
+	}
+	for (uint32_t y = 0; y < height_; y += 1) {
+		for (uint32_t x = 0; x < width_; x += 1) {
+			if (x % chunck_size == 0 &&
+				y % chunck_size == 0) continue;
+			int val[4] = {0, 0, 0, 0};
+			double dist[4] = {0.0, 0.0, 0.0, 0.0};
+			int cx, cy;
+			cx = x - x % chunck_size;
+			cy = y - y % chunck_size;
+			val[0] = blocks_[GetInd(cx, cy)];
+			if ((cx + chunck_size) < width_) val[1] = blocks_[GetInd(cx + chunck_size, cy)];
+			if ((cy + chunck_size) < height_) val[2] = blocks_[GetInd(cx, cy + chunck_size)];
+			if ((cx + chunck_size) < width_ && 
+				(cy + chunck_size) < height_) val[3] = blocks_[GetInd(cx+ chunck_size, cy + chunck_size)];
+			dist[0] = KekDist(x, y, cx, cy);
+			dist[1] = KekDist(x, y, cx + chunck_size, cy);
+			dist[2] = KekDist(x, y, cx, cy + chunck_size);
+			dist[3] = KekDist(x, y, cx + chunck_size, cy + chunck_size);
+			double res = 0.0;
+			double coef = 0.0;
+			double sum = 0.0;
+			for (int i = 0; i < 4; ++i) {
+				coef = std::max(coef, dist[i]);
+			}
+			for (int i = 0; i < 4; ++i) {
+				res += (double)val[i] * (10.0 / dist[i]);
+				sum += (10.0 / dist[i]);
+			}
+			res /= sum;
+			blocks_[GetInd(x, y)] = round(res);
+		}
+	}
+
+	std::vector<BlockType> BLOCKS = {WATER_DEEP, WATER, WATER, WATER_SHALLOW, DESERT, GRASS_LIGHT, GRASS, GRASS_OTHER,
+	MOUNTAIN_LOW, MOUNTAIN_HIGH};
+	for (uint32_t y = 0; y < height_; y += 1) {
+		for (uint32_t x = 0; x < width_; x += 1) {
+			int len = 256 / BLOCKS.size();
+			int val = blocks_[GetInd(x, y)] / len;
+			if (val >= BLOCKS.size()) val = BLOCKS.size() - 1;
+			blocks_[GetInd(x, y)] = GetSubtype(BLOCKS[val]);
+		}
+	}
+}

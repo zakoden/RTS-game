@@ -86,6 +86,19 @@ int Unit::GetAttack() {
 	return attack_;
 }
 
+void Unit::GetHitbox(double& x1, double& y1, double& x2, double& y2) {
+	x1 = x_ + deltaX_;
+	y1 = y_ + deltaY_;
+	x2 = x1 + width_;
+	y2 = y1 + height_;
+}
+
+void Unit::GetVector(double& dx, double& dy) {
+	dx = dx_;
+	dy = dy_;
+}
+
+
 void Unit::SetPosition(int x, int y) {
 	SetPosition((double)x, (double)y);
 }
@@ -106,15 +119,166 @@ void Unit::SetVector(double dx, double dy) {
 	dy_ = dy;
 }
 
+void Unit::AddVector(double dx, double dy) {
+	dx_ += dx;
+	dy_ += dy;
+}
 
 void Unit::VectorApply() {
 	double EPS = 1e-5;
 	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
-	DeleteUnitFromMap();
 	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
 	dx_ = (dx_ * speed_) / v_len;
 	dy_ = (dy_ * speed_) / v_len;
+}
 
+void Unit::VectorApplyBullet() {
+	double EPS = 1e-5;
+	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
+	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
+	dx_ = (dx_ * speed_) / v_len;
+	dy_ = (dy_ * speed_) / v_len;
+	x_ += dx_;
+	y_ += dy_;
+	if (x_ < 0) {
+		x_ = 0;
+	}
+	if (y_ < 0) {
+		y_ = 0;
+	}
+	if (x_ > (8 * game_map_->GetWidth() - width_)) {
+		x_ = (8 * game_map_->GetWidth() - width_);
+	}
+	if (y_ > (8 * game_map_->GetHeight() - height_)) {
+		y_ = (8 * game_map_->GetHeight() - height_);
+	}
+}
+
+void Unit::DamageApply(int damage) {
+	int total_damage = damage - defense_;
+	if (total_damage < 0) total_damage = 0;
+	health_ -= total_damage;
+	if (health_ < 0) {
+		std::cout << "die, health : " << health_ << std::endl;
+		Die();
+	}
+}
+
+void Unit::AttackEnd() {
+	RemoveEffect(Effect::ATTACKING);
+	behavior_->AttackEnd();
+}
+
+void Unit::UnitCollide(AbstractUnit* unit) {
+	double x1, x2, y1, y2;
+	double cx1, cy1, cx2, cy2;
+	double dx1, dy1, dx2, dy2;
+
+	this->GetVector(dx1, dy1);
+	unit->GetVector(dx2, dy2);
+
+	this->GetHitbox(x1, y1, x2, y2);
+	cx1 = (x1 + x2) / 2.0;
+	cy1 = (y1 + y2) / 2.0;
+
+	unit->GetHitbox(x1, y1, x2, y2);
+	cx2 = (x1 + x2) / 2.0;
+	cy2 = (y1 + y2) / 2.0;
+	
+	if (abs(cx1 - cx2) < width_ * 0.7 && abs(cy1 - cy2) < height_ * 0.7) {
+		double vx, vy;
+		vx = width_ - abs(cx1 - cx2);
+		vy = height_ - abs(cy1 - cy2);
+		if (abs(vx) < abs(vy)) {
+			double to = cx2 - cx1;
+			if (to * dx1 < 0.0) dx1 = 0.0;
+			if (to * dx2 > 0.0) dx2 = 0.0;
+			this->AddVector(-dx1, 0.0);
+			unit->AddVector(-dx2, 0.0);
+
+			this->AddVector(-to * 0.4, 0.0);
+			unit->AddVector(to * 0.4, 0.0);
+		} else {
+			double to = cy2 - cy1;
+			if (to * dy1 < 0.0) dy1 = 0.0;
+			if (to * dy2 > 0.0) dy2 = 0.0;
+			this->AddVector(0.0, -dy1);
+			unit->AddVector(0.0, -dy2);
+
+			this->AddVector(0.0, -to * 0.4);
+			unit->AddVector(0.0, to * 0.4);
+		}
+		return;
+	}
+
+	if (abs(cx1 - cx2) < width_ && abs(cy1 - cy2) < height_) {
+		double vx, vy;
+		vx = width_ - abs(cx1 - cx2);
+		vy = height_ - abs(cy1 - cy2);
+		if (abs(vx) < abs(vy)) {
+			double to = cx2 - cx1;
+			if (to * dx1 < 0.0) dx1 = 0.0;
+			if (to * dx2 > 0.0) dx2 = 0.0;
+			double sum_dx = dx1 + dx2;
+			sum_dx *= 0.3;
+			dx1 -= sum_dx;
+			dx2 -= sum_dx;
+			this->AddVector(-dx1, 0.0);
+			unit->AddVector(-dx2, 0.0);
+		}
+		else {
+			double to = cy2 - cy1;
+			if (to * dy1 < 0.0) dy1 = 0.0;
+			if (to * dy2 > 0.0) dy2 = 0.0;
+			double sum_dy = dy1 + dy2;
+			sum_dy *= 0.3;
+			dy1 -= sum_dy;
+			dy2 -= sum_dy;
+			this->AddVector(0.0, -dy1);
+			unit->AddVector(0.0, -dy2);
+		}
+	}
+}
+
+void Unit::DoAction() {
+	RemoveEffect(Effect::MOVING);
+	if (!HasEffect(Effect::UNDER_CONTROL)) {
+		behavior_->DoAction();
+	}
+
+	double EPS = 0.0001;
+	if (abs(dx_) > EPS || abs(dy_) > EPS) {
+		AddEffect(Effect::MOVING);
+		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
+	}
+
+	int x, y;
+	x = floor(x_);
+	y = floor(y_);
+	int x1, x2, y1, y2;
+	x1 = (x + deltaX_) / game_map_->GetBlockSize();
+	y1 = (y + deltaY_) / game_map_->GetBlockSize();
+	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
+	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+
+	std::unordered_set<AbstractUnit*> used_units;
+	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
+		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
+			auto units = game_map_->GetUnitsInBlock(cur_x, cur_y);
+			for (AbstractUnit* unit : (*units)) {
+				if (unit == this) continue;
+				if (used_units.find(unit) != used_units.end()) continue;
+				used_units.insert(unit);
+				UnitCollide(unit);
+			}
+		}
+	}
+}
+
+void Unit::Move() {
+	double EPS = 1e-5;
+	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
+	DeleteUnitFromMap();
 	int x, y;
 	x = floor(x_);
 	y = floor(y_);
@@ -267,57 +431,9 @@ void Unit::VectorApply() {
 	if (y_ > (8 * game_map_->GetHeight() - height_)) {
 		y_ = (8 * game_map_->GetHeight() - height_);
 	}
-
+	dx_ = 0.0;
+	dy_ = 0.0;
 	InsertUnitToMap();
-}
-
-void Unit::VectorApplyBullet() {
-	double EPS = 1e-5;
-	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
-	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
-	dx_ = (dx_ * speed_) / v_len;
-	dy_ = (dy_ * speed_) / v_len;
-	x_ += dx_;
-	y_ += dy_;
-	if (x_ < 0) {
-		x_ = 0;
-	}
-	if (y_ < 0) {
-		y_ = 0;
-	}
-	if (x_ > (8 * game_map_->GetWidth() - width_)) {
-		x_ = (8 * game_map_->GetWidth() - width_);
-	}
-	if (y_ > (8 * game_map_->GetHeight() - height_)) {
-		y_ = (8 * game_map_->GetHeight() - height_);
-	}
-}
-
-void Unit::DamageApply(int damage) {
-	int total_damage = damage - defense_;
-	if (total_damage < 0) total_damage = 0;
-	health_ -= total_damage;
-	if (health_ < 0) {
-		std::cout << "die, health : " << health_ << std::endl;
-		Die();
-	}
-}
-
-void Unit::AttackEnd() {
-	RemoveEffect(Effect::ATTACKING);
-	behavior_->AttackEnd();
-}
-
-void Unit::DoAction() { 
-	RemoveEffect(Effect::MOVING);
-	if (!HasEffect(Effect::UNDER_CONTROL)) {
-		behavior_->DoAction();
-	}
-	double EPS = 0.0001;
-	if (abs(dx_) > EPS || abs(dy_) > EPS) {
-		AddEffect(Effect::MOVING);
-		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
-	}
 }
 
 void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <unordered_set>
@@ -46,4 +47,5 @@ public:
 
 	uint8_t GetSubtype(BlockType type);
 	void Generate();  // Generates random map
+	void GenerateHeightMap();
 };

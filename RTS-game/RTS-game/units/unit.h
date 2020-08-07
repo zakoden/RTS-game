@@ -73,17 +73,22 @@ public:
 	int GetCenterY() override;
 	int GetSpeed() override;
 	int GetAttack() override;
+	void GetHitbox(double& x1, double& y1, double& x2, double& y2) override;
+	void GetVector(double& dx, double& dy) override;
 
 	void SetPosition(int x, int y) override;
 	void SetPosition(double x, double y) override;
 	void SetVector(int dx, int dy) override;
 	void SetVector(double dx, double dy) override;
+	void AddVector(double dx, double dy) override;
     void VectorApply() override;
 	void VectorApplyBullet() override;
 	void DamageApply(int damage) override;
 	void AttackEnd() override;
+	void UnitCollide(AbstractUnit* unit) override;
 
 	void DoAction() override;
+	void Move() override;
 	void Draw(SDL_Renderer* renderer, Camera* camera) override;
 
 	// return first enemy unit in radius

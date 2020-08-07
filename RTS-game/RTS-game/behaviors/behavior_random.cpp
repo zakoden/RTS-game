@@ -20,8 +20,10 @@ void BehaviorRandom::DoAction() {
 		int dy = -2 + rand() % 5;
 		if (unit_->GetX() < 0) dx = -dx;
 		if (unit_->GetY() < 0) dy = -dy;
-		unit_->SetVector(dx, dy);
+		dx_ = dx;
+		dy_ = dy;
 		cur_steps_ = 0;
 	}
+	unit_->SetVector(dx_, dy_);
 	unit_->VectorApply();
 }

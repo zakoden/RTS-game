@@ -21,6 +21,7 @@ public:
 	void SetOwner(PlayerOwner* owner);
 
 	void DoAction();
+	void Move();
 	void Draw(SDL_Renderer* renderer, Camera* camera) const;
 
 	void AddUnit(AbstractUnit* unit);

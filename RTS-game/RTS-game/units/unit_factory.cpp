@@ -23,6 +23,7 @@ AbstractUnit* UnitFactory::CreateTest(size_t player, int x, int y) {
 	unit->SetPlayer(player);
 	unit->SetPlayersInfo(players_info_);
 	BehaviorRandom* behavior = new BehaviorRandom(unit);
+	//BehaviorStay* behavior = new BehaviorStay(unit);
 	unit->SetBehavior(behavior);
 	players_[player]->AddUnit(unit);
 	return unit;
@@ -44,7 +45,7 @@ AbstractUnit* UnitFactory::CreateTest1(size_t player, int x, int y) {
 
 AbstractUnit* UnitFactory::CreateTestHunter(size_t player, int x, int y) {
 	Unit* unit = new Unit(10, 1, 35, 1.0, texture_manager_, game_map_);
-	unit->SetTexture(2, 2, 2, 10, 3, 2, 10, 14);
+	unit->SetTexture(4, 2, 2, 10, 3, 2, 10, 14);
 	unit->SetType(UnitType::Ground);
 	unit->SetPlayer(player);
 	unit->SetPlayersInfo(players_info_);
