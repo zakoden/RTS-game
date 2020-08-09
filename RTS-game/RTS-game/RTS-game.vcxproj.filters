@@ -78,6 +78,9 @@
     <ClCompile Include="map\time_measurer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="map\perlin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
@@ -131,6 +134,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="map\time_measurer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\perlin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

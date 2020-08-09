@@ -163,6 +163,7 @@
     <ClCompile Include="map\game_map_generate.cpp" />
     <ClCompile Include="map\grid_function.cpp" />
     <ClCompile Include="map\grid_neighbors.cpp" />
+    <ClCompile Include="map\perlin.cpp" />
     <ClCompile Include="map\point.cpp" />
     <ClCompile Include="map\time_measurer.cpp" />
     <ClCompile Include="player\player.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="map\grid.h" />
     <ClInclude Include="map\grid_function.h" />
     <ClInclude Include="map\grid_neighbors.h" />
+    <ClInclude Include="map\perlin.h" />
     <ClInclude Include="map\point.h" />
     <ClInclude Include="map\time_measurer.h" />
     <ClInclude Include="player\player_owner.h" />
