@@ -184,32 +184,6 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 	unit->GetHitbox(x1, y1, x2, y2);
 	cx2 = (x1 + x2) / 2.0;
 	cy2 = (y1 + y2) / 2.0;
-	
-	if (abs(cx1 - cx2) < width_ * 0.7 && abs(cy1 - cy2) < height_ * 0.7) {
-		double vx, vy;
-		vx = width_ - abs(cx1 - cx2);
-		vy = height_ - abs(cy1 - cy2);
-		if (abs(vx) < abs(vy)) {
-			double to = cx2 - cx1;
-			if (to * dx1 < 0.0) dx1 = 0.0;
-			if (to * dx2 > 0.0) dx2 = 0.0;
-			this->AddVector(-dx1, 0.0);
-			unit->AddVector(-dx2, 0.0);
-
-			this->AddVector(-to * 0.4, 0.0);
-			unit->AddVector(to * 0.4, 0.0);
-		} else {
-			double to = cy2 - cy1;
-			if (to * dy1 < 0.0) dy1 = 0.0;
-			if (to * dy2 > 0.0) dy2 = 0.0;
-			this->AddVector(0.0, -dy1);
-			unit->AddVector(0.0, -dy2);
-
-			this->AddVector(0.0, -to * 0.4);
-			unit->AddVector(0.0, to * 0.4);
-		}
-		return;
-	}
 
 	if (abs(cx1 - cx2) < width_ && abs(cy1 - cy2) < height_) {
 		double vx, vy;
@@ -220,7 +194,7 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 			if (to * dx1 < 0.0) dx1 = 0.0;
 			if (to * dx2 > 0.0) dx2 = 0.0;
 			double sum_dx = dx1 + dx2;
-			sum_dx *= 0.3;
+			sum_dx *= 0.0;
 			dx1 -= sum_dx;
 			dx2 -= sum_dx;
 			this->AddVector(-dx1, 0.0);
@@ -231,12 +205,29 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 			if (to * dy1 < 0.0) dy1 = 0.0;
 			if (to * dy2 > 0.0) dy2 = 0.0;
 			double sum_dy = dy1 + dy2;
-			sum_dy *= 0.3;
+			sum_dy *= 0.0;
 			dy1 -= sum_dy;
 			dy2 -= sum_dy;
 			this->AddVector(0.0, -dy1);
 			unit->AddVector(0.0, -dy2);
 		}
+	}
+
+	if (abs(cx1 - cx2) < width_ * 0.8 && abs(cy1 - cy2) < height_ * 0.8) {
+		double vx, vy;
+		vx = width_ - abs(cx1 - cx2);
+		vy = height_ - abs(cy1 - cy2);
+		if (abs(vx) < abs(vy)) {
+			double to = cx2 - cx1;
+			this->AddVector(-to * 0.2, 0.0);
+			unit->AddVector(to * 0.2, 0.0);
+		}
+		else {
+			double to = cy2 - cy1;
+			this->AddVector(0.0, -to * 0.2);
+			unit->AddVector(0.0, to * 0.2);
+		}
+		return;
 	}
 }
 
