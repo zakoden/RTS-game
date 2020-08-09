@@ -9,6 +9,7 @@
 #include <unordered_set>
 #include <vector>
 
+#include "perlin.h"
 #include "grid_function.h"
 #include "grid_neighbors.h"
 #include "time_measurer.h"
@@ -17,15 +18,21 @@ using grid_function::FromFunction;
 using std::vector;
 
 void GameMap::Generate() {
+	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
+	const float MOUNTAIN_LOW_HEIGHT = 0.19f, MOUNTAIN_HIGH_HEIGHT = 0.25f;
+	const float WATER_NORMAL_LEVEL = -0.25f;
+	const float WATER_DEEP_LEVEL = -0.35f, WATER_SHALLOW_LEVEL = -0.18f;
+	const uint32_t AREA_MIN = 80;
+
 	unsigned int seed = static_cast<unsigned int>(time(0));
 	TimeMeasurer time;
 	srand(seed);
 	std::cerr << "Seed is " << seed << std::endl;
 
 	uint32_t height = GetHeight(), width = GetWidth();
-	GridNeighbors neighbors{ height, width };
 
-	// 1. Scattering random points (that will be centers of clusters)
+	GridNeighbors neighbors{ height, width };
+	// Scatter random points (that wil be centers of clusters)
 	const uint32_t CHUNK_SIZE = 400;
 	const uint32_t CHUNKS_COUNT = (height * width) / CHUNK_SIZE;
 
@@ -59,8 +66,8 @@ void GameMap::Generate() {
 	grid_function::Dijkstra(neighbors, &distance, &cluster);
 	time.PrintTime("Building voronoi diagram");
 
-	// 3. Give to each cluster random tile
-	const vector<BlockType> ALLOWED_BLOCKS = { WATER, DESERT, GRASS_LIGHT, GRASS, GRASS_OTHER };
+	// 3. Give to each cluster a random tile
+	const vector<BlockType> ALLOWED_BLOCKS = { DESERT, GRASS_LIGHT, GRASS, GRASS_OTHER };
 	const vector<BlockType> RARE_BLOCKS = { AMBER, GRASS_PURPLE, DESERT_PURPLE };
 	vector<BlockType> cluster_type{ CHUNKS_COUNT };
 	for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
@@ -69,52 +76,46 @@ void GameMap::Generate() {
 		else
 			cluster_type[i] = ALLOWED_BLOCKS[rand() % ALLOWED_BLOCKS.size()];
 	}
+	time.PrintTime("Give to each cluster a random tile");
 
-	time.PrintTime("Give to each cluster random tile");
-	// 4. Unite all small clusters with big ones
-	vector<uint32_t> area(CHUNKS_COUNT, 0);
-	{
-		// 4.1. Find area of clusters
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				++area[cluster[i][j]];
-
-		// 4.2 Remove chunks with area < AREA_MIN
-		const size_t AREA_MIN = 80;
-		std::unordered_map<uint32_t, uint32_t> chunks_to_remove;
-		for (size_t i = 0; i < area.size(); ++i)
-			if (area[i] < AREA_MIN)
-				chunks_to_remove.insert({ i, 0 });
-		std::cerr << "Removed " << chunks_to_remove.size() << " clusters" << std::endl;
-
-		// 4.3 Replace removed chunk with the closest ones
-		for (auto& pair : chunks_to_remove) {
-			uint32_t from = pair.first;
-			uint32_t min_distance = UINT_MAX;
-			for (uint32_t i = 0; i < CHUNKS_COUNT; ++i) {
-				if (!chunks_to_remove.count(i)) {
-					uint32_t distance = grid_function::SquaredDistance(centers[from], centers[i]);
-					if (min_distance < distance) {
-						min_distance = distance;
-						pair.second = i;
-					}
-				}
-			}
-		}
-
-		// 4.3. Reflect changes on a map
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				if (chunks_to_remove.count(cluster[i][j]))
-					cluster[i][j] = chunks_to_remove[cluster[i][j]];
-	}
-
-	time.PrintTime("Unite all small clusters with big ones");
-	// 5. Give the result to blocks grid (not array)
-	Grid<BlockType> blocks = FromFunction<BlockType>(height, width, [&](size_t i, size_t j) {return cluster_type[cluster[i][j]]; });
+	// Give the result to blocks grid
+	Grid<BlockType> blocks = FromFunction<BlockType>(height, width,
+		[&](size_t i, size_t j) { return cluster_type[cluster[i][j]]; });
 	time.PrintTime("Give the result to blocks grid");
 
-	// Intermission. Make on_border grid
+	// Build water and mountains via perlin noise
+	Grid<float> heights = perlin::GetHeights(height, width);
+	const std::unordered_set<BlockType> HEIGHT_TYPES = { MOUNTAIN_HIGH, MOUNTAIN_LOW, WATER_DEEP, WATER, WATER_SHALLOW };
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			if (heights[i][j] < WATER_DEEP_LEVEL)
+				blocks[i][j] = WATER_DEEP;
+			else if (heights[i][j] < WATER_NORMAL_LEVEL)
+				blocks[i][j] = WATER;
+			else if (heights[i][j] < WATER_SHALLOW_LEVEL)
+				blocks[i][j] = WATER_SHALLOW;
+			else if (heights[i][j] > MOUNTAIN_HIGH_HEIGHT)
+				blocks[i][j] = MOUNTAIN_HIGH;
+			else if (heights[i][j] > MOUNTAIN_LOW_HEIGHT)
+				blocks[i][j] = MOUNTAIN_LOW;
+		}
+	}
+	time.PrintTime("Build water and mountains via perlin noise");
+
+	// Unite small areas with the closest non-small ones
+	Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
+	Grid<float> distance_to_good_cell = FromFunction<float>(height, width,
+		[&](size_t i, size_t j) { return areas[i][j] < AREA_MIN; });
+
+	Grid<int> cluster_as_block_type = FromFunction<int>(height, width,
+		[&](size_t i, size_t j) { return blocks[i][j]; });
+	grid_function::Dijkstra(neighbors, &distance_to_good_cell, &cluster_as_block_type);
+	for (uint32_t i = 0; i < height; ++i)
+		for (uint32_t j = 0; j < width; ++j)
+			if (areas[i][j] < AREA_MIN)
+				blocks[i][j] = static_cast<BlockType>(cluster_as_block_type[i][j]);
+
+	// Make on_border grid
 	Grid<char> on_border(height, width, false);
 	{
 		for (uint32_t i = 0; i < height; ++i) {
@@ -142,51 +143,16 @@ void GameMap::Generate() {
 		}
 	}
 	time.PrintTime("Make on_border grid");
-	// 6. Make water look more deep
-	// Area of a deep water in corner-wise connectivity of that cell
-	Grid<uint32_t> deep_water_area(height, width, 0);
-	{   // 6.1. Find distances from each water cell to the nearest land cell
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				distance[i][j] = (blocks[i][j] == WATER) ? max_distance : 0;
-		grid_function::Dijkstra(neighbors, &distance);
-
-		// 6.2. Make closest to land cells to have shallow water, similiar with farthest
-		const float WATER_SHALLOW_MAX_DISTANCE = 1.5;
-		const float WATER_DEEP_MIN_DISTANCE = 3.5;
-
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (blocks[i][j] == WATER) {
-					if (distance[i][j] <= WATER_SHALLOW_MAX_DISTANCE)
-						blocks[i][j] = WATER_SHALLOW;
-					else if (distance[i][j] >= WATER_DEEP_MIN_DISTANCE)
-						blocks[i][j] = WATER_DEEP;
-				}
-			}
-		}
-		time.PrintTime("Before 6.3");
-
-		// 6.3. Remove deep water tiles with very low area
-		const uint32_t DEEP_WATER_AREA_MIN = 6;
-		deep_water_area = grid_function::GetAreas(neighbors, blocks);
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				if (blocks[i][j] == WATER_DEEP && deep_water_area[i][j] < DEEP_WATER_AREA_MIN)
-					blocks[i][j] = WATER;
-	}
-
-
-	time.PrintTime("Make water look more deep");
-	//7. Add rivers
-	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
+	/*
+	areas = grid_function::GetAreas(neighbors, blocks);
+	// Add rivers
 	{
-		// 8.1. Choose possible river sources
+		// 1. Choose possible river sources
 		const uint32_t MIN_DEEP_WATER_AREA = 10;
 		std::unordered_set<int> possible_clusters_set;
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
-				if (deep_water_area[i][j] > MIN_DEEP_WATER_AREA)
+				if (blocks[i][j] == WATER_DEEP && areas[i][j] > MIN_DEEP_WATER_AREA)
 					possible_clusters_set.insert(cluster[i][j]);
 		vector<int> possible_clusters(possible_clusters_set.begin(), possible_clusters_set.end());
 
@@ -269,120 +235,8 @@ void GameMap::Generate() {
 			}
 		}
 	}
-
 	time.PrintTime("Add rivers");
-
-	// 8. Add mountains
-	{
-		Grid<BlockType> previous_blocks = blocks;
-		// 8.1. Add actual mountains
-		// How? Let's go through all borders, pick part of the border that is on the larger cluster,
-		// then make all cells in that border to be mountains
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (on_border[i][j] && blocks[i][j] != WATER) {
-					char has_area_bigger = false;
-					for (Point point : neighbors[i][j]) {
-						if (blocks[i][j] != blocks[point] &&
-							blocks[i][j] != WATER && blocks[point] != WATER
-							&& blocks[i][j] != blocks[point]) {
-							if (area[cluster[i][j]] < area[cluster[point]]) {
-								has_area_bigger = true;
-								break;
-							}
-						}
-					}
-
-					if (has_area_bigger)
-						continue;
-
-					blocks[i][j] = MOUNTAIN_HIGH;
-					for (Point point : neighbors[i][j]) {
-						if (blocks[point] == WATER_SHALLOW)
-							blocks[point] = MOUNTAIN_HIGH;
-					}
-				}
-			}
-		}
-
-		// 8.2. Remove mountains that don't separate 2 non-water biomes
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (blocks[i][j] == MOUNTAIN_HIGH) {
-					std::unordered_set<BlockType> neighbor_types;
-					for (Point point : neighbors[i][j]) {
-						if (!WATER_TYPES.count(blocks[point]) && blocks[point] != MOUNTAIN_HIGH)
-							neighbor_types.insert(blocks[point]);
-					}
-					if (neighbor_types.size() < 2)  // Should be removed
-						blocks[i][j] = previous_blocks[i][j];
-				}
-			}
-		}
-
-
-		// 8.3. Make lower mountains
-		// How? Let's go through all high mountains, and
-		// if the neighbor is not water and not mountain, then it's a lower mountain
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				if (blocks[i][j] == MOUNTAIN_HIGH)
-					for (Point point : neighbors[i][j])
-						if (blocks[point] != MOUNTAIN_HIGH && blocks[point] != WATER)
-							blocks[point] = MOUNTAIN_LOW;
-	}
-
-	time.PrintTime("Add mountains");
-
-	// 9. Clear small areas
-	{
-		// 9.1. Remove small areas
-		const uint32_t MIN_AREA = 100;
-		Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (areas[i][j] < MIN_AREA) {
-					const uint32_t MIN_WATER_SHALLOW_AREA = 8;
-					if (blocks[i][j] == WATER_SHALLOW) {
-						if (areas[i][j] < MIN_WATER_SHALLOW_AREA)
-							blocks[i][j] = MOUNTAIN_HIGH;
-					}
-					else {
-						if (blocks[i][j] != MOUNTAIN_HIGH && blocks[i][j] != MOUNTAIN_LOW
-							&& !WATER_TYPES.count(blocks[i][j]))
-							blocks[i][j] = MOUNTAIN_HIGH;
-					}
-				}
-			}
-		}
-
-		// 9.2. Make shallow water cell a normal one if it's not near land blocks
-		const std::unordered_set<BlockType> MOUNTAIN_TYPES = { MOUNTAIN_LOW, MOUNTAIN_HIGH };
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				if (blocks[i][j] == WATER_SHALLOW) {
-					bool remove = true;
-					for (Point point : neighbors[i][j]) {
-						if (!WATER_TYPES.count(blocks[point]) && !MOUNTAIN_TYPES.count(blocks[point])) {
-							remove = false;
-							break;
-						}
-					}
-					if (remove)
-						blocks[i][j] = WATER;
-				}
-			}
-		}
-	}
-
-	time.PrintTime("Clear small areas");
-
-	// 9. Add passages between mountains
-	for (uint32_t i = 0; i < height; ++i) {
-
-	}
-
-	// 10. Add trees
+	*/
 
 	// 11. Give subtypes to tiles
 	for (uint32_t i = 0; i < height; ++i)

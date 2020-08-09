@@ -13,7 +13,6 @@ inline float grid_function::Distance(const Point& a, const Point& b) {
 	return sqrtf(static_cast<float>(SquaredDistance(a, b)));
 }
 
-
 struct triple {
 	float distance; Point point;
 	bool operator<(const triple& other) const { return distance > other.distance; }
@@ -31,10 +30,15 @@ void grid_function::Dijkstra(const GridNeighbors& neighbors,
 	const float EPS = 1e-3f;
 
 	// Inititalizing priority queue
-	for (uint32_t i = 0; i < height; ++i)
-		for (uint32_t j = 0; j < width; ++j)
-			if (distance[i][j] < EPS)
+	for (uint32_t i = 0; i < height; ++i) {
+		for (uint32_t j = 0; j < width; ++j) {
+			if (distance[i][j] < EPS) {
 				dijkstra.push({ 0, {j, i} });
+			} else {
+				distance[i][j] = static_cast<float>(height + width);
+			}
+		}
+	}
 
 	while (!dijkstra.empty()) {
 		triple pair = dijkstra.top();
