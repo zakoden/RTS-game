@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "perlin.h"
+#include "diamond_square.h"
 #include "grid_function.h"
 #include "grid_neighbors.h"
 #include "time_measurer.h"
@@ -19,10 +20,11 @@ using std::vector;
 
 void GameMap::Generate() {
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
-	const float MOUNTAIN_LOW_HEIGHT = 0.19f, MOUNTAIN_HIGH_HEIGHT = 0.25f;
-	const float WATER_NORMAL_LEVEL = -0.25f;
-	const float WATER_DEEP_LEVEL = -0.35f, WATER_SHALLOW_LEVEL = -0.18f;
-	const uint32_t AREA_MIN = 80;
+	//const float MOUNTAIN_LOW_HEIGHT = 0.19f, MOUNTAIN_HIGH_HEIGHT = 0.25f;
+	const float MOUNTAIN_LOW_HEIGHT = 0.70f, MOUNTAIN_HIGH_HEIGHT = 0.85f;
+	const float WATER_NORMAL_LEVEL = -0.45f;
+	const float WATER_DEEP_LEVEL = -0.80f, WATER_SHALLOW_LEVEL = -0.25f;
+	const uint32_t AREA_MIN = 12;
 
 	unsigned int seed = static_cast<unsigned int>(time(0));
 	TimeMeasurer time;
@@ -33,7 +35,7 @@ void GameMap::Generate() {
 
 	GridNeighbors neighbors{ height, width };
 	// Scatter random points (that wil be centers of clusters)
-	const uint32_t CHUNK_SIZE = 400;
+	const uint32_t CHUNK_SIZE = 500;
 	const uint32_t CHUNKS_COUNT = (height * width) / CHUNK_SIZE;
 
 	float max_distance = static_cast<float>(height + width);
@@ -84,10 +86,12 @@ void GameMap::Generate() {
 	time.PrintTime("Give the result to blocks grid");
 
 	// Build water and mountains via perlin noise
-	Grid<float> heights = perlin::GetHeights(height, width);
+	//Grid<float> heights = perlin::GetHeights(height, width);
+	Grid<float> heights = diamond_square::GetHeights(height, width);
 	const std::unordered_set<BlockType> HEIGHT_TYPES = { MOUNTAIN_HIGH, MOUNTAIN_LOW, WATER_DEEP, WATER, WATER_SHALLOW };
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
+			//blocks[i][j] = GRASS;
 			if (heights[i][j] < WATER_DEEP_LEVEL)
 				blocks[i][j] = WATER_DEEP;
 			else if (heights[i][j] < WATER_NORMAL_LEVEL)
@@ -102,6 +106,8 @@ void GameMap::Generate() {
 	}
 	time.PrintTime("Build water and mountains via perlin noise");
 
+	
+	
 	// Unite small areas with the closest non-small ones
 	Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
 	Grid<float> distance_to_good_cell = FromFunction<float>(height, width,
@@ -115,6 +121,8 @@ void GameMap::Generate() {
 			if (areas[i][j] < AREA_MIN)
 				blocks[i][j] = static_cast<BlockType>(cluster_as_block_type[i][j]);
 
+
+	/*
 	// Make on_border grid
 	Grid<char> on_border(height, width, false);
 	{
@@ -142,7 +150,7 @@ void GameMap::Generate() {
 			}
 		}
 	}
-	time.PrintTime("Make on_border grid");
+	time.PrintTime("Make on_border grid"); */
 	/*
 	areas = grid_function::GetAreas(neighbors, blocks);
 	// Add rivers

@@ -26,9 +26,10 @@ int GameManager::Init() {
 
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
-	game_map_ = new GameMap(renderer_, 200, 200);
+	game_map_ = new GameMap(renderer_, 256 + 1, 256 + 1);
 	game_map_->Generate();
 	//game_map_->GenerateHeightMap();
+	//game_map_->TestGenerate(0);
 	texture_manager_ = new TextureManager(renderer_);
 	players_info_ = new PlayersInfo(2);
 	unit_factory_ = new UnitFactory();
@@ -169,7 +170,6 @@ void GameManager::RunStep() {
 	//camera_->SetScale(screen_h_ / (camera_h_ - ground_h_));
 	SDL_RenderSetScale(renderer_, camera_->GetScale(), camera_->GetScale());
 
-	
 	// move
 
 	user_manager_->DoAction(renderer_);

@@ -23,7 +23,6 @@ private:
 	SDL_Texture* tiles_ = nullptr; // òåêñòóðà ñî âñåìè áëîêàìè
 
 	size_t GetInd(uint32_t x, uint32_t y) const;
-
 public:
 
 	GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height);
@@ -47,5 +46,4 @@ public:
 
 	uint8_t GetSubtype(BlockType type);
 	void Generate();  // Generates random map
-	void GenerateHeightMap();
 };

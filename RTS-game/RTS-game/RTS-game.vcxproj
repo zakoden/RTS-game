@@ -159,6 +159,7 @@
     <ClCompile Include="managers\game_manager.cpp" />
     <ClCompile Include="managers\user_manager.cpp" />
     <ClCompile Include="map\camera.cpp" />
+    <ClCompile Include="map\diamond_square.cpp" />
     <ClCompile Include="map\game_map.cpp" />
     <ClCompile Include="map\game_map_generate.cpp" />
     <ClCompile Include="map\grid_function.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="managers\user_manager.h" />
     <ClInclude Include="map\block_type.h" />
     <ClInclude Include="map\camera.h" />
+    <ClInclude Include="map\diamond_square.h" />
     <ClInclude Include="map\game_map.h" />
     <ClInclude Include="map\grid.h" />
     <ClInclude Include="map\grid_function.h" />
