@@ -24,19 +24,19 @@
 
 class GameManager {
 protected:
-	SDL_Window* window_;
-	SDL_Renderer* renderer_;
-	TextureManager* texture_manager_;
-	Camera* camera_;
-	GameMap* game_map_;
+	SDL_Window* window_ = NULL;
+	SDL_Renderer* renderer_ = NULL;
+	TextureManager* texture_manager_ = NULL;
+	Camera* camera_ = NULL;
+	GameMap* game_map_ = NULL;
 	bool close_ = false;
-	UnitFactory* unit_factory_;
+	UnitFactory* unit_factory_ = NULL;
 	std::vector<Player*> players_;
-	PlayersInfo* players_info_;
-	UserManager* user_manager_;
+	PlayersInfo* players_info_ = NULL;
+	UserManager* user_manager_ = NULL;
 
-	double camera_h_;
-	double ground_h_, air_h_;
+	double camera_h_ = 1.0;
+	double ground_h_ = 1.0, air_h_ = 1.0;
 	double screen_h_ = 1.0;
 	int scale_status_ = 1;
 public:
