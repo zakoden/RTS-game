@@ -104,7 +104,47 @@ Grid<float> GameMap::GenerateHeights() {
 	return result;
 }
 
+// Makes map more smooth
+// For each cell, if 5 neighbors have the same block type, transform that cell into that block type
+void SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
+	uint32_t transformed_cells = 0;
+	for (uint32_t i = 0; i < blocks.size(); ++i) {
+		for (uint32_t j = 0; j < blocks[i].size(); ++j) {
+			std::unordered_map<BlockType, int> blocks_count;
+			for (Point point : neighbors[i][j])
+				++blocks_count[blocks[point]];
+			for (auto& pair : blocks_count) {
+				if (pair.second >= 5) {
+					transformed_cells += blocks[i][j] != pair.first;
+					blocks[i][j] = pair.first;
+					break;
+				}
+			}
+		}
+	}
+	std::cerr << "Transformed " << transformed_cells << " cells" << std::endl;
+}
+
+// Removes small areas
+// Unites small areas with the closest non-small ones
+void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
+	const uint32_t AREA_MIN = 80;  // Minimal area each biome should have
+	uint32_t height = blocks.size(), width = blocks[0].size();
+	Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
+	Grid<float> distance_to_good_cell = FromFunction<float>(height, width,
+		[&](size_t i, size_t j) { return areas[i][j] < AREA_MIN; });
+
+	Grid<int> cluster_as_block_type = FromFunction<int>(height, width,
+		[&](size_t i, size_t j) { return blocks[i][j]; });
+	grid_function::Dijkstra(neighbors, &distance_to_good_cell, &cluster_as_block_type);
+	for (uint32_t i = 0; i < height; ++i)
+		for (uint32_t j = 0; j < width; ++j)
+			if (areas[i][j] < AREA_MIN)
+				blocks[i][j] = static_cast<BlockType>(cluster_as_block_type[i][j]);
+}
+
 void GameMap::Generate() {
+	//1597427643, 1597428574
 	unsigned int seed = static_cast<unsigned int>(time(0));  // Map seed
 	TimeMeasurer time;  // Class to measure time between each segment
 	srand(seed);  // Randomizing rand
@@ -122,9 +162,8 @@ void GameMap::Generate() {
 	Grid<float> heights = GenerateHeights();
 	Grid<float> humidity = GenerateHeights();
 	{
-		const float MOUNTAIN_HEIGHT = 0.2f;
-		const float WATER_NORMAL_LEVEL = -0.25f;
-		const float WATER_DEEP_LEVEL = -0.35f, WATER_SHALLOW_LEVEL = -0.18f;
+		const float WATER_NORMAL_LEVEL = -0.264f;
+		const float WATER_DEEP_LEVEL = -0.35f, WATER_SHALLOW_LEVEL = -0.2f;
 
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
@@ -142,44 +181,14 @@ void GameMap::Generate() {
 
 	time.PrintTime("Build water and mountains");
 	
+	// Smooth map 1 time
+	SmoothMap(neighbors, blocks);
+	time.PrintTime("Smooth map 1 time");
 
-	// For each cell, if 5 neighbors have the same block type, transform that cell into that block type
-	for (uint32_t round = 1; round <= 3; ++round) {
-		uint32_t transformed_cells = 0;
-		for (uint32_t i = 0; i < height; ++i) {
-			for (uint32_t j = 0; j < width; ++j) {
-				std::unordered_map<BlockType, int> blocks_count;
-				for (Point point : neighbors[i][j])
-					++blocks_count[blocks[point]];
-				for (auto& pair : blocks_count) {
-					if (pair.second >= 5) {
-						transformed_cells += blocks[i][j] != pair.first;
-						blocks[i][j] = pair.first;
-						break;
-					}
-				}
-			}
-		}
-		std::cerr << "Round #" << round << ": Transformed " << transformed_cells << " cells" << std::endl;
-	}
-	time.PrintTime("Flatten map");
-
-	// Unite small areas with the closest non-small ones
-	const uint32_t AREA_MIN = 80;  // Minimal area each biome should have
-	Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
-	Grid<float> distance_to_good_cell = FromFunction<float>(height, width,
-		[&](size_t i, size_t j) { return areas[i][j] < AREA_MIN; });
-
-	Grid<int> cluster_as_block_type = FromFunction<int>(height, width,
-		[&](size_t i, size_t j) { return blocks[i][j]; });
-	grid_function::Dijkstra(neighbors, &distance_to_good_cell, &cluster_as_block_type);
-	for (uint32_t i = 0; i < height; ++i)
-		for (uint32_t j = 0; j < width; ++j)
-			if (areas[i][j] < AREA_MIN)
-				blocks[i][j] = static_cast<BlockType>(cluster_as_block_type[i][j]);
+	// Remove small areas
+	RemoveSmallAreas(neighbors, blocks);
 	time.PrintTime("Unite small areas with the closest non-small ones");
-
-	/*
+	
 	// Make on_border grid
 	Grid<char> on_border(height, width, false);
 	{
@@ -207,29 +216,17 @@ void GameMap::Generate() {
 			}
 		}
 	}
-	time.PrintTime("Make on_border grid"); */
-	/*
-	areas = grid_function::GetAreas(neighbors, blocks);
+	time.PrintTime("Make on_border grid"); 
 	// Add rivers
 	{
-		// 1. Choose possible river sources
-		const uint32_t MIN_DEEP_WATER_AREA = 10;
-		std::unordered_set<int> possible_clusters_set;
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
-				if (blocks[i][j] == WATER_DEEP && areas[i][j] > MIN_DEEP_WATER_AREA)
-					possible_clusters_set.insert(cluster[i][j]);
-		vector<int> possible_clusters(possible_clusters_set.begin(), possible_clusters_set.end());
-
-		vector<vector<Point>> border_points(CHUNKS_COUNT);
+		// 1. Add points on a border
+		vector<Point> border_points;
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				if (on_border[i][j] && WATER_TYPES.count(blocks[i][j]))
-					border_points[cluster[i][j]].push_back({ j, i });
+					border_points.push_back({ j, i });
 
 		int total_river_area_left = 3000;
-		if (possible_clusters.empty())  // No clusters => no rivers
-			total_river_area_left = 0;
 
 		Grid<char> is_water_type = FromFunction<char>(height, width,
 			[&](size_t i, size_t j) { return WATER_TYPES.count(blocks[i][j]); });
@@ -240,44 +237,42 @@ void GameMap::Generate() {
 			[&](size_t i, size_t j) { return blocks[i][j] == WATER_SHALLOW; });
 
 		for (; total_river_area_left > 0;) {
-			//std::cerr << "Total river area left: " << total_river_area_left << std::endl;
+			std::cerr << "Total river area left: " << total_river_area_left << std::endl;
 
-			// 7.2. Choose river border
-			size_t cluster_number = possible_clusters[rand() % possible_clusters.size()];
-			if (border_points[cluster_number].empty()) {
-				possible_clusters.erase(std::find(possible_clusters.begin(), possible_clusters.end(), cluster_number));
+			// 2. Choose river border
+			Point border = border_points[rand() % border_points.size()];
+
+			// 3. Make path
+
+			// 3.1. From source to border
+			vector<Point> path = grid_function::FindClosest(neighbors, border, all_true, is_water, 10);
+
+			// 3.2. From border to another border
+			vector<Point> border_to_border2 = grid_function::FindFarthest(neighbors, border, on_border, is_water_shallow);
+			if (border_to_border2.empty()) {
+				std::cerr << "Couldn't find another border" << std::endl;
 				continue;
 			}
-			Point border = border_points[cluster_number][rand() % border_points[cluster_number].size()];
-
-			// 7.3. Make path
-
-			// 7.3.1. From source to border
-			vector<Point> path = grid_function::FindClosest(neighbors, border, all_true, is_water);
-
-			// 7.3.2. From border to another border
-			const float MIN_DISTANCE = 20;
-			vector<Point> border_to_border2 = grid_function::FindClosest(neighbors, border, on_border, is_water_shallow, MIN_DISTANCE);
-			if (border_to_border2.empty())
-				continue;
 			path.insert(path.end(), border_to_border2.begin(), border_to_border2.end());
 
-			// 7.3.3. From another border to sink
+			// 3.3. From another border to sink
 			Point border2 = border_to_border2.front();
 
-			vector<Point> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water);
+			vector<Point> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water, 10);
 			path.insert(path.end(), border2_to_sink.begin(), border2_to_sink.end());
 
-			// 7.4. Paint a river and decrease total_area_left
+			// 4. Paint a river and decrease total_area_left
 			for (Point point : path) {
+				total_river_area_left -= !WATER_TYPES.count(blocks[point]);
 				if (blocks[point] == WATER_SHALLOW)
 					is_water_shallow[point] = false;
-				blocks[point] = WATER;
-				is_water[point] = true;
-				--total_river_area_left;
+				if (blocks[point] != WATER_DEEP) {
+					blocks[point] = WATER;
+					is_water[point] = true;
+				}
 				for (Point other : neighbors[point]) {
-					if (on_border[other] && blocks[other] != WATER_DEEP) {
-						total_river_area_left -= blocks[other] != WATER;
+					if (blocks[other] != WATER_DEEP) {
+						total_river_area_left -= !WATER_TYPES.count(blocks[point]);
 						is_water_shallow[other] = false;
 						blocks[other] = WATER;
 						is_water[other] = true;
@@ -301,13 +296,19 @@ void GameMap::Generate() {
 		}
 	}
 	time.PrintTime("Add rivers");
-	*/
+
+	// Smooth map 2 more times and remove small areas
+	SmoothMap(neighbors, blocks);
+	SmoothMap(neighbors, blocks);
+	RemoveSmallAreas(neighbors, blocks);
+	time.PrintTime("Smooth map 2 more times and remove small areas");
 
 	// Get statistics
 	std::cerr << "Total area: " << TOTAL_AREA << std::endl;
 	size_t water_area = 0, mountain_area = 0;
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
+			//if (on_border[i][j]) blocks[i][j] = (BlockType)9;
 			water_area += WATER_TYPES.count(blocks[i][j]);
 			mountain_area += MOUNTAIN_TYPES.count(blocks[i][j]);
 		}

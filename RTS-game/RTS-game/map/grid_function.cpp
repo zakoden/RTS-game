@@ -87,7 +87,53 @@ Grid<uint32_t> grid_function::GetAreas(const GridNeighbors& neighbors,
 }
 
 vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const Point& start,
-	const Grid<char>& allowed_points, const Grid<char>& end_points, float min_distance) {
+	const Grid<char>& allowed_points, const Grid<char>& end_points, float max_distance) {
+	Grid<Point> ancestor(allowed_points.size(), allowed_points[0].size());
+	ancestor[start] = start;
+
+	float max_pos_distance = static_cast<float>(allowed_points.size() + allowed_points[0].size());
+	Grid<float> distance(allowed_points.size(), allowed_points[0].size(), max_pos_distance);
+	distance[start] = 0;
+
+	std::priority_queue<Triple> dijkstra;
+	const float EPS = 1e-3f;
+	dijkstra.push({ 0, start });
+
+	vector<Point> result;
+	while (!dijkstra.empty()) {
+		Triple pair = dijkstra.top();
+		dijkstra.pop();
+		const Point& current = pair.point;
+		if (pair.distance > distance[current] || Distance(current, start) > max_distance) 
+			continue;
+		if (end_points[current]) {
+			result.push_back(current);
+			//std::cerr << distance[current] << std::endl;
+			break;
+		}
+
+		// Going through all neighboring points
+		for (Point point : neighbors[current]) {
+			if (!allowed_points[point])
+				continue;
+			float dist = Distance(point, current);
+			if (distance[point] > distance[current] + dist) {
+				distance[point] = distance[current] + dist;
+				ancestor[point] = current;
+				dijkstra.push({ distance[point], point });
+			}
+		}
+	}
+
+	if (result.empty())
+		return result;
+	while (result.back() != start)
+		result.push_back(ancestor[result.back()]);
+	return result;
+}
+
+vector<Point> grid_function::FindFarthest(const GridNeighbors& neighbors, const Point& start,
+	const Grid<char>& allowed_points, const Grid<char>& end_points) {
 	Grid<Point> ancestor(allowed_points.size(), allowed_points[0].size());
 	ancestor[start] = start;
 
@@ -104,13 +150,10 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 		Triple pair = dijkstra.top();
 		dijkstra.pop();
 		const Point& current = pair.point;
-		if (pair.distance > distance[current]) 
+		if (pair.distance > distance[current])
 			continue;
-		if (end_points[current] && distance[current] + EPS > min_distance) {
-			result.push_back(current);
-			//std::cerr << distance[current] << std::endl;
-			break;
-		}
+		if (end_points[current])
+			result = { current };
 
 		// Going through all neighboring points
 		for (Point point : neighbors[current]) {

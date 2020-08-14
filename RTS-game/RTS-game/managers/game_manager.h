@@ -34,6 +34,7 @@ protected:
 	std::vector<Player*> players_;
 	PlayersInfo* players_info_ = NULL;
 	UserManager* user_manager_ = NULL;
+	bool is_fullscreen_ = false;
 
 	double camera_h_ = 1.0;
 	double ground_h_ = 1.0, air_h_ = 1.0;
