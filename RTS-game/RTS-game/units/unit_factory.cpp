@@ -49,7 +49,8 @@ AbstractUnit* UnitFactory::CreateTestHunter(size_t player, int x, int y) {
 	unit->SetType(UnitType::Ground);
 	unit->SetPlayer(player);
 	unit->SetPlayersInfo(players_info_);
-	BehaviorHunter* behavior = new BehaviorHunter(unit, this);
+	BehaviorHunter* inner_behavior = new BehaviorHunter(unit, this);
+	BehaviorAroundPoint* behavior = new BehaviorAroundPoint(unit, this, inner_behavior, x, y, 80);
 	unit->SetBehavior(behavior);
 
 	unit->SetPosition(x, y);

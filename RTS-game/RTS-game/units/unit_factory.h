@@ -16,6 +16,7 @@
 #include "../behaviors/behavior_stay.h"
 #include "../behaviors/behavior_bullet.h"
 #include "../behaviors/behavior_hunter.h"
+#include "../behaviors/behavior_around_point.h"
 
 #include "abstract_unit_factory.h"
 #include "unit.h"

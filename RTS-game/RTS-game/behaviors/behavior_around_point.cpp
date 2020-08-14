@@ -1,11 +1,13 @@
 #include "behavior_around_point.h"
 
-BehaviorAroundPoint::BehaviorAroundPoint(AbstractUnit* unit, AbstractUnitFactory* unit_factory) {
+BehaviorAroundPoint::BehaviorAroundPoint(AbstractUnit* unit, AbstractUnitFactory* unit_factory,
+	                                     Behavior* inner_behavior, int center_x, int center_y, int radius) {
 	unit_ = unit;
 	unit_factory_ = unit_factory;
-	max_steps_[behavior_around_point::Steps::FIND] = 30;
-	cur_steps_[behavior_around_point::Steps::RELOAD] = rand() % 50;
-	max_steps_[behavior_around_point::Steps::RELOAD] = 50;
+	inner_behavior_ = inner_behavior;
+	center_x_ = center_x;
+	center_y_ = center_y;
+	radius_ = radius;
 }
 
 BehaviorAroundPoint::~BehaviorAroundPoint() {
@@ -15,51 +17,16 @@ void BehaviorAroundPoint::SetUnit(AbstractUnit* unit) {
 	unit_ = unit;
 }
 
-void BehaviorAroundPoint::AttackEnd() {
-	target_->DamageApply(unit_->GetAttack());
-}
-
 void BehaviorAroundPoint::DoAction() {
-	for (size_t i = 0; i < behavior_around_point::Steps::STEPS_CNT; ++i) {
-		cur_steps_[i]++;
-		cur_steps_[i] %= max_steps_[i];
-	}
-
-	if (cur_steps_[behavior_around_point::Steps::FIND] == 0 && target_ == NULL) {
-		FindTarget();
-	}
-
-	if (target_ != NULL) {
-		Attack(target_);
-	}
-}
-
-void BehaviorAroundPoint::Attack(AbstractUnit* enemy) {
-	if (unit_->HasEffect(Effect::ATTACKING)) {
-		return;
-	}
-	int dx, dy;
-	dx = enemy->GetCenterX() - unit_->GetCenterX();
-	dy = enemy->GetCenterY() - unit_->GetCenterY();
-	if ((dx * dx + dy * dy) > radius_ * radius_) {
-		unit_->SetVector(dx, dy);
-		unit_->VectorApply();
-		return;
-	}
-	unit_->SetVector(0.0, 0.0);
-	unit_->AddEffect(Effect::ATTACKING);
-}
-
-void BehaviorAroundPoint::FindTarget() {
-	AbstractUnit* target = unit_->FindEnemyInRadius(radius_);
-	if (target != NULL) {
-		target_ = target;
+	inner_behavior_->DoAction();
+	double dx, dy;
+	unit_->GetVector(dx, dy);
+	dx += (double)unit_->GetCenterX() - (double)center_x_;
+	dy += (double)unit_->GetCenterY() - (double)center_y_;
+	if (dx * dx + dy * dy > (double)radius_ * radius_) {
+		unit_->SetVector(0.0, 0.0);
 	}
 }
 
 void BehaviorAroundPoint::DeadCheck() {
-	if (target_ == NULL) return;
-	if (!target_->IsAlive()) {
-		target_ = NULL;
-	}
 }
