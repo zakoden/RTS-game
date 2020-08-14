@@ -198,6 +198,7 @@
     <ClInclude Include="map\perlin.h" />
     <ClInclude Include="map\point.h" />
     <ClInclude Include="map\time_measurer.h" />
+    <ClInclude Include="map\triple.h" />
     <ClInclude Include="player\player_owner.h" />
     <ClInclude Include="units\abstract_unit_factory.h" />
     <ClInclude Include="behaviors\behavior_random.h" />

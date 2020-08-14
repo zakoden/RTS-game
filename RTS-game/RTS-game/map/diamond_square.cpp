@@ -1,5 +1,7 @@
 #include "diamond_square.h"
 
+#include "grid_function.h"
+
 float diamond_square::GetRandomNum() {
 	int len = 10000;
 	int val = rand() % len;
@@ -87,10 +89,18 @@ void diamond_square::MakeStep(uint32_t height_, uint32_t width_, uint32_t height
 	}
 }
 
+
+inline bool IsPowerOfTwo(uint32_t a) { return (a & (a - 1)) == 0; }
+
 Grid<float> diamond_square::GetHeights(uint32_t height, uint32_t width) {
+	uint32_t required_height = height, required_width = width;
+	while (!IsPowerOfTwo(height - 1))
+		++height;
+	while (!IsPowerOfTwo(width - 1))
+		++width;
 	Grid<float> grid(height, width, 0.0);
 
-	size_t h, w;
+	uint32_t h, w;
 	h = height - 1;
 	w = width - 1;
 	grid[0][0] = GetRandomNum();
@@ -104,5 +114,7 @@ Grid<float> diamond_square::GetHeights(uint32_t height, uint32_t width) {
 		w /= 2;
 	}
 
-	return grid;
+	return grid_function::FromFunction<float>(required_height, required_width,
+		[&](size_t i, size_t j) { return grid[i][j]; });
 }
+

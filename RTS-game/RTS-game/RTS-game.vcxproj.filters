@@ -78,10 +78,10 @@
     <ClCompile Include="map\time_measurer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="map\perlin.cpp">
+    <ClCompile Include="map\diamond_square.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="map\diamond_square.cpp">
+    <ClCompile Include="map\perlin.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="behaviors\behavior_around_point.cpp">
@@ -142,10 +142,13 @@
     <ClInclude Include="map\time_measurer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\perlin.h">
+    <ClInclude Include="map\diamond_square.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\diamond_square.h">
+    <ClInclude Include="map\triple.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\perlin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="behaviors\behavior_around_point.h">

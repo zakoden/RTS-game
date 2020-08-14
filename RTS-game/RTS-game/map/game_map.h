@@ -9,6 +9,7 @@
 
 #include "block_type.h"
 #include "camera.h"
+#include "grid.h"
 #include "point.h"
 #include "../units/abstract_unit.h"
 
@@ -44,6 +45,7 @@ public:
 	void BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y);
 	void Draw(SDL_Renderer* renderer, Camera* camera); 
 
-	uint8_t GetSubtype(BlockType type);
+	uint8_t GetSubtype(BlockType type);  // Returns a subtype of specific block type
+	Grid<float> GenerateHeights();  // Generates a map of heights
 	void Generate();  // Generates random map
 };

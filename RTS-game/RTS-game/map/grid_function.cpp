@@ -5,6 +5,8 @@
 #include <iostream>
 #include <queue>
 
+#include "triple.h"
+
 inline uint32_t grid_function::SquaredDistance(const Point& a, const Point& b) {
 	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 }
@@ -12,11 +14,6 @@ inline uint32_t grid_function::SquaredDistance(const Point& a, const Point& b) {
 inline float grid_function::Distance(const Point& a, const Point& b) {
 	return sqrtf(static_cast<float>(SquaredDistance(a, b)));
 }
-
-struct triple {
-	float distance; Point point;
-	bool operator<(const triple& other) const { return distance > other.distance; }
-};
 
 void grid_function::Dijkstra(const GridNeighbors& neighbors, 
 	Grid<float>* distance_ptr, Grid<int>* cluster_ptr) {
@@ -26,7 +23,7 @@ void grid_function::Dijkstra(const GridNeighbors& neighbors,
 	size_t height = distance.size(), width = distance[0].size();
 
 	// Elements in dijkstra are in form {-distance, {x, y} (point)}
-	std::priority_queue<triple> dijkstra;
+	std::priority_queue<Triple> dijkstra;
 	const float EPS = 1e-3f;
 
 	// Inititalizing priority queue
@@ -41,7 +38,7 @@ void grid_function::Dijkstra(const GridNeighbors& neighbors,
 	}
 
 	while (!dijkstra.empty()) {
-		triple pair = dijkstra.top();
+		Triple pair = dijkstra.top();
 		dijkstra.pop();
 		const Point& current = pair.point;
 		if (pair.distance > distance[current])
@@ -98,13 +95,13 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 	Grid<float> distance(allowed_points.size(), allowed_points[0].size(), max_distance);
 	distance[start] = 0;
 
-	std::priority_queue<triple> dijkstra;
+	std::priority_queue<Triple> dijkstra;
 	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
 	vector<Point> result;
 	while (!dijkstra.empty()) {
-		triple pair = dijkstra.top();
+		Triple pair = dijkstra.top();
 		dijkstra.pop();
 		const Point& current = pair.point;
 		if (pair.distance > distance[current]) 

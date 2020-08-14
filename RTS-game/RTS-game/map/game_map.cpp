@@ -68,26 +68,6 @@ void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
 	}
 }
 
-uint8_t GameMap::GetSubtype(BlockType type) {
-	switch (type) {
-		case GRASS:
-			return GRASS + rand() % 10;
-		case GRASS_PURPLE:
-			return GRASS_PURPLE + rand() % 10;
-		case DESERT:
-			return DESERT + rand() % 3;
-		case DESERT_PURPLE:
-			return DESERT_PURPLE + rand() % 4;
-		case MOUNTAIN_HIGH:
-			return MOUNTAIN_HIGH + rand() % 4;
-		case MOUNTAIN_LOW:
-			return MOUNTAIN_LOW + rand() % 4;
-		case ROCK:
-			return ROCK + rand() % 6;
-	}
-	return type;
-}
-
 uint8_t GameMap::GetBlock(uint32_t x, uint32_t y) {
 	return blocks_[GetInd(x, y)];
 }

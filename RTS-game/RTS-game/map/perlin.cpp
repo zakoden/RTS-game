@@ -26,8 +26,8 @@ inline SDL_FPoint perlin::GetVector() {
 Grid<float> perlin::GetHeights(uint32_t height, uint32_t width) {
     // 1. Make random gradient vectors
     const uint32_t CELL_SIZE = 20;
-    size_t gradients_height = static_cast<size_t>(height / CELL_SIZE) + 1;
-    size_t gradients_width = static_cast<size_t>(width / CELL_SIZE) + 1;
+    size_t gradients_height = static_cast<size_t>(height / CELL_SIZE) + 2;
+    size_t gradients_width = static_cast<size_t>(width / CELL_SIZE) + 2;
     Grid<SDL_FPoint> gradients(gradients_height, gradients_width);
     for (size_t i = 0; i < gradients.size(); ++i) {
         for (size_t j = 0; j < gradients[i].size(); ++j) {
