@@ -39,7 +39,14 @@ namespace grid_function {
 	3. Have distance at least min_distance
 	*/
 	vector<Point> FindClosest(const GridNeighbors& neighbors, const Point& start,
-		const Grid<char>& allowed_points, const Grid<char>& end_points, float min_distance = 0);
+		const Grid<char>& allowed_points, const Grid<char>& end_points, float max_distance = 0);
+
+	/* Finds the farthest point from start if we:
+	1. Can only travel via allowed points
+	2. Must end at end point
+	*/
+	vector<Point> FindFarthest(const GridNeighbors& neighbors, const Point& start,
+		const Grid<char>& allowed_points, const Grid<char>& end_points);
 };
 
 

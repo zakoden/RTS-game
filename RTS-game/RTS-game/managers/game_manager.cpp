@@ -91,6 +91,16 @@ void GameManager::RunStep() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
+		case SDL_KEYDOWN:
+			if (event.key.keysym.sym == SDLK_F11) {
+				if (is_fullscreen_)
+					SDL_SetWindowFullscreen(window_, 0);
+				else
+					SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN_DESKTOP);
+				is_fullscreen_ = !is_fullscreen_;
+			}
+			break;
+
 		case SDL_QUIT:
 			close_ = true;
 			break;
