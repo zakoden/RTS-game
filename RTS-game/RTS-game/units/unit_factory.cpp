@@ -44,16 +44,33 @@ AbstractUnit* UnitFactory::CreateTest1(size_t player, int x, int y) {
 }
 
 AbstractUnit* UnitFactory::CreateTestHunter(size_t player, int x, int y) {
-	Unit* unit = new Unit(10, 1, 35, 1.0, texture_manager_, game_map_);
+	Unit* unit = new Unit(10 + rand() % 5, 1, 40, 1.0, texture_manager_, game_map_);
 	unit->SetTexture(4, 2, 2, 10, 3, 2, 10, 14);
 	unit->SetType(UnitType::Ground);
 	unit->SetPlayer(player);
 	unit->SetPlayersInfo(players_info_);
 	BehaviorHunter* inner_behavior = new BehaviorHunter(unit, this);
-	BehaviorAroundPoint* behavior = new BehaviorAroundPoint(unit, this, inner_behavior, x, y, 80);
-	unit->SetBehavior(behavior);
+	//BehaviorAroundPoint* behavior = new BehaviorAroundPoint(unit, this, inner_behavior, x, y, 80);
+	unit->SetBehavior(inner_behavior);
 
 	unit->SetPosition(x, y);
+	unit->SetCommandPoint(x + 800, y);
+	players_[player]->AddUnit(unit);
+	return unit;
+}
+
+AbstractUnit* UnitFactory::CreateTestHunter2(size_t player, int x, int y) {
+	Unit* unit = new Unit(10, 1, 50 + rand() % 20, 0.5, texture_manager_, game_map_);
+	unit->SetTexture(2, 2, 2, 10, 3, 2, 10, 14);
+	unit->SetType(UnitType::Ground);
+	unit->SetPlayer(player);
+	unit->SetPlayersInfo(players_info_);
+	BehaviorHunter* inner_behavior = new BehaviorHunter(unit, this);
+	//BehaviorAroundPoint* behavior = new BehaviorAroundPoint(unit, this, inner_behavior, x, y, 80);
+	unit->SetBehavior(inner_behavior);
+
+	unit->SetPosition(x, y);
+	unit->SetCommandPoint(x - 800, y);
 	players_[player]->AddUnit(unit);
 	return unit;
 }

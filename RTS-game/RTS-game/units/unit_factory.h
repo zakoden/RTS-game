@@ -42,6 +42,7 @@ public:
 	AbstractUnit* CreateTest(size_t player, int x, int y) override;
     AbstractUnit* CreateTest1(size_t player, int x, int y) override;
 	AbstractUnit* CreateTestHunter(size_t player, int x, int y) override;
+	AbstractUnit* CreateTestHunter2(size_t player, int x, int y) override;
 
 	AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
 };

@@ -31,6 +31,7 @@ public:
 	virtual int GetSpeed() = 0;
 	virtual int GetAttack() = 0;
 	virtual void GetHitbox(double& x1, double& y1, double& x2, double& y2) = 0;
+	virtual void GetCollisionbox(double& x1, double& y1, double& x2, double& y2) = 0;
 	virtual void GetVector(double& dx, double& dy) = 0;
 
 	virtual void SetPosition(int x, int y) = 0;
@@ -40,6 +41,8 @@ public:
 	virtual void AddVector(double dx, double dy) = 0;
 	virtual void VectorApply() = 0;
 	virtual void VectorApplyBullet() = 0;
+	virtual void SetCommandPoint(int x, int y) = 0;
+	virtual void GetCommandPoint(int& x, int& y) = 0;
 	virtual void DamageApply(int damage) = 0;
 	virtual void AttackEnd() = 0;
 	virtual void UnitCollide(AbstractUnit* unit) = 0;
@@ -48,6 +51,7 @@ public:
 	virtual void Move() = 0;
 	virtual void Draw(SDL_Renderer* renderer, Camera* camera) = 0; 
 
+	virtual AbstractUnit* GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) = 0;
 	virtual AbstractUnit* FindEnemyInRadius(int radius) = 0;
 	virtual AbstractUnit* GetEnemyInPoint(int x, int y) = 0;
 

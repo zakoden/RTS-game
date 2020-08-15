@@ -37,9 +37,10 @@ protected:
 	std::string name_;
 
 	// --geometry--
-	double x_ = 110, y_ = 110;
-	double dx_ = 0, dy_ = 0;
+	double x_ = 110.0, y_ = 110.0;
+	double dx_ = 0.0, dy_ = 0.0;
 	double speed_ = 0;
+	double command_x_ = 0.0, command_y_ = 0.0;
 	// hitbox delta
 	int deltaX_ = 0, deltaY_ = 0;
 	// hitbox size
@@ -74,6 +75,7 @@ public:
 	int GetSpeed() override;
 	int GetAttack() override;
 	void GetHitbox(double& x1, double& y1, double& x2, double& y2) override;
+	void GetCollisionbox(double& x1, double& y1, double& x2, double& y2) override;
 	void GetVector(double& dx, double& dy) override;
 
 	void SetPosition(int x, int y) override;
@@ -83,6 +85,9 @@ public:
 	void AddVector(double dx, double dy) override;
     void VectorApply() override;
 	void VectorApplyBullet() override;
+	void SetCommandPoint(int x, int y) override;
+	void GetCommandPoint(int& x, int& y) override;
+
 	void DamageApply(int damage) override;
 	void AttackEnd() override;
 	void UnitCollide(AbstractUnit* unit) override;
@@ -91,6 +96,7 @@ public:
 	void Move() override;
 	void Draw(SDL_Renderer* renderer, Camera* camera) override;
 
+	AbstractUnit* GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) override;
 	// return first enemy unit in radius
 	AbstractUnit* FindEnemyInRadius(int radius) override;
 	// return first enemy unit in block

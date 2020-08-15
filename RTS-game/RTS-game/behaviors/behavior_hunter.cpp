@@ -3,6 +3,10 @@
 BehaviorHunter::BehaviorHunter(AbstractUnit* unit, AbstractUnitFactory* unit_factory) {
 	unit_ = unit;
 	unit_factory_ = unit_factory;
+	for (size_t i = 0; i < behavior_hunter::Steps::STEPS_CNT; ++i) {
+		cur_steps_[i] = 0;
+	}
+	max_steps_[behavior_hunter::Steps::COMMAND_UPDATE] = 50;
 	max_steps_[behavior_hunter::Steps::FIND] = 30;
 	cur_steps_[behavior_hunter::Steps::RELOAD] = rand() % 50;
 	max_steps_[behavior_hunter::Steps::RELOAD] = 50;
@@ -16,7 +20,7 @@ void BehaviorHunter::SetUnit(AbstractUnit* unit) {
 }
 
 void BehaviorHunter::AttackEnd() {
-	target_->DamageApply(unit_->GetAttack());
+	if (target_ != NULL) target_->DamageApply(unit_->GetAttack());
 }
 
 void BehaviorHunter::DoAction() {
@@ -25,12 +29,35 @@ void BehaviorHunter::DoAction() {
 		cur_steps_[i] %= max_steps_[i];
 	}
 
-	if (cur_steps_[behavior_hunter::Steps::FIND] == 0 && target_ == NULL) {
-		FindTarget();
+	if (unit_->HasEffect(Effect::ATTACKING)) {
+		return;
 	}
+
+	if (unit_->HasEffect(Effect::HAS_COMMAND_POINT)) {
+		if (cur_steps_[behavior_hunter::Steps::COMMAND_UPDATE] == 0) {
+			target_ = NULL;
+		}
+	} else {
+		if (cur_steps_[behavior_hunter::Steps::FIND] == 0 && target_ == NULL) {
+			FindTarget();
+		}
+	}
+
+	AbstractUnit* target = unit_->FindEnemyInRadius(distance_attack_);
+	target_ = unit_->GetClosestUnit(target, target_);
 
 	if (target_ != NULL) {
 		Attack(target_);
+	} else {
+		if (unit_->HasEffect(Effect::HAS_COMMAND_POINT)) {
+			double dx, dy;
+			int to_x, to_y;
+			unit_->GetCommandPoint(to_x, to_y);
+			dx = (double)to_x - unit_->GetCenterX();
+			dy = (double)to_y - unit_->GetCenterY();
+			unit_->SetVector(dx, dy);
+			unit_->VectorApply();
+		}
 	}
 }
 
@@ -41,7 +68,7 @@ void BehaviorHunter::Attack(AbstractUnit* enemy) {
 	int dx, dy;
 	dx = enemy->GetCenterX() - unit_->GetCenterX();
 	dy = enemy->GetCenterY() - unit_->GetCenterY();
-	if ((dx * dx + dy * dy) > radius_attack_ * radius_attack_) {
+	if ((dx * dx + dy * dy) > distance_attack_ * distance_attack_) {
 		unit_->SetVector(dx, dy);
 		unit_->VectorApply();
 		return;

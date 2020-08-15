@@ -39,7 +39,8 @@ void Unit::DeleteUnitFromMap() {
 }
 
 bool Unit::CanMoveOnBlock(uint32_t x, uint32_t y) {
-	return (game_map_->GetBlock(x, y) != BlockType::WATER_SHALLOW);
+	return true;
+	//return (game_map_->GetBlock(x, y) != BlockType::WATER_SHALLOW);
 }
 
 // -----------public---------------
@@ -89,6 +90,13 @@ int Unit::GetAttack() {
 void Unit::GetHitbox(double& x1, double& y1, double& x2, double& y2) {
 	x1 = x_ + deltaX_;
 	y1 = y_ + deltaY_;
+	x2 = x1 + width_;
+	y2 = y1 + height_;
+}
+
+void Unit::GetCollisionbox(double& x1, double& y1, double& x2, double& y2) {
+	x1 = x_ + deltaX_;
+	y1 = y_ + deltaY_ + 0.3 * height_;
 	x2 = x1 + width_;
 	y2 = y1 + height_;
 }
@@ -154,6 +162,18 @@ void Unit::VectorApplyBullet() {
 	}
 }
 
+void Unit::SetCommandPoint(int x, int y) {
+	AddEffect(Effect::HAS_COMMAND_POINT);
+	command_x_ = x;
+	command_y_ = y;
+}
+
+void Unit::GetCommandPoint(int& x, int& y) {
+	x = command_x_;
+	y = command_y_;
+}
+
+
 void Unit::DamageApply(int damage) {
 	int total_damage = damage - defense_;
 	if (total_damage < 0) total_damage = 0;
@@ -173,22 +193,31 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 	double x1, x2, y1, y2;
 	double cx1, cy1, cx2, cy2;
 	double dx1, dy1, dx2, dy2;
+	double width = 0.0, height = 0.0;
 
 	this->GetVector(dx1, dy1);
 	unit->GetVector(dx2, dy2);
 
 	this->GetHitbox(x1, y1, x2, y2);
+	width += x2 - x1;
+	height += y2 - y1;
 	cx1 = (x1 + x2) / 2.0;
 	cy1 = (y1 + y2) / 2.0;
 
 	unit->GetHitbox(x1, y1, x2, y2);
+	width += x2 - x1;
+	height += y2 - y1;
 	cx2 = (x1 + x2) / 2.0;
 	cy2 = (y1 + y2) / 2.0;
 
-	if (abs(cx1 - cx2) < width_ && abs(cy1 - cy2) < height_) {
+	width /= 2.0;
+	height /= 2.0;
+	height *= 0.7;
+
+	if (abs(cx1 - cx2) < width && abs(cy1 - cy2) < height) {
 		double vx, vy;
-		vx = width_ - abs(cx1 - cx2);
-		vy = height_ - abs(cy1 - cy2);
+		vx = width - abs(cx1 - cx2);
+		vy = height - abs(cy1 - cy2);
 		if (abs(vx) < abs(vy)) {
 			double to = cx2 - cx1;
 			if (to * dx1 < 0.0) dx1 = 0.0;
@@ -213,10 +242,10 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 		}
 	}
 
-	if (abs(cx1 - cx2) < width_ * 0.8 && abs(cy1 - cy2) < height_ * 0.8) {
+	if (abs(cx1 - cx2) < width * 0.8 && abs(cy1 - cy2) < height * 0.8) {
 		double vx, vy;
-		vx = width_ - abs(cx1 - cx2);
-		vy = height_ - abs(cy1 - cy2);
+		vx = width - abs(cx1 - cx2);
+		vy = height - abs(cy1 - cy2);
 		if (abs(vx) < abs(vy)) {
 			double to = cx2 - cx1;
 			this->AddVector(-to * 0.2, 0.0);
@@ -465,13 +494,13 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	SDL_RenderCopy(renderer, texture_manager_->GetTexture(texture_ind_), &from, &to);
 
 
-
+	
 	SDL_Rect hitbox;
 	hitbox.x = to.x + deltaX_;
 	hitbox.y = to.y + deltaY_;
 	hitbox.w = width_;
 	hitbox.h = height_;
-    SDL_RenderDrawRect(renderer, &hitbox);
+    //SDL_RenderDrawRect(renderer, &hitbox);
 
 	if (type_ == UnitType::Ground) {
 		int life_len = (hitbox.w * health_) / max_health_;
@@ -480,10 +509,34 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + life_len - 1, hitbox.y - 2);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	}
+	
+}
+
+AbstractUnit* Unit::GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) {
+	if (unit1 == NULL)
+		return unit2;
+	if (unit2 == NULL)
+		return unit1;
+	uint64_t dist1 = 0, dist2 = 0, delt;
+	delt = GetCenterX() - unit1->GetCenterX();
+	dist1 += delt * delt;
+	delt = GetCenterY() - unit1->GetCenterY();
+	dist1 += delt * delt;
+
+	delt = GetCenterX() - unit2->GetCenterX();
+	dist2 += delt * delt;
+	delt = GetCenterY() - unit2->GetCenterY();
+	dist2 += delt * delt;
+	if (dist1 < dist2) {
+		return unit1;
+	} else {
+		return unit2;
+	}
 }
 
 // to do : change this shit
 AbstractUnit* Unit::FindEnemyInRadius(int radius) {
+	AbstractUnit* ans = NULL;
 	int cx, cy; // unit center
 	cx = x_ + deltaX_ + width_ / 2;
 	cy = y_ + deltaY_ + height_ / 2;
@@ -494,14 +547,14 @@ AbstractUnit* Unit::FindEnemyInRadius(int radius) {
 		AbstractUnit* unit = NULL;
 		do {
 			unit = GetEnemyInPoint(cx + dx, y);
-			if (unit != NULL) return unit;
+			ans = GetClosestUnit(ans, unit);
 			unit = GetEnemyInPoint(cx - dx, y);
-			if (unit != NULL) return unit;
+			ans = GetClosestUnit(ans, unit);
 			dx += block_size;
 			dy = y - cy;
 		} while ((dx * dx) + (dy * dy) <= (radius * radius));
 	}
-	return NULL;
+	return ans;
 }
 
 AbstractUnit* Unit::GetEnemyInPoint(int x, int y) {

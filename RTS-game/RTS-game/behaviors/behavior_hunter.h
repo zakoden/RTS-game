@@ -10,6 +10,7 @@
 
 namespace behavior_hunter {
 	enum Steps {
+		COMMAND_UPDATE,
 		RELOAD,
 		FIND,
 		STEPS_CNT
@@ -24,7 +25,7 @@ protected:
 
 	AbstractUnit* target_ = NULL;
 
-	int radius_attack_ = 20;
+	int distance_attack_ = 20;
 	int radius_search_ = 200;
 
 	AbstractUnitFactory* unit_factory_;

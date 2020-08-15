@@ -55,12 +55,27 @@ void GameManager::Run() {
 		unit_factory_->AddPlayer(players_[i]);
 	}
 
+	int number = 20;
+	for (int i = 0; i < number; ++i) {
+		unit_factory_->CreateTestHunter(0, 80 + rand() % 10, 92 + 16 * i);
+		unit_factory_->CreateTestHunter(0, 95 + rand() % 10, 100 + 16 * i);
+		unit_factory_->CreateTestHunter(0, 130 + rand() % 20, 87 + 16 * i);
+	}
+
+	for (int i = 0; i < number; ++i) {
+		unit_factory_->CreateTestHunter2(1, 1000 + rand() % 10, 100 + 18 * i);
+		unit_factory_->CreateTestHunter2(1, 1300 + rand() % 10, 95 + 18 * i);
+		unit_factory_->CreateTestHunter2(1, 1500 + rand() % 10, 86 + 18 * i);
+	}
+
+	/*
 	unit_factory_->CreateTest(1, 150, 100);
 	for (int i = 0; i < 30; ++i) {
 		unit_factory_->CreateTest(1, 150 + 10 * i, 150 + rand() % 20);
 	}
 
-	unit_factory_->CreateTestHunter(0, 200, 200);
+	unit_factory_->CreateTestHunter(0, 40, 40);
+	*/
 
 	/*
 	unit_factory_->CreateTest1(0, 160, 96);
@@ -76,8 +91,20 @@ void GameManager::Run() {
 	air_h_ = 0.14;
 	camera_h_ = 1.0;
 	
+	int count = 0;
+	int time1, time2, time;
 	while (!close_) {
+		if (count == 0) {
+			time1 = SDL_GetTicks();
+		}
 		RunStep();
+		count++;
+		if (count == 60) {
+			count = 0;
+			time2 = SDL_GetTicks();
+			time = (time2 - time1) / 1000;
+			std::cout << 60.0 / (double)time << std::endl;
+		}
 	}
 
 	SDL_DestroyRenderer(renderer_);
