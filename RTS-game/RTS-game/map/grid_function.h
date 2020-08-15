@@ -19,19 +19,13 @@ namespace grid_function {
 	// Gets an actual distance between two points
 	inline float Distance(const Point& a, const Point& b);
 
-	/* Performs the following:
-	1. All points with distance < 1e-3 are considered starting points.
-	2. Then, by using dijkstra algorithm, it converts arrays such that:
-	distance[i][j] = distance to the starting closest point (SCP)
-	cluster[i][j] = number of a cluster of the SCP
-	If cluster is nullptr, it is not accessed
-	*/
-	void Dijkstra(const GridNeighbors& neighbors,
-		Grid<float>* distance_ptr, Grid<int>* cluster_ptr = nullptr);
+	// Makes map more smooth
+	// For each cell, if 5 neighbors have the same block type, transform that cell into that block type
+	void SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& blocks);
 
-	// For each cell returns the area of a cluster it's located in
-	Grid<uint32_t> GetAreas(const GridNeighbors& neighbors,
-		const Grid<BlockType>& clusters);
+	// Removes small areas
+	// Unites small areas with the closest non-small ones
+	void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks);
 
 	/* Finds the closest point from start if we:
 	1. Can only travel via allowed points
