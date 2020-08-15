@@ -2,11 +2,13 @@
 
 #include <iostream>
 
-TimeMeasurer::TimeMeasurer() : start_time(std::chrono::system_clock::now()) {}
+TimeMeasurer::TimeMeasurer() : start_time_(std::chrono::system_clock::now()) {}
 
-void TimeMeasurer::PrintTime(const std::string& message) const {
+void TimeMeasurer::PrintTime(const std::string& message) {
+	auto time = std::chrono::system_clock::now();
 	std::cout << message << (message.empty() ? "" : ": ") <<
-		static_cast<double>((std::chrono::system_clock::now() - start_time).count()) / 10000000
+		static_cast<double>((time - start_time_).count()) / 10000000
 		<< " s" << std::endl;
+	start_time_ = time;
 }
 

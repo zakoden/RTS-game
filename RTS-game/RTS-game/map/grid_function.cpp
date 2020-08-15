@@ -15,75 +15,85 @@ inline float grid_function::Distance(const Point& a, const Point& b) {
 	return sqrtf(static_cast<float>(SquaredDistance(a, b)));
 }
 
-void grid_function::Dijkstra(const GridNeighbors& neighbors, 
-	Grid<float>* distance_ptr, Grid<int>* cluster_ptr) {
-	assert(!distance_ptr -> empty());
-	Grid<float>& distance = *distance_ptr;
+void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
+	uint32_t transformed_cells = 0;
+	for (uint32_t i = 0; i < blocks.size(); ++i) {
+		for (uint32_t j = 0; j < blocks[i].size(); ++j) {
+			int block = -1; int count = 0;
+			for (Point point : neighbors[i][j]) {
+				if (blocks[point] == block) {
+					++count;
+				} else {
+					--count;
+					if (count < 0) {
+						count = 1;
+						block = blocks[point];
+					}
+				}
+			}
 
-	size_t height = distance.size(), width = distance[0].size();
-
-	// Elements in dijkstra are in form {-distance, {x, y} (point)}
-	std::priority_queue<Triple> dijkstra;
-	const float EPS = 1e-3f;
-
-	// Inititalizing priority queue
-	for (uint32_t i = 0; i < height; ++i) {
-		for (uint32_t j = 0; j < width; ++j) {
-			if (distance[i][j] < EPS) {
-				dijkstra.push({ 0, {j, i} });
-			} else {
-				distance[i][j] = static_cast<float>(height + width);
+			if (blocks[i][j] != block) {
+				count = 0;
+				for (Point point : neighbors[i][j])
+					count += blocks[point] == block;
+				if (count >= 5) {
+					++transformed_cells;
+					blocks[i][j] = static_cast<BlockType>(block);
+				}
 			}
 		}
 	}
-
-	while (!dijkstra.empty()) {
-		Triple pair = dijkstra.top();
-		dijkstra.pop();
-		const Point& current = pair.point;
-		if (pair.distance > distance[current])
-			continue;
-
-		// Going through all neighboring points
-		for (Point point : neighbors[current]) {
-			float dist = Distance(point, current);
-			if (distance[point] > distance[current] + dist) {
-				distance[point] = distance[current] + dist;
-				if (cluster_ptr != nullptr)
-					cluster_ptr -> operator[](point) = cluster_ptr -> operator[](current);
-				dijkstra.push({ distance[point], point });
-			}
-		}
-	}
+	std::cerr << "SmoothMap: Transformed " << transformed_cells << " cells" << std::endl;
 }
 
-Grid<uint32_t> grid_function::GetAreas(const GridNeighbors& neighbors, 
-	const Grid<BlockType>& clusters) {
-	size_t height = clusters.size(), width = clusters[0].size();
-	Grid<char> visited(height, width, false);
-	Grid<uint32_t> result(height, width);
+void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
+	const uint32_t AREA_MIN = 80;  // Minimal area each biome should have
+	size_t height = blocks.size(), width = blocks[0].size();
+
+	// 1. Get areas for each cell
+	Grid<uint32_t> areas(height, width, 0);
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
-			if (!visited[i][j]) {
-				vector<Point> bfs;
-				bfs.push_back({ j, i });
+			if (areas[i][j] == 0) {
+				vector<Point> bfs = { {j, i} };
+				areas[i][j] = 1;
 				for (size_t i = 0; i < bfs.size(); ++i) {
 					Point current = bfs[i];
 					for (Point p : neighbors[current]) {
-						if (clusters[p] == clusters[current] && !visited[p]) {
+						if (blocks[p] == blocks[current] && areas[p] == 0) {
 							bfs.push_back(p);
-							visited[p] = true;
+							areas[p] = 1;
 						}
 					}
 				}
 
 				for (Point point : bfs)
-					result[point] = static_cast<uint32_t>(bfs.size());
+					areas[point] = static_cast<uint32_t>(bfs.size());
 			}
 		}
 	}
 
-	return result;
+	// 2. For each point find the closest with allowed area
+	uint32_t transformed_cells = 0;
+	std::queue<Point> bfs;
+	for (uint32_t i = 0; i < height; ++i)
+		for (uint32_t j = 0; j < width; ++j)
+			if (areas[i][j] >= AREA_MIN)
+				bfs.push({ j, i });
+	while (!bfs.empty()) {
+		Point cur = bfs.front();
+		bfs.pop();
+		for (Point point : neighbors[cur]) {
+			if (areas[point] < AREA_MIN) {
+				areas[point] = areas[cur];
+				blocks[point] = blocks[cur];
+				++transformed_cells;
+				bfs.push(point);
+			}
+		}
+	}
+
+	std::cerr << "RemoveSmallAreas: Transformed " << transformed_cells << " cells" << std::endl;
 }
 
 vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const Point& start,

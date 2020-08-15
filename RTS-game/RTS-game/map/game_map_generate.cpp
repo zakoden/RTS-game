@@ -23,7 +23,7 @@ inline size_t GetRandomArea(size_t l, size_t r, size_t area) {
 	return area * (rand() % (r - l + 1) + l) / 100;
 }
 
-uint8_t GameMap::GetSubtype(BlockType type) {
+uint8_t GetSubtype(BlockType type) {
 	switch (type) {
 		case GRASS:
 			return GRASS + rand() % 10;
@@ -44,7 +44,7 @@ uint8_t GameMap::GetSubtype(BlockType type) {
 }
 
 // Returns a block by height and humidity
-inline BlockType GetBlockType(float height, float humidity) {
+inline BlockType GetBlockType(float height, float humidity, const vector<vector<BlockType>>& DIAGRAM) {
 	height += 1; humidity += 0.75;
 	/* Height types:
 	0. From WATER_SHALLOW_LEVEL to 1	2. From 1 to 1.1
@@ -60,13 +60,7 @@ inline BlockType GetBlockType(float height, float humidity) {
 		+ (humidity > 1) + (humidity > 1.333) + (humidity > 1.667);
 
 	// Biome diagram
-	const vector<vector<BlockType>> diagram = {
-		{SUBTROPICAL_DESERT, GRASSLAND, TROPICAL_SEASONAL_FOREST, TROPICAL_SEASONAL_FOREST, TROPICAL_RAIN_FOREST, TROPICAL_RAIN_FOREST},
-		{TEMPERATE_DESERT, GRASS_PURPLE, GRASSLAND, TEMPERATE_DECIDUOUS_FOREST, TEMPERATE_DECIDUOUS_FOREST, TEMPERATE_RAIN_FOREST},
-		{TEMPERATE_DESERT, DESERT_PURPLE, SHRUBLAND, SHRUBLAND, TAIGA, TAIGA},
-		{SCORCHED, BARE, TUNDRA, SNOW, SNOW, SNOW}
-	};
-	return diagram[height_type][humidity_type];
+	return DIAGRAM[height_type][humidity_type];
 }
 
 // Generates a map of heights
@@ -79,12 +73,15 @@ Grid<float> GameMap::GenerateHeights() {
 		Grid<float> result_perlin = perlin::GetHeights(cur_size, cur_size);
 		Grid<float> result_diamond_square = diamond_square::GetHeights(cur_size, cur_size);
 		uint32_t height_divider = height / cur_size, width_divider = width / cur_size;
-		for (uint32_t i = 0; i < height; ++i)
-			for (uint32_t j = 0; j < width; ++j)
+		for (uint32_t i = 0; i < height; ++i) {
+			uint32_t ind_i = i / height_divider;
+			for (uint32_t j = 0; j < width; ++j) {
 				result[i][j] += power * (
-					result_perlin[i / height_divider][j / width_divider]
-					+ result_diamond_square[i / height_divider][j / width_divider]
+					result_perlin[ind_i][j / width_divider]
+					+ result_diamond_square[ind_i][j / width_divider]
 					);
+			}
+		}
 		max_height += power * 2.0f;
 		power /= 2.0f;
 	}
@@ -104,56 +101,29 @@ Grid<float> GameMap::GenerateHeights() {
 	return result;
 }
 
-// Makes map more smooth
-// For each cell, if 5 neighbors have the same block type, transform that cell into that block type
-void SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
-	uint32_t transformed_cells = 0;
-	for (uint32_t i = 0; i < blocks.size(); ++i) {
-		for (uint32_t j = 0; j < blocks[i].size(); ++j) {
-			std::unordered_map<BlockType, int> blocks_count;
-			for (Point point : neighbors[i][j])
-				++blocks_count[blocks[point]];
-			for (auto& pair : blocks_count) {
-				if (pair.second >= 5) {
-					transformed_cells += blocks[i][j] != pair.first;
-					blocks[i][j] = pair.first;
-					break;
-				}
-			}
-		}
-	}
-	std::cerr << "Transformed " << transformed_cells << " cells" << std::endl;
-}
-
-// Removes small areas
-// Unites small areas with the closest non-small ones
-void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
-	const uint32_t AREA_MIN = 80;  // Minimal area each biome should have
-	uint32_t height = blocks.size(), width = blocks[0].size();
-	Grid<uint32_t> areas = grid_function::GetAreas(neighbors, blocks);
-	Grid<float> distance_to_good_cell = FromFunction<float>(height, width,
-		[&](size_t i, size_t j) { return areas[i][j] < AREA_MIN; });
-
-	Grid<int> cluster_as_block_type = FromFunction<int>(height, width,
-		[&](size_t i, size_t j) { return blocks[i][j]; });
-	grid_function::Dijkstra(neighbors, &distance_to_good_cell, &cluster_as_block_type);
-	for (uint32_t i = 0; i < height; ++i)
-		for (uint32_t j = 0; j < width; ++j)
-			if (areas[i][j] < AREA_MIN)
-				blocks[i][j] = static_cast<BlockType>(cluster_as_block_type[i][j]);
-}
-
 void GameMap::Generate() {
-	//1597427643, 1597428574
+	//1597431138, 1597486519
 	unsigned int seed = static_cast<unsigned int>(time(0));  // Map seed
-	TimeMeasurer time;  // Class to measure time between each segment
+	TimeMeasurer time, time_total = time;  // Class to measure time between each segment
+
 	srand(seed);  // Randomizing rand
 	std::cerr << "Seed is " << seed << std::endl;
+
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
 	const std::unordered_set<BlockType> MOUNTAIN_TYPES = { SCORCHED, BARE, TUNDRA, SNOW, SNOW, SNOW };
+	const vector<vector<BlockType>> DIAGRAM = {  // Diagram to determine biome type, for GetBlockType
+		{SUBTROPICAL_DESERT, GRASSLAND, TROPICAL_SEASONAL_FOREST, TROPICAL_SEASONAL_FOREST, TROPICAL_RAIN_FOREST, TROPICAL_RAIN_FOREST},
+		{TEMPERATE_DESERT, GRASS_PURPLE, GRASSLAND, TEMPERATE_DECIDUOUS_FOREST, TEMPERATE_DECIDUOUS_FOREST, TEMPERATE_RAIN_FOREST},
+		{TEMPERATE_DESERT, DESERT_PURPLE, SHRUBLAND, SHRUBLAND, TAIGA, TAIGA},
+		{SCORCHED, BARE, TUNDRA, SNOW, SNOW, SNOW}
+	};
+
 	uint32_t height = GetHeight(), width = GetWidth();  // Height and width of a map
 	const size_t TOTAL_AREA = static_cast<size_t>(height) * width;  // Total area of a map
+	time.PrintTime("Generate: Generate constants");
+
 	GridNeighbors neighbors(height, width);  // Diagonal-wise neighbors of each cell
+	time.PrintTime("Generate: Generate neighbors");
 
 	// Give the result to blocks grid
 	Grid<BlockType> blocks(height, width);
@@ -161,6 +131,7 @@ void GameMap::Generate() {
 	// Build water and mountains via mixed noise between diamond square and perlin
 	Grid<float> heights = GenerateHeights();
 	Grid<float> humidity = GenerateHeights();
+	time.PrintTime("Generate: Get heights and humidity");
 	{
 		const float WATER_NORMAL_LEVEL = -0.264f;
 		const float WATER_DEEP_LEVEL = -0.35f, WATER_SHALLOW_LEVEL = -0.2f;
@@ -174,20 +145,20 @@ void GameMap::Generate() {
 				else if (heights[i][j] < WATER_SHALLOW_LEVEL)
 					blocks[i][j] = WATER_SHALLOW;
 				else
-					blocks[i][j] = GetBlockType(heights[i][j], humidity[i][j]);
+					blocks[i][j] = GetBlockType(heights[i][j], humidity[i][j], DIAGRAM);
 			}
 		}
 	}
 
-	time.PrintTime("Build water and mountains");
+	time.PrintTime("Generate: Build water and mountains");
 	
 	// Smooth map 1 time
-	SmoothMap(neighbors, blocks);
-	time.PrintTime("Smooth map 1 time");
+	grid_function::SmoothMap(neighbors, blocks);
+	time.PrintTime("Generate: Smooth map 1 time");
 
 	// Remove small areas
-	RemoveSmallAreas(neighbors, blocks);
-	time.PrintTime("Unite small areas with the closest non-small ones");
+	grid_function::RemoveSmallAreas(neighbors, blocks);
+	time.PrintTime("Generate: Unite small areas with the closest non-small ones");
 	
 	// Make on_border grid
 	Grid<char> on_border(height, width, false);
@@ -216,7 +187,7 @@ void GameMap::Generate() {
 			}
 		}
 	}
-	time.PrintTime("Make on_border grid"); 
+	time.PrintTime("Generate: Make on_border grid"); 
 	// Add rivers
 	{
 		// 1. Add points on a border
@@ -226,10 +197,10 @@ void GameMap::Generate() {
 				if (on_border[i][j] && WATER_TYPES.count(blocks[i][j]))
 					border_points.push_back({ j, i });
 
-		int total_river_area_left = 3000;
+		int total_river_area_left = 2000;
 
 		Grid<char> is_water_type = FromFunction<char>(height, width,
-			[&](size_t i, size_t j) { return WATER_TYPES.count(blocks[i][j]); });
+			[&](size_t i, size_t j) { return static_cast<char>(WATER_TYPES.count(blocks[i][j])); });
 		Grid<char> all_true(height, width, true);
 		Grid<char> is_water = FromFunction<char>(height, width,
 			[&](size_t i, size_t j) { return blocks[i][j] == WATER; });
@@ -237,7 +208,7 @@ void GameMap::Generate() {
 			[&](size_t i, size_t j) { return blocks[i][j] == WATER_SHALLOW; });
 
 		for (; total_river_area_left > 0;) {
-			std::cerr << "Total river area left: " << total_river_area_left << std::endl;
+			std::cerr << "Generate: Total river area left: " << total_river_area_left << std::endl;
 
 			// 2. Choose river border
 			Point border = border_points[rand() % border_points.size()];
@@ -250,7 +221,7 @@ void GameMap::Generate() {
 			// 3.2. From border to another border
 			vector<Point> border_to_border2 = grid_function::FindFarthest(neighbors, border, on_border, is_water_shallow);
 			if (border_to_border2.empty()) {
-				std::cerr << "Couldn't find another border" << std::endl;
+				std::cerr << "Generate: Couldn't find another border" << std::endl;
 				continue;
 			}
 			path.insert(path.end(), border_to_border2.begin(), border_to_border2.end());
@@ -264,14 +235,13 @@ void GameMap::Generate() {
 			// 4. Paint a river and decrease total_area_left
 			for (Point point : path) {
 				total_river_area_left -= !WATER_TYPES.count(blocks[point]);
-				if (blocks[point] == WATER_SHALLOW)
-					is_water_shallow[point] = false;
+				is_water_shallow[point] = false;
 				if (blocks[point] != WATER_DEEP) {
 					blocks[point] = WATER;
 					is_water[point] = true;
 				}
 				for (Point other : neighbors[point]) {
-					if (blocks[other] != WATER_DEEP) {
+					if (blocks[other] != WATER_DEEP /*&& (on_border[other] || blocks[other] == WATER_SHALLOW)*/) {
 						total_river_area_left -= !WATER_TYPES.count(blocks[point]);
 						is_water_shallow[other] = false;
 						blocks[other] = WATER;
@@ -295,16 +265,17 @@ void GameMap::Generate() {
 			}
 		}
 	}
-	time.PrintTime("Add rivers");
+	time.PrintTime("Generate: Add rivers");
 
 	// Smooth map 2 more times and remove small areas
-	SmoothMap(neighbors, blocks);
-	SmoothMap(neighbors, blocks);
-	RemoveSmallAreas(neighbors, blocks);
-	time.PrintTime("Smooth map 2 more times and remove small areas");
+	grid_function::SmoothMap(neighbors, blocks);
+	grid_function::SmoothMap(neighbors, blocks);
+	time.PrintTime("Generate: Smooth map 2 more times");
+	grid_function::RemoveSmallAreas(neighbors, blocks);
+	time.PrintTime("Generate: Remove small areas again");
 
 	// Get statistics
-	std::cerr << "Total area: " << TOTAL_AREA << std::endl;
+	std::cerr << "Generate: Total area: " << TOTAL_AREA << std::endl;
 	size_t water_area = 0, mountain_area = 0;
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
@@ -313,8 +284,8 @@ void GameMap::Generate() {
 			mountain_area += MOUNTAIN_TYPES.count(blocks[i][j]);
 		}
 	}
-	std::cerr << "Mountain area: " << mountain_area << " = " << (mountain_area * 100 / height / width) << "%" << std::endl;
-	std::cerr << "Water area: " << water_area << " = " << (water_area * 100 / height / width) << "%" << std::endl;
+	std::cerr << "Generate: Mountain area: " << mountain_area << " = " << (mountain_area * 100 / height / width) << "%" << std::endl;
+	std::cerr << "Generate: Water area: " << water_area << " = " << (water_area * 100 / height / width) << "%" << std::endl;
 
 	// Give subtypes to tiles
 	for (uint32_t i = 0; i < height; ++i)
@@ -326,5 +297,5 @@ void GameMap::Generate() {
 		for (uint32_t j = 0; j < width; ++j)
 			blocks_[GetInd(j, i)] = blocks[i][j];
 
-	time.PrintTime("Total time");
+	time_total.PrintTime("Generate: Total time");
 }
