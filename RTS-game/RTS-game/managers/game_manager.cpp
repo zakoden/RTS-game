@@ -55,7 +55,7 @@ void GameManager::Run() {
 		unit_factory_->AddPlayer(players_[i]);
 	}
 
-	int number = 20;
+	int number = 15;
 	for (int i = 0; i < number; ++i) {
 		unit_factory_->CreateTestHunter(0, 80 + rand() % 10, 92 + 16 * i);
 		unit_factory_->CreateTestHunter(0, 95 + rand() % 10, 100 + 16 * i);
@@ -92,18 +92,19 @@ void GameManager::Run() {
 	camera_h_ = 1.0;
 	
 	int count = 0;
-	int time1, time2, time;
+	int time1, time2;
+	double time;
 	while (!close_) {
 		if (count == 0) {
 			time1 = SDL_GetTicks();
 		}
 		RunStep();
 		count++;
-		if (count == 60) {
-			count = 0;
+		if (count == 200) {
 			time2 = SDL_GetTicks();
-			time = (time2 - time1) / 1000;
-			std::cout << 60.0 / (double)time << std::endl;
+			time = (time2 - time1) / 1000.0;
+			std::cout << "FPS : " << (double)count / (double)time << std::endl;
+			count = 0;
 		}
 	}
 
@@ -227,6 +228,7 @@ void GameManager::RunStep() {
 	}
 
 	user_manager_->Draw(renderer_, camera_);
+
 
 	/*
 	if (camera_h_ > air_h_) {
