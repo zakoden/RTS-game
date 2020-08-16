@@ -32,7 +32,8 @@ protected:
 	size_t texture_attack_num_ = 0;
 	size_t texture_pos_ = 0;
 	size_t texture_cur_delay_ = 0;
-	size_t texture_delay_ = 1;
+	size_t texture_delay_move_ = 1;
+	size_t texture_delay_attack_ = 1;
 	TextureManager* texture_manager_;
 	std::string name_;
 
@@ -45,6 +46,8 @@ protected:
 	int deltaX_ = 0, deltaY_ = 0;
 	// hitbox size
 	int width_ = 16, height_ = 16;
+	// texture size
+	int texture_width_ = 24, texture_height_ = 24;
 	/*
 	texture
 	-----------------------
@@ -106,8 +109,10 @@ public:
 	void RemoveEffect(Effect effect) override;	  
 	bool HasEffect(Effect effect) const override;  
 
-	void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, size_t texture_delay,
-		            size_t deltaX, size_t deltaY, size_t width, size_t height) override;
+	void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, 
+		            size_t texture_delay_move, size_t texture_delay_attack,
+		            size_t deltaX, size_t deltaY, size_t width, size_t height,
+		            size_t texture_width, size_t texture_height) override;
     void SetType(UnitType type) override;
 	void SetBehavior(Behavior* behavior) override;
 	void SetPlayer(size_t player) override;

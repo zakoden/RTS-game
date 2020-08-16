@@ -21,6 +21,10 @@ TextureManager::TextureManager(SDL_Renderer* renderer) {
 	LoadTexture("pictures/testunit2.bmp");
 	LoadTexture("pictures/testunit3.bmp");
 	LoadTexture("pictures/testunit2_1.bmp");
+	LoadTexture("pictures/fire_small_poleax.bmp");
+	LoadTexture("pictures/fire_small_spear.bmp");
+	LoadTexture("pictures/fire_small_lance.bmp");
+	LoadTexture("pictures/fire_medium_poleax.bmp");
 
 	surface = NULL;
 	texture = NULL;

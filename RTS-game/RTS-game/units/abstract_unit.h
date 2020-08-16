@@ -55,8 +55,10 @@ public:
 	virtual AbstractUnit* FindEnemyInRadius(int radius) = 0;
 	virtual AbstractUnit* GetEnemyInPoint(int x, int y) = 0;
 
-	virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, size_t texture_delay,
-		                    size_t deltaX, size_t deltaY, size_t width, size_t height) = 0;
+	virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, 
+		                    size_t texture_delay_move, size_t texture_delay_attack,
+		                    size_t deltaX, size_t deltaY, size_t width, size_t height,
+		                    size_t texture_width, size_t texture_height) = 0;
 	virtual void SetType(UnitType type) = 0;
 	virtual void SetBehavior(Behavior* behavior) = 0;   
 	virtual void SetPlayer(size_t player) = 0;

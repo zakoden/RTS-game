@@ -6,6 +6,17 @@
 
 #include "SDL.h"
 
+enum TextureName {
+	testunit,
+    testunit1,
+	testunit2,
+	testunit3,
+	testunit2_1,
+	fire_small_poleax,
+	fire_small_spear,
+	fire_small_lance,
+	fire_medium_poleax
+};
 
 class TextureManager {
 protected:
