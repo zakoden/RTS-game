@@ -28,8 +28,6 @@ int GameManager::Init() {
 	camera_->MoveTo(300, 200);
 	game_map_ = new GameMap(renderer_, 256, 256);
 	game_map_->Generate();
-	//game_map_->GenerateHeightMap();
-	//game_map_->TestGenerate(0);
 	texture_manager_ = new TextureManager(renderer_);
 	players_info_ = new PlayersInfo(2);
 	unit_factory_ = new UnitFactory();
@@ -191,16 +189,16 @@ void GameManager::RunStep() {
 	} else {
 		switch (scale_status_) {
 		case 0:
-			camera_->SetScale(0.8);
+			camera_->SetScale(0.8f);
 			break;
 		case -1:
-			camera_->SetScale(0.6);
+			camera_->SetScale(0.6f);
 			break;
 		case -2:
-			camera_->SetScale(0.4);
+			camera_->SetScale(0.4f);
 			break;
 		case -3:
-			camera_->SetScale(0.2);
+			camera_->SetScale(0.2f);
 			break;
 		}
 	}

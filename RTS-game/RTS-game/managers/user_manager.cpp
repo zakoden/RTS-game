@@ -21,9 +21,8 @@ void UserManager::DoAction(SDL_Renderer* renderer) {
 	mouse_x = camera_->ToMapX(renderer, mouse_x);
 	mouse_y = camera_->ToMapY(renderer, mouse_y);
 	if (game_map_->IsPositionInMap(mouse_x, mouse_y)) {
-		int block_x, block_y;
-		block_x = mouse_x / game_map_->GetBlockSize();
-		block_y = mouse_y / game_map_->GetBlockSize();
+		int block_x = mouse_x / game_map_->GetBlockSize();
+		int block_y = mouse_y / game_map_->GetBlockSize();
 		if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 			if (!game_map_->GetUnitsInBlock(block_x, block_y)->empty()) {
 				if (control_unit_ != NULL) {

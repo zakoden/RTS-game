@@ -1,5 +1,6 @@
 #include "unit.h"
 
+#include <algorithm>
 #include <iostream>
 
 // ----------protected-------------
@@ -46,46 +47,31 @@ bool Unit::CanMoveOnBlock(uint32_t x, uint32_t y) {
 // -----------public---------------
 
 Unit::Unit(int attack, int defense, int max_health, double speed,
-	       TextureManager* texture_manager, GameMap* game_map) {
-	attack_ = attack;
-	defense_ = defense;
-	health_ = max_health;
-	max_health_ = max_health;
-	speed_ = speed;
-	texture_manager_ = texture_manager;
-	game_map_ = game_map;
-
-	behavior_ = NULL;
-}
+	TextureManager* texture_manager, GameMap* game_map)
+	: attack_(attack)
+	, defense_(defense)
+	, health_(max_health)
+	, max_health_(max_health)
+	, speed_(speed)
+	, texture_manager_(texture_manager)
+	, game_map_(game_map) {}
 
 Unit::~Unit() {
 	if (behavior_ != NULL) delete behavior_;
 	if (type_ == UnitType::Ground) DeleteUnitFromMap();
 }
 
-int Unit::GetX() {
-	return x_;
-}
+int Unit::GetX() { return x_; }
 
-int Unit::GetY() {
-	return y_;
-}
+int Unit::GetY() { return y_; }
 
-int Unit::GetCenterX() {
-	return (int)x_ + deltaX_ + width_ / 2;
-}
+int Unit::GetCenterX() { return (int)x_ + deltaX_ + width_ / 2; }
 
-int Unit::GetCenterY() {
-	return (int)y_ + deltaY_ + height_ / 2;
-}
+int Unit::GetCenterY() { return (int)y_ + deltaY_ + height_ / 2; }
 
-int Unit::GetSpeed() {
-	return speed_;
-}
+int Unit::GetSpeed() { return speed_; }
 
-int Unit::GetAttack() {
-	return attack_;
-}
+int Unit::GetAttack() { return attack_; }
 
 void Unit::GetHitbox(double& x1, double& y1, double& x2, double& y2) {
 	x1 = x_ + deltaX_;
@@ -146,20 +132,8 @@ void Unit::VectorApplyBullet() {
 	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
 	dx_ = (dx_ * speed_) / v_len;
 	dy_ = (dy_ * speed_) / v_len;
-	x_ += dx_;
-	y_ += dy_;
-	if (x_ < 0) {
-		x_ = 0;
-	}
-	if (y_ < 0) {
-		y_ = 0;
-	}
-	if (x_ > (8 * game_map_->GetWidth() - width_)) {
-		x_ = (8 * game_map_->GetWidth() - width_);
-	}
-	if (y_ > (8 * game_map_->GetHeight() - height_)) {
-		y_ = (8 * game_map_->GetHeight() - height_);
-	}
+	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * game_map_->GetWidth() - width_);
+	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * game_map_->GetHeight() - height_);
 }
 
 void Unit::SetCommandPoint(int x, int y) {
@@ -175,8 +149,7 @@ void Unit::GetCommandPoint(int& x, int& y) {
 
 
 void Unit::DamageApply(int damage) {
-	int total_damage = damage - defense_;
-	if (total_damage < 0) total_damage = 0;
+	int total_damage = std::clamp(damage - defense_, 0, damage);
 	health_ -= total_damage;
 	if (health_ < 0) {
 		std::cout << "die, health : " << health_ << std::endl;
@@ -228,8 +201,7 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 			dx2 -= sum_dx;
 			this->AddVector(-dx1, 0.0);
 			unit->AddVector(-dx2, 0.0);
-		}
-		else {
+		} else {
 			double to = cy2 - cy1;
 			if (to * dy1 < 0.0) dy1 = 0.0;
 			if (to * dy2 > 0.0) dy2 = 0.0;
@@ -250,8 +222,7 @@ void Unit::UnitCollide(AbstractUnit* unit) {
 			double to = cx2 - cx1;
 			this->AddVector(-to * 0.2, 0.0);
 			unit->AddVector(to * 0.2, 0.0);
-		}
-		else {
+		} else {
 			double to = cy2 - cy1;
 			this->AddVector(0.0, -to * 0.2);
 			unit->AddVector(0.0, to * 0.2);
@@ -266,20 +237,19 @@ void Unit::DoAction() {
 		behavior_->DoAction();
 	}
 
-	double EPS = 0.0001;
+	const double EPS = 0.0001;
 	if (abs(dx_) > EPS || abs(dy_) > EPS) {
 		AddEffect(Effect::MOVING);
 		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
 	}
 
-	int x, y;
+	int x = static_cast<int>(x_), y = static_cast<int>(y_);
 	x = floor(x_);
 	y = floor(y_);
-	int x1, x2, y1, y2;
-	x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+	int x1 = (x + deltaX_) / game_map_->GetBlockSize();
+	int y1 = (y + deltaY_) / game_map_->GetBlockSize();
+	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
+	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
 
 	std::unordered_set<AbstractUnit*> used_units;
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
@@ -296,23 +266,19 @@ void Unit::DoAction() {
 }
 
 void Unit::Move() {
-	double EPS = 1e-5;
+	const double EPS = 1e-5;
 	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
 	DeleteUnitFromMap();
-	int x, y;
-	x = floor(x_);
-	y = floor(y_);
-	int x1, x2, y1, y2;
-	x1 = (x + deltaX_) / game_map_->GetBlockSize() - 1;
-	y1 = (y + deltaY_) / game_map_->GetBlockSize() - 1;
-	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize() + 1;
-	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize() + 1;
+	int x = static_cast<int>(x_), y = static_cast<int>(y_);
+	int x1 = (x + deltaX_) / game_map_->GetBlockSize() - 1;
+	int y1 = (y + deltaY_) / game_map_->GetBlockSize() - 1;
+	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize() + 1;
+	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize() + 1;
 
-	double up, down, left, right;
-	left = x_ + deltaX_;
-	up = y_ + deltaY_;
-	right = left + width_;
-	down = up + height_;
+	double left = x_ + deltaX_;
+	double up = y_ + deltaY_;
+	double right = left + width_;
+	double down = up + height_;
 
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
@@ -322,25 +288,22 @@ void Unit::Move() {
 				continue;
 
 			SDL_Rect block = game_map_->GetBlockRect(cur_x, cur_y);
-			double inner_up, inner_down, inner_left, inner_right;
-			double area;
-			inner_left = std::max(left + dx_, (double)block.x);
-			inner_up = std::max(up + dy_, (double)block.y);
-			inner_right = std::min(right + dx_, (double)block.x + block.w);
-			inner_down = std::min(down + dy_, (double)block.y + block.h);
+			double inner_left = std::max(left + dx_, (double)block.x);
+			double inner_up = std::max(up + dy_, (double)block.y);
+			double inner_right = std::min(right + dx_, (double)block.x + block.w);
+			double inner_down = std::min(down + dy_, (double)block.y + block.h);
 			if ((inner_right - inner_left) < EPS) continue;
 			if ((inner_down - inner_up) < EPS) continue;
-			area = (inner_right - inner_left) * (inner_down - inner_up);
+			double area = (inner_right - inner_left) * (inner_down - inner_up);
 			if (area < EPS) continue;
 			int ind = -1; // collision from
 			// 0 - up
 			// 1 - left
 			// 2 - down
 			// 3 - right
-			double min_coef = 0.0;
-			double cur_coef, up_dist, left_dist, down_dist, right_dist;
+			double min_coef = 0.0, cur_coef;
 
-			up_dist = (down + dy_) - block.y;
+			double up_dist = (down + dy_) - block.y;
 			if ((up + dy_) < block.y && (down + dy_) >= block.y &&
 				(right + dx_) >= block.x && (left + dx_) <= (block.x + block.w) &&
 				up_dist > EPS && dy_ > EPS) {
@@ -351,7 +314,7 @@ void Unit::Move() {
 				}
 			}
 
-			left_dist = (right + dx_) - block.x;
+			double left_dist = (right + dx_) - block.x;
 			if ((left + dx_) < block.x && (right + dx_) >= block.x &&
 				(down + dy_) >= block.y && (up + dy_) < (block.y + block.h) &&
 				left_dist > EPS && dx_ > EPS) {
@@ -362,7 +325,7 @@ void Unit::Move() {
 				}
 			}
 
-			down_dist = (up + dy_) - (block.y + block.h);
+			double down_dist = (up + dy_) - (block.y + block.h);
 			if ((up + dy_) < (block.y + block.h) && (down + dy_) > (block.y + block.h) &&
 				(right + dx_) >= block.x && (left + dx_) <= (block.x + block.w) &&
 				down_dist < -EPS && dy_ < -EPS) {
@@ -373,7 +336,7 @@ void Unit::Move() {
 				}
 			}
 
-			right_dist = (left + dx_) - (block.x + block.w);
+			double right_dist = (left + dx_) - (block.x + block.w);
 			if ((left + dx_) < (block.x + block.w) && (right + dx_) > (block.x + block.w) &&
 				(down + dy_) >= block.y && (up + dy_) < (block.y + block.h) &&
 				right_dist < -EPS && dx_ < -EPS) {
@@ -387,7 +350,7 @@ void Unit::Move() {
 			switch (ind) {
 			case 0: {
 				double need_dy = block.y - down;
-				double coef = 1.0 - (need_dy / dy_);
+				double coef = std::clamp(1.0 - (need_dy / dy_), 0.0, 1.0);
 				if (coef > 1.0) coef = 1.0;
 				if (coef < 0.0) coef = 0.0;
 				dx_ *= coef;
@@ -399,7 +362,7 @@ void Unit::Move() {
 			}
 			case 1: {
 				double need_dx = block.x - right;
-				double coef = 1.0 - (need_dx / dx_);
+				double coef = std::clamp(1.0 - (need_dx / dx_), 0.0, 1.0);
 				if (coef > 1.0) coef = 1.0;
 				if (coef < 0.0) coef = 0.0;
 				dy_ *= coef;
@@ -411,9 +374,7 @@ void Unit::Move() {
 			}
 			case 2: {
 				double need_dy = (block.y + block.h) - up;
-				double coef = 1.0 - (need_dy / dy_);
-				if (coef > 1.0) coef = 1.0;
-				if (coef < 0.0) coef = 0.0;
+				double coef = std::clamp(1.0 - (need_dy / dy_), 0.0, 1.0);
 				dx_ *= coef;
 				up += need_dy;
 				down += need_dy;
@@ -423,9 +384,7 @@ void Unit::Move() {
 			}
 			case 3: {
 				double need_dx = (block.x + block.w) - left;
-				double coef = 1.0 - (need_dx / dx_);
-				if (coef > 1.0) coef = 1.0;
-				if (coef < 0.0) coef = 0.0;
+				double coef = std::clamp(1.0 - (need_dx / dx_), 0.0, 1.0);
 				dy_ *= coef;
 				left += need_dx;
 				right += need_dx;
@@ -437,20 +396,8 @@ void Unit::Move() {
 		}
 	}
 
-	x_ += dx_;
-	y_ += dy_;
-	if (x_ < 0) {
-		x_ = 0;
-	}
-	if (y_ < 0) {
-		y_ = 0;
-	}
-	if (x_ > (8 * game_map_->GetWidth() - width_)) {
-		x_ = (8 * game_map_->GetWidth() - width_);
-	}
-	if (y_ > (8 * game_map_->GetHeight() - height_)) {
-		y_ = (8 * game_map_->GetHeight() - height_);
-	}
+	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * game_map_->GetWidth() - width_);
+	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * game_map_->GetHeight() - height_);
 	dx_ = 0.0;
 	dy_ = 0.0;
 	InsertUnitToMap();
@@ -461,7 +408,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	// stay [0, 0]
 	// move [1, texture_move_num_]
 	// attack [texture_move_num_ + 1, texture_move_num_ + texture_attack_num_]
-	texture_cur_delay_++;
+	++texture_cur_delay_;
 	texture_cur_delay_ %= texture_delay_;
 	if (texture_cur_delay_ == 0) {
 		if (!HasEffect(Effect::MOVING) && !HasEffect(Effect::ATTACKING)) {
@@ -597,25 +544,15 @@ void Unit::SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, si
 	height_ = height;
 }
 
-void Unit::SetType(UnitType type) {
-	type_ = type;
-}
+void Unit::SetType(UnitType type) { type_ = type; }
 
-void Unit::SetBehavior(Behavior* behavior) { 
-	behavior_ = behavior; 
-}
+void Unit::SetBehavior(Behavior* behavior) { behavior_ = behavior; }
 
-void Unit::SetPlayer(size_t player) {
-	player_ = player;
-}
+void Unit::SetPlayer(size_t player) { player_ = player; }
 
-void Unit::SetPlayersInfo(PlayersInfo* players_info) {
-	players_info_ = players_info;
-}
+void Unit::SetPlayersInfo(PlayersInfo* players_info) { players_info_ = players_info; }
 
-size_t Unit::GetPlayer() {
-	return player_;
-}
+size_t Unit::GetPlayer() { return player_; }
 
 void Unit::DeadCheck() {
 	if (behavior_ != NULL) {
@@ -623,10 +560,6 @@ void Unit::DeadCheck() {
 	}
 }
 
-bool Unit::IsAlive() {
-	return alive_;
-}
+bool Unit::IsAlive() { return alive_; }
 
-void Unit::Die() {
-	alive_ = false;
-}
+void Unit::Die() { alive_ = false; }

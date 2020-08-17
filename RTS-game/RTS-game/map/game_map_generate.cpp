@@ -18,12 +18,8 @@
 using grid_function::FromFunction;
 using std::vector;
 
-// Returns (random number in [l; r])% of area
-inline size_t GetRandomArea(size_t l, size_t r, size_t area) {
-	return area * (rand() % (r - l + 1) + l) / 100;
-}
-
-uint8_t GetSubtype(BlockType type) {
+// Get subtype of a block
+inline uint8_t GetSubtype(BlockType type) {
 	switch (type) {
 		case GRASS:
 			return GRASS + rand() % 10;
@@ -59,7 +55,6 @@ inline BlockType GetBlockType(float height, float humidity, const vector<vector<
 	size_t humidity_type = static_cast<size_t>(humidity > 0.5) + (humidity > 0.667)
 		+ (humidity > 1) + (humidity > 1.333) + (humidity > 1.667);
 
-	// Biome diagram
 	return DIAGRAM[height_type][humidity_type];
 }
 
@@ -107,10 +102,10 @@ void GameMap::Generate() {
 	TimeMeasurer time, time_total = time;  // Class to measure time between each segment
 
 	srand(seed);  // Randomizing rand
-	std::cerr << "Seed is " << seed << std::endl;
+	std::cerr << "Generate: Map seed is " << seed << std::endl;
 
 	const std::unordered_set<BlockType> WATER_TYPES = { WATER_SHALLOW, WATER, WATER_DEEP };
-	const std::unordered_set<BlockType> MOUNTAIN_TYPES = { SCORCHED, BARE, TUNDRA, SNOW, SNOW, SNOW };
+	const std::unordered_set<BlockType> MOUNTAIN_TYPES = { SCORCHED, BARE, TUNDRA, SNOW };
 	const vector<vector<BlockType>> DIAGRAM = {  // Diagram to determine biome type, for GetBlockType
 		{SUBTROPICAL_DESERT, GRASSLAND, TROPICAL_SEASONAL_FOREST, TROPICAL_SEASONAL_FOREST, TROPICAL_RAIN_FOREST, TROPICAL_RAIN_FOREST},
 		{TEMPERATE_DESERT, GRASS_PURPLE, GRASSLAND, TEMPERATE_DECIDUOUS_FOREST, TEMPERATE_DECIDUOUS_FOREST, TEMPERATE_RAIN_FOREST},

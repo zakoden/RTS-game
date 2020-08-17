@@ -124,6 +124,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>26812;4083;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,6 +156,7 @@
     <ClCompile Include="behaviors\behavior_bullet.cpp" />
     <ClCompile Include="behaviors\behavior_hunter.cpp" />
     <ClCompile Include="behaviors\behavior_random.cpp" />
+    <ClCompile Include="behaviors\behavior_scout.cpp" />
     <ClCompile Include="behaviors\behavior_stay.cpp" />
     <ClCompile Include="behaviors\behavior_tower.cpp" />
     <ClCompile Include="managers\game_manager.cpp" />
@@ -187,6 +189,7 @@
     <ClInclude Include="behaviors\behavior_around_point.h" />
     <ClInclude Include="behaviors\behavior_bullet.h" />
     <ClInclude Include="behaviors\behavior_hunter.h" />
+    <ClInclude Include="behaviors\behavior_scout.h" />
     <ClInclude Include="managers\user_manager.h" />
     <ClInclude Include="map\block_type.h" />
     <ClInclude Include="map\camera.h" />

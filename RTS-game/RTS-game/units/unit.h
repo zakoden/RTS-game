@@ -20,7 +20,7 @@ protected:
 	UnitType type_ = UnitType::Ground;
 	int attack_ = 0, defense_ = 0, health_ = 0, max_health_ = 0;
 	std::bitset<EFFECT_SIZE> effects_;
-	Behavior* behavior_;
+	Behavior* behavior_ = NULL;
 	size_t player_ = 0; // player number	
 	PlayersInfo* players_info_ = NULL;
 	GameMap* game_map_ = NULL;

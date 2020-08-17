@@ -1,11 +1,9 @@
 #include "behavior_hunter.h"
 
-BehaviorHunter::BehaviorHunter(AbstractUnit* unit, AbstractUnitFactory* unit_factory) {
-	unit_ = unit;
-	unit_factory_ = unit_factory;
-	for (size_t i = 0; i < behavior_hunter::Steps::STEPS_CNT; ++i) {
-		cur_steps_[i] = 0;
-	}
+BehaviorHunter::BehaviorHunter(AbstractUnit* unit, AbstractUnitFactory* unit_factory)
+: unit_(unit)
+, unit_factory_(unit_factory) {
+	memset(cur_steps_, 0, sizeof cur_steps_);
 	max_steps_[behavior_hunter::Steps::COMMAND_UPDATE] = 50;
 	max_steps_[behavior_hunter::Steps::FIND] = 30;
 	cur_steps_[behavior_hunter::Steps::RELOAD] = rand() % 50;
@@ -25,8 +23,7 @@ void BehaviorHunter::AttackEnd() {
 
 void BehaviorHunter::DoAction() {
 	for (size_t i = 0; i < behavior_hunter::Steps::STEPS_CNT; ++i) {
-		cur_steps_[i]++;
-		cur_steps_[i] %= max_steps_[i];
+		cur_steps_[i] = (++cur_steps_[i]) % max_steps_[i];
 	}
 
 	if (unit_->HasEffect(Effect::ATTACKING)) {
@@ -50,11 +47,10 @@ void BehaviorHunter::DoAction() {
 		Attack(target_);
 	} else {
 		if (unit_->HasEffect(Effect::HAS_COMMAND_POINT)) {
-			double dx, dy;
 			int to_x, to_y;
 			unit_->GetCommandPoint(to_x, to_y);
-			dx = (double)to_x - unit_->GetCenterX();
-			dy = (double)to_y - unit_->GetCenterY();
+			double dx = (double)to_x - unit_->GetCenterX();
+			double dy = (double)to_y - unit_->GetCenterY();
 			unit_->SetVector(dx, dy);
 			unit_->VectorApply();
 		}
@@ -65,9 +61,9 @@ void BehaviorHunter::Attack(AbstractUnit* enemy) {
 	if (unit_->HasEffect(Effect::ATTACKING)) {
 		return;
 	}
-	int dx, dy;
-	dx = enemy->GetCenterX() - unit_->GetCenterX();
-	dy = enemy->GetCenterY() - unit_->GetCenterY();
+
+	int dx = enemy->GetCenterX() - unit_->GetCenterX();
+	int dy = enemy->GetCenterY() - unit_->GetCenterY();
 	if ((dx * dx + dy * dy) > distance_attack_ * distance_attack_) {
 		unit_->SetVector(dx, dy);
 		unit_->VectorApply();

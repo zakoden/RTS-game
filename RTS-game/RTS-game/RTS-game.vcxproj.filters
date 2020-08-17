@@ -87,6 +87,9 @@
     <ClCompile Include="behaviors\behavior_around_point.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="behaviors\behavior_scout.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
@@ -152,6 +155,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="behaviors\behavior_around_point.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviors\behavior_scout.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
