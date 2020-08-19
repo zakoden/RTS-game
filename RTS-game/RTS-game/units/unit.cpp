@@ -157,6 +157,15 @@ void Unit::DamageApply(int damage) {
 	}
 }
 
+void Unit::UncoverNearbyCells() {
+	for (int dx = -scout_radius_; dx <= scout_radius_; dx += game_map_->GetBlockSize()) {
+		for (int dy = -scout_radius_; dy <= scout_radius_; dy += game_map_->GetBlockSize()) {
+			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy))
+				game_map_->UncoverCell(x_ + dx, y_ + dy, player_);
+		}
+	}
+}
+
 void Unit::AttackEnd() {
 	RemoveEffect(Effect::ATTACKING);
 	behavior_->AttackEnd();
@@ -266,6 +275,10 @@ void Unit::DoAction() {
 }
 
 void Unit::Move() {
+	if (update_fog_of_war_.Ding())
+		UncoverNearbyCells();
+	update_fog_of_war_.Tick();
+
 	const double EPS = 1e-5;
 	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
 	DeleteUnitFromMap();

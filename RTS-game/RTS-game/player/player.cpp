@@ -11,6 +11,8 @@ Player::Player(size_t num) {
 Player::~Player() {
 }
 
+size_t Player::GetNum() const { return num_; }
+
 void Player::SetOwner(PlayerOwner* owner) {
 	player_owner_ = owner;
 }

@@ -8,6 +8,8 @@
 #include <bitset>
 #include <memory>
 
+#include "../clock.h"
+
 #include "../behaviors/status_effects.h"
 #include "../behaviors/behavior.h"
 
@@ -24,6 +26,11 @@ protected:
 	size_t player_ = 0; // player number	
 	PlayersInfo* players_info_ = NULL;
 	GameMap* game_map_ = NULL;
+
+	Clock update_fog_of_war_{ GameMap::GetBlockSize() };
+	
+	// All cells within that radius will be uncovered
+	int scout_radius_ = 10 * GameMap::GetBlockSize();
 
 	// --cosmetic--
 	bool is_right_side = true;
@@ -89,6 +96,7 @@ public:
 	void GetCommandPoint(int& x, int& y) override;
 
 	void DamageApply(int damage) override;
+	void UncoverNearbyCells();  // Every cell within scout_radius_ will be uncovered
 	void AttackEnd() override;
 	void UnitCollide(AbstractUnit* unit) override;
 

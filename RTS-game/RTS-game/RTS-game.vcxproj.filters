@@ -87,7 +87,7 @@
     <ClCompile Include="behaviors\behavior_around_point.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="behaviors\behavior_scout.cpp">
+    <ClCompile Include="clock.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -157,7 +157,7 @@
     <ClInclude Include="behaviors\behavior_around_point.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="behaviors\behavior_scout.h">
+    <ClInclude Include="clock.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

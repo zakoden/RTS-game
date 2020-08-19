@@ -24,25 +24,26 @@ int GameManager::Init() {
 	}
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
+	const int PLAYERS_COUNT = 2;
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
-	game_map_ = new GameMap(renderer_, 256, 256);
+	game_map_ = new GameMap(renderer_, 256, 256, PLAYERS_COUNT);
 	game_map_->Generate();
 	texture_manager_ = new TextureManager(renderer_);
-	players_info_ = new PlayersInfo(2);
+	players_info_ = new PlayersInfo(PLAYERS_COUNT);
 	unit_factory_ = new UnitFactory();
 	unit_factory_->SetMap(game_map_);
 	unit_factory_->SetTextureManager(texture_manager_);
 	unit_factory_->SetPlayersInfo(players_info_);
-	players_info_->SetStatus(0, 0, PlayersStatus::PEACE);
-	players_info_->SetStatus(1, 1, PlayersStatus::PEACE);
+	for (size_t i = 0; i < PLAYERS_COUNT; ++i)
+		players_info_->SetStatus(i, i, PlayersStatus::PEACE);
 	user_manager_ = new UserManager(game_map_, camera_);
 }
 
 void GameManager::Run() {
 
 	Player* player0 = new Player(0);
-	user_manager_->AddPlayer(player0);
+	user_manager_->SetPlayer(player0);
 	Player* player1 = new Player(1);
 	player0->SetOwner(user_manager_);
 	player1->SetOwner(user_manager_);
@@ -100,7 +101,7 @@ void GameManager::Run() {
 		count++;
 		if (count == 200) {
 			time2 = SDL_GetTicks();
-			time = (time2 - time1) / 1000.0;
+			time = (static_cast<int>(time2) - time1) / 1000.0;
 			std::cout << "FPS : " << (double)count / (double)time << std::endl;
 			count = 0;
 		}
@@ -112,20 +113,29 @@ void GameManager::Run() {
 }
 
 void GameManager::RunStep() {
-	
 	// events
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
-		case SDL_KEYDOWN:
-			if (event.key.keysym.sym == SDLK_F11) {
+		case SDL_KEYDOWN: {
+			switch (event.key.keysym.sym) {
+			case SDLK_F10:
+				has_fog_of_war_ = !has_fog_of_war_;
+				break;
+
+			case SDLK_F11:
 				if (is_fullscreen_)
 					SDL_SetWindowFullscreen(window_, 0);
 				else
 					SDL_SetWindowFullscreen(window_, SDL_WINDOW_FULLSCREEN_DESKTOP);
 				is_fullscreen_ = !is_fullscreen_;
+				break;
+
+			case SDLK_TAB:
+				user_manager_->SetPlayer(players_[1 - user_manager_->GetPlayer()->GetNum()]);
 			}
 			break;
+		}
 
 		case SDL_QUIT:
 			close_ = true;
@@ -185,7 +195,7 @@ void GameManager::RunStep() {
 	SDL_RenderClear(renderer_);
 	
 	if (scale_status_ >= 1) {
-		camera_->SetScale(scale_status_);
+		camera_->SetScale(static_cast<float>(scale_status_));
 	} else {
 		switch (scale_status_) {
 		case 0:
@@ -220,12 +230,19 @@ void GameManager::RunStep() {
 
 
 	// draw
-	game_map_->Draw(renderer_, camera_);
-	for (size_t i = 0; i < players_.size(); ++i) {
-		players_[i]->Draw(renderer_, camera_);
-	}
+	{
+		if (has_fog_of_war_)
+			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
+		else
+			game_map_->Draw(renderer_, camera_);
 
-	user_manager_->Draw(renderer_, camera_);
+		for (size_t i = 0; i < players_.size(); ++i) {
+			players_[i]->Draw(renderer_, camera_);
+		}
+
+		if (has_fog_of_war_)  // TODO optimize it so it won't eat 30 fps
+			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
+	}
 
 
 	/*

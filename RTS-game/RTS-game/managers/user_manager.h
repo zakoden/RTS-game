@@ -24,7 +24,9 @@ public:
 	UserManager(GameMap* game_map, Camera* camera);
 	~UserManager();
 
-	void AddPlayer(Player* player);
+	Player* GetPlayer() const;
+
+	void SetPlayer(Player* player);
 	void Draw(SDL_Renderer* renderer, Camera* camera);
 	void DoAction(SDL_Renderer* renderer);
 	void DeadCheck() override;

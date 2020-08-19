@@ -5,6 +5,8 @@
 
 #include "SDL.h"
 
+#include "../clock.h"
+
 #include "../map/game_map.h"
 #include "../map/camera.h"
 
@@ -34,7 +36,9 @@ protected:
 	std::vector<Player*> players_;
 	PlayersInfo* players_info_ = NULL;
 	UserManager* user_manager_ = NULL;
+
 	bool is_fullscreen_ = false;
+	bool has_fog_of_war_ = true;
 
 	double camera_h_ = 1.0;
 	double ground_h_ = 1.0, air_h_ = 1.0;

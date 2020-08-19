@@ -18,6 +18,8 @@ public:
 	Player(size_t num);
 	~Player();
 
+	size_t GetNum() const;
+
 	void SetOwner(PlayerOwner* owner);
 
 	void DoAction();
