@@ -38,7 +38,13 @@ protected:
 	UserManager* user_manager_ = NULL;
 
 	bool is_fullscreen_ = false;
-	bool has_fog_of_war_ = true;
+
+	// 0 means "no fog of war", 1 means "map is visible, units aren't", 2 means "map is not visible"
+	enum FogOfWarType {
+		VISIBLE,
+		UNITS_HIDDEN,
+		MAP_HIDDEN
+	} fog_of_war_mode_ = MAP_HIDDEN;
 
 	double camera_h_ = 1.0;
 	double ground_h_ = 1.0, air_h_ = 1.0;

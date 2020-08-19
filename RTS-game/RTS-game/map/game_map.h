@@ -58,7 +58,7 @@ public:
 	void SetBlock(uint32_t x, uint32_t y, uint8_t value);
 	void BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y, uint8_t block = UINT8_MAX);
 	void Draw(SDL_Renderer* renderer, Camera* camera, int player_num = -1); 
-	void ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num = -1);
+	void ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num, uint8_t block_num);
 
 	Grid<float> GenerateHeights();  // Generates a map of heights
 	void Generate();  // Generates random map

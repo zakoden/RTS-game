@@ -2,10 +2,12 @@
 
 class Clock {
 private:
-	unsigned int time_ = 0, frequency_;
+	int time_ = 0, frequency_;
 
 public:
 	Clock(unsigned int frequency);
+
+	operator int() const;
 
 	bool Ding() const;
 	void Tick();

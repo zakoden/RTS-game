@@ -115,12 +115,12 @@ void GameMap::Draw(SDL_Renderer* renderer, Camera* camera, int player_num) {
 	}
 }
 
-void GameMap::ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num) {
-	//SDL_RenderCopy(renderer, tiles_, NULL, NULL);
+
+void GameMap::ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num, uint8_t block_num) {
 	for (uint32_t y = 0; y < height_; ++y) {
 		for (uint32_t x = 0; x < width_; ++x) {
 			if (!IsCellUncovered(x, y, player_num))
-				BlockDraw(renderer, camera, x, y, UNKNOWN);
+				BlockDraw(renderer, camera, x, y, block_num);
 		}
 	}
 }

@@ -27,7 +27,7 @@ int GameManager::Init() {
 	const int PLAYERS_COUNT = 2;
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
-	game_map_ = new GameMap(renderer_, 256, 256, PLAYERS_COUNT);
+	game_map_ = new GameMap(renderer_, 200, 200, PLAYERS_COUNT);
 	game_map_->Generate();
 	texture_manager_ = new TextureManager(renderer_);
 	players_info_ = new PlayersInfo(PLAYERS_COUNT);
@@ -101,7 +101,7 @@ void GameManager::Run() {
 		count++;
 		if (count == 200) {
 			time2 = SDL_GetTicks();
-			time = (static_cast<int>(time2) - time1) / 1000.0;
+			time = (static_cast<long long>(time2) - time1) / 1000.0;
 			std::cout << "FPS : " << (double)count / (double)time << std::endl;
 			count = 0;
 		}
@@ -120,7 +120,7 @@ void GameManager::RunStep() {
 		case SDL_KEYDOWN: {
 			switch (event.key.keysym.sym) {
 			case SDLK_F10:
-				has_fog_of_war_ = !has_fog_of_war_;
+				fog_of_war_mode_ = static_cast<FogOfWarType>((fog_of_war_mode_ + 1) % 3);
 				break;
 
 			case SDLK_F11:
@@ -231,17 +231,20 @@ void GameManager::RunStep() {
 
 	// draw
 	{
-		if (has_fog_of_war_)
-			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
-		else
+		if (fog_of_war_mode_ == VISIBLE)
 			game_map_->Draw(renderer_, camera_);
+		else
+			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
 
 		for (size_t i = 0; i < players_.size(); ++i) {
 			players_[i]->Draw(renderer_, camera_);
 		}
 
-		if (has_fog_of_war_)  // TODO optimize it so it won't eat 30 fps
-			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
+		// TODO optimize it
+		if (fog_of_war_mode_ == UNITS_HIDDEN)
+			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UINT8_MAX);
+		else if (fog_of_war_mode_ == MAP_HIDDEN)
+			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UNKNOWN);
 	}
 
 
