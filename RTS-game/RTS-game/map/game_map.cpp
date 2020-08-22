@@ -94,10 +94,8 @@ void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint
 }
 
 void GameMap::Draw(SDL_Renderer* renderer, Camera* camera) {
-	//SDL_RenderCopy(renderer, tiles_, NULL, NULL);
 	for (uint32_t y = 0; y < height_; ++y) {
 		for (uint32_t x = 0; x < width_; ++x) {
-			//uint32_t ind = x + y * width;
 			BlockDraw(renderer, camera, x, y);
 		}
 	}

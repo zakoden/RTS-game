@@ -25,10 +25,17 @@ inline size_t GetRandomArea(size_t l, size_t r, size_t area) {
 
 uint8_t GetSubtype(BlockType type) {
 	switch (type) {
+	    case WATER_SHALLOW:
+			return 90 + rand() % 4;
+		case WATER:
+			return 100 + rand() % 4;
 		case GRASS:
 			return GRASS + rand() % 10;
 		case GRASS_PURPLE:
-			return GRASS_PURPLE + rand() % 10;
+			if (rand() % 50)
+				return GRASS_PURPLE + rand() % 10;
+			else
+				return 80 + rand() % 6;
 		case DESERT:
 			return DESERT + rand() % 3;
 		case DESERT_PURPLE:
