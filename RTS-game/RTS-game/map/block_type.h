@@ -14,6 +14,7 @@ enum BlockType {
 	MOUNTAIN_HIGH = 50,
 	DESERT_PURPLE = 60,
 	DESERT = 70,
+	UNKNOWN = 110,
 
 	// For diagram
 	GRASSLAND = GRASS,

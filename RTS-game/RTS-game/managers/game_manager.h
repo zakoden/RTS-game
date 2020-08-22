@@ -5,6 +5,8 @@
 
 #include "SDL.h"
 
+#include "../clock.h"
+
 #include "../map/game_map.h"
 #include "../map/camera.h"
 
@@ -34,7 +36,15 @@ protected:
 	std::vector<Player*> players_;
 	PlayersInfo* players_info_ = NULL;
 	UserManager* user_manager_ = NULL;
+
 	bool is_fullscreen_ = false;
+
+	// 0 means "no fog of war", 1 means "map is visible, units aren't", 2 means "map is not visible"
+	enum FogOfWarType {
+		VISIBLE,
+		UNITS_HIDDEN,
+		MAP_HIDDEN
+	} fog_of_war_mode_ = MAP_HIDDEN;
 
 	double camera_h_ = 1.0;
 	double ground_h_ = 1.0, air_h_ = 1.0;

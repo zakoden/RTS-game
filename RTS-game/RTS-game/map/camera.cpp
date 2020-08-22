@@ -1,23 +1,18 @@
 #include "camera.h"
 
 void Camera::SetScale(float new_scale) {
-	scale_ = new_scale;
-	scale_ = ConvertScale(scale_);
+	scale_ = ConvertScale(new_scale);
 }
 
 void Camera::AddScale(float add_scale) {
-	scale_ += add_scale;
-	scale_ = ConvertScale(scale_);
+	scale_ = ConvertScale(scale_ + add_scale);
 }
 
 void Camera::MulScale(float mul_scale) {
-	scale_ *= mul_scale;
-	scale_ = ConvertScale(scale_);
+	scale_ = ConvertScale(scale_ * mul_scale);
 }
 
-double Camera::GetScale() {
-	return scale_;
-}
+double Camera::GetScale() { return scale_; }
 
 double Camera::ConvertScale(double scale) {
 	/*
@@ -83,13 +78,9 @@ void Camera::MoveTo(double x, double y) {
 	y_ = y;
 }
 
-int32_t Camera::GetX() {
-	return x_;
-}
+int32_t Camera::GetX() { return x_; }
 
-int32_t Camera::GetY() {
-	return y_;
-}
+int32_t Camera::GetY() { return y_; }
 
 int32_t Camera::GetCornerX(SDL_Renderer* renderer) {
 	int32_t w, h;

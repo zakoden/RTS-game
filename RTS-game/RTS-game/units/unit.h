@@ -8,6 +8,8 @@
 #include <bitset>
 #include <memory>
 
+#include "../clock.h"
+
 #include "../behaviors/status_effects.h"
 #include "../behaviors/behavior.h"
 
@@ -20,10 +22,15 @@ protected:
 	UnitType type_ = UnitType::Ground;
 	int attack_ = 0, defense_ = 0, health_ = 0, max_health_ = 0;
 	std::bitset<EFFECT_SIZE> effects_;
-	Behavior* behavior_;
+	Behavior* behavior_ = NULL;
 	size_t player_ = 0; // player number	
 	PlayersInfo* players_info_ = NULL;
 	GameMap* game_map_ = NULL;
+
+	Clock update_fog_of_war_{ GameMap::GetBlockSize() };
+	
+	// All cells within that radius will be uncovered
+	int scout_radius_ = 10 * GameMap::GetBlockSize();
 
 	// --cosmetic--
 	bool is_right_side = true;
@@ -92,6 +99,7 @@ public:
 	void GetCommandPoint(int& x, int& y) override;
 
 	void DamageApply(int damage) override;
+	void UncoverNearbyCells();  // Every cell within scout_radius_ will be uncovered
 	void AttackEnd() override;
 	void UnitCollide(AbstractUnit* unit) override;
 

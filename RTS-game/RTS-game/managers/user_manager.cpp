@@ -1,5 +1,7 @@
 #include "user_manager.h"
 
+#include "../map/block_type.h"
+
 UserManager::UserManager(GameMap* game_map, Camera* camera) {
 	game_map_ = game_map;
 	camera_ = camera;
@@ -8,11 +10,20 @@ UserManager::UserManager(GameMap* game_map, Camera* camera) {
 UserManager::~UserManager() {
 }
 
-void UserManager::AddPlayer(Player* player) {
+Player* UserManager::GetPlayer() const { return player_; }
+
+void UserManager::SetPlayer(Player* player) {
 	player_ = player;
 }
 
 void UserManager::Draw(SDL_Renderer* renderer, Camera* camera) {
+	for (size_t x = 0; x < game_map_->GetWidth(); ++x) {
+		for (size_t y = 0; y < game_map_->GetHeight(); ++y) {
+			if (!game_map_->IsCellUncovered(x, y, 0)) {
+				game_map_->BlockDraw(renderer, camera_, x, y, UNKNOWN);
+			}
+		}
+	}
 }
 
 void UserManager::DoAction(SDL_Renderer* renderer) {
@@ -21,9 +32,8 @@ void UserManager::DoAction(SDL_Renderer* renderer) {
 	mouse_x = camera_->ToMapX(renderer, mouse_x);
 	mouse_y = camera_->ToMapY(renderer, mouse_y);
 	if (game_map_->IsPositionInMap(mouse_x, mouse_y)) {
-		int block_x, block_y;
-		block_x = mouse_x / game_map_->GetBlockSize();
-		block_y = mouse_y / game_map_->GetBlockSize();
+		int block_x = mouse_x / game_map_->GetBlockSize();
+		int block_y = mouse_y / game_map_->GetBlockSize();
 		if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 			if (!game_map_->GetUnitsInBlock(block_x, block_y)->empty()) {
 				if (control_unit_ != NULL) {

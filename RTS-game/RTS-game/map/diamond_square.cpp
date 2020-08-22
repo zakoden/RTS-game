@@ -1,20 +1,19 @@
 #include "diamond_square.h"
 
+#include <algorithm>
+
 #include "grid_function.h"
 
-float diamond_square::GetRandomNum() {
+inline float diamond_square::GetRandomNum() {
 	int len = 10000;
 	int val = rand() % len;
 	if (rand() % 2) val = -val;
 	return (float)val / (float)len;
 }
 
-void diamond_square::CorrectBlock(uint32_t x, uint32_t y, float add, Grid<float>& grid) {
+inline void diamond_square::CorrectBlock(uint32_t x, uint32_t y, float add, Grid<float>& grid) {
 	float delta = GetRandomNum() * add;
-	float val = grid[y][x] + delta;
-	if (val < -1.0) val = -1.0;
-	if (val > 1.0) val = 1.0;
-	grid[y][x] = val;
+	grid[y][x] = std::clamp(grid[y][x] + delta, -1.0f, 1.0f);
 }
 
 void diamond_square::MakeStep(uint32_t height_, uint32_t width_, uint32_t height, uint32_t width, Grid<float>& grid) {
@@ -25,11 +24,8 @@ void diamond_square::MakeStep(uint32_t height_, uint32_t width_, uint32_t height
 	// square part
 	for (int i = 0; i < height_ / height; ++i) {
 		for (int j = 0; j < width_ / width; ++j) {
-			int h, w, cx, cy;
-			h = height / 2;
-			w = width / 2;
-			cx = j * width + w;
-			cy = i * height + h;
+			int h = height >> 1, w = width >> 1;
+			int cx = j * width + w, cy = i * height + h;
 
 			float block = (
 				grid[cy - h][cx - w] +
@@ -44,9 +40,7 @@ void diamond_square::MakeStep(uint32_t height_, uint32_t width_, uint32_t height
 
 	//diamond part
 	for (int i = 0; i <= height_ / height; ++i) {
-		int h, w, cx, cy;
-		h = height / 2;
-		w = width / 2;
+		int h = height >> 1, w = width >> 1, cx, cy;
 		for (int j = 0; j < width_ / width; ++j) {
 			cx = j * width + w;
 			cy = i * height;
@@ -100,9 +94,7 @@ Grid<float> diamond_square::GetHeights(uint32_t height, uint32_t width) {
 		++width;
 	Grid<float> grid(height, width, 0.0);
 
-	uint32_t h, w;
-	h = height - 1;
-	w = width - 1;
+	uint32_t h = height - 1, w = width - 1;
 	grid[0][0] = GetRandomNum();
 	grid[0][w] = GetRandomNum();
 	grid[h][0] = GetRandomNum();
@@ -110,8 +102,8 @@ Grid<float> diamond_square::GetHeights(uint32_t height, uint32_t width) {
 
 	while (h > 0 && w > 0) {
 		MakeStep(height, width, h, w, grid);
-		h /= 2;
-		w /= 2;
+		h >>= 1;
+		w >>= 1;
 	}
 
 	return grid_function::FromFunction<float>(required_height, required_width,
