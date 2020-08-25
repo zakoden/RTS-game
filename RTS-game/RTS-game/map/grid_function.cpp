@@ -7,11 +7,11 @@
 
 #include "triple.h"
 
-inline uint32_t grid_function::SquaredDistance(const Point& a, const Point& b) {
+inline uint32_t grid_function::SquaredDistance(const MapPoint& a, const MapPoint& b) {
 	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 }
 
-inline float grid_function::Distance(const Point& a, const Point& b) {
+inline float grid_function::Distance(const MapPoint& a, const MapPoint& b) {
 	return sqrtf(static_cast<float>(SquaredDistance(a, b)));
 }
 
@@ -20,7 +20,7 @@ void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& b
 	for (uint32_t i = 0; i < blocks.size(); ++i) {
 		for (uint32_t j = 0; j < blocks[i].size(); ++j) {
 			int block = -1; int count = 0;
-			for (Point point : neighbors[i][j]) {
+			for (MapPoint point : neighbors[i][j]) {
 				if (blocks[point] == block) {
 					++count;
 				} else {
@@ -34,7 +34,7 @@ void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& b
 
 			if (blocks[i][j] != block) {
 				count = 0;
-				for (Point point : neighbors[i][j])
+				for (MapPoint point : neighbors[i][j])
 					count += blocks[point] == block;
 				if (count >= 5) {
 					++transformed_cells;
@@ -55,11 +55,11 @@ void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockT
 	for (uint32_t i = 0; i < height; ++i) {
 		for (uint32_t j = 0; j < width; ++j) {
 			if (areas[i][j] == 0) {
-				vector<Point> bfs = { {j, i} };
+				vector<MapPoint> bfs = { {j, i} };
 				areas[i][j] = 1;
 				for (size_t i = 0; i < bfs.size(); ++i) {
-					Point current = bfs[i];
-					for (Point p : neighbors[current]) {
+					MapPoint current = bfs[i];
+					for (MapPoint p : neighbors[current]) {
 						if (blocks[p] == blocks[current] && areas[p] == 0) {
 							bfs.push_back(p);
 							areas[p] = 1;
@@ -67,7 +67,7 @@ void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockT
 					}
 				}
 
-				for (Point point : bfs)
+				for (MapPoint point : bfs)
 					areas[point] = static_cast<uint32_t>(bfs.size());
 			}
 		}
@@ -75,15 +75,15 @@ void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockT
 
 	// 2. For each point find the closest with allowed area
 	uint32_t transformed_cells = 0;
-	std::queue<Point> bfs;
+	std::queue<MapPoint> bfs;
 	for (uint32_t i = 0; i < height; ++i)
 		for (uint32_t j = 0; j < width; ++j)
 			if (areas[i][j] >= AREA_MIN)
 				bfs.push({ j, i });
 	while (!bfs.empty()) {
-		Point cur = bfs.front();
+		MapPoint cur = bfs.front();
 		bfs.pop();
-		for (Point point : neighbors[cur]) {
+		for (MapPoint point : neighbors[cur]) {
 			if (areas[point] < AREA_MIN) {
 				areas[point] = areas[cur];
 				blocks[point] = blocks[cur];
@@ -96,9 +96,9 @@ void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockT
 	std::cerr << "RemoveSmallAreas: Transformed " << transformed_cells << " cells" << std::endl;
 }
 
-vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const Point& start,
+vector<MapPoint> grid_function::FindClosest(const GridNeighbors& neighbors, const MapPoint& start,
 	const Grid<char>& allowed_points, const Grid<char>& end_points, float max_distance) {
-	Grid<Point> ancestor(allowed_points.size(), allowed_points[0].size());
+	Grid<MapPoint> ancestor(allowed_points.size(), allowed_points[0].size());
 	ancestor[start] = start;
 
 	float max_pos_distance = static_cast<float>(allowed_points.size() + allowed_points[0].size());
@@ -109,11 +109,11 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
-	vector<Point> result;
+	vector<MapPoint> result;
 	while (!dijkstra.empty()) {
 		Triple pair = dijkstra.top();
 		dijkstra.pop();
-		const Point& current = pair.point;
+		const MapPoint& current = pair.point;
 		if (pair.distance > distance[current] || Distance(current, start) > max_distance) 
 			continue;
 		if (end_points[current]) {
@@ -123,7 +123,7 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 		}
 
 		// Going through all neighboring points
-		for (Point point : neighbors[current]) {
+		for (MapPoint point : neighbors[current]) {
 			if (!allowed_points[point])
 				continue;
 			float dist = Distance(point, current);
@@ -142,9 +142,9 @@ vector<Point> grid_function::FindClosest(const GridNeighbors& neighbors, const P
 	return result;
 }
 
-vector<Point> grid_function::FindFarthest(const GridNeighbors& neighbors, const Point& start,
+vector<MapPoint> grid_function::FindFarthest(const GridNeighbors& neighbors, const MapPoint& start,
 	const Grid<char>& allowed_points, const Grid<char>& end_points) {
-	Grid<Point> ancestor(allowed_points.size(), allowed_points[0].size());
+	Grid<MapPoint> ancestor(allowed_points.size(), allowed_points[0].size());
 	ancestor[start] = start;
 
 	float max_distance = static_cast<float>(allowed_points.size() + allowed_points[0].size());
@@ -155,18 +155,18 @@ vector<Point> grid_function::FindFarthest(const GridNeighbors& neighbors, const 
 	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
-	vector<Point> result;
+	vector<MapPoint> result;
 	while (!dijkstra.empty()) {
 		Triple pair = dijkstra.top();
 		dijkstra.pop();
-		const Point& current = pair.point;
+		const MapPoint& current = pair.point;
 		if (pair.distance > distance[current])
 			continue;
 		if (end_points[current])
 			result = { current };
 
 		// Going through all neighboring points
-		for (Point point : neighbors[current]) {
+		for (MapPoint point : neighbors[current]) {
 			if (!allowed_points[point])
 				continue;
 			float dist = Distance(point, current);

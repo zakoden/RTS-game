@@ -10,7 +10,7 @@ inline float perlin::lerp(float a0, float a1, float w) {
     return (1.0f - w) * a0 + w * a1;
 }
 
-inline float perlin::CalculateDot(SDL_FPoint point, Point grid_point,
+inline float perlin::CalculateDot(SDL_FPoint point, MapPoint grid_point,
     const Grid<SDL_FPoint>& gradients) {
     SDL_FPoint distance = { point.x - grid_point.x, point.y - grid_point.y };
     SDL_FPoint gradient = gradients[grid_point];

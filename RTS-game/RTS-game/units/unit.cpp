@@ -160,7 +160,7 @@ void Unit::DamageApply(int damage) {
 void Unit::UncoverNearbyCells() {
 	for (int dx = -scout_radius_; dx <= scout_radius_; dx += game_map_->GetBlockSize()) {
 		for (int dy = -scout_radius_; dy <= scout_radius_; dy += game_map_->GetBlockSize()) {
-			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy))
+			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy) && (dx * dx + dy * dy) <= scout_radius_ * scout_radius_)
 				game_map_->UncoverCell(x_ + dx, y_ + dy, player_);
 		}
 	}

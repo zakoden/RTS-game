@@ -12,7 +12,7 @@ namespace perlin {
 	inline float lerp(float a0, float a1, float w);
 
 	// Calculates (gradients[grid_point], point - grid_point)
-	inline float CalculateDot(SDL_FPoint point, Point grid_point, const Grid<SDL_FPoint>& gradients);
+	inline float CalculateDot(SDL_FPoint point, MapPoint grid_point, const Grid<SDL_FPoint>& gradients);
 
 	// Gets random 2D vector of length 1
 	inline SDL_FPoint GetVector();

@@ -3,7 +3,7 @@
 #include <functional>
 #include <vector>
 
-#include "point.h"
+#include "map_point.h"
 
 using std::vector;
 
@@ -17,8 +17,8 @@ public:
 
 	inline vector<T>& operator[](size_t i);
 	inline const vector<T>& operator[](size_t i) const;
-	inline T& operator[](Point point);
-	inline const T& operator[](Point point) const;
+	inline T& operator[](MapPoint point);
+	inline const T& operator[](MapPoint point) const;
 };
 
 template<typename T>
@@ -42,11 +42,11 @@ inline const vector<T>& Grid<T>::operator[](size_t i) const {
 }
 
 template<typename T>
-inline T& Grid<T>::operator[](Point point) {
+inline T& Grid<T>::operator[](MapPoint point) {
 	return operator[](point.y)[point.x];
 }
 
 template<typename T>
-inline const T& Grid<T>::operator[](Point point) const {
+inline const T& Grid<T>::operator[](MapPoint point) const {
 	return operator[](point.y)[point.x];
 }

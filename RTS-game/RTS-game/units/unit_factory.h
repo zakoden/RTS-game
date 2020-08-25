@@ -11,13 +11,6 @@
 
 #include "../managers/texture_manager.h"
 
-#include "../behaviors/behavior_random.h"
-#include "../behaviors/behavior_tower.h"
-#include "../behaviors/behavior_stay.h"
-#include "../behaviors/behavior_bullet.h"
-#include "../behaviors/behavior_hunter.h"
-#include "../behaviors/behavior_around_point.h"
-
 #include "abstract_unit_factory.h"
 #include "unit.h"
 
@@ -43,6 +36,9 @@ public:
     AbstractUnit* CreateTest1(size_t player, int x, int y) override;
 	AbstractUnit* CreateTestHunter(size_t player, int x, int y) override;
 	AbstractUnit* CreateTestHunter2(size_t player, int x, int y) override;
+	AbstractUnit* CreateScout(size_t player, int x, int y, MapPoint center) override;
 
 	AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
+
+	AbstractUnit* CreateBase(uint8_t player, int x, int y) override;
 };

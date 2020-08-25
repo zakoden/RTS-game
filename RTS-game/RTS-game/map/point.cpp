@@ -1,9 +1,9 @@
-#include "point.h"
+#include "map_point.h"
 
-bool Point::operator==(const Point& other) {
+bool MapPoint::operator==(const MapPoint& other) {
 	return x == other.x && y == other.y;
 }
 
-bool Point::operator!=(const Point& other) {
+bool MapPoint::operator!=(const MapPoint& other) {
 	return !operator==(other);
 }
