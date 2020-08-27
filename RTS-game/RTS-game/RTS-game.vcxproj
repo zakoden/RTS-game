@@ -90,7 +90,7 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Users\dvasilev\OneDrive\Programs\C++\RTS-game\RTS-game\SDL\include</AdditionalIncludeDirectories>
-      <PreprocessKeepComments>1</PreprocessKeepComments>
+      <PreprocessKeepComments>true</PreprocessKeepComments>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,16 +119,18 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>26812;4083;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)SDL\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,6 +141,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>26812;4083;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,11 +151,89 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="behaviors\behavior.cpp" />
+    <ClCompile Include="behaviors\behavior_around_point.cpp" />
+    <ClCompile Include="behaviors\behavior_bullet.cpp" />
+    <ClCompile Include="behaviors\behavior_hunter.cpp" />
+    <ClCompile Include="behaviors\behavior_random.cpp" />
+    <ClCompile Include="behaviors\behavior_scout.cpp" />
+    <ClCompile Include="behaviors\behavior_stay.cpp" />
+    <ClCompile Include="behaviors\behavior_tower.cpp" />
+    <ClCompile Include="clock.cpp" />
+    <ClCompile Include="managers\game_manager.cpp" />
+    <ClCompile Include="managers\user_manager.cpp" />
+    <ClCompile Include="map\camera.cpp" />
+    <ClCompile Include="map\diamond_square.cpp" />
+    <ClCompile Include="map\game_map.cpp" />
+    <ClCompile Include="map\game_map_generate.cpp" />
+    <ClCompile Include="map\grid_function.cpp" />
+    <ClCompile Include="map\grid_neighbors.cpp" />
+    <ClCompile Include="map\perlin.cpp" />
+    <ClCompile Include="map\point.cpp" />
+    <ClCompile Include="map\time_measurer.cpp" />
+    <ClCompile Include="player\player.cpp" />
+    <ClCompile Include="player\players_info.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="managers\texture_manager.cpp" />
+    <ClCompile Include="adapter.cpp" />
+    <ClCompile Include="units\unit.cpp" />
+    <ClCompile Include="units\unit_factory.cpp">
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
+    <Library Include="SDL2.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="adapter.h" />
+    <ClInclude Include="behaviors\behavior_around_point.h" />
+    <ClInclude Include="behaviors\behavior_bullet.h" />
+    <ClInclude Include="behaviors\behavior_hunter.h" />
+    <ClInclude Include="behaviors\behavior_scout.h" />
+    <ClInclude Include="clock.h" />
+    <ClInclude Include="managers\user_manager.h" />
+    <ClInclude Include="map\block_type.h" />
+    <ClInclude Include="map\camera.h" />
+    <ClInclude Include="map\diamond_square.h" />
+    <ClInclude Include="map\game_map.h" />
+    <ClInclude Include="map\grid.h" />
+    <ClInclude Include="map\grid_function.h" />
+    <ClInclude Include="map\grid_neighbors.h" />
+    <ClInclude Include="map\perlin.h" />
+    <ClInclude Include="map\map_point.h" />
+    <ClInclude Include="map\time_measurer.h" />
+    <ClInclude Include="map\triple.h" />
+    <ClInclude Include="player\player_owner.h" />
+    <ClInclude Include="units\abstract_unit_factory.h" />
+    <ClInclude Include="behaviors\behavior_random.h" />
+    <ClInclude Include="behaviors\behavior_stay.h" />
+    <ClInclude Include="behaviors\behavior_tower.h" />
+    <ClInclude Include="managers\game_manager.h" />
+    <ClInclude Include="behaviors\behavior.h" />
+    <ClInclude Include="player\player.h" />
+    <ClInclude Include="player\players_info.h" />
+    <ClInclude Include="behaviors\status_effects.h" />
+    <ClInclude Include="managers\texture_manager.h" />
+    <ClInclude Include="units\abstract_unit.h" />
+    <ClInclude Include="units\unit.h" />
+    <ClInclude Include="units\unit_factory.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pictures\fire_medium_poleax.bmp" />
+    <Image Include="pictures\fire_medium_sword.bmp" />
+    <Image Include="pictures\fire_small_lance.bmp" />
+    <Image Include="pictures\fire_small_poleax.bmp" />
+    <Image Include="pictures\fire_small_spear.bmp" />
+    <Image Include="pictures\map-tiles-fogged.bmp" />
+    <Image Include="pictures\map-tiles.bmp" />
+    <Image Include="pictures\testunit.bmp" />
+    <Image Include="pictures\testunit1.bmp" />
+    <Image Include="pictures\testunit2.bmp" />
+    <Image Include="pictures\testunit2_1.bmp" />
+    <Image Include="pictures\testunit3.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
