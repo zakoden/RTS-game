@@ -64,9 +64,13 @@ void GameManager::Run() {
 
 	int number = 15;
 	for (int i = 0; i < number; ++i) {
-		unit_factory_->CreateTestHunter(0, 80 + rand() % 10, 92 + 16 * i);
-		unit_factory_->CreateTestHunter(0, 95 + rand() % 10, 100 + 16 * i);
-		unit_factory_->CreateTestHunter(0, 130 + rand() % 20, 87 + 16 * i);
+		unit_factory_->CreateFireSmallLance(0, 95 + rand() % 10, 100 + 16 * i);
+		if (rand() % 2) {
+			unit_factory_->CreateFireSmallSpear(0, 130 + rand() % 20, 87 + 16 * i);
+		}
+		else {
+			unit_factory_->CreateFireSmallPoleax(0, 130 + rand() % 20, 87 + 16 * i);
+		}
 	}
 
 	for (int i = 0; i < number; ++i) {
@@ -74,6 +78,11 @@ void GameManager::Run() {
 		unit_factory_->CreateTestHunter2(1, 1300 + rand() % 10, 95 + 18 * i);
 		unit_factory_->CreateTestHunter2(1, 1500 + rand() % 10, 86 + 18 * i);
 	}
+
+	unit_factory_->CreateFireSmallPoleax(0, 500 + rand() % 10, 200);
+	unit_factory_->CreateFireSmallSpear(0, 500 + rand() % 10, 220);
+	unit_factory_->CreateFireSmallLance(0, 500 + rand() % 10, 240);
+	unit_factory_->CreateFireMediumPoleax(0, 500 + rand() % 10, 260);
 
 	/*
 	unit_factory_->CreateTest(1, 150, 100);

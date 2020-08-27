@@ -15,13 +15,14 @@ GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t
 	, blocks_(vector<uint8_t>(static_cast<size_t>(width_) * height_))
 	, units_in_block_(vector<std::unordered_set<AbstractUnit*>>(static_cast<size_t>(width_)* height_))
 	, fog_of_war_(vector<Grid<char>>(players_count, Grid<char>(height, width, false)))
-	, distance_to_base_(vector<Grid<float>>(players_count, Grid<float>(height, width, height + width))) {
+	, distance_to_base_(vector<Grid<float>>(players_count, 
+		Grid<float>(height, width, static_cast<float>(height + width)))) {
 	// load texture
-	SDL_Surface* surface = SDL_LoadBMP("pictures/test.bmp");
+	SDL_Surface* surface = SDL_LoadBMP("pictures/map-tiles.bmp");
 	tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = SDL_LoadBMP("pictures/test-bw.bmp");
+	surface = SDL_LoadBMP("pictures/map-tiles-fogged.bmp");
 	fogged_tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 }

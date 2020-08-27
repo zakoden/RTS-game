@@ -215,9 +215,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="pictures\test.bmp">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
     <Image Include="pictures\testunit.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
@@ -228,6 +225,30 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="pictures\testunit3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_medium_poleax.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_medium_sword.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_small_lance.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_small_poleax.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_small_spear.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\testunit2_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\map-tiles.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\map-tiles-fogged.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

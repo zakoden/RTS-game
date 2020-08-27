@@ -25,6 +25,8 @@ private:
 	TextureManager* texture_manager_ = NULL;
 	PlayersInfo* players_info_ = NULL;
 
+	void FillUnit(Unit* unit, UnitType unit_type, size_t player, Behavior* behavior, int x, int y);
+
 public:
 	void AddPlayer(Player* player);
 
@@ -37,6 +39,12 @@ public:
 	AbstractUnit* CreateTestHunter(size_t player, int x, int y) override;
 	AbstractUnit* CreateTestHunter2(size_t player, int x, int y) override;
 	AbstractUnit* CreateScout(size_t player, int x, int y, MapPoint center) override;
+
+	AbstractUnit* CreateFireSmallPoleax(size_t player, int x, int y) override; 
+	AbstractUnit* CreateFireSmallSpear(size_t player, int x, int y) override;
+	AbstractUnit* CreateFireSmallLance(size_t player, int x, int y) override;
+
+	AbstractUnit* CreateFireMediumPoleax(size_t player, int x, int y) override;
 
 	AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
 

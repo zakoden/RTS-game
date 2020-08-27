@@ -222,10 +222,17 @@
     <ClInclude Include="units\unit_factory.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="pictures\test.bmp" />
+    <Image Include="pictures\fire_medium_poleax.bmp" />
+    <Image Include="pictures\fire_medium_sword.bmp" />
+    <Image Include="pictures\fire_small_lance.bmp" />
+    <Image Include="pictures\fire_small_poleax.bmp" />
+    <Image Include="pictures\fire_small_spear.bmp" />
+    <Image Include="pictures\map-tiles-fogged.bmp" />
+    <Image Include="pictures\map-tiles.bmp" />
     <Image Include="pictures\testunit.bmp" />
     <Image Include="pictures\testunit1.bmp" />
     <Image Include="pictures\testunit2.bmp" />
+    <Image Include="pictures\testunit2_1.bmp" />
     <Image Include="pictures\testunit3.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
