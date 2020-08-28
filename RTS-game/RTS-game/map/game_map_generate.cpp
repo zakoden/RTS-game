@@ -42,6 +42,8 @@ inline uint8_t GetSubtype(BlockType type) {
 			return MOUNTAIN_LOW + rand() % 4;
 		case ROCK:
 			return ROCK + rand() % 6;
+		case GRASS_LIGHT:
+			return 110 + rand() % 4;
 	}
 	return type;
 }
