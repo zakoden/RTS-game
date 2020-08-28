@@ -10,5 +10,5 @@ public:
 	operator int() const;
 
 	bool Ding() const;
-	void Tick();
+	bool Tick();
 };

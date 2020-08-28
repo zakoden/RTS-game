@@ -90,6 +90,12 @@
     <ClCompile Include="clock.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="behaviors\behavior_scout.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="adapter.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
@@ -127,9 +133,6 @@
     <ClInclude Include="map\grid_function.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\point.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="managers\user_manager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -158,6 +161,15 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="clock.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="behaviors\behavior_scout.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="adapter.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\map_point.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
@@ -203,9 +215,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="pictures\test.bmp">
-      <Filter>Файлы ресурсов</Filter>
-    </Image>
     <Image Include="pictures\testunit.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
@@ -216,6 +225,30 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="pictures\testunit3.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_medium_poleax.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_medium_sword.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_small_lance.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_small_poleax.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\fire_small_spear.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\testunit2_1.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\map-tiles.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\map-tiles-fogged.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

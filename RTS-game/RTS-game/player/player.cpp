@@ -3,7 +3,7 @@
 Player::Player() {
 }
 
-Player::Player(size_t num) {
+Player::Player(uint8_t num) {
 	num_ = num;
 }
 
@@ -11,7 +11,7 @@ Player::Player(size_t num) {
 Player::~Player() {
 }
 
-size_t Player::GetNum() const { return num_; }
+uint8_t Player::GetNum() const { return num_; }
 
 void Player::SetOwner(PlayerOwner* owner) {
 	player_owner_ = owner;

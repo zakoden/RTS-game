@@ -160,7 +160,7 @@ void Unit::DamageApply(int damage) {
 void Unit::UncoverNearbyCells() {
 	for (int dx = -scout_radius_; dx <= scout_radius_; dx += game_map_->GetBlockSize()) {
 		for (int dy = -scout_radius_; dy <= scout_radius_; dy += game_map_->GetBlockSize()) {
-			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy))
+			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy) && (dx * dx + dy * dy) <= scout_radius_ * scout_radius_)
 				game_map_->UncoverCell(x_ + dx, y_ + dy, player_);
 		}
 	}
@@ -421,7 +421,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	// stay [0, 0]
 	// move [1, texture_move_num_]
 	// attack [texture_move_num_ + 1, texture_move_num_ + texture_attack_num_]
-	texture_cur_delay_++;
+	++texture_cur_delay_;
 	if (HasEffect(Effect::MOVING)) {
 		texture_cur_delay_ %= texture_delay_move_;
 	} else {
@@ -439,7 +439,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 		}
 		if (HasEffect(Effect::ATTACKING)) {
 			texture_pos_++;
-			if (texture_pos_ < (texture_move_num_ + 1) || texture_pos_ >(texture_move_num_ + texture_attack_num_)) {
+			if (texture_pos_ < (texture_move_num_ + 1) || texture_pos_ > (texture_move_num_ + texture_attack_num_)) {
 				texture_pos_ = texture_move_num_ + 1;
 			}
 			if (texture_pos_ == (texture_move_num_ + texture_attack_num_)) {
@@ -481,7 +481,8 @@ AbstractUnit* Unit::GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) {
 		return unit2;
 	if (unit2 == NULL)
 		return unit1;
-	uint64_t dist1 = 0, dist2 = 0, delt;
+	uint64_t dist1 = 0, dist2 = 0;
+	int64_t delt;
 	delt = GetCenterX() - unit1->GetCenterX();
 	dist1 += delt * delt;
 	delt = GetCenterY() - unit1->GetCenterY();

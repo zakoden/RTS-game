@@ -38,6 +38,8 @@ int GameManager::Init() {
 	for (size_t i = 0; i < PLAYERS_COUNT; ++i)
 		players_info_->SetStatus(i, i, PlayersStatus::PEACE);
 	user_manager_ = new UserManager(game_map_, camera_);
+
+	return 0;
 }
 
 void GameManager::Run() {
@@ -53,6 +55,12 @@ void GameManager::Run() {
 	for (size_t i = 0; i < players_.size(); ++i) {
 		unit_factory_->AddPlayer(players_[i]);
 	}
+
+	unit_factory_->CreateBase(0, 200, 200);
+	unit_factory_->CreateBase(1, 1200, 200);
+	unit_factory_->CreateScout(0, 200, 800, { 100, 100 });
+	unit_factory_->CreateScout(1, 1200, 800, { 180, 100 });
+
 
 	int number = 15;
 	for (int i = 0; i < number; ++i) {
@@ -251,7 +259,7 @@ void GameManager::RunStep() {
 
 		// TODO optimize it
 		if (fog_of_war_mode_ == UNITS_HIDDEN)
-			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UINT8_MAX);
+			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UINT8_MAX - 1);
 		else if (fog_of_war_mode_ == MAP_HIDDEN)
 			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UNKNOWN);
 	}

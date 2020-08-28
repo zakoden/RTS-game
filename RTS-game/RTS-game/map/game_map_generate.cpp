@@ -106,7 +106,7 @@ Grid<float> GameMap::GenerateHeights() {
 }
 
 void GameMap::Generate() {
-	//1597431138, 1597486519
+	//1597431138, 1597486519, 1598023852
 	unsigned int seed = static_cast<unsigned int>(time(0));  // Map seed
 	TimeMeasurer time, time_total = time;  // Class to measure time between each segment
 
@@ -169,7 +169,7 @@ void GameMap::Generate() {
 	{
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
-				for (Point point : neighbors[i][j]) {
+				for (MapPoint point : neighbors[i][j]) {
 					if (blocks[i][j] != blocks[point] &&
 						blocks[i][j] != WATER && blocks[point] != WATER
 						&& blocks[i][j] != blocks[point]) {
@@ -182,7 +182,7 @@ void GameMap::Generate() {
 
 		for (uint32_t i = 0; i < height; ++i) {
 			for (uint32_t j = 0; j < width; ++j) {
-				for (Point point : neighbors[i][j]) {
+				for (MapPoint point : neighbors[i][j]) {
 					if (blocks[i][j] == WATER && blocks[point] != WATER && on_border[point.y][point.x]) {
 						on_border[i][j] = true;
 						break;
@@ -195,7 +195,7 @@ void GameMap::Generate() {
 	// Add rivers
 	{
 		// 1. Add points on a border
-		vector<Point> border_points;
+		vector<MapPoint> border_points;
 		for (uint32_t i = 0; i < height; ++i)
 			for (uint32_t j = 0; j < width; ++j)
 				if (on_border[i][j] && WATER_TYPES.count(blocks[i][j]))
@@ -215,15 +215,15 @@ void GameMap::Generate() {
 			std::cerr << "Generate: Total river area left: " << total_river_area_left << std::endl;
 
 			// 2. Choose river border
-			Point border = border_points[rand() % border_points.size()];
+			MapPoint border = border_points[rand() % border_points.size()];
 
 			// 3. Make path
 
 			// 3.1. From source to border
-			vector<Point> path = grid_function::FindClosest(neighbors, border, all_true, is_water, 10);
+			vector<MapPoint> path = grid_function::FindClosest(neighbors, border, all_true, is_water, 10);
 
 			// 3.2. From border to another border
-			vector<Point> border_to_border2 = grid_function::FindFarthest(neighbors, border, on_border, is_water_shallow);
+			vector<MapPoint> border_to_border2 = grid_function::FindFarthest(neighbors, border, on_border, is_water_shallow);
 			if (border_to_border2.empty()) {
 				std::cerr << "Generate: Couldn't find another border" << std::endl;
 				continue;
@@ -231,20 +231,20 @@ void GameMap::Generate() {
 			path.insert(path.end(), border_to_border2.begin(), border_to_border2.end());
 
 			// 3.3. From another border to sink
-			Point border2 = border_to_border2.front();
+			MapPoint border2 = border_to_border2.front();
 
-			vector<Point> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water, 10);
+			vector<MapPoint> border2_to_sink = grid_function::FindClosest(neighbors, border2, all_true, is_water, 10);
 			path.insert(path.end(), border2_to_sink.begin(), border2_to_sink.end());
 
 			// 4. Paint a river and decrease total_area_left
-			for (Point point : path) {
+			for (MapPoint point : path) {
 				total_river_area_left -= !WATER_TYPES.count(blocks[point]);
 				is_water_shallow[point] = false;
 				if (blocks[point] != WATER_DEEP) {
 					blocks[point] = WATER;
 					is_water[point] = true;
 				}
-				for (Point other : neighbors[point]) {
+				for (MapPoint other : neighbors[point]) {
 					if (blocks[other] != WATER_DEEP /*&& (on_border[other] || blocks[other] == WATER_SHALLOW)*/) {
 						total_river_area_left -= !WATER_TYPES.count(blocks[point]);
 						is_water_shallow[other] = false;
@@ -254,10 +254,10 @@ void GameMap::Generate() {
 				}
 			}
 
-			for (Point point : path) {
-				for (Point other : neighbors[point]) {
+			for (MapPoint point : path) {
+				for (MapPoint other : neighbors[point]) {
 					if (blocks[other] == WATER) {
-						for (Point very_other : neighbors[other]) {
+						for (MapPoint very_other : neighbors[other]) {
 							if (!WATER_TYPES.count(blocks[very_other])) {
 								--total_river_area_left;
 								blocks[very_other] = WATER_SHALLOW;

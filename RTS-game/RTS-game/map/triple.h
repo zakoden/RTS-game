@@ -1,6 +1,6 @@
-#include "point.h"
+#include "map_point.h"
 
 struct Triple {
-	float distance; Point point;
+	float distance; MapPoint point;
 	inline bool operator<(const Triple& other) const { return distance > other.distance; }
 };

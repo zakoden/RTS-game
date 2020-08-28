@@ -5,20 +5,26 @@
 #include "../units/abstract_unit.h"
 #include "../units/abstract_unit_factory.h"
 
+#include "../map/grid.h"
 #include "player_owner.h"
 
 class Player {
 protected:
 	PlayerOwner* player_owner_;
-	size_t num_ = 0;
+	uint8_t num_ = 0;
 
 	std::unordered_set<AbstractUnit*> army_;
+
+	// For scout behavior, score rewarded is based on
+	// Distance from a base, the less distance, the better
+	Grid<float> score_from_base_;
+
 public:
 	Player();
-	Player(size_t num);
+	Player(uint8_t num);
 	~Player();
 
-	size_t GetNum() const;
+	uint8_t GetNum() const;
 
 	void SetOwner(PlayerOwner* owner);
 
