@@ -30,7 +30,8 @@ public:
 
 	void DoAction();
 	void Move();
-	void Draw(SDL_Renderer* renderer, Camera* camera) const;
+	void Draw(SDL_Renderer* renderer, Camera* camera) const; 
+	void UnitsToDraw(std::vector<std::pair<int, AbstractUnit*>> &out);
 
 	void AddUnit(AbstractUnit* unit);
 	void DeleteUnit(AbstractUnit* unit);

@@ -49,4 +49,10 @@ public:
 	AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
 
 	AbstractUnit* CreateBase(uint8_t player, int x, int y) override;
+
+	AbstractUnit* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) override;
+	AbstractUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) override;
+	AbstractUnit* CreateSmallGrayTower(uint8_t player, int x, int y) override;
+
+	AbstractUnit* CreateBamboo(uint8_t player, int x, int y) override;
 };

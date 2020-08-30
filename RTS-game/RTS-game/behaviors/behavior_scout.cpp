@@ -18,7 +18,7 @@ and then unit goes to a cell with the highest score
 void BehaviorScout::DoAction() {
 	if (target_.x == -1 ||
 		game_map_->IsCellUncovered(adapter::UnitToMapCoordinates(target_), unit_->GetPlayer())) {  // No target
-		const float COEF_DISTANCE_FROM_BASE = -1, COEF_DISTANCE_FROM_UNIT = -2, COEF_DISTANCE_FROM_CENTER = -2;
+		const float COEF_DISTANCE_FROM_BASE = -1, COEF_DISTANCE_FROM_UNIT = -3, COEF_DISTANCE_FROM_CENTER = -2;
 		MapPoint unit = adapter::UnitToMapCoordinates(target_);
 		float target_score = -1000000.0f;
 

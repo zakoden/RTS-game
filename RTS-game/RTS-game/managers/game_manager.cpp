@@ -84,6 +84,39 @@ void GameManager::Run() {
 	unit_factory_->CreateFireSmallLance(0, 500 + rand() % 10, 240);
 	unit_factory_->CreateFireMediumPoleax(0, 500 + rand() % 10, 260);
 
+	for (int i = 0; i < 7; ++i) {
+		for (int j = 0; j < 7; ++j) {
+			unit_factory_->CreateBamboo(0, 500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5);
+		}
+	}
+
+	int castle_l = 700;
+	int castle_u = 200;
+	// *--*
+	// |  |
+ 	//    |
+	// |
+	// *--*
+
+	// *--*
+	unit_factory_->CreateSmallGrayTower(0, castle_l, castle_u);
+	unit_factory_->CreateSmallHorizontalGrayWall(0, castle_l + 6, castle_u + 1);
+	unit_factory_->CreateSmallHorizontalGrayWall(0, castle_l + 6 + 24, castle_u + 1);
+	unit_factory_->CreateSmallGrayTower(0, castle_l + 6 + 24 + 24, castle_u);
+
+	unit_factory_->CreateSmallVerticalGrayWall(0, castle_l + 1, castle_u + 6);
+	unit_factory_->CreateSmallVerticalGrayWall(0, castle_l + 1, castle_u + 6 + 18 + 18);
+
+	unit_factory_->CreateSmallVerticalGrayWall(0, castle_l + 6 + 24 + 24 + 1, castle_u + 6);
+	unit_factory_->CreateSmallVerticalGrayWall(0, castle_l + 6 + 24 + 24 + 1, castle_u + 6 + 18);
+
+	// *--*
+	unit_factory_->CreateSmallGrayTower(0, castle_l, castle_u + 6 + 18 * 3);
+	unit_factory_->CreateSmallHorizontalGrayWall(0, castle_l + 6, castle_u + 6 + 18 * 3 + 1);
+	unit_factory_->CreateSmallHorizontalGrayWall(0, castle_l + 6 + 24, castle_u + 6 + 18 * 3 + 1);
+	unit_factory_->CreateSmallGrayTower(0, castle_l + 6 + 24 + 24, castle_u + 6 + 18 * 3);
+
+
 	/*
 	unit_factory_->CreateTest(1, 150, 100);
 	for (int i = 0; i < 30; ++i) {
@@ -253,9 +286,15 @@ void GameManager::RunStep() {
 		else
 			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
 
+		std::vector<std::pair<int, AbstractUnit*>> units_to_draw;
 		for (size_t i = 0; i < players_.size(); ++i) {
-			players_[i]->Draw(renderer_, camera_);
+			players_[i]->UnitsToDraw(units_to_draw);
 		}
+		sort(units_to_draw.begin(), units_to_draw.end());
+		for (auto& [y, unit] : units_to_draw) {
+			unit->Draw(renderer_, camera_);
+		}
+
 
 		// TODO optimize it
 		if (fog_of_war_mode_ == UNITS_HIDDEN)

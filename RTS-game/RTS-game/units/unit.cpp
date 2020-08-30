@@ -6,6 +6,7 @@
 // ----------protected-------------
 
 void Unit::InsertUnitToMap() {
+	if (type_ == UnitType::Fly) return;
 	int x, y;
 	x = floor(x_);
 	y = floor(y_);
@@ -23,6 +24,7 @@ void Unit::InsertUnitToMap() {
 }
 
 void Unit::DeleteUnitFromMap() {
+	if (type_ == UnitType::Fly) return;
 	int x, y;
 	x = floor(x_);
 	y = floor(y_);
@@ -78,6 +80,10 @@ void Unit::GetHitbox(double& x1, double& y1, double& x2, double& y2) {
 	y1 = y_ + deltaY_;
 	x2 = x1 + width_;
 	y2 = y1 + height_;
+}
+
+int Unit::GetLegsY() {
+	return y_ + texture_height_;
 }
 
 void Unit::GetCollisionbox(double& x1, double& y1, double& x2, double& y2) {
@@ -172,6 +178,7 @@ void Unit::AttackEnd() {
 }
 
 void Unit::UnitCollide(AbstractUnit* unit) {
+	if (type_ == UnitType::Fly) return;
 	double x1, x2, y1, y2;
 	double cx1, cy1, cx2, cy2;
 	double dx1, dy1, dx2, dy2;
@@ -466,6 +473,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	hitbox.h = height_;
     //SDL_RenderDrawRect(renderer, &hitbox);
 
+	/*
 	if (type_ == UnitType::Ground) {
 		int life_len = (hitbox.w * health_) / max_health_;
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + hitbox.w - 1, hitbox.y - 2);
@@ -473,6 +481,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + life_len - 1, hitbox.y - 2);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	}
+	*/
 	
 }
 

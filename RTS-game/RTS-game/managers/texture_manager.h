@@ -16,6 +16,10 @@ enum TextureName {
 	fire_small_spear,
 	fire_small_lance,
 	fire_medium_poleax,
+	small_horizontal_gray_wall,
+    small_vertical_gray_wall,
+    small_gray_tower,
+	bamboo,
 	texture_count
 };
 
