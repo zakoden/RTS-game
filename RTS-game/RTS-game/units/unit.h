@@ -85,6 +85,7 @@ public:
 	int GetSpeed() override;
 	int GetAttack() override;
 	void GetHitbox(double& x1, double& y1, double& x2, double& y2) override;
+	int GetLegsY() override;
 	void GetCollisionbox(double& x1, double& y1, double& x2, double& y2) override;
 	void GetVector(double& dx, double& dy) override;
 

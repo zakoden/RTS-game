@@ -31,6 +31,7 @@ public:
 	virtual int GetSpeed() = 0;
 	virtual int GetAttack() = 0;
 	virtual void GetHitbox(double& x1, double& y1, double& x2, double& y2) = 0;
+	virtual int GetLegsY() = 0;
 	virtual void GetCollisionbox(double& x1, double& y1, double& x2, double& y2) = 0;
 	virtual void GetVector(double& dx, double& dy) = 0;
 

@@ -139,3 +139,43 @@ AbstractUnit* UnitFactory::CreateBase(uint8_t player, int x, int y) {
 	game_map_->AddBase({ x, y }, player);
 	return unit;
 }
+
+// 24 x 4
+AbstractUnit* UnitFactory::CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) {
+	Unit* unit = new Unit(10, 10, 100, 0, texture_manager_, game_map_);
+	unit->SetTexture(TextureName::small_horizontal_gray_wall, 0, 0, 1, 1, 0, 15, 24, 4, 24, 19);
+	FillUnit(unit, UnitType::Ground, player, new BehaviorStay(unit), x, y - 15);
+
+	players_[player]->AddUnit(unit);
+	return unit;
+}
+
+
+// 4 x 18
+AbstractUnit* UnitFactory::CreateSmallVerticalGrayWall(uint8_t player, int x, int y) {
+	Unit* unit = new Unit(10, 10, 100, 0, texture_manager_, game_map_);
+	unit->SetTexture(TextureName::small_vertical_gray_wall, 0, 0, 1, 1, 0, 17, 4, 18, 4, 35);
+	FillUnit(unit, UnitType::Ground, player, new BehaviorStay(unit), x, y - 17);
+
+	players_[player]->AddUnit(unit);
+	return unit;
+}
+
+// 6 x 6
+AbstractUnit* UnitFactory::CreateSmallGrayTower(uint8_t player, int x, int y) {
+	Unit* unit = new Unit(10, 10, 100, 0, texture_manager_, game_map_);
+	unit->SetTexture(TextureName::small_gray_tower, 0, 0, 1, 1, 0, 20, 6, 6, 6, 26);
+	FillUnit(unit, UnitType::Ground, player, new BehaviorStay(unit), x, y - 20);
+
+	players_[player]->AddUnit(unit);
+	return unit;
+}
+
+AbstractUnit* UnitFactory::CreateBamboo(uint8_t player, int x, int y) {
+	Unit* unit = new Unit(10, 10, 100, 0, texture_manager_, game_map_);
+	unit->SetTexture(TextureName::bamboo, 0, 0, 1, 1, 0, 0, 0, 0, 16, 28);
+	FillUnit(unit, UnitType::Fly, player, new BehaviorStay(unit), x, y - 28);
+
+	players_[player]->AddUnit(unit);
+	return unit;
+}

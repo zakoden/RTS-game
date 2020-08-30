@@ -56,6 +56,12 @@ void Player::Draw(SDL_Renderer* renderer, Camera* camera) const {
 	}
 }
 
+void Player::UnitsToDraw(std::vector<std::pair<int, AbstractUnit*>> &out) {
+	for (auto& unit : army_) {
+		out.push_back({unit->GetLegsY(), unit});
+	}
+}
+
 void Player::AddUnit(AbstractUnit* unit) {
 	army_.insert(unit);
 }
