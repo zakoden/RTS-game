@@ -44,8 +44,10 @@ inline uint8_t GetSubtype(BlockType type) {
 			return MOUNTAIN_LOW + rand() % 4;
 		case MOUNTAIN_HIGH:
 			return MOUNTAIN_HIGH + rand() % 4;
+
+		default:
+			return type;
 	}
-	return type;
 }
 
 // Returns a block by height and humidity
@@ -70,6 +72,7 @@ inline BlockType GetBlockType(float height, float humidity, const vector<vector<
 // Generates a map of heights
 Grid<float> GameMap::GenerateHeights() {
 	uint32_t height = GetHeight(), width = GetWidth();
+	assert(height >= 2);
 	float power = 1;
 	float max_height = 0;
 	Grid<float> result(height, width, 0);

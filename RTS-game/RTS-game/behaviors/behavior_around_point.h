@@ -23,7 +23,7 @@ public:
 
 	void SetUnit(AbstractUnit* unit);
 
-	void DoAction();
+	void DoAction() override;
 
 	void DeadCheck() override;
 };

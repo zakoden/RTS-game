@@ -36,7 +36,7 @@ public:
 	void SetUnit(AbstractUnit* unit);
 
 	void AttackEnd() override;
-	void DoAction();
+	void DoAction() override;
 	void Attack(AbstractUnit* enemy);
 	void FindTarget();
 

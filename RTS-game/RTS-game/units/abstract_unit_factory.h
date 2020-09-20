@@ -1,6 +1,8 @@
 #pragma once
 
 #include "abstract_unit.h"
+#include "building.h"
+#include "entity.h"
 
 #include "../map/map_point.h"
 
@@ -27,5 +29,5 @@ public:
 	virtual AbstractUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) = 0;
 	virtual AbstractUnit* CreateSmallGrayTower(uint8_t player, int x, int y) = 0;
 
-	virtual AbstractUnit* CreateBamboo(uint8_t player, int x, int y) = 0;
+	virtual Entity* CreateBamboo(int x, int y) = 0;
 };

@@ -16,6 +16,7 @@
 #include "../behaviors/behavior_tower.h"
 #include "../behaviors/behavior_stay.h"
 
+#include "../units/entity.h"
 #include "../units/unit_factory.h"
 #include "../units/unit.h"
 
@@ -33,6 +34,7 @@ protected:
 	GameMap* game_map_ = NULL;
 	bool close_ = false;
 	UnitFactory* unit_factory_ = NULL;
+	std::vector<Entity*> entities_;
 	std::vector<Player*> players_;
 	PlayersInfo* players_info_ = NULL;
 	UserManager* user_manager_ = NULL;
@@ -44,7 +46,7 @@ protected:
 		VISIBLE,
 		UNITS_HIDDEN,
 		MAP_HIDDEN
-	} fog_of_war_mode_ = MAP_HIDDEN;
+	} fog_of_war_mode_ = VISIBLE;
 
 	double camera_h_ = 1.0;
 	double ground_h_ = 1.0, air_h_ = 1.0;

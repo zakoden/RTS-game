@@ -106,7 +106,6 @@ vector<MapPoint> grid_function::FindClosest(const GridNeighbors& neighbors, cons
 	distance[start] = 0;
 
 	std::priority_queue<Triple> dijkstra;
-	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
 	vector<MapPoint> result;
@@ -152,7 +151,6 @@ vector<MapPoint> grid_function::FindFarthest(const GridNeighbors& neighbors, con
 	distance[start] = 0;
 
 	std::priority_queue<Triple> dijkstra;
-	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
 	vector<MapPoint> result;

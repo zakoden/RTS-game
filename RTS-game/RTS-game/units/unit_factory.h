@@ -2,10 +2,6 @@
 
 #include "abstract_unit_factory.h"
 
-#include <array>
-#include <string>
-#include <unordered_map>
-
 #include "../map/game_map.h"
 #include "../map/camera.h"
 
@@ -54,5 +50,5 @@ public:
 	AbstractUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) override;
 	AbstractUnit* CreateSmallGrayTower(uint8_t player, int x, int y) override;
 
-	AbstractUnit* CreateBamboo(uint8_t player, int x, int y) override;
+	Entity* CreateBamboo(int x, int y) override;
 };

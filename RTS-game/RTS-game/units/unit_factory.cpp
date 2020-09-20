@@ -8,6 +8,8 @@
 #include "../behaviors/behavior_hunter.h"
 #include "../behaviors/behavior_around_point.h"
 
+#include "../units/entity.h"
+
 void UnitFactory::FillUnit(Unit* unit, UnitType unit_type, size_t player, Behavior* behavior, int x, int y) {
 	unit->SetType(unit_type);
 	unit->SetPlayer(player);
@@ -171,11 +173,9 @@ AbstractUnit* UnitFactory::CreateSmallGrayTower(uint8_t player, int x, int y) {
 	return unit;
 }
 
-AbstractUnit* UnitFactory::CreateBamboo(uint8_t player, int x, int y) {
-	Unit* unit = new Unit(10, 10, 100, 0, texture_manager_, game_map_);
-	unit->SetTexture(TextureName::bamboo, 0, 0, 1, 1, 0, 0, 0, 0, 16, 28);
-	FillUnit(unit, UnitType::Fly, player, new BehaviorStay(unit), x, y - 28);
+Entity* UnitFactory::CreateBamboo(int x, int y) {
+	Entity* entity = new Entity(texture_manager_, x, y - 28);
+	entity->SetTexture(TextureName::bamboo, 0, 0, 1, 1, 0, 0, 0, 0, 16, 28);
 
-	players_[player]->AddUnit(unit);
-	return unit;
+	return entity;
 }

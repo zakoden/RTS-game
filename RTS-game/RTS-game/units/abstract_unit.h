@@ -1,5 +1,7 @@
 #pragma once
 
+#include "map_object.h"
+
 #include <bitset>
 #include <cmath>
 #include <memory>
@@ -8,6 +10,8 @@
 
 #include "SDL.h"
 
+#include "unit_type.h"
+
 #include "../map/camera.h"
 
 #include "../behaviors/behavior.h"
@@ -15,13 +19,7 @@
 
 #include "../player/players_info.h"
 
-enum UnitType {
-	Ground = 0,
-	Bullet = 1,
-	Fly = 2
-};
-
-class AbstractUnit {
+class AbstractUnit : MapObject {
 public:
 	virtual ~AbstractUnit() = default;
 	virtual int GetX() = 0;
@@ -50,7 +48,7 @@ public:
 	
 	virtual void DoAction() = 0; 
 	virtual void Move() = 0;
-	virtual void Draw(SDL_Renderer* renderer, Camera* camera) = 0; 
+	virtual void Draw(SDL_Renderer* renderer, Camera* camera) = 0;
 
 	virtual AbstractUnit* GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) = 0;
 	virtual AbstractUnit* FindEnemyInRadius(int radius) = 0;

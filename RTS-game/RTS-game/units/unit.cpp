@@ -54,9 +54,10 @@ Unit::Unit(int attack, int defense, int max_health, double speed,
 	, defense_(defense)
 	, health_(max_health)
 	, max_health_(max_health)
-	, speed_(speed)
+	, game_map_(game_map)
 	, texture_manager_(texture_manager)
-	, game_map_(game_map) {}
+	, speed_(speed)
+{}
 
 Unit::~Unit() {
 	if (behavior_ != NULL) delete behavior_;
@@ -260,8 +261,6 @@ void Unit::DoAction() {
 	}
 
 	int x = static_cast<int>(x_), y = static_cast<int>(y_);
-	x = floor(x_);
-	y = floor(y_);
 	int x1 = (x + deltaX_) / game_map_->GetBlockSize();
 	int y1 = (y + deltaY_) / game_map_->GetBlockSize();
 	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
@@ -473,7 +472,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	hitbox.h = height_;
     //SDL_RenderDrawRect(renderer, &hitbox);
 
-	/*
+	
 	if (type_ == UnitType::Ground) {
 		int life_len = (hitbox.w * health_) / max_health_;
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + hitbox.w - 1, hitbox.y - 2);
@@ -481,7 +480,6 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + life_len - 1, hitbox.y - 2);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	}
-	*/
 	
 }
 

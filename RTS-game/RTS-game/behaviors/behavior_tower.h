@@ -32,7 +32,7 @@ public:
 
 	void SetUnit(AbstractUnit* unit);
 	// делает (-_-) действие
-	void DoAction();
+	void DoAction() override;
 	void Attack(AbstractUnit* enemy);
 	void FindTarget();
 

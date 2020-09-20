@@ -17,7 +17,7 @@ namespace grid_function {
 	inline uint32_t SquaredDistance(const MapPoint& a, const MapPoint& b);
 
 	// Gets an actual distance between two points
-	inline float Distance(const MapPoint& a, const MapPoint& b);
+	float Distance(const MapPoint& a, const MapPoint& b);
 
 	// Makes map more smooth
 	// For each cell, if 5 neighbors have the same block type, transform that cell into that block type

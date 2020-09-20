@@ -86,7 +86,7 @@ void GameManager::Run() {
 
 	for (int i = 0; i < 7; ++i) {
 		for (int j = 0; j < 7; ++j) {
-			unit_factory_->CreateBamboo(0, 500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5);
+			entities_.push_back(unit_factory_->CreateBamboo(500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5));
 		}
 	}
 
@@ -115,7 +115,6 @@ void GameManager::Run() {
 	unit_factory_->CreateSmallHorizontalGrayWall(0, castle_l + 6, castle_u + 6 + 18 * 3 + 1);
 	unit_factory_->CreateSmallHorizontalGrayWall(0, castle_l + 6 + 24, castle_u + 6 + 18 * 3 + 1);
 	unit_factory_->CreateSmallGrayTower(0, castle_l + 6 + 24 + 24, castle_u + 6 + 18 * 3);
-
 
 	/*
 	unit_factory_->CreateTest(1, 150, 100);
@@ -294,6 +293,9 @@ void GameManager::RunStep() {
 		for (auto& [y, unit] : units_to_draw) {
 			unit->Draw(renderer_, camera_);
 		}
+		
+		for (Entity* entity : entities_)
+			entity->Draw(renderer_, camera_);
 
 
 		// TODO optimize it
