@@ -31,6 +31,9 @@ private:
 	// To reduce computation of rectangles
 	std::vector<SDL_Rect> rectangle_blocks_ = vector<SDL_Rect>(256, { -1, -1, -1, -1 });
 
+	SDL_Texture* texture_save_ = NULL;
+	int texture_width_ = 0, texture_height_ = 0;
+
 	size_t GetInd(uint32_t x, uint32_t y) const;
 public:
 
@@ -60,7 +63,8 @@ public:
 	void UncoverCell(int x, int y, size_t player_num);
 
 	void SetBlock(uint32_t x, uint32_t y, uint8_t value);
-	void BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y, uint8_t block = UINT8_MAX);
+	void DrawToTexture(SDL_Renderer* renderer);
+	void BlockDraw(SDL_Renderer* renderer, uint32_t x, uint32_t y, uint8_t block = UINT8_MAX);
 	void Draw(SDL_Renderer* renderer, Camera* camera, uint8_t player_num = UINT8_MAX); 
 
 	// For user_manager, covers all covered cells with block_num

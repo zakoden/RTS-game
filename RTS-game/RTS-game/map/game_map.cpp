@@ -25,6 +25,10 @@ GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t
 	surface = SDL_LoadBMP("pictures/map-tiles-fogged.bmp");
 	fogged_tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
+	
+	texture_width_ = width_ * BLOCK_SIZE;
+	texture_height_ = height_ * BLOCK_SIZE;
+	texture_save_ = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, texture_width_,  texture_height_);
 }
 
 GameMap::~GameMap() {
@@ -98,12 +102,20 @@ void GameMap::SetBlock(uint32_t x, uint32_t y, uint8_t value) {
 	blocks_[GetInd(x, y)] = value;
 }
 
-void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint32_t y, uint8_t block) {
-	SDL_Texture* tiles_to_use = (block == UINT8_MAX - 1) ? fogged_tiles_ : tiles_;
-	if (block == UINT8_MAX || block == UINT8_MAX - 1)
+void GameMap::DrawToTexture(SDL_Renderer* renderer) {
+	SDL_SetRenderTarget(renderer, texture_save_);
+	for (uint32_t y = 0; y < GetHeight(); ++y) {
+		for (uint32_t x = 0; x < GetWidth(); ++x) {
+			BlockDraw(renderer, x, y);
+		}
+	}
+	SDL_SetRenderTarget(renderer, NULL);
+}
+
+void GameMap::BlockDraw(SDL_Renderer* renderer, uint32_t x, uint32_t y, uint8_t block) {
+	SDL_Texture* tiles_to_use = tiles_;
+	if (block == UINT8_MAX || block == UINT8_MAX - 1) {
 		block = blocks_[GetInd(x, y)];
-	if (!units_in_block_[GetInd(x, y)].empty()) {
-	//	block = 0;
 	}
 
 	if (rectangle_blocks_[block].x == -1) {
@@ -114,26 +126,29 @@ void GameMap::BlockDraw(SDL_Renderer* renderer, Camera* camera, uint32_t x, uint
 	}
 
 	SDL_Rect to;
-	to.x = - camera->GetCornerX(renderer) + x * BLOCK_SIZE;
-	to.y = - camera->GetCornerY(renderer) + y * BLOCK_SIZE;
+	to.x = x * BLOCK_SIZE;
+	to.y = y * BLOCK_SIZE;
 	to.w = BLOCK_SIZE;
 	to.h = BLOCK_SIZE;
 	SDL_RenderCopy(renderer, tiles_to_use, &rectangle_blocks_[block], &to);
 }
 
 void GameMap::Draw(SDL_Renderer* renderer, Camera* camera, uint8_t player_num) {
-	//SDL_RenderCopy(renderer, tiles_, NULL, NULL);
-	for (uint32_t y = 0; y < GetHeight(); ++y) {
-		for (uint32_t x = 0; x < GetWidth(); ++x) {
-			if (player_num == UINT8_MAX || IsCellUncovered({x, y}, player_num)) {
-				BlockDraw(renderer, camera, x, y);
-			}
-		}
-	}
+	SDL_Rect to, from;
+	from.x = 0;
+	from.y = 0;
+	from.w = texture_width_;
+	from.h = texture_height_;
+	to.x = -camera->GetCornerX(renderer);
+	to.y = -camera->GetCornerY(renderer);
+	to.w = texture_width_;
+	to.h = texture_height_;
+	SDL_RenderCopy(renderer, texture_save_, &from, &to);
 }
 
 
 void GameMap::ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num, uint8_t block_num) {
+	/*
 	for (uint32_t y = 0; y < GetHeight(); ++y) {
 		for (uint32_t x = 0; x < GetWidth(); ++x) {
 			if (!IsCellUncovered({ x, y }, player_num)) {
@@ -141,6 +156,7 @@ void GameMap::ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num, 
 			}
 		}
 	}
+	*/
 }
 
 void GameMap::AddBase(SDL_Point location, uint8_t player_num) {
