@@ -19,9 +19,9 @@
 
 #include "../player/players_info.h"
 
-class AbstractUnit : MapObject {
+class MovableUnit : MapObject {
 public:
-	virtual ~AbstractUnit() = default;
+	virtual ~MovableUnit() = default;
 	virtual int GetX() = 0;
 	virtual int GetY() = 0;
 	virtual int GetCenterX() = 0;
@@ -44,15 +44,15 @@ public:
 	virtual void GetCommandPoint(int& x, int& y) = 0;
 	virtual void DamageApply(int damage) = 0;
 	virtual void AttackEnd() = 0;
-	virtual void UnitCollide(AbstractUnit* unit) = 0;
+	virtual void UnitCollide(MovableUnit* unit) = 0;
 	
 	virtual void DoAction() = 0; 
 	virtual void Move() = 0;
 	virtual void Draw(SDL_Renderer* renderer, Camera* camera) = 0;
 
-	virtual AbstractUnit* GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) = 0;
-	virtual AbstractUnit* FindEnemyInRadius(int radius) = 0;
-	virtual AbstractUnit* GetEnemyInPoint(int x, int y) = 0;
+	virtual MovableUnit* GetClosestUnit(MovableUnit* unit1, MovableUnit* unit2) = 0;
+	virtual MovableUnit* FindEnemyInRadius(int radius) = 0;
+	virtual MovableUnit* GetEnemyInPoint(int x, int y) = 0;
 
 	virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, 
 		                    size_t texture_delay_move, size_t texture_delay_attack,

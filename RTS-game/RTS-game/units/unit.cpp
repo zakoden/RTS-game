@@ -178,7 +178,7 @@ void Unit::AttackEnd() {
 	behavior_->AttackEnd();
 }
 
-void Unit::UnitCollide(AbstractUnit* unit) {
+void Unit::UnitCollide(MovableUnit* unit) {
 	if (type_ == UnitType::Fly) return;
 	double x1, x2, y1, y2;
 	double cx1, cy1, cx2, cy2;
@@ -266,11 +266,11 @@ void Unit::DoAction() {
 	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
 	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
 
-	std::unordered_set<AbstractUnit*> used_units;
+	std::unordered_set<MovableUnit*> used_units;
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
 			auto units = game_map_->GetUnitsInBlock(cur_x, cur_y);
-			for (AbstractUnit* unit : (*units)) {
+			for (MovableUnit* unit : (*units)) {
 				if (unit == this) continue;
 				if (used_units.find(unit) != used_units.end()) continue;
 				used_units.insert(unit);
@@ -483,7 +483,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	
 }
 
-AbstractUnit* Unit::GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) {
+MovableUnit* Unit::GetClosestUnit(MovableUnit* unit1, MovableUnit* unit2) {
 	if (unit1 == NULL)
 		return unit2;
 	if (unit2 == NULL)
@@ -507,8 +507,8 @@ AbstractUnit* Unit::GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) {
 }
 
 // to do : change this shit
-AbstractUnit* Unit::FindEnemyInRadius(int radius) {
-	AbstractUnit* ans = NULL;
+MovableUnit* Unit::FindEnemyInRadius(int radius) {
+	MovableUnit* ans = NULL;
 	int cx, cy; // unit center
 	cx = x_ + deltaX_ + width_ / 2;
 	cy = y_ + deltaY_ + height_ / 2;
@@ -516,7 +516,7 @@ AbstractUnit* Unit::FindEnemyInRadius(int radius) {
 	for (int y = cy - radius; y <= (cy + radius); y += block_size) {
 		int dx = 0; 
 		int dy;
-		AbstractUnit* unit = NULL;
+		MovableUnit* unit = NULL;
 		do {
 			unit = GetEnemyInPoint(cx + dx, y);
 			ans = GetClosestUnit(ans, unit);
@@ -529,15 +529,15 @@ AbstractUnit* Unit::FindEnemyInRadius(int radius) {
 	return ans;
 }
 
-AbstractUnit* Unit::GetEnemyInPoint(int x, int y) {
+MovableUnit* Unit::GetEnemyInPoint(int x, int y) {
 	if (!game_map_->IsPositionInMap(x, y)) 
 		return NULL;
 
 	uint32_t x_block = x / game_map_->GetBlockSize();
 	uint32_t y_block = y / game_map_->GetBlockSize();
 	//game_map_->SetBlock(x_block, y_block, 1);
-	std::unordered_set<AbstractUnit*>* units_map = game_map_->GetUnitsInBlock(x_block, y_block);
-	for (AbstractUnit* unit : (*units_map)) {
+	std::unordered_set<MovableUnit*>* units_map = game_map_->GetUnitsInBlock(x_block, y_block);
+	for (MovableUnit* unit : (*units_map)) {
 		if (players_info_->CanAttack(player_, unit->GetPlayer())) {
 			return unit;
 		}

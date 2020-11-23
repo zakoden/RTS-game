@@ -13,7 +13,7 @@
 #include "../player/player.h"
 #include "../player/players_info.h"
 
-class UnitFactory : AbstractUnitFactory {
+class UnitFactory : MovableUnitFactory {
 private:
 	std::vector<Player*> players_;
 
@@ -30,25 +30,25 @@ public:
 	void SetTextureManager(TextureManager* texture_manager);
 	void SetPlayersInfo(PlayersInfo* players_info);
 
-	AbstractUnit* CreateTest(size_t player, int x, int y) override;
-    AbstractUnit* CreateTest1(size_t player, int x, int y) override;
-	AbstractUnit* CreateTestHunter(size_t player, int x, int y) override;
-	AbstractUnit* CreateTestHunter2(size_t player, int x, int y) override;
-	AbstractUnit* CreateScout(size_t player, int x, int y, MapPoint center) override;
+	MovableUnit* CreateTest(size_t player, int x, int y) override;
+    MovableUnit* CreateTest1(size_t player, int x, int y) override;
+	MovableUnit* CreateTestHunter(size_t player, int x, int y) override;
+	MovableUnit* CreateTestHunter2(size_t player, int x, int y) override;
+	MovableUnit* CreateScout(size_t player, int x, int y, MapPoint center) override;
 
-	AbstractUnit* CreateFireSmallPoleax(size_t player, int x, int y) override; 
-	AbstractUnit* CreateFireSmallSpear(size_t player, int x, int y) override;
-	AbstractUnit* CreateFireSmallLance(size_t player, int x, int y) override;
+	MovableUnit* CreateFireSmallPoleax(size_t player, int x, int y) override; 
+	MovableUnit* CreateFireSmallSpear(size_t player, int x, int y) override;
+	MovableUnit* CreateFireSmallLance(size_t player, int x, int y) override;
 
-	AbstractUnit* CreateFireMediumPoleax(size_t player, int x, int y) override;
+	MovableUnit* CreateFireMediumPoleax(size_t player, int x, int y) override;
 
-	AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
+	MovableUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) override;
 
-	AbstractUnit* CreateBase(uint8_t player, int x, int y) override;
+	MovableUnit* CreateBase(uint8_t player, int x, int y) override;
 
-	AbstractUnit* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) override;
-	AbstractUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) override;
-	AbstractUnit* CreateSmallGrayTower(uint8_t player, int x, int y) override;
+	MovableUnit* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) override;
+	MovableUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) override;
+	MovableUnit* CreateSmallGrayTower(uint8_t player, int x, int y) override;
 
 	Entity* CreateBamboo(int x, int y) override;
 };

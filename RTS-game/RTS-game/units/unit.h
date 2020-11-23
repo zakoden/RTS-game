@@ -1,6 +1,6 @@
 #pragma once
 
-#include "abstract_unit.h"
+#include "movable_unit.h"
 #include "../map/game_map.h"
 #include "../managers/texture_manager.h"
 
@@ -15,7 +15,7 @@
 
 #include "../player/players_info.h"
 
-class Unit : public AbstractUnit {
+class Unit : public MovableUnit {
 protected:
 	// --base parameters--
 	bool alive_ = true;
@@ -102,17 +102,17 @@ public:
 	void DamageApply(int damage) override;
 	void UncoverNearbyCells();  // Every cell within scout_radius_ will be uncovered
 	void AttackEnd() override;
-	void UnitCollide(AbstractUnit* unit) override;
+	void UnitCollide(MovableUnit* unit) override;
 
 	void DoAction() override;
 	void Move() override;
 	void Draw(SDL_Renderer* renderer, Camera* camera) override;
 
-	AbstractUnit* GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) override;
+	MovableUnit* GetClosestUnit(MovableUnit* unit1, MovableUnit* unit2) override;
 	// return first enemy unit in radius
-	AbstractUnit* FindEnemyInRadius(int radius) override;
+	MovableUnit* FindEnemyInRadius(int radius) override;
 	// return first enemy unit in block
-	AbstractUnit* GetEnemyInPoint(int x, int y) override;
+	MovableUnit* GetEnemyInPoint(int x, int y) override;
 
 	void AddEffect(Effect effect) override;		  
 	void RemoveEffect(Effect effect) override;	  
