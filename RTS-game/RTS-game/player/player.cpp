@@ -37,7 +37,7 @@ void Player::DoAction() {
 		if ((*it)->IsAlive()) {
 			it++;
 		} else {
-			AbstractUnit* unit = *it;
+			MovableUnit* unit = *it;
 			it = army_.erase(it);
 			delete unit;
 		}
@@ -56,16 +56,16 @@ void Player::Draw(SDL_Renderer* renderer, Camera* camera) const {
 	}
 }
 
-void Player::UnitsToDraw(std::vector<std::pair<int, AbstractUnit*>> &out) {
+void Player::UnitsToDraw(std::vector<std::pair<int, MovableUnit*>> &out) {
 	for (auto& unit : army_) {
 		out.push_back({unit->GetLegsY(), unit});
 	}
 }
 
-void Player::AddUnit(AbstractUnit* unit) {
+void Player::AddUnit(MovableUnit* unit) {
 	army_.insert(unit);
 }
 
-void Player::DeleteUnit(AbstractUnit* unit) {
+void Player::DeleteUnit(MovableUnit* unit) {
 	army_.erase(unit);
 }

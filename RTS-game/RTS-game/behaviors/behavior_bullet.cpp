@@ -1,6 +1,6 @@
 #include "behavior_bullet.h"
 
-BehaviorBullet::BehaviorBullet(AbstractUnit* unit, int x_to, int y_to) {
+BehaviorBullet::BehaviorBullet(MovableUnit* unit, int x_to, int y_to) {
 	unit_ = unit;
 	dest_x_ = x_to + unit_->GetX() - unit_->GetCenterX();
 	dest_y_ = y_to + unit_->GetY() - unit_->GetCenterY();
@@ -9,7 +9,7 @@ BehaviorBullet::BehaviorBullet(AbstractUnit* unit, int x_to, int y_to) {
 BehaviorBullet::~BehaviorBullet() {
 }
 
-void BehaviorBullet::SetUnit(AbstractUnit* unit) {
+void BehaviorBullet::SetUnit(MovableUnit* unit) {
 	unit_ = unit;
 }
 
@@ -19,7 +19,7 @@ void BehaviorBullet::DoAction() {
 	dy = dest_y_ - unit_->GetY();
 
 	if (dx == 0 && dy == 0) {
-		AbstractUnit* target = unit_->GetEnemyInPoint(unit_->GetCenterX(), unit_->GetCenterY());
+		MovableUnit* target = unit_->GetEnemyInPoint(unit_->GetCenterX(), unit_->GetCenterY());
 		if (target != NULL) {
 			target->DamageApply(unit_->GetAttack());
 		}

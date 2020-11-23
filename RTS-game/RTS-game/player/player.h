@@ -2,7 +2,7 @@
 
 #include <unordered_set>
 
-#include "../units/abstract_unit.h"
+#include "../units/movable_unit.h"
 #include "../units/abstract_unit_factory.h"
 
 #include "../map/grid.h"
@@ -13,7 +13,7 @@ protected:
 	PlayerOwner* player_owner_;
 	uint8_t num_ = 0;
 
-	std::unordered_set<AbstractUnit*> army_;
+	std::unordered_set<MovableUnit*> army_;
 
 	// For scout behavior, score rewarded is based on
 	// Distance from a base, the less distance, the better
@@ -31,8 +31,8 @@ public:
 	void DoAction();
 	void Move();
 	void Draw(SDL_Renderer* renderer, Camera* camera) const; 
-	void UnitsToDraw(std::vector<std::pair<int, AbstractUnit*>> &out);
+	void UnitsToDraw(std::vector<std::pair<int, MovableUnit*>> &out);
 
-	void AddUnit(AbstractUnit* unit);
-	void DeleteUnit(AbstractUnit* unit);
+	void AddUnit(MovableUnit* unit);
+	void DeleteUnit(MovableUnit* unit);
 };

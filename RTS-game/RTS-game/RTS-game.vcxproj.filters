@@ -109,9 +109,6 @@
     <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="units\abstract_unit.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="units\unit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -191,6 +188,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="units\map_object.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\movable_unit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

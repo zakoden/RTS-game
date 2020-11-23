@@ -1,6 +1,6 @@
 #include "behavior_around_point.h"
 
-BehaviorAroundPoint::BehaviorAroundPoint(AbstractUnit* unit, AbstractUnitFactory* unit_factory,
+BehaviorAroundPoint::BehaviorAroundPoint(MovableUnit* unit, MovableUnitFactory* unit_factory,
 	                                     Behavior* inner_behavior, int center_x, int center_y, int radius) {
 	unit_ = unit;
 	unit_factory_ = unit_factory;
@@ -13,7 +13,7 @@ BehaviorAroundPoint::BehaviorAroundPoint(AbstractUnit* unit, AbstractUnitFactory
 BehaviorAroundPoint::~BehaviorAroundPoint() {
 }
 
-void BehaviorAroundPoint::SetUnit(AbstractUnit* unit) {
+void BehaviorAroundPoint::SetUnit(MovableUnit* unit) {
 	unit_ = unit;
 }
 

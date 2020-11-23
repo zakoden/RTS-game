@@ -91,7 +91,7 @@
       <FileName>units\abstract_entity.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AbstractUnitFactory" Collapsed="true">
+  <Class Name="MovableUnitFactory" Collapsed="true">
     <Position X="0.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAgAAEAKAUCAIAAAACAIAACBAgEAAA=</HashCode>
@@ -154,11 +154,11 @@
       <FileName>managers\texture_manager.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AbstractUnit" Collapsed="true">
+  <Class Name="MovableUnit" Collapsed="true">
     <Position X="5.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAEQGAAKBAA7AgAgEACgCAmCEIAgGQYAABBABAMAA=</HashCode>
-      <FileName>units\abstract_unit.h</FileName>
+      <FileName>units\movable_unit.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entity" Collapsed="true">

@@ -233,7 +233,7 @@
     <ClInclude Include="player\players_info.h" />
     <ClInclude Include="behaviors\status_effects.h" />
     <ClInclude Include="managers\texture_manager.h" />
-    <ClInclude Include="units\abstract_unit.h" />
+    <ClInclude Include="units\movable_unit.h" />
     <ClInclude Include="units\building.h" />
     <ClInclude Include="units\entity.h" />
     <ClInclude Include="units\map_object.h" />

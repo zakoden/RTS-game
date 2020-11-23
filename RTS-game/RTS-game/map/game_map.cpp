@@ -13,7 +13,7 @@ GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t
 	: width_(width)
 	, height_(height)
 	, blocks_(vector<uint8_t>(static_cast<size_t>(width_) * height_))
-	, units_in_block_(vector<std::unordered_set<AbstractUnit*>>(static_cast<size_t>(width_)* height_))
+	, units_in_block_(vector<std::unordered_set<MovableUnit*>>(static_cast<size_t>(width_)* height_))
 	, fog_of_war_(vector<Grid<char>>(players_count, Grid<char>(height, width, false)))
 	, distance_to_base_(vector<Grid<float>>(players_count, 
 		Grid<float>(height, width, static_cast<float>(height + width)))) {
@@ -43,7 +43,7 @@ uint32_t GameMap::GetBlockSize() {
 	return BLOCK_SIZE;
 }
 
-std::unordered_set<AbstractUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t y) {
+std::unordered_set<MovableUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t y) {
 	return &units_in_block_[GetInd(x, y)];
 }
 
@@ -76,11 +76,11 @@ SDL_Rect GameMap::GetBlockRect(uint32_t x, uint32_t y) {
 	return rect;
 }
 
-void GameMap::AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
+void GameMap::AddUnit(MovableUnit* unit, uint32_t x, uint32_t y) {
 	units_in_block_[GetInd(x, y)].insert(unit);
 }
 
-void GameMap::DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y) {
+void GameMap::DeleteUnit(MovableUnit* unit, uint32_t x, uint32_t y) {
 	if (units_in_block_[GetInd(x, y)].find(unit) != units_in_block_[GetInd(x, y)].end()) {
 		units_in_block_[GetInd(x, y)].erase(unit);
 	}

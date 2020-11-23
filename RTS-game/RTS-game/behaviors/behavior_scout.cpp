@@ -4,7 +4,7 @@
 
 #include "../adapter.h"
 
-BehaviorScout::BehaviorScout(AbstractUnit* unit, GameMap* game_map, MapPoint center)
+BehaviorScout::BehaviorScout(MovableUnit* unit, GameMap* game_map, MapPoint center)
 	: unit_(unit)
 	, game_map_(game_map)
 	, center_(center) {}

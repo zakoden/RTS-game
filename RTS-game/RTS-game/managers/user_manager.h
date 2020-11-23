@@ -19,7 +19,7 @@ protected:
 	Camera* camera_ = NULL;
 	Player* player_ = NULL;
 
-	AbstractUnit* control_unit_ = NULL;
+	MovableUnit* control_unit_ = NULL;
 public:
 	UserManager(GameMap* game_map, Camera* camera);
 	~UserManager();

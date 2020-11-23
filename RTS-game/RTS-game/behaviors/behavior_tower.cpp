@@ -1,6 +1,6 @@
 #include "behavior_tower.h"
 
-BehaviorTower::BehaviorTower(AbstractUnit* unit, AbstractUnitFactory* unit_factory) {
+BehaviorTower::BehaviorTower(MovableUnit* unit, MovableUnitFactory* unit_factory) {
 	unit_ = unit;
 	unit_factory_ = unit_factory;
 	max_steps_[Steps::FIND] = 30;
@@ -12,7 +12,7 @@ BehaviorTower::~BehaviorTower() {
 
 }
 
-void BehaviorTower::SetUnit(AbstractUnit* unit) {
+void BehaviorTower::SetUnit(MovableUnit* unit) {
 	unit_ = unit;
 }
 
@@ -34,14 +34,14 @@ void BehaviorTower::DoAction() {
 	
 }
 
-void BehaviorTower::Attack(AbstractUnit* enemy) {
+void BehaviorTower::Attack(MovableUnit* enemy) {
 	unit_factory_->CreateBulletFire1(unit_->GetPlayer(), 
 		unit_->GetCenterX(), unit_->GetCenterY(),
 		enemy->GetCenterX(), enemy->GetCenterY());
 }
 
 void BehaviorTower::FindTarget() {
-	AbstractUnit* target = unit_->FindEnemyInRadius(radius_);
+	MovableUnit* target = unit_->FindEnemyInRadius(radius_);
 	if (target != NULL) {
 		if (targets_.empty()) {
 			targets_.insert(target);

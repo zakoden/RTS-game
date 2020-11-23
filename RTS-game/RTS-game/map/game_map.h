@@ -11,7 +11,7 @@
 #include "camera.h"
 #include "grid.h"
 #include "map_point.h"
-#include "../units/abstract_unit.h"
+#include "../units/movable_unit.h"
 
 class GameMap {
 private:
@@ -20,7 +20,7 @@ private:
 
     uint32_t width_, height_; // øèðèíà, âûñîòà êàðòû
 	std::vector<uint8_t> blocks_; // áëîêè êàðòû
-	std::vector<std::unordered_set<AbstractUnit*>> units_in_block_; // þíèòû íà êàðòå
+	std::vector<std::unordered_set<MovableUnit*>> units_in_block_; // þíèòû íà êàðòå
 	SDL_Texture* tiles_ = nullptr; // òåêñòóðà ñî âñåìè áëîêàìè
 	SDL_Texture* fogged_tiles_ = nullptr; // Tiles in test-bw.bmp
 		
@@ -39,7 +39,7 @@ public:
 	uint32_t GetHeight();
 	uint32_t GetWidth();
 	static uint32_t GetBlockSize();
-	std::unordered_set<AbstractUnit*>* GetUnitsInBlock(uint32_t x, uint32_t y);
+	std::unordered_set<MovableUnit*>* GetUnitsInBlock(uint32_t x, uint32_t y);
 	Grid<float>& GetDistanceToBase(uint8_t player_num);
 
 	bool IsBlockInMap(int x, int y);
@@ -50,8 +50,8 @@ public:
 
 	SDL_Rect GetBlockRect(uint32_t x, uint32_t y);
 
-	void AddUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
-	void DeleteUnit(AbstractUnit* unit, uint32_t x, uint32_t y);
+	void AddUnit(MovableUnit* unit, uint32_t x, uint32_t y);
+	void DeleteUnit(MovableUnit* unit, uint32_t x, uint32_t y);
 
 	// Gets a block in (x, y), UNKNOWN if player player_num doesn't know it yet
 	uint8_t GetBlock(uint32_t x, uint32_t y, size_t player_num) const;

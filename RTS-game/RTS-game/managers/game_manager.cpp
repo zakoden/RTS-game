@@ -285,7 +285,7 @@ void GameManager::RunStep() {
 		else
 			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
 
-		std::vector<std::pair<int, AbstractUnit*>> units_to_draw;
+		std::vector<std::pair<int, MovableUnit*>> units_to_draw;
 		for (size_t i = 0; i < players_.size(); ++i) {
 			players_[i]->UnitsToDraw(units_to_draw);
 		}

@@ -1,6 +1,6 @@
 #include "behavior_stay.h"
 
-BehaviorStay::BehaviorStay(AbstractUnit* unit) {
+BehaviorStay::BehaviorStay(MovableUnit* unit) {
 	unit_ = unit;
 }
 
@@ -8,7 +8,7 @@ BehaviorStay::~BehaviorStay() {
 
 }
 
-void BehaviorStay::SetUnit(AbstractUnit* unit) {
+void BehaviorStay::SetUnit(MovableUnit* unit) {
 	unit_ = unit;
 }
 

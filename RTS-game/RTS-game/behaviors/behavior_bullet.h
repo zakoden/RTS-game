@@ -2,20 +2,20 @@
 
 #include "behavior.h"
 
-#include "../units/abstract_unit.h"
+#include "../units/movable_unit.h"
 
 class BehaviorBullet : public Behavior {
 protected:
-	AbstractUnit* unit_;
+	MovableUnit* unit_;
 
 	int damage_ = 10;
 	int dest_x_, dest_y_;
 
 public:
-	BehaviorBullet(AbstractUnit* unit, int x_to, int y_to);
+	BehaviorBullet(MovableUnit* unit, int x_to, int y_to);
 	~BehaviorBullet();
 
-	void SetUnit(AbstractUnit* unit);
+	void SetUnit(MovableUnit* unit);
 
 	void DoAction();
 };
