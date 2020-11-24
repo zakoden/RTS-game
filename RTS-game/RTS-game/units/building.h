@@ -1,7 +1,7 @@
 #pragma once
 
-#include "map_object.h"
+#include "immovable_unit.h"
 
-class Building : public MapObject {
+class Building : public ImmovableUnit {
 
 };

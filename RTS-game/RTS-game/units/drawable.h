@@ -2,15 +2,13 @@
 
 #include <string>
 
-#include "../clock.h"
 
 #include "../managers/texture_manager.h"
 
 #include "../map/camera.h"
 
-class AbstractEntity {
+class Drawable {
 public:
-
 	virtual void Draw(SDL_Renderer* renderer, Camera* camera) = 0;
 
 	virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt,

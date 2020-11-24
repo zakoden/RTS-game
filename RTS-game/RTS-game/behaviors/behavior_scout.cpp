@@ -38,6 +38,6 @@ void BehaviorScout::DoAction() {
 		}
 		//std::cout << target_.x << " " << target_.y << " " << target_score << std::endl;
 	}
-	unit_->SetVector(target_.x - unit_->GetX(), target_.y - unit_->GetY());
+	unit_->SetVector(target_.x - ((AbstractImmovableUnit*)unit_)->GetX(), target_.y - (((AbstractImmovableUnit*)unit_)->GetY()));
 	unit_->VectorApply();
 }

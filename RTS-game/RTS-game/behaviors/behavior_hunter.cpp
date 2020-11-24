@@ -40,7 +40,7 @@ void BehaviorHunter::DoAction() {
 		}
 	}
 
-	MovableUnit* target = unit_->FindEnemyInRadius(distance_attack_);
+	AbstractImmovableUnit* target = unit_->FindEnemyInRadius(distance_attack_);
 	target_ = unit_->GetClosestUnit(target, target_);
 
 	if (target_ != NULL) {
@@ -57,7 +57,7 @@ void BehaviorHunter::DoAction() {
 	}
 }
 
-void BehaviorHunter::Attack(MovableUnit* enemy) {
+void BehaviorHunter::Attack(AbstractImmovableUnit* enemy) {
 	if (unit_->HasEffect(Effect::ATTACKING)) {
 		return;
 	}
@@ -74,7 +74,7 @@ void BehaviorHunter::Attack(MovableUnit* enemy) {
 }
 
 void BehaviorHunter::FindTarget() {
-	MovableUnit* target = unit_->FindEnemyInRadius(radius_search_);
+	AbstractImmovableUnit* target = unit_->FindEnemyInRadius(radius_search_);
 	if (target != NULL) {
 		target_ = target;
 	}

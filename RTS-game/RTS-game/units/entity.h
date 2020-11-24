@@ -1,6 +1,6 @@
 #pragma once
 
-#include "abstract_entity.h"
+#include "drawable_entity.h"
 
 #include <string>
 
@@ -13,55 +13,11 @@
 /* Represents something on the map
 Doesn't have movement, hp, can be passed through
 */
-class Entity : public AbstractEntity {
-protected:
-
-	// --cosmetic--
-	bool is_right_side = true;
-	size_t texture_ind_;
-	size_t texture_move_num_ = 0;
-	size_t texture_attack_num_ = 0;
-	size_t texture_pos_ = 0;
-	size_t texture_cur_delay_ = 0;
-	size_t texture_delay_move_ = 1;
-	size_t texture_delay_attack_ = 1;
-	TextureManager* texture_manager_;
-	std::string name_;
-
-	// --geometry--
-	double x_ = 110.0, y_ = 110.0;
-	double dx_ = 0.0, dy_ = 0.0;
-	double speed_ = 0;
-	double command_x_ = 0.0, command_y_ = 0.0;
-	// hitbox delta
-	int deltaX_ = 0, deltaY_ = 0;
-	// hitbox size
-	int width_ = 16, height_ = 16;
-	// texture size
-	int texture_width_ = 24, texture_height_ = 24;
-	/*
-	texture
-	-----------------------
-	|     /|\             |
-	|      | deltaY       |
-	|     \|/             |
-	|      --------       |
-	|deltaX|hitbox|       |
-	|<---->|      |       |
-	|      --------       |
-	-----------------------
-	*/
-
-
+class Entity : public DrawableEntity {
 public:
 	Entity() = default;
 
 	Entity(TextureManager* texture_manager, int x, int y);
 
-	virtual void Draw(SDL_Renderer* renderer, Camera* camera) override;
-
-	virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt,
-		size_t texture_delay_move, size_t texture_delay_attack,
-		size_t deltaX, size_t deltaY, size_t width, size_t height,
-		size_t texture_width, size_t texture_height) override;
+	void Draw(SDL_Renderer* renderer, Camera* camera) override;
 };

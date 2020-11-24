@@ -29,56 +29,56 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Clock" Collapsed="true">
-    <Position X="18.75" Y="0.5" Width="1.5" />
+    <Position X="22.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAAAAAAQgQgA=</HashCode>
       <FileName>clock.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UserManager" Collapsed="true">
-    <Position X="8.5" Y="4.75" Width="1.5" />
+    <Position X="0.5" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAGAAAAAAhAAAA0AAAgAAAAIAAAAAAAAAAAAAgg=</HashCode>
       <FileName>managers\user_manager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Camera" Collapsed="true">
-    <Position X="17" Y="0.5" Width="1.5" />
+    <Position X="20.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAiAAQAAAIAAAAAAAAAAAAYCBAAMAAAAYAAAAgAAAAA=</HashCode>
       <FileName>map\camera.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameMap" Collapsed="true">
-    <Position X="17" Y="1.5" Width="1.5" />
+    <Position X="20.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QFABkGAAABAAAgApQAAAAABCAwgEAABIAAQACkKAADQ=</HashCode>
       <FileName>map\game_map.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Grid&lt;T&gt;" Collapsed="true">
-    <Position X="8.5" Y="6.5" Width="1.5" />
+    <Position X="6.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAgAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>map\grid.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GridNeighbors" Collapsed="true">
-    <Position X="8.5" Y="8" Width="1.5" />
+    <Position X="6.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>map\grid_neighbors.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TimeMeasurer" Collapsed="true">
-    <Position X="18.75" Y="2.5" Width="1.5" />
+    <Position X="20.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAABAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>map\time_measurer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayerOwner" Collapsed="true">
-    <Position X="8.5" Y="3.5" Width="1.5" />
+    <Position X="0.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>player\player_owner.h</FileName>
@@ -92,7 +92,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="MovableUnitFactory" Collapsed="true">
-    <Position X="0.5" Y="6.5" Width="1.5" />
+    <Position X="0.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAAAAAAAAAAgAAEAKAUCAIAAAACAIAACBAgEAAA=</HashCode>
       <FileName>units\abstract_unit_factory.h</FileName>
@@ -120,7 +120,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GameManager" Collapsed="true">
-    <Position X="20.5" Y="0.5" Width="1.5" />
+    <Position X="18.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACQAAAAAAAAAABYEAAgQAAAAAQJACMECAQBQgCI=</HashCode>
       <FileName>managers\game_manager.h</FileName>
@@ -134,66 +134,66 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Player" Collapsed="true">
-    <Position X="18.75" Y="1.5" Width="1.5" />
+    <Position X="22.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAEIAIgAAgAAAgAAEAAAAQAIAAAAAAAgAwAAAFA=</HashCode>
       <FileName>player\player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="PlayersInfo" Collapsed="true">
-    <Position X="20.5" Y="1.5" Width="1.5" />
+    <Position X="17" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAIAAAAAAAAAAAIAAAAAAAQAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>player\players_info.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextureManager" Collapsed="true">
-    <Position X="17" Y="2.5" Width="1.5" />
+    <Position X="18.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAEAAACAEAAAAAABAAAAAAABAAAAAAAAAAAAAAAgAA=</HashCode>
       <FileName>managers\texture_manager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MovableUnit" Collapsed="true">
-    <Position X="5.25" Y="6.25" Width="1.5" />
+    <Position X="3.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAEQGAAKBAA7AgAgEACgCAmCEIAgGQYAABBABAMAA=</HashCode>
+      <HashCode>AAAAAQAAAKAAAAAAAAAACACAAAEAAgEAAAAABAAAAAA=</HashCode>
       <FileName>units\movable_unit.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entity" Collapsed="true">
-    <Position X="0.75" Y="4.75" Width="1.5" />
+    <Position X="17" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAQCBAQAABAAAhAgQAAIAAYAAGAAEVAAAACAAAEApAA=</HashCode>
+      <HashCode>EAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>units\entity.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Unit" Collapsed="true">
-    <Position X="5.25" Y="7.75" Width="1.5" />
+    <Position X="3.5" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQCFQWAELBAB7AgYoMISI6AnGEIE1HQYACBBANAtwA=</HashCode>
+      <HashCode>AAAAAQAAAKAAAgAAYAAICACAAAEAAxEAAAAABABABAA=</HashCode>
       <FileName>units\unit.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="UnitFactory" Collapsed="true">
-    <Position X="0.5" Y="7.75" Width="1.5" />
+    <Position X="0.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAAAQAAAAAACAgAAMAKA0CAIAAAADApAgCBAgEAAA=</HashCode>
       <FileName>units\unit_factory.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Building" Collapsed="true">
-    <Position X="3" Y="6.25" Width="1.5" />
+    <Position X="18.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>units\building.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="MapObject" Collapsed="true">
-    <Position X="4" Y="4.75" Width="1.5" />
+  <Class Name="AbstractImmovableUnit" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>units\map_object.h</FileName>
+      <HashCode>AQAAEAGAACBAAbBgAgEAAAAAmAAIAACQYAABBABAMAA=</HashCode>
+      <FileName>units\abstract_immovable_unit.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="MapPoint" Collapsed="true">
@@ -218,7 +218,7 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="Steps" Collapsed="true">
-    <Position X="17" Y="5.75" Width="1.5" />
+    <Position X="22.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>behaviors\behavior_tower.h</FileName>
@@ -239,21 +239,21 @@
     </TypeIdentifier>
   </Enum>
   <Enum Name="TextureName" Collapsed="true">
-    <Position X="20.5" Y="5.75" Width="1.5" />
+    <Position X="18.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAABACAAAEIAAgACAAAgAAAAAAQQAAAAAkAAAAA=</HashCode>
       <FileName>managers\texture_manager.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="UnitType" Collapsed="true">
-    <Position X="17" Y="6.5" Width="1.5" />
+    <Position X="20.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAQEAA=</HashCode>
       <FileName>units\unit_type.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="behavior_hunter::Steps" Collapsed="true">
-    <Position X="18.75" Y="5.75" Width="1.5" />
+    <Position X="17" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQIAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>behaviors\behavior_hunter.h</FileName>

@@ -20,7 +20,7 @@ protected:
 	uint8_t cur_steps_[STEPS_CNT] = {};
 	uint8_t max_steps_[STEPS_CNT];
 
-	std::unordered_set<MovableUnit*> targets_;
+	std::unordered_set<AbstractImmovableUnit*> targets_;
 	size_t targets_num_ = 1;
 
 	int radius_ = 200;
@@ -33,7 +33,7 @@ public:
 	void SetUnit(MovableUnit* unit);
 	// делает (-_-) действие
 	void DoAction() override;
-	void Attack(MovableUnit* enemy);
+	void Attack(AbstractImmovableUnit* enemy);
 	void FindTarget();
 
 	void DeadCheck() override;

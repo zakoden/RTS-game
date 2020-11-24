@@ -40,7 +40,8 @@ void UserManager::DoAction(SDL_Renderer* renderer) {
 					control_unit_->RemoveEffect(Effect::UNDER_CONTROL);
 					control_unit_ = NULL;
 				}
-				control_unit_ = *game_map_->GetUnitsInBlock(block_x, block_y)->begin();
+				AbstractImmovableUnit* unit = *game_map_->GetUnitsInBlock(block_x, block_y)->begin();
+				control_unit_ = (MovableUnit*) unit;
 				control_unit_->AddEffect(Effect::UNDER_CONTROL);
 			}
 		}

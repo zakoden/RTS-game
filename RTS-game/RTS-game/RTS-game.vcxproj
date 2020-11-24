@@ -190,7 +190,9 @@
     <ClCompile Include="managers\texture_manager.cpp" />
     <ClCompile Include="adapter.cpp" />
     <ClCompile Include="units\building.cpp" />
+    <ClCompile Include="units\drawable_entity.cpp" />
     <ClCompile Include="units\entity.cpp" />
+    <ClCompile Include="units\immovable_unit.cpp" />
     <ClCompile Include="units\unit.cpp" />
     <ClCompile Include="units\unit_factory.cpp">
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -222,7 +224,6 @@
     <ClInclude Include="map\time_measurer.h" />
     <ClInclude Include="map\triple.h" />
     <ClInclude Include="player\player_owner.h" />
-    <ClInclude Include="units\abstract_entity.h" />
     <ClInclude Include="units\abstract_unit_factory.h" />
     <ClInclude Include="behaviors\behavior_random.h" />
     <ClInclude Include="behaviors\behavior_stay.h" />
@@ -233,10 +234,13 @@
     <ClInclude Include="player\players_info.h" />
     <ClInclude Include="behaviors\status_effects.h" />
     <ClInclude Include="managers\texture_manager.h" />
+    <ClInclude Include="units\drawable.h" />
+    <ClInclude Include="units\drawable_entity.h" />
+    <ClInclude Include="units\immovable_unit.h" />
     <ClInclude Include="units\movable_unit.h" />
     <ClInclude Include="units\building.h" />
     <ClInclude Include="units\entity.h" />
-    <ClInclude Include="units\map_object.h" />
+    <ClInclude Include="units\abstract_immovable_unit.h" />
     <ClInclude Include="units\unit.h" />
     <ClInclude Include="units\unit_factory.h" />
     <ClInclude Include="units\unit_type.h" />
