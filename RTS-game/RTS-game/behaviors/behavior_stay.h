@@ -8,12 +8,12 @@
 
 class BehaviorStay : public Behavior {
 protected:
-	MovableUnit* unit_;
+	AbstractImmovableUnit* unit_;
 public:
-	BehaviorStay(MovableUnit* unit = NULL);
+	BehaviorStay(AbstractImmovableUnit* unit = NULL);
 	~BehaviorStay();
 
-	void SetUnit(MovableUnit* unit); 
+	void SetUnit(AbstractImmovableUnit* unit); 
     // делает (-_-) действие
 	void DoAction(); 
 };

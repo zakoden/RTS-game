@@ -155,6 +155,18 @@ void ImmovableUnit::GetCollisionbox(double& x1, double& y1, double& x2, double& 
 
 void ImmovableUnit::AddVector(double, double) {}
 
+
+
+void ImmovableUnit::SetPosition(int x, int y) {
+	SetPosition((double)x, (double)y);
+}
+
+void ImmovableUnit::SetPosition(double x, double y) {
+	x_ = x;
+	y_ = y;
+	if (type_ == UnitType::Ground) InsertUnitToMap();
+}
+
 void ImmovableUnit::GetVector(double& dx, double& dy) {
 	dx = 0;
 	dy = 0;
@@ -184,17 +196,6 @@ void ImmovableUnit::AttackEnd() {
 }
 
 void ImmovableUnit::DoAction() {
-	RemoveEffect(Effect::MOVING);
-	if (!HasEffect(Effect::UNDER_CONTROL)) {
-		behavior_->DoAction();
-	}
-
-	const double EPS = 0.0001;
-	if (abs(dx_) > EPS || abs(dy_) > EPS) {
-		AddEffect(Effect::MOVING);
-		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
-	}
-
 	int x = static_cast<int>(x_), y = static_cast<int>(y_);
 	int x1 = (x + deltaX_) / game_map_->GetBlockSize();
 	int y1 = (y + deltaY_) / game_map_->GetBlockSize();

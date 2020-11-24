@@ -55,6 +55,8 @@ public:
 
 	virtual void GetVector(double& dx, double& dy) override;
 	virtual void AddVector(double dx, double dy) override;
+	virtual void SetPosition(int x, int y) override;
+	virtual void SetPosition(double x, double y) override;
 
 	void DamageApply(int damage) override;
 	void UncoverNearbyCells();  // Every cell within scout_radius_ will be uncovered

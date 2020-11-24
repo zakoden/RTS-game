@@ -27,7 +27,6 @@ protected:
 
 	// --geometry--
 	double x_ = 110.0, y_ = 110.0;
-	double dx_ = 0.0, dy_ = 0.0;
 	// hitbox delta
 	int deltaX_ = 0, deltaY_ = 0;
 	// hitbox size

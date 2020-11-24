@@ -34,8 +34,6 @@ public:
 	virtual int GetSpeed() override;
 
 	virtual void GetVector(double& dx, double& dy) override;
-	virtual void SetPosition(int x, int y) override;
-	virtual void SetPosition(double x, double y) override;
 	virtual void SetVector(int dx, int dy) override;
 	virtual void SetVector(double dx, double dy) override;
 	virtual void AddVector(double dx, double dy) override;
@@ -44,6 +42,8 @@ public:
 	virtual void SetCommandPoint(int x, int y) override;
 	virtual void GetCommandPoint(int& x, int& y) override;
 
+
+	void DoAction() override;
 	virtual void Move() override;
 	void Draw(SDL_Renderer* renderer, Camera* camera) override;
 };

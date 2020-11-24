@@ -14,6 +14,7 @@ protected:
 	uint8_t num_ = 0;
 
 	std::unordered_set<MovableUnit*> army_;
+	std::unordered_set<Building*> buildings_;
 
 	// For scout behavior, score rewarded is based on
 	// Distance from a base, the less distance, the better
@@ -31,8 +32,9 @@ public:
 	void DoAction();
 	void Move();
 	void Draw(SDL_Renderer* renderer, Camera* camera) const; 
-	void UnitsToDraw(std::vector<std::pair<int, MovableUnit*>> &out);
+	void UnitsToDraw(std::vector<std::pair<int, Drawable*>> &out);
 
 	void AddUnit(MovableUnit* unit);
+	void AddBuilding(Building* building);
 	void DeleteUnit(MovableUnit* unit);
 };

@@ -23,17 +23,6 @@ void Unit::GetVector(double& dx, double& dy) {
 	dy = dy_;
 }
 
-
-void Unit::SetPosition(int x, int y) {
-	SetPosition((double)x, (double)y);
-}
-
-void Unit::SetPosition(double x, double y) {
-	x_ = x;
-	y_ = y;
-	if (type_ == UnitType::Ground) InsertUnitToMap();
-}
-
 void Unit::SetVector(int dx, int dy) {
 	dx_ = (double)dx;
 	dy_ = (double)dy;
@@ -76,6 +65,22 @@ void Unit::SetCommandPoint(int x, int y) {
 void Unit::GetCommandPoint(int& x, int& y) {
 	x = command_x_;
 	y = command_y_;
+}
+
+
+void Unit::DoAction() {
+	RemoveEffect(Effect::MOVING);
+	if (!HasEffect(Effect::UNDER_CONTROL)) {
+		behavior_->DoAction();
+	}
+
+	const double EPS = 0.0001;
+	if (abs(dx_) > EPS || abs(dy_) > EPS) {
+		AddEffect(Effect::MOVING);
+		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
+	}
+
+	ImmovableUnit::DoAction();
 }
 
 void Unit::Move() {

@@ -24,8 +24,6 @@ public:
 	virtual ~MovableUnit() = default;
 	virtual int GetSpeed() = 0;
 
-	virtual void SetPosition(int x, int y) = 0;
-	virtual void SetPosition(double x, double y) = 0;
 	virtual void SetVector(int dx, int dy) = 0;
 	virtual void SetVector(double dx, double dy) = 0;
 	virtual void AddVector(double dx, double dy) = 0;

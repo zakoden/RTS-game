@@ -25,9 +25,9 @@ public:
 
 	virtual MovableUnit* CreateBase(uint8_t player, int x, int y) = 0;
 
-	virtual MovableUnit* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) = 0;
-	virtual MovableUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) = 0;
-	virtual MovableUnit* CreateSmallGrayTower(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateSmallGrayTower(uint8_t player, int x, int y) = 0;
 
 	virtual Entity* CreateBamboo(int x, int y) = 0;
 };

@@ -25,6 +25,8 @@ public:
 
 	virtual void GetVector(double& dx, double& dy) = 0;
 	virtual void AddVector(double dx, double dy) = 0;
+	virtual void SetPosition(int x, int y) = 0;
+	virtual void SetPosition(double x, double y) = 0;
 
 	virtual void DamageApply(int damage) = 0;
 	virtual void AttackEnd() = 0;

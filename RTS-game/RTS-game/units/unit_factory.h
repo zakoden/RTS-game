@@ -21,7 +21,7 @@ private:
 	TextureManager* texture_manager_ = NULL;
 	PlayersInfo* players_info_ = NULL;
 
-	void FillUnit(Unit* unit, UnitType unit_type, size_t player, Behavior* behavior, int x, int y);
+	void FillUnit(AbstractImmovableUnit* unit, UnitType unit_type, size_t player, Behavior* behavior, int x, int y);
 
 public:
 	void AddPlayer(Player* player);
@@ -46,9 +46,9 @@ public:
 
 	MovableUnit* CreateBase(uint8_t player, int x, int y) override;
 
-	MovableUnit* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) override;
-	MovableUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) override;
-	MovableUnit* CreateSmallGrayTower(uint8_t player, int x, int y) override;
+	Building* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) override;
+	Building* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) override;
+	Building* CreateSmallGrayTower(uint8_t player, int x, int y) override;
 
 	Entity* CreateBamboo(int x, int y) override;
 };
