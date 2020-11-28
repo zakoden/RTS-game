@@ -21,32 +21,32 @@ using std::vector;
 // Get subtype of a block
 inline uint8_t GetSubtype(BlockType type) {
 	switch (type) {
-	    case WATER_DEEP:
-			return WATER_DEEP;
-		case WATER:
-			return WATER + rand() % 4;
-	    case WATER_SHALLOW:
-			return WATER_SHALLOW + rand() % 4;
-		case DESERT:
-			return DESERT + rand() % 3;
-		case GRASS_PURPLE:
-			if (rand() % 50)
-				return GRASS_PURPLE + rand() % 10;
-			else
-				return 110 + rand() % 6;
-		case DESERT_PURPLE:
-			return DESERT_PURPLE + rand() % 4;
-		case GRASS:
-			return GRASS + rand() % 10;
-		case GRASS_TROPICAL:
-			return GRASS_TROPICAL + rand() % 4;
-		case MOUNTAIN_LOW:
-			return MOUNTAIN_LOW + rand() % 4;
-		case MOUNTAIN_HIGH:
-			return MOUNTAIN_HIGH + rand() % 4;
+	case WATER_DEEP:
+		return WATER_DEEP;
+	case WATER:
+		return WATER + rand() % 4;
+	case WATER_SHALLOW:
+		return WATER_SHALLOW + rand() % 4;
+	case DESERT:
+		return DESERT + rand() % 3;
+	case GRASS_PURPLE:
+		if (rand() % 50)
+			return GRASS_PURPLE + rand() % 10;
+		else
+			return 110 + rand() % 6;
+	case DESERT_PURPLE:
+		return DESERT_PURPLE + rand() % 4;
+	case GRASS:
+		return GRASS + rand() % 10;
+	case GRASS_TROPICAL:
+		return GRASS_TROPICAL + rand() % 4;
+	case MOUNTAIN_LOW:
+		return MOUNTAIN_LOW + rand() % 4;
+	case MOUNTAIN_HIGH:
+		return MOUNTAIN_HIGH + rand() % 4;
 
-		default:
-			return type;
+	default:
+		return type;
 	}
 }
 
@@ -158,7 +158,7 @@ void GameMap::Generate() {
 	}
 
 	time.PrintTime("Generate: Build water and mountains");
-	
+
 	// Smooth map 1 time
 	grid_function::SmoothMap(neighbors, blocks);
 	time.PrintTime("Generate: Smooth map 1 time");
@@ -166,7 +166,7 @@ void GameMap::Generate() {
 	// Remove small areas
 	grid_function::RemoveSmallAreas(neighbors, blocks);
 	time.PrintTime("Generate: Unite small areas with the closest non-small ones");
-	
+
 	// Make on_border grid
 	Grid<char> on_border(height, width, false);
 	{
@@ -194,7 +194,7 @@ void GameMap::Generate() {
 			}
 		}
 	}
-	time.PrintTime("Generate: Make on_border grid"); 
+	time.PrintTime("Generate: Make on_border grid");
 	// Add rivers
 	{
 		// 1. Add points on a border

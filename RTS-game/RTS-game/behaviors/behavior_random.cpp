@@ -6,7 +6,6 @@ BehaviorRandom::BehaviorRandom(MovableUnit* unit) {
 }
 
 BehaviorRandom::~BehaviorRandom() {
-
 }
 
 void BehaviorRandom::SetUnit(MovableUnit* unit) {

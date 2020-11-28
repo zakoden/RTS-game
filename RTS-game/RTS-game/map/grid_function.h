@@ -43,7 +43,6 @@ namespace grid_function {
 		const Grid<char>& allowed_points, const Grid<char>& end_points);
 };
 
-
 template<typename T, class BinaryFunction>
 Grid<T> grid_function::FromFunction(size_t height, size_t width, BinaryFunction f) {
 	Grid<T> result(height, width);

@@ -5,7 +5,6 @@ BehaviorStay::BehaviorStay(AbstractImmovableUnit* unit) {
 }
 
 BehaviorStay::~BehaviorStay() {
-
 }
 
 void BehaviorStay::SetUnit(AbstractImmovableUnit* unit) {

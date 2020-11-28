@@ -1,12 +1,12 @@
 #pragma once
 
 enum BlockType {
-	WATER_DEEP = 0, 
-	WATER = 10, 
+	WATER_DEEP = 0,
+	WATER = 10,
 	WATER_SHALLOW = 20,
 	DESERT = 30,
-    GRASS_PURPLE = 40,
-    DESERT_PURPLE = 50,
+	GRASS_PURPLE = 40,
+	DESERT_PURPLE = 50,
 	GRASS = 60,
 	GRASS_TROPICAL = 70,
 

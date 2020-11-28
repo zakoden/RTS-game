@@ -23,7 +23,8 @@ void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& b
 			for (MapPoint point : neighbors[i][j]) {
 				if (blocks[point] == block) {
 					++count;
-				} else {
+				}
+				else {
 					--count;
 					if (count < 0) {
 						count = 1;
@@ -113,7 +114,7 @@ vector<MapPoint> grid_function::FindClosest(const GridNeighbors& neighbors, cons
 		Triple pair = dijkstra.top();
 		dijkstra.pop();
 		const MapPoint& current = pair.point;
-		if (pair.distance > distance[current] || Distance(current, start) > max_distance) 
+		if (pair.distance > distance[current] || Distance(current, start) > max_distance)
 			continue;
 		if (end_points[current]) {
 			result.push_back(current);

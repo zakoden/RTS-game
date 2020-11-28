@@ -18,7 +18,7 @@ protected:
 	MovableUnitFactory* unit_factory_;
 public:
 	BehaviorAroundPoint(MovableUnit* unit, MovableUnitFactory* unit_factory,
-		                Behavior* inner_behavior, int center_x, int center_y, int radius);
+		Behavior* inner_behavior, int center_x, int center_y, int radius);
 	~BehaviorAroundPoint();
 
 	void SetUnit(MovableUnit* unit);

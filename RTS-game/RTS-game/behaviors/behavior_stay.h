@@ -13,7 +13,7 @@ public:
 	BehaviorStay(AbstractImmovableUnit* unit = NULL);
 	~BehaviorStay();
 
-	void SetUnit(AbstractImmovableUnit* unit); 
-    // делает (-_-) действие
-	void DoAction(); 
+	void SetUnit(AbstractImmovableUnit* unit);
+	// делает (-_-) действие
+	void DoAction();
 };
