@@ -17,13 +17,15 @@ void UserManager::SetPlayer(Player* player) {
 }
 
 void UserManager::Draw(SDL_Renderer* renderer, Camera* camera) {
+	/*
 	for (uint32_t i = 0; i < game_map_->GetHeight(); ++i) {
 		for (uint32_t j = 0; j < game_map_->GetWidth(); ++j) {
 			if (!game_map_->IsCellUncovered({ j, i }, 0)) {
-				game_map_->BlockDraw(renderer, camera_, j, i, UNKNOWN);
+				//game_map_->BlockDraw(renderer, camera_, j, i, UNKNOWN);
 			}
 		}
 	}
+	*/
 }
 
 void UserManager::DoAction(SDL_Renderer* renderer) {

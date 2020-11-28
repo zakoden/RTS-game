@@ -12,6 +12,7 @@ int GameManager::Init() {
 		std::cout << "SDL_Init ERROR : " << SDL_GetError() << std::endl;
 		return 1;
 	}
+	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 	window_ = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (window_ == nullptr) {
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
@@ -138,6 +139,8 @@ void GameManager::Run() {
 	ground_h_ = 0.0;
 	air_h_ = 0.14;
 	camera_h_ = 1.0;
+
+	game_map_->DrawToTexture(renderer_);
 	
 	int count = 0;
 	int time1, time2;
@@ -277,7 +280,6 @@ void GameManager::RunStep() {
 		players_[i]->Move();
 	}
 
-
 	// draw
 	{
 		if (fog_of_war_mode_ == VISIBLE)
@@ -299,10 +301,12 @@ void GameManager::RunStep() {
 
 
 		// TODO optimize it
+		/*
 		if (fog_of_war_mode_ == UNITS_HIDDEN)
 			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UINT8_MAX - 1);
 		else if (fog_of_war_mode_ == MAP_HIDDEN)
 			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UNKNOWN);
+		*/
 	}
 
 
@@ -316,6 +320,8 @@ void GameManager::RunStep() {
 	}
 	std::cout << camera_->GetScale() << std::endl;
 	*/
+
+
 
 	SDL_RenderPresent(renderer_);
 }
