@@ -1,15 +1,13 @@
 #pragma once
 
-#include "immovable_unit.h"
 #include "movable_unit.h"
-
-#include "../units/abstract_immovable_unit.h"
-#include "../map/game_map.h"
-#include "../managers/texture_manager.h"
 
 #include <algorithm>
 #include <bitset>
 #include <memory>
+
+#include "../map/game_map.h"
+#include "../managers/texture_manager.h"
 
 #include "../clock.h"
 
