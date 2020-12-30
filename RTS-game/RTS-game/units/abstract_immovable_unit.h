@@ -12,7 +12,7 @@
 * Unlike Entity, it has collisionbox and hitbox; hp, attack and belongs to some player
 */
 class AbstractImmovableUnit : public DrawableEntity {
-public:
+public: 
 	virtual ~AbstractImmovableUnit() = default;
 	virtual int GetX() = 0;
 	virtual int GetY() = 0;

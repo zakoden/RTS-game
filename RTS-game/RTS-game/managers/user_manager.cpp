@@ -37,12 +37,12 @@ void UserManager::DoAction(SDL_Renderer* renderer) {
 		int block_x = mouse_x / game_map_->GetBlockSize();
 		int block_y = mouse_y / game_map_->GetBlockSize();
 		if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-			if (!game_map_->GetUnitsInBlock(block_x, block_y)->empty()) {
+			if (!game_map_->GetUnitsInBlock(block_x, block_y).empty()) {
 				if (control_unit_ != NULL) {
 					control_unit_->RemoveEffect(Effect::UNDER_CONTROL);
 					control_unit_ = NULL;
 				}
-				AbstractImmovableUnit* unit = *game_map_->GetUnitsInBlock(block_x, block_y)->begin();
+				AbstractImmovableUnit* unit = *game_map_->GetUnitsInBlock(block_x, block_y).begin();
 				control_unit_ = (MovableUnit*) unit;
 				control_unit_->AddEffect(Effect::UNDER_CONTROL);
 			}

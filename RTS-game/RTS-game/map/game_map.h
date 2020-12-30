@@ -42,7 +42,7 @@ public:
 	uint32_t GetHeight();
 	uint32_t GetWidth();
 	static uint32_t GetBlockSize();
-	std::unordered_set<AbstractImmovableUnit*>* GetUnitsInBlock(uint32_t x, uint32_t y);
+	const std::unordered_set<AbstractImmovableUnit*>& GetUnitsInBlock(uint32_t x, uint32_t y) const;
 	Grid<float>& GetDistanceToBase(uint8_t player_num);
 
 	bool IsBlockInMap(int x, int y);

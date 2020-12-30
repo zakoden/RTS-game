@@ -82,7 +82,7 @@ void BehaviorHunter::FindTarget() {
 
 void BehaviorHunter::DeadCheck() {
 	if (target_ == NULL) return;
-	if (!target_->IsAlive()) {
+	if (!(target_->IsAlive())) {
 		target_ = NULL;
 	}
 }

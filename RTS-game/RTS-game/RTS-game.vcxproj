@@ -72,12 +72,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)SDL;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)SDL;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
     <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
@@ -186,7 +190,7 @@
     <ClCompile Include="map\time_measurer.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="player\players_info.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="managers\texture_manager.cpp" />
     <ClCompile Include="adapter.cpp" />
     <ClCompile Include="units\building.cpp" />
@@ -202,7 +206,6 @@
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
-    <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adapter.h" />
@@ -260,9 +263,6 @@
     <Image Include="pictures\testunit2.bmp" />
     <Image Include="pictures\testunit2_1.bmp" />
     <Image Include="pictures\testunit3.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

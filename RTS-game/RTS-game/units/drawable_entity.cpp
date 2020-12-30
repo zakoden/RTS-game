@@ -16,3 +16,5 @@ void DrawableEntity::SetTexture(size_t texture_ind, size_t move_cnt, size_t atta
 	texture_width_ = texture_width;
 	texture_height_ = texture_height;
 }
+
+void DrawableEntity::SetName(std::string name) { name_ = name; }

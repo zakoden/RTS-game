@@ -155,8 +155,6 @@ void ImmovableUnit::GetCollisionbox(double& x1, double& y1, double& x2, double& 
 
 void ImmovableUnit::AddVector(double, double) {}
 
-
-
 void ImmovableUnit::SetPosition(int x, int y) {
 	SetPosition((double)x, (double)y);
 }
@@ -205,8 +203,7 @@ void ImmovableUnit::DoAction() {
 	std::unordered_set<AbstractImmovableUnit*> used_units;
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			std::unordered_set<AbstractImmovableUnit*>* units = game_map_->GetUnitsInBlock(cur_x, cur_y);
-			for (AbstractImmovableUnit* unit : (*units)) {
+			for (AbstractImmovableUnit* unit : game_map_->GetUnitsInBlock(cur_x, cur_y)) {
 				if (unit == this) continue;
 				if (used_units.find(unit) != used_units.end()) continue;
 				used_units.insert(unit);
@@ -269,8 +266,7 @@ AbstractImmovableUnit* ImmovableUnit::GetEnemyInPoint(int x, int y) {
 	uint32_t x_block = x / game_map_->GetBlockSize();
 	uint32_t y_block = y / game_map_->GetBlockSize();
 	//game_map_->SetBlock(x_block, y_block, 1);
-	std::unordered_set<AbstractImmovableUnit*>* units_map = game_map_->GetUnitsInBlock(x_block, y_block);
-	for (AbstractImmovableUnit* unit : (*units_map)) {
+	for (AbstractImmovableUnit* unit : game_map_->GetUnitsInBlock(x_block, y_block)) {
 		if (players_info_->CanAttack(player_, unit->GetPlayer())) {
 			return unit;
 		}

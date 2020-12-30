@@ -87,10 +87,10 @@ void Player::Draw(SDL_Renderer* renderer, Camera* camera) const {
 }
 
 void Player::UnitsToDraw(std::vector<std::pair<int, Drawable*>> &out) {
-	for (auto& unit : army_) {
+	for (MovableUnit* unit : army_) {
 		out.push_back({unit->GetLegsY(), unit});
 	}
-	for (auto& building : buildings_) {
+	for (Building* building : buildings_) {
 		out.push_back({ building->GetLegsY(), building });
 	}
 }

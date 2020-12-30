@@ -47,8 +47,8 @@ uint32_t GameMap::GetBlockSize() {
 	return BLOCK_SIZE;
 }
 
-std::unordered_set<AbstractImmovableUnit*>* GameMap::GetUnitsInBlock(uint32_t x, uint32_t y) {
-	return &units_in_block_[GetInd(x, y)];
+const std::unordered_set<AbstractImmovableUnit*>& GameMap::GetUnitsInBlock(uint32_t x, uint32_t y) const {
+	return units_in_block_[GetInd(x, y)];
 }
 
 Grid<float>& GameMap::GetDistanceToBase(uint8_t player_num) {

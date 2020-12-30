@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="units\unit.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -108,11 +105,13 @@
     <ClCompile Include="units\drawable_entity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
-    <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="units\unit.h">
@@ -287,8 +286,5 @@
     <Image Include="pictures\map_tiles_fogged.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

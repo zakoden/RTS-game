@@ -21,7 +21,8 @@ private:
 	TextureManager* texture_manager_ = NULL;
 	PlayersInfo* players_info_ = NULL;
 
-	void FillUnit(AbstractImmovableUnit* unit, UnitType unit_type, size_t player, Behavior* behavior, int x, int y);
+	void FillUnit(AbstractImmovableUnit* unit, 
+		UnitType unit_type, size_t player, Behavior* behavior, int x, int y, std::string name);
 
 public:
 	void AddPlayer(Player* player);
