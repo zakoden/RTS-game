@@ -31,6 +31,35 @@ void Player::DoAction() {
 		}
 	}
 
+
+	{
+		auto it = army_.begin();
+		while (it != army_.end()) {
+			if ((*it)->IsAlive()) {
+				it++;
+			}
+			else {
+				MovableUnit* unit = *it;
+				dead_.insert(unit);
+				it = army_.erase(it);
+			}
+		}
+	}
+
+	{
+		auto it = buildings_.begin();
+		while (it != buildings_.end()) {
+			if ((*it)->IsAlive()) {
+				it++;
+			}
+			else {
+				Building* building = *it;
+				destroyed_.insert(building);
+				it = buildings_.erase(it);
+			}
+		}
+	}
+
 	// dead check
 	for (auto& unit : army_) {
 		if (unit->IsAlive()) {
@@ -44,33 +73,6 @@ void Player::DoAction() {
 	}
 
 	player_owner_->DeadCheck();
-	{
-		auto it = army_.begin();
-		while (it != army_.end()) {
-			if ((*it)->IsAlive()) {
-				it++;
-			}
-			else {
-				MovableUnit* unit = *it;
-				it = army_.erase(it);
-				delete unit;
-			}
-		}
-	}
-
-	{
-		auto it = buildings_.begin();
-		while (it != buildings_.end()) {
-			if ((*it)->IsAlive()) {
-				it++;
-			}
-			else {
-				Building* building = *it;
-				it = buildings_.erase(it);
-				delete building;
-			}
-		}
-	}
 }
 
 void Player::Move() {

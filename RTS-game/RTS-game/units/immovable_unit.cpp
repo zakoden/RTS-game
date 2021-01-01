@@ -122,7 +122,6 @@ bool ImmovableUnit::CanMoveOnBlock(uint32_t x, uint32_t y) {
 
 ImmovableUnit::~ImmovableUnit() {
 	if (behavior_ != NULL) delete behavior_;
-	if (type_ == UnitType::Ground) DeleteUnitFromMap();
 }
 
 int ImmovableUnit::GetX() { return x_; }
@@ -304,4 +303,9 @@ void ImmovableUnit::DeadCheck() {
 
 bool ImmovableUnit::IsAlive() { return alive_; }
 
-void ImmovableUnit::Die() { alive_ = false; }
+void ImmovableUnit::Die() {
+	alive_ = false;
+	if (type_ == UnitType::Ground) {
+		DeleteUnitFromMap();
+	}
+}

@@ -14,7 +14,10 @@ protected:
 	uint8_t num_ = 0;
 
 	std::unordered_set<MovableUnit*> army_;
+	std::unordered_set<MovableUnit*> dead_;
+
 	std::unordered_set<Building*> buildings_;
+	std::unordered_set<Building*> destroyed_;
 
 	// For scout behavior, score rewarded is based on
 	// Distance from a base, the less distance, the better
