@@ -2,7 +2,7 @@
 
 #include "abstract_immovable_unit.h"
 
-#include "../map/game_map.h"
+#include "../map/map_layer.h"
 #include "../managers/texture_manager.h"
 
 #include <algorithm>
@@ -29,12 +29,12 @@ protected:
 	Behavior* behavior_ = NULL;
 	size_t player_ = 0; // player number	
 	PlayersInfo* players_info_ = NULL;
-	GameMap* game_map_ = NULL;
+	MapLayer* game_map_ = NULL;
 
-	Clock update_fog_of_war_{ GameMap::GetBlockSize() };
+	Clock update_fog_of_war_{ MapLayer::GetBlockSize() };
 
 	// All cells within that radius will be uncovered
-	int scout_radius_ = 10 * GameMap::GetBlockSize();
+	int scout_radius_ = 10 * MapLayer::GetBlockSize();
 
 	void InsertUnitToMap();
 	void DeleteUnitFromMap();

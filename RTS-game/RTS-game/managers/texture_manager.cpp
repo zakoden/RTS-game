@@ -6,6 +6,11 @@ inline std::string GetFileName(const std::string& texture_name) {
 
 SDL_Texture* TextureManager::LoadTexture(const std::string& texture_name) {
 	SDL_Surface* surface = SDL_LoadBMP(GetFileName(texture_name).c_str());
+	if (surface == NULL) {
+		std::cerr << "Could not load texture " << texture_name << std::endl;
+		exit(1);
+	}
+
 	SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));
 	
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer_, surface);

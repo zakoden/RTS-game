@@ -9,17 +9,19 @@
 
 #include "block_type.h"
 #include "camera.h"
-#include "grid.h"
+#include "grid/grid.h"
 #include "map_point.h"
 #include "../units/abstract_immovable_unit.h"
 
-class GameMap {
-private:
+class MapLayer {
+protected:
 	const static uint32_t BLOCK_SIZE = 8; // ðàçìåð áëîêà
 	const uint32_t BLOCKS_IN_LINE = 10; // êîëè÷åñòâî áëîêîâ â ôàéëå ñ òåêñòóðîé
 
     uint32_t width_, height_; // øèðèíà, âûñîòà êàðòû
 	std::vector<uint8_t> blocks_; // áëîêè êàðòû
+	std::vector<uint8_t> underground_blocks_;
+
 	std::vector<std::unordered_set<AbstractImmovableUnit*>> units_in_block_; // þíèòû íà êàðòå
 	SDL_Texture* tiles_ = nullptr; // òåêñòóðà ñî âñåìè áëîêàìè
 	SDL_Texture* fogged_tiles_ = nullptr; // Tiles in test-bw.bmp
@@ -37,8 +39,7 @@ private:
 	size_t GetInd(uint32_t x, uint32_t y) const;
 public:
 
-	GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count);
-	~GameMap();
+	~MapLayer();
 	uint32_t GetHeight();
 	uint32_t GetWidth();
 	static uint32_t GetBlockSize();
@@ -72,6 +73,5 @@ public:
 
 	void AddBase(SDL_Point location, uint8_t player_num); // Processes the event that new base was added
 
-	Grid<float> GenerateHeights();  // Generates a map of heights
-	void Generate();  // Generates random map
+	virtual void Generate() = 0;  // It's not recommended to call this function in constructor
 };

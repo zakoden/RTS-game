@@ -2,7 +2,7 @@
 
 #include "../map/block_type.h"
 
-UserManager::UserManager(GameMap* game_map, Camera* camera) {
+UserManager::UserManager(MapLayer* game_map, Camera* camera) {
 	game_map_ = game_map;
 	camera_ = camera;
 }

@@ -5,7 +5,7 @@
 #include <iostream>
 #include <queue>
 
-#include "triple.h"
+#include "../triple.h"
 
 inline uint32_t grid_function::SquaredDistance(const MapPoint& a, const MapPoint& b) {
 	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);

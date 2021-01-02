@@ -1,10 +1,10 @@
 #include "behavior_scout.h"
 
-#include "../map/grid_function.h"
+#include "../map/grid/grid_function.h"
 
 #include "../adapter.h"
 
-BehaviorScout::BehaviorScout(MovableUnit* unit, GameMap* game_map, MapPoint center)
+BehaviorScout::BehaviorScout(MovableUnit* unit, MapLayer* game_map, MapPoint center)
 	: unit_(unit)
 	, game_map_(game_map)
 	, center_(center) {}

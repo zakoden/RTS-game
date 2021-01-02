@@ -1,8 +1,6 @@
 #pragma once
 
-#include "SDL.h"
-
-#include "grid.h"
+#include "../grid/grid.h"
 
 namespace diamond_square {
 	// Returns a number in segment [-1.0, 1.0]

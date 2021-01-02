@@ -5,7 +5,7 @@
 #include "../units/movable_unit.h"
 #include "../units/abstract_unit_factory.h"
 
-#include "../map/grid.h"
+#include "../map/grid/grid.h"
 #include "player_owner.h"
 
 class Player {

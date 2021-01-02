@@ -1,4 +1,4 @@
-#include "game_map.h"
+#include "surface_layer.h"
 
 #include <cassert>
 
@@ -9,11 +9,12 @@
 #include <vector>
 
 #include "diamond_square.h"
-#include "grid_function.h"
-#include "grid_neighbors.h"
 #include "perlin.h"
-#include "time_measurer.h"
-#include "triple.h"
+
+#include "../grid/grid_function.h"
+#include "../grid/grid_neighbors.h"
+#include "../time_measurer.h"
+#include "../triple.h"
 
 using grid_function::FromFunction;
 using std::vector;
@@ -70,8 +71,7 @@ inline BlockType GetBlockType(float height, float humidity, const vector<vector<
 }
 
 // Generates a map of heights
-Grid<float> GameMap::GenerateHeights() {
-	uint32_t height = GetHeight(), width = GetWidth();
+Grid<float> GenerateHeights(uint32_t height, uint32_t width) {
 	assert(height >= 2);
 	float power = 1;
 	float max_height = 0;
@@ -108,7 +108,29 @@ Grid<float> GameMap::GenerateHeights() {
 	return result;
 }
 
-void GameMap::Generate() {
+SurfaceLayer::SurfaceLayer(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count) {
+	width_ = width;
+	height_ = height;
+	blocks_ = std::vector<uint8_t>(static_cast<size_t>(width_) * height_);
+	units_in_block_ = std::vector<std::unordered_set<AbstractImmovableUnit*>>(static_cast<size_t>(width_) * height_);
+	fog_of_war_ = std::vector<Grid<char>>(players_count, Grid<char>(height, width, false));
+	distance_to_base_ = std::vector<Grid<float>>(players_count, Grid<float>(height, width, static_cast<float>(height + width)));
+
+	// load texture
+	SDL_Surface* surface = SDL_LoadBMP("pictures/map-tiles.bmp");
+	tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	surface = SDL_LoadBMP("pictures/map-tiles-fogged.bmp");
+	fogged_tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	texture_width_ = width_ * BLOCK_SIZE;
+	texture_height_ = height_ * BLOCK_SIZE;
+	texture_save_ = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, texture_width_, texture_height_);
+}
+
+void SurfaceLayer::Generate() {
 	//1597431138, 1597486519, 1598023852
 	unsigned int seed = static_cast<unsigned int>(time(0));  // Map seed
 	TimeMeasurer time, time_total = time;  // Class to measure time between each segment
@@ -136,8 +158,8 @@ void GameMap::Generate() {
 	Grid<BlockType> blocks(height, width);
 
 	// Build water and mountains via mixed noise between diamond square and perlin
-	Grid<float> heights = GenerateHeights();
-	Grid<float> humidity = GenerateHeights();
+	Grid<float> heights = GenerateHeights(height, width);
+	Grid<float> humidity = GenerateHeights(height, width);
 	time.PrintTime("Generate: Get heights and humidity");
 	{
 		const float WATER_NORMAL_LEVEL = -0.264f;

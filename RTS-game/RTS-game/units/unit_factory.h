@@ -2,7 +2,7 @@
 
 #include "abstract_unit_factory.h"
 
-#include "../map/game_map.h"
+#include "../map/map_layer.h"
 #include "../map/camera.h"
 
 #include "../managers/texture_manager.h"
@@ -17,7 +17,7 @@ class UnitFactory : MovableUnitFactory {
 private:
 	std::vector<Player*> players_;
 
-	GameMap* game_map_ = NULL;
+	MapLayer* game_map_;
 	TextureManager* texture_manager_ = NULL;
 	PlayersInfo* players_info_ = NULL;
 
@@ -27,7 +27,7 @@ private:
 public:
 	void AddPlayer(Player* player);
 
-	void SetMap(GameMap* game_map);
+	void SetMap(MapLayer* game_map);
 	void SetTextureManager(TextureManager* texture_manager);
 	void SetPlayersInfo(PlayersInfo* players_info);
 

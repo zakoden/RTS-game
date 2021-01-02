@@ -1,6 +1,6 @@
 #include "building.h"
 
-Building::Building(int attack, int defense, int max_health, TextureManager* texture_manager, GameMap* game_map) {
+Building::Building(int attack, int defense, int max_health, TextureManager* texture_manager, MapLayer* game_map) {
 	attack_ = attack;
 	defense_ = defense;
 	health_ = max_health;

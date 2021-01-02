@@ -25,7 +25,7 @@ void UnitFactory::AddPlayer(Player* player) {
 	players_.push_back(player);
 }
 
-void UnitFactory::SetMap(GameMap* game_map) {
+void UnitFactory::SetMap(MapLayer* game_map) {
 	game_map_ = game_map;
 }
 

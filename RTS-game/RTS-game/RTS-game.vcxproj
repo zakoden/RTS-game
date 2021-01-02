@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -42,7 +34,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>ClangCL</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -80,7 +72,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)SDL;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\dvasilev\Desktop\RTS-game\RTS-game\SDL\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;$(LibraryPath)</LibraryPath>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
@@ -180,13 +172,13 @@
     <ClCompile Include="managers\game_manager.cpp" />
     <ClCompile Include="managers\user_manager.cpp" />
     <ClCompile Include="map\camera.cpp" />
-    <ClCompile Include="map\diamond_square.cpp" />
-    <ClCompile Include="map\game_map.cpp" />
-    <ClCompile Include="map\game_map_generate.cpp" />
-    <ClCompile Include="map\grid_function.cpp" />
-    <ClCompile Include="map\grid_neighbors.cpp" />
-    <ClCompile Include="map\perlin.cpp" />
-    <ClCompile Include="map\point.cpp" />
+    <ClCompile Include="map\grid\grid_function.cpp" />
+    <ClCompile Include="map\grid\grid_neighbors.cpp" />
+    <ClCompile Include="map\map_layer.cpp" />
+    <ClCompile Include="map\map_point.cpp" />
+    <ClCompile Include="map\surface\diamond_square.cpp" />
+    <ClCompile Include="map\surface\perlin.cpp" />
+    <ClCompile Include="map\surface\surface_layer.cpp" />
     <ClCompile Include="map\time_measurer.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="player\players_info.cpp" />
@@ -217,13 +209,15 @@
     <ClInclude Include="managers\user_manager.h" />
     <ClInclude Include="map\block_type.h" />
     <ClInclude Include="map\camera.h" />
-    <ClInclude Include="map\diamond_square.h" />
-    <ClInclude Include="map\game_map.h" />
-    <ClInclude Include="map\grid.h" />
-    <ClInclude Include="map\grid_function.h" />
-    <ClInclude Include="map\grid_neighbors.h" />
-    <ClInclude Include="map\perlin.h" />
+    <ClInclude Include="map\map_layer.h" />
+    <ClInclude Include="map\grid\grid.h" />
+    <ClInclude Include="map\grid\grid_function.h" />
+    <ClInclude Include="map\grid\grid_neighbors.h" />
     <ClInclude Include="map\map_point.h" />
+    <ClInclude Include="map\surface\diamond_square.h" />
+    <ClInclude Include="map\surface\perlin.h" />
+    <ClInclude Include="map\surface\surface_layer.h" />
+    <ClInclude Include="map\surface\surface_map.h" />
     <ClInclude Include="map\time_measurer.h" />
     <ClInclude Include="map\triple.h" />
     <ClInclude Include="player\player_owner.h" />

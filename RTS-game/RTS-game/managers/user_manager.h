@@ -5,7 +5,7 @@
 
 #include "SDL.h"
 
-#include "../map/game_map.h"
+#include "../map/map_layer.h"
 
 #include "../player/player.h"
 #include "../player/players_info.h"
@@ -15,13 +15,13 @@
 
 class UserManager : public PlayerOwner {
 protected:
-	GameMap* game_map_ = NULL;
+	MapLayer* game_map_ = NULL;
 	Camera* camera_ = NULL;
 	Player* player_ = NULL;
 
 	MovableUnit* control_unit_ = NULL;
 public:
-	UserManager(GameMap* game_map, Camera* camera);
+	UserManager(MapLayer* game_map, Camera* camera);
 	~UserManager();
 
 	Player* GetPlayer() const;

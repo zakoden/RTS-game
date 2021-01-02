@@ -1,5 +1,7 @@
 #include "game_manager.h"
 
+#include "../map/surface/surface_layer.h"
+
 GameManager::GameManager() {
 }
 
@@ -25,12 +27,15 @@ int GameManager::Init() {
 	}
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
+	const int HEIGHT = 200, WIDTH = 200;
 	const int PLAYERS_COUNT = 2;
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
-	game_map_ = new GameMap(renderer_, 200, 200, PLAYERS_COUNT);
+
+	game_map_ = new SurfaceLayer(renderer_, HEIGHT, WIDTH, PLAYERS_COUNT);
 	game_map_->Generate();
 	texture_manager_ = new TextureManager(renderer_);
+
 	players_info_ = new PlayersInfo(PLAYERS_COUNT);
 	unit_factory_ = new UnitFactory();
 	unit_factory_->SetMap(game_map_);

@@ -4,8 +4,8 @@
 
 #include "../clock.h"
 
-#include "../map/game_map.h"
-#include "../map/grid.h"
+#include "../map/map_layer.h"
+#include "../map/grid/grid.h"
 #include "../map/map_point.h"
 
 #include "../units/movable_unit.h"
@@ -13,12 +13,12 @@
 class BehaviorScout : public Behavior {
 private:
 	MovableUnit* unit_;
-	GameMap* game_map_;
+	MapLayer* game_map_;
 	SDL_Point target_ = { -1, -1 };
 	MapPoint center_;
 
 public:
-	BehaviorScout(MovableUnit* unit, GameMap* game_map, MapPoint center);
+	BehaviorScout(MovableUnit* unit, MapLayer* game_map, MapPoint center);
 
 	virtual void DoAction() override;
 };

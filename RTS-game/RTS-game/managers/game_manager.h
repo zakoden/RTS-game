@@ -7,7 +7,7 @@
 
 #include "../clock.h"
 
-#include "../map/game_map.h"
+#include "../map/map_layer.h"
 #include "../map/camera.h"
 
 #include "texture_manager.h"
@@ -31,7 +31,9 @@ protected:
 	SDL_Renderer* renderer_ = NULL;
 	TextureManager* texture_manager_ = NULL;
 	Camera* camera_ = NULL;
-	GameMap* game_map_ = NULL;
+	
+	MapLayer* game_map_;
+
 	bool close_ = false;
 	UnitFactory* unit_factory_ = NULL;
 	std::vector<Entity*> entities_;
@@ -41,7 +43,6 @@ protected:
 
 	bool is_fullscreen_ = false;
 
-	// 0 means "no fog of war", 1 means "map is visible, units aren't", 2 means "map is not visible"
 	enum FogOfWarType {
 		VISIBLE,
 		UNITS_HIDDEN,

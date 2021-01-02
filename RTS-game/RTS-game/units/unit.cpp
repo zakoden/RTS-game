@@ -6,7 +6,7 @@
 // -----------public---------------
 
 Unit::Unit(int attack, int defense, int max_health, double speed,
-	TextureManager* texture_manager, GameMap* game_map) {
+	TextureManager* texture_manager, MapLayer* game_map) {
 	this->attack_ = attack;
 	this->defense_ = defense;
 	this->health_ = max_health;

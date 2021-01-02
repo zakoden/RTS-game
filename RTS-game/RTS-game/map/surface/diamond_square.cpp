@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include "grid_function.h"
+#include "../grid/grid_function.h"
 
 inline float diamond_square::GetRandomNum() {
 	int len = 10000;

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "block_type.h"
+#include "../block_type.h"
 #include "grid.h"
 #include "grid_neighbors.h"
 
