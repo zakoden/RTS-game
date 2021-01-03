@@ -146,3 +146,34 @@ void MapLayer::AddBase(SDL_Point location, uint8_t player_num) {
 		}
 	}
 }
+
+void MapLayer::FillMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count) {
+	size_t area = static_cast<size_t>(width) * height;
+	width_ = width;
+	height_ = height;
+	blocks_ = std::vector<uint8_t>(area);
+	units_in_block_ = std::vector<std::unordered_set<AbstractImmovableUnit*>>(area);
+	fog_of_war_ = std::vector<Grid<char>>(
+		players_count,
+		Grid<char>(height, width, false)
+		);
+	distance_to_base_ = std::vector<Grid<float>>(
+		players_count,
+		Grid<float>(height, width, static_cast<float>(height + width))
+		);
+
+	// load texture
+	SDL_Surface* surface = SDL_LoadBMP("pictures/map-tiles.bmp");
+	tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	surface = SDL_LoadBMP("pictures/map-tiles-fogged.bmp");
+	fogged_tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
+	texture_width_ = width_ * BLOCK_SIZE;
+	texture_height_ = height_ * BLOCK_SIZE;
+	texture_save_ = SDL_CreateTexture(
+		renderer, SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, texture_width_, texture_height_
+	);
+}

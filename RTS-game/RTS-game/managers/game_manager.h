@@ -7,7 +7,7 @@
 
 #include "../clock.h"
 
-#include "../map/map_layer.h"
+#include "../map/game_map.h"
 #include "../map/camera.h"
 
 #include "texture_manager.h"
@@ -32,7 +32,8 @@ protected:
 	TextureManager* texture_manager_ = NULL;
 	Camera* camera_ = NULL;
 	
-	MapLayer* game_map_;
+	GameMap* game_map_;
+	size_t cur_layer_ind_;  // Don't set up manually. Use method SetCurrentLayer instead.
 
 	bool close_ = false;
 	UnitFactory* unit_factory_ = NULL;
@@ -53,6 +54,10 @@ protected:
 	double ground_h_ = 1.0, air_h_ = 1.0;
 	double screen_h_ = 1.0;
 	int scale_status_ = 1;
+
+	void SetCurrentLayer(size_t cur_layer_ind);
+	MapLayer* GetCurrentLayer();
+
 public:
 	GameManager();
 	~GameManager();

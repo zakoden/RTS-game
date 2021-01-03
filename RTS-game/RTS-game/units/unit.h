@@ -6,7 +6,6 @@
 #include <bitset>
 #include <memory>
 
-#include "../map/map_layer.h"
 #include "../managers/texture_manager.h"
 
 #include "../clock.h"
@@ -14,7 +13,10 @@
 #include "../behaviors/status_effects.h"
 #include "../behaviors/behavior.h"
 
+#include "../map/game_map.h"
+
 #include "../player/players_info.h"
+
 
 class Unit : public MovableUnit {
 protected:
@@ -26,7 +28,7 @@ protected:
 
 public:
 	Unit(int attack, int defense, int max_health, double speed,
-		 TextureManager* texture_manager, MapLayer* game_map);
+		 TextureManager* texture_manager, GameMap* game_map, uint8_t cur_layer_ind);
 	virtual ~Unit() = default;
 
 	virtual int GetSpeed() override;

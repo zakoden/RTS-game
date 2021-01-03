@@ -108,28 +108,6 @@ Grid<float> GenerateHeights(uint32_t height, uint32_t width) {
 	return result;
 }
 
-SurfaceLayer::SurfaceLayer(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count) {
-	width_ = width;
-	height_ = height;
-	blocks_ = std::vector<uint8_t>(static_cast<size_t>(width_) * height_);
-	units_in_block_ = std::vector<std::unordered_set<AbstractImmovableUnit*>>(static_cast<size_t>(width_) * height_);
-	fog_of_war_ = std::vector<Grid<char>>(players_count, Grid<char>(height, width, false));
-	distance_to_base_ = std::vector<Grid<float>>(players_count, Grid<float>(height, width, static_cast<float>(height + width)));
-
-	// load texture
-	SDL_Surface* surface = SDL_LoadBMP("pictures/map-tiles.bmp");
-	tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-
-	surface = SDL_LoadBMP("pictures/map-tiles-fogged.bmp");
-	fogged_tiles_ = SDL_CreateTextureFromSurface(renderer, surface);
-	SDL_FreeSurface(surface);
-
-	texture_width_ = width_ * BLOCK_SIZE;
-	texture_height_ = height_ * BLOCK_SIZE;
-	texture_save_ = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_UNKNOWN, SDL_TEXTUREACCESS_TARGET, texture_width_, texture_height_);
-}
-
 void SurfaceLayer::Generate() {
 	//1597431138, 1597486519, 1598023852
 	unsigned int seed = static_cast<unsigned int>(time(0));  // Map seed

@@ -11,14 +11,14 @@ void ImmovableUnit::InsertUnitToMap() {
 	x = floor(x_);
 	y = floor(y_);
 	int x1, x2, y1, y2;
-	x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+	x1 = (x + deltaX_) / MapLayer::GetBlockSize();
+	y1 = (y + deltaY_) / MapLayer::GetBlockSize();
+	x2 = (x + deltaX_ + width_ - 1) / MapLayer::GetBlockSize();
+	y2 = (y + deltaY_ + height_ - 1) / MapLayer::GetBlockSize();
 
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			game_map_->AddUnit(this, cur_x, cur_y);
+			GetCurrentLayer()->AddUnit(this, cur_x, cur_y);
 		}
 	}
 }
@@ -29,14 +29,14 @@ void ImmovableUnit::DeleteUnitFromMap() {
 	x = floor(x_);
 	y = floor(y_);
 	int x1, x2, y1, y2;
-	x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+	x1 = (x + deltaX_) / MapLayer::GetBlockSize();
+	y1 = (y + deltaY_) / MapLayer::GetBlockSize();
+	x2 = (x + deltaX_ + width_ - 1) / MapLayer::GetBlockSize();
+	y2 = (y + deltaY_ + height_ - 1) / MapLayer::GetBlockSize();
 
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			game_map_->DeleteUnit(this, cur_x, cur_y);
+			GetCurrentLayer()->DeleteUnit(this, cur_x, cur_y);
 		}
 	}
 }
@@ -118,6 +118,10 @@ bool ImmovableUnit::CanMoveOnBlock(uint32_t x, uint32_t y) {
 	//return (game_map_->GetBlock(x, y) != BlockType::WATER_SHALLOW);
 }
 
+MapLayer* ImmovableUnit::GetCurrentLayer() {
+	return game_map_->GetLayer(cur_layer_ind_);
+}
+
 // -----------public---------------
 
 ImmovableUnit::~ImmovableUnit() {
@@ -179,10 +183,11 @@ void ImmovableUnit::DamageApply(int damage) {
 }
 
 void ImmovableUnit::UncoverNearbyCells() {
-	for (int dx = -scout_radius_; dx <= scout_radius_; dx += game_map_->GetBlockSize()) {
-		for (int dy = -scout_radius_; dy <= scout_radius_; dy += game_map_->GetBlockSize()) {
-			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy) && (dx * dx + dy * dy) <= scout_radius_ * scout_radius_)
-				game_map_->UncoverCell(x_ + dx, y_ + dy, player_);
+	MapLayer* cur_layer = GetCurrentLayer();
+	for (int dx = -scout_radius_; dx <= scout_radius_; dx += MapLayer::GetBlockSize()) {
+		for (int dy = -scout_radius_; dy <= scout_radius_; dy += MapLayer::GetBlockSize()) {
+			if (cur_layer->IsPositionInMap(x_ + dx, y_ + dy) && (dx * dx + dy * dy) <= scout_radius_ * scout_radius_)
+				cur_layer->UncoverCell(x_ + dx, y_ + dy, player_);
 		}
 	}
 }
@@ -193,16 +198,17 @@ void ImmovableUnit::AttackEnd() {
 }
 
 void ImmovableUnit::DoAction() {
+	MapLayer* cur_layer = GetCurrentLayer();
 	int x = static_cast<int>(x_), y = static_cast<int>(y_);
-	int x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	int y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
+	int x1 = (x + deltaX_) / MapLayer::GetBlockSize();
+	int y1 = (y + deltaY_) / MapLayer::GetBlockSize();
+	int x2 = (x + deltaX_ + width_ - 1) / MapLayer::GetBlockSize();
+	int y2 = (y + deltaY_ + height_ - 1) / MapLayer::GetBlockSize();
 
 	std::unordered_set<AbstractImmovableUnit*> used_units;
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			for (AbstractImmovableUnit* unit : game_map_->GetUnitsInBlock(cur_x, cur_y)) {
+			for (AbstractImmovableUnit* unit : cur_layer->GetUnitsInBlock(cur_x, cur_y)) {
 				if (unit == this) continue;
 				if (used_units.find(unit) != used_units.end()) continue;
 				used_units.insert(unit);
@@ -241,7 +247,7 @@ AbstractImmovableUnit* ImmovableUnit::FindEnemyInRadius(int radius) {
 	int cx, cy; // unit center
 	cx = x_ + deltaX_ + width_ / 2;
 	cy = y_ + deltaY_ + height_ / 2;
-	int block_size = game_map_->GetBlockSize();
+	int block_size = GetCurrentLayer()->GetBlockSize();
 	for (int y = cy - radius; y <= (cy + radius); y += block_size) {
 		int dx = 0; 
 		int dy;
@@ -259,13 +265,14 @@ AbstractImmovableUnit* ImmovableUnit::FindEnemyInRadius(int radius) {
 }
 
 AbstractImmovableUnit* ImmovableUnit::GetEnemyInPoint(int x, int y) {
-	if (!game_map_->IsPositionInMap(x, y)) 
+	MapLayer* cur_layer = GetCurrentLayer();
+	if (!cur_layer->IsPositionInMap(x, y)) 
 		return NULL;
 
-	uint32_t x_block = x / game_map_->GetBlockSize();
-	uint32_t y_block = y / game_map_->GetBlockSize();
+	uint32_t x_block = x / MapLayer::GetBlockSize();
+	uint32_t y_block = y / MapLayer::GetBlockSize();
 	//game_map_->SetBlock(x_block, y_block, 1);
-	for (AbstractImmovableUnit* unit : game_map_->GetUnitsInBlock(x_block, y_block)) {
+	for (AbstractImmovableUnit* unit : cur_layer->GetUnitsInBlock(x_block, y_block)) {
 		if (players_info_->CanAttack(player_, unit->GetPlayer())) {
 			return unit;
 		}

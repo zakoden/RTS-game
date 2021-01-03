@@ -1,12 +1,13 @@
 #include "building.h"
 
-Building::Building(int attack, int defense, int max_health, TextureManager* texture_manager, MapLayer* game_map) {
+Building::Building(int attack, int defense, int max_health, TextureManager* texture_manager, GameMap* game_map, uint8_t cur_layer_ind) {
 	attack_ = attack;
 	defense_ = defense;
 	health_ = max_health;
 	max_health_ = max_health;
 	texture_manager_ = texture_manager;
 	game_map_ = game_map;
+	cur_layer_ind_ = cur_layer_ind;
 }
 
 

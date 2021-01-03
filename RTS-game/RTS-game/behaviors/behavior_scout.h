@@ -13,12 +13,12 @@
 class BehaviorScout : public Behavior {
 private:
 	MovableUnit* unit_;
-	MapLayer* game_map_;
+	GameMap* game_map_;
 	SDL_Point target_ = { -1, -1 };
 	MapPoint center_;
 
 public:
-	BehaviorScout(MovableUnit* unit, MapLayer* game_map, MapPoint center);
+	BehaviorScout(MovableUnit* unit, GameMap* game_map, MapPoint center);
 
 	virtual void DoAction() override;
 };

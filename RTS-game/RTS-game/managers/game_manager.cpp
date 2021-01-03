@@ -9,6 +9,16 @@ GameManager::~GameManager() {
 
 }
 
+void GameManager::SetCurrentLayer(size_t cur_layer_ind) {
+	cur_layer_ind_ = cur_layer_ind;
+	unit_factory_->SetCurrentLayerIndex(cur_layer_ind_);
+	user_manager_->SetActiveLayer(GetCurrentLayer());
+}
+
+MapLayer* GameManager::GetCurrentLayer() {
+	return game_map_->GetLayer(cur_layer_ind_);
+}
+
 int GameManager::Init() {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cout << "SDL_Init ERROR : " << SDL_GetError() << std::endl;
@@ -32,8 +42,11 @@ int GameManager::Init() {
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
 
-	game_map_ = new SurfaceLayer(renderer_, HEIGHT, WIDTH, PLAYERS_COUNT);
-	game_map_->Generate();
+	game_map_ = new GameMap(renderer_, WIDTH, HEIGHT, PLAYERS_COUNT, {
+		new SurfaceLayer(),	// Surface
+		new SurfaceLayer()	// Underground
+	});
+
 	texture_manager_ = new TextureManager(renderer_);
 
 	players_info_ = new PlayersInfo(PLAYERS_COUNT);
@@ -43,8 +56,9 @@ int GameManager::Init() {
 	unit_factory_->SetPlayersInfo(players_info_);
 	for (size_t i = 0; i < PLAYERS_COUNT; ++i)
 		players_info_->SetStatus(i, i, PlayersStatus::PEACE);
-	user_manager_ = new UserManager(game_map_, camera_);
+	user_manager_ = new UserManager(camera_);
 
+	SetCurrentLayer(0);
 	return 0;
 }
 
@@ -145,7 +159,7 @@ void GameManager::Run() {
 	air_h_ = 0.14;
 	camera_h_ = 1.0;
 
-	game_map_->DrawToTexture(renderer_);
+	GetCurrentLayer()->DrawToTexture(renderer_);
 	
 	int count = 0;
 	int time1, time2;
@@ -170,6 +184,8 @@ void GameManager::Run() {
 }
 
 void GameManager::RunStep() {
+	MapLayer* cur_layer = GetCurrentLayer();
+
 	// events
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
@@ -223,7 +239,7 @@ void GameManager::RunStep() {
 	}
 	if (mouse_x > (window_w - mouse_move_size)) {
 		camera_->Move(coef / camera_->GetScale(), 0);
-		camera_->MoveTo(std::min(camera_->GetX(), (int32_t)(game_map_->GetWidth() * game_map_->GetBlockSize())), camera_->GetY());
+		camera_->MoveTo(std::min(camera_->GetX(), (int32_t)(cur_layer->GetWidth() * cur_layer->GetBlockSize())), camera_->GetY());
 	}
 	if (mouse_y < mouse_move_size) {
 		camera_->Move(0, -coef / camera_->GetScale());
@@ -231,7 +247,7 @@ void GameManager::RunStep() {
 	}
 	if (mouse_y > (window_h - mouse_move_size)) {
 		camera_->Move(0, coef / camera_->GetScale());
-		camera_->MoveTo(camera_->GetX(), std::min(camera_->GetY(), (int32_t)(game_map_->GetHeight() * game_map_->GetBlockSize())));
+		camera_->MoveTo(camera_->GetX(), std::min(camera_->GetY(), (int32_t)(cur_layer->GetHeight() * MapLayer::GetBlockSize())));
 	}
 
 	const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
@@ -288,9 +304,9 @@ void GameManager::RunStep() {
 	// draw
 	{
 		if (fog_of_war_mode_ == VISIBLE)
-			game_map_->Draw(renderer_, camera_);
+			cur_layer->Draw(renderer_, camera_);
 		else
-			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
+			cur_layer->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
 
 		std::vector<std::pair<int, Drawable*>> units_to_draw;
 		for (size_t i = 0; i < players_.size(); ++i) {
@@ -301,7 +317,7 @@ void GameManager::RunStep() {
 			unit->Draw(renderer_, camera_);
 		}
 		
-		for (Entity* entity : entities_)
+		for (Entity* entity : entities_)  // FIXME bamboo creates in every layer of a map
 			entity->Draw(renderer_, camera_);
 
 

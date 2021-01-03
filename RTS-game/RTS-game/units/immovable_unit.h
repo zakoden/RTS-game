@@ -2,7 +2,7 @@
 
 #include "abstract_immovable_unit.h"
 
-#include "../map/map_layer.h"
+#include "../map/game_map.h"
 #include "../managers/texture_manager.h"
 
 #include <algorithm>
@@ -29,7 +29,9 @@ protected:
 	Behavior* behavior_ = NULL;
 	size_t player_ = 0; // player number	
 	PlayersInfo* players_info_ = NULL;
-	MapLayer* game_map_ = NULL;
+
+	GameMap* game_map_ = NULL;
+	uint8_t cur_layer_ind_;
 
 	Clock update_fog_of_war_{ MapLayer::GetBlockSize() };
 
@@ -52,6 +54,8 @@ public:
 	void GetHitbox(double& x1, double& y1, double& x2, double& y2) override;
 	int GetLegsY() override;
 	void GetCollisionbox(double& x1, double& y1, double& x2, double& y2) override;
+
+	MapLayer* GetCurrentLayer();
 
 	virtual void GetVector(double& dx, double& dy) override;
 	virtual void AddVector(double dx, double dy) override;

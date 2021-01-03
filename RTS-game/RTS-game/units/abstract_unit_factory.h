@@ -23,8 +23,7 @@ public:
 
 	virtual MovableUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) = 0;
 
-	virtual MovableUnit* CreateBase(uint8_t player, int x, int y) = 0;
-
+	virtual Building* CreateBase(uint8_t player, int x, int y) = 0;
 	virtual Building* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) = 0;
 	virtual Building* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) = 0;
 	virtual Building* CreateSmallGrayTower(uint8_t player, int x, int y) = 0;

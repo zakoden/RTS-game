@@ -39,7 +39,7 @@ protected:
 	size_t GetInd(uint32_t x, uint32_t y) const;
 public:
 
-	~MapLayer();
+	virtual ~MapLayer();
 	uint32_t GetHeight();
 	uint32_t GetWidth();
 	static uint32_t GetBlockSize();
@@ -66,12 +66,15 @@ public:
 	void SetBlock(uint32_t x, uint32_t y, uint8_t value);
 	void DrawToTexture(SDL_Renderer* renderer);
 	void BlockDraw(SDL_Renderer* renderer, uint32_t x, uint32_t y, uint8_t block = UINT8_MAX);
-	void Draw(SDL_Renderer* renderer, Camera* camera, uint8_t player_num = UINT8_MAX); 
+	void Draw(SDL_Renderer* renderer, Camera* camera, uint8_t player_num = UINT8_MAX);
 
 	// For user_manager, covers all covered cells with block_num
 	void ApplyMask(SDL_Renderer* renderer, Camera* camera, int player_num, uint8_t block_num);
 
-	void AddBase(SDL_Point location, uint8_t player_num); // Processes the event that new base was added
+	void AddBase(SDL_Point location, uint8_t player_num);  // Processes the event that new base was added
+
+	// DRY + Abstract class doesn't have a constructor
+	void FillMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count);
 
 	virtual void Generate() = 0;  // It's not recommended to call this function in constructor
 };

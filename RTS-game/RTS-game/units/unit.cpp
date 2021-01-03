@@ -6,14 +6,15 @@
 // -----------public---------------
 
 Unit::Unit(int attack, int defense, int max_health, double speed,
-	TextureManager* texture_manager, MapLayer* game_map) {
-	this->attack_ = attack;
-	this->defense_ = defense;
-	this->health_ = max_health;
-	this->max_health_ = max_health;
-	this->game_map_ = game_map;
-	this->texture_manager_ = texture_manager;
-	this->speed_ = speed;
+	TextureManager* texture_manager, GameMap* game_map, uint8_t cur_layer_ind) {
+	attack_ = attack;
+	defense_ = defense;
+	health_ = max_health;
+	max_health_ = max_health;
+	game_map_ = game_map;
+	texture_manager_ = texture_manager;
+	speed_ = speed;
+	cur_layer_ind_ = cur_layer_ind;
 }
 
 int Unit::GetSpeed() { return speed_; }
@@ -52,8 +53,8 @@ void Unit::VectorApplyBullet() {
 	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
 	dx_ = (dx_ * speed_) / v_len;
 	dy_ = (dy_ * speed_) / v_len;
-	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * game_map_->GetWidth() - width_);
-	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * game_map_->GetHeight() - height_);
+	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * GetCurrentLayer()->GetWidth() - width_);
+	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * GetCurrentLayer()->GetHeight() - height_);
 }
 
 void Unit::SetCommandPoint(int x, int y) {
@@ -84,6 +85,8 @@ void Unit::DoAction() {
 }
 
 void Unit::Move() {
+	MapLayer* cur_layer = GetCurrentLayer();
+
 	if (update_fog_of_war_.Ding())
 		UncoverNearbyCells();
 	update_fog_of_war_.Tick();
@@ -92,10 +95,10 @@ void Unit::Move() {
 	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
 	DeleteUnitFromMap();
 	int x = static_cast<int>(x_), y = static_cast<int>(y_);
-	int x1 = (x + deltaX_) / game_map_->GetBlockSize() - 1;
-	int y1 = (y + deltaY_) / game_map_->GetBlockSize() - 1;
-	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize() + 1;
-	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize() + 1;
+	int x1 = (x + deltaX_) / MapLayer::GetBlockSize() - 1;
+	int y1 = (y + deltaY_) / MapLayer::GetBlockSize() - 1;
+	int x2 = (x + deltaX_ + width_ - 1) / MapLayer::GetBlockSize() + 1;
+	int y2 = (y + deltaY_ + height_ - 1) / MapLayer::GetBlockSize() + 1;
 
 	double left = x_ + deltaX_;
 	double up = y_ + deltaY_;
@@ -104,12 +107,12 @@ void Unit::Move() {
 
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			if (!game_map_->IsBlockInMap(cur_x, cur_y))
+			if (!cur_layer->IsBlockInMap(cur_x, cur_y))
 				continue;
 			if (CanMoveOnBlock(cur_x, cur_y))
 				continue;
 
-			SDL_Rect block = game_map_->GetBlockRect(cur_x, cur_y);
+			SDL_Rect block = cur_layer->GetBlockRect(cur_x, cur_y);
 			double inner_left = std::max(left + dx_, (double)block.x);
 			double inner_up = std::max(up + dy_, (double)block.y);
 			double inner_right = std::min(right + dx_, (double)block.x + block.w);
@@ -218,8 +221,8 @@ void Unit::Move() {
 		}
 	}
 
-	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * game_map_->GetWidth() - width_);
-	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * game_map_->GetHeight() - height_);
+	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * cur_layer->GetWidth() - width_);
+	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * cur_layer->GetHeight() - height_);
 	dx_ = 0.0;
 	dy_ = 0.0;
 	InsertUnitToMap();
