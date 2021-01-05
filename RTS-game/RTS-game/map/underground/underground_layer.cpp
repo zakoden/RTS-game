@@ -7,7 +7,7 @@
 
 #include <random>
 
-Grid<char> SimulateAutomaton(const Grid<char>& state, const GridNeighbors& grid_neighbors) {
+Grid<char> SimulateAutomaton(const Grid<char>& state, const GridNeighbors& grid_neighbors, std::mt19937& rng) {
 	const int BIRTH_LIMIT = 5;
 	const int DEATH_LIMIT = 4;
 	const int OVERFLOW_LIMIT = 8;
@@ -24,7 +24,9 @@ Grid<char> SimulateAutomaton(const Grid<char>& state, const GridNeighbors& grid_
 					result[row][col] = false;
 				}
 				if (alive >= OVERFLOW_LIMIT) {
-					result[row][col] = false;
+					if (rng() % 6 != 0) {
+						result[row][col] = false;
+					}
 				}
 			} else {  // Cell is dead
 				if (alive >= BIRTH_LIMIT) {
@@ -42,11 +44,11 @@ void UndergroundLayer::Generate(uint64_t seed) {
 	std::cout << "UndergroundLayer::Generate: Started" << std::endl;
 	std::mt19937 rng(seed);
 
-	const double START_ALIVE_CHANCE = 0.9;
+	const double START_ALIVE_PERCENT = 90;
 	Grid<char> state(height_, width_);
 	for (uint32_t row = 0; row < height_; ++row) {
 		for (uint32_t col = 0; col < width_; ++col) {
-			state[row][col] = rng() < START_ALIVE_CHANCE * UINT32_MAX; // rng() / UINT32_MAX < START_ALIVE_CHANCE
+			state[row][col] = rng() % 100 < START_ALIVE_PERCENT;
 		}
 	}
 	GridNeighbors grid_neighbors(state);
@@ -54,7 +56,7 @@ void UndergroundLayer::Generate(uint64_t seed) {
 	time_measurer.PrintTime("UndergroundLayer::Generate: Started iterations");
 	const int ITERATIONS_COUNT = 10;
 	for (int i = 0; i < ITERATIONS_COUNT; ++i) {
-		state = SimulateAutomaton(state, grid_neighbors);
+		state = SimulateAutomaton(state, grid_neighbors, rng);
 	}
 	time_measurer.PrintTime("UndergroundLayer::Generate: Finished iterations");
 
