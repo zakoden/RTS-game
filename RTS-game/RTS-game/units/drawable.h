@@ -2,8 +2,7 @@
 
 #include <string>
 
-
-#include "../managers/texture_manager.h"
+#include "SDL.h"
 
 #include "../map/camera.h"
 
@@ -15,4 +14,7 @@ public:
 		size_t texture_delay_move, size_t texture_delay_attack,
 		size_t deltaX, size_t deltaY, size_t width, size_t height,
 		size_t texture_width, size_t texture_height) = 0;
+
+
+	virtual uint8_t GetCurrentLayerIndex() = 0;
 };

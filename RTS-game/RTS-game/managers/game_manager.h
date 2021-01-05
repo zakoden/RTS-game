@@ -33,7 +33,7 @@ protected:
 	Camera* camera_ = NULL;
 	
 	GameMap* game_map_;
-	size_t cur_layer_ind_;  // Don't set up manually. Use method SetCurrentLayer instead.
+	uint8_t cur_layer_ind_;  // Don't set it manually. Use method SetCurrentLayer instead.
 
 	bool close_ = false;
 	UnitFactory* unit_factory_ = NULL;
@@ -47,7 +47,8 @@ protected:
 	enum FogOfWarType {
 		VISIBLE,
 		UNITS_HIDDEN,
-		MAP_HIDDEN
+		MAP_HIDDEN,
+		FOG_OF_WAR_TYPE_SIZE
 	} fog_of_war_mode_ = VISIBLE;
 
 	double camera_h_ = 1.0;
@@ -55,7 +56,7 @@ protected:
 	double screen_h_ = 1.0;
 	int scale_status_ = 1;
 
-	void SetCurrentLayer(size_t cur_layer_ind);
+	void SetCurrentLayerIndex(uint8_t cur_layer_ind);
 	MapLayer* GetCurrentLayer();
 
 public:

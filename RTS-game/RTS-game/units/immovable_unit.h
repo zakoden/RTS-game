@@ -31,7 +31,6 @@ protected:
 	PlayersInfo* players_info_ = NULL;
 
 	GameMap* game_map_ = NULL;
-	uint8_t cur_layer_ind_;
 
 	Clock update_fog_of_war_{ MapLayer::GetBlockSize() };
 
@@ -43,6 +42,7 @@ protected:
 	bool CanMoveOnBlock(uint32_t x, uint32_t y);
 
 	//void MapCollisionCheck();
+
 public:
 	virtual ~ImmovableUnit();
 
@@ -54,8 +54,6 @@ public:
 	void GetHitbox(double& x1, double& y1, double& x2, double& y2) override;
 	int GetLegsY() override;
 	void GetCollisionbox(double& x1, double& y1, double& x2, double& y2) override;
-
-	MapLayer* GetCurrentLayer();
 
 	virtual void GetVector(double& dx, double& dy) override;
 	virtual void AddVector(double dx, double dy) override;
@@ -89,4 +87,6 @@ public:
 	void DeadCheck() override;
 	bool IsAlive() override;
 	void Die() override;
+
+	MapLayer* GetCurrentLayer();
 };

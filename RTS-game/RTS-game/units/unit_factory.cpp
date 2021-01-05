@@ -180,7 +180,7 @@ Building* UnitFactory::CreateSmallGrayTower(uint8_t player, int x, int y) {
 }
 
 Entity* UnitFactory::CreateBamboo(int x, int y) {
-	Entity* entity = new Entity(texture_manager_, x, y - 28);
+	Entity* entity = new Entity(texture_manager_, x, y - 28, cur_layer_ind_);
 	entity->SetTexture(TextureName::bamboo, 0, 0, 1, 1, 0, 0, 0, 0, 16, 28);
 	entity->SetName("bamboo");
 

@@ -17,7 +17,7 @@ class Entity : public DrawableEntity {
 public:
 	Entity() = default;
 
-	Entity(TextureManager* texture_manager, int x, int y);
+	Entity(TextureManager* texture_manager, int x, int y, uint8_t cur_layer_ind);
 
 	void Draw(SDL_Renderer* renderer, Camera* camera) override;
 };

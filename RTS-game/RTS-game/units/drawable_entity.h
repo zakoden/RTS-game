@@ -25,6 +25,8 @@ protected:
 	TextureManager* texture_manager_;
 	std::string name_;
 
+	uint8_t cur_layer_ind_;
+
 	// --geometry--
 	double x_ = 110.0, y_ = 110.0;
 	// hitbox delta
@@ -53,4 +55,6 @@ public:
 		size_t texture_width, size_t texture_height) override;
 
 	virtual void SetName(std::string name);
+
+	virtual uint8_t GetCurrentLayerIndex() override;
 };

@@ -108,9 +108,8 @@ Grid<float> GenerateHeights(uint32_t height, uint32_t width) {
 	return result;
 }
 
-void SurfaceLayer::Generate() {
+void SurfaceLayer::Generate(uint64_t seed) {
 	//1597431138, 1597486519, 1598023852
-	unsigned int seed = static_cast<unsigned int>(time(0));  // Map seed
 	TimeMeasurer time, time_total = time;  // Class to measure time between each segment
 
 	srand(seed);  // Randomizing rand

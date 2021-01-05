@@ -6,5 +6,5 @@ class SurfaceLayer : public MapLayer {
 public:
 	SurfaceLayer() = default;
 
-	virtual void Generate() override;
+	virtual void Generate(uint64_t seed) override;
 };

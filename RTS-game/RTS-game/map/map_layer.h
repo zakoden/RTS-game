@@ -76,5 +76,5 @@ public:
 	// DRY + Abstract class doesn't have a constructor
 	void FillMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count);
 
-	virtual void Generate() = 0;  // It's not recommended to call this function in constructor
+	virtual void Generate(uint64_t seed) = 0;  // It's not recommended to call this function in constructor
 };

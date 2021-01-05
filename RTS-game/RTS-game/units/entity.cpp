@@ -1,9 +1,10 @@
 #include "entity.h"
 
-Entity::Entity(TextureManager* texture_manager, int x, int y) {
+Entity::Entity(TextureManager* texture_manager, int x, int y, uint8_t cur_layer_ind) {
 	texture_manager_ = texture_manager;
 	x_ = x;
 	y_ = y;
+	cur_layer_ind_ = cur_layer_ind;
 }
 
 void Entity::Draw(SDL_Renderer* renderer, Camera* camera) {
