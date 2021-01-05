@@ -25,7 +25,7 @@ namespace grid_function {
 
 	// Removes small areas
 	// Unites small areas with the closest non-small ones
-	void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks);
+	void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks, uint32_t area_min);
 
 	/* Finds the closest point from start if we:
 	1. Can only travel via allowed points

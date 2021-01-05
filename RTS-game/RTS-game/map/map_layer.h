@@ -20,7 +20,6 @@ protected:
 
     uint32_t width_, height_; // øèðèíà, âûñîòà êàðòû
 	std::vector<uint8_t> blocks_; // áëîêè êàðòû
-	std::vector<uint8_t> underground_blocks_;
 
 	std::vector<std::unordered_set<AbstractImmovableUnit*>> units_in_block_; // þíèòû íà êàðòå
 	SDL_Texture* tiles_ = nullptr; // òåêñòóðà ñî âñåìè áëîêàìè
@@ -76,5 +75,11 @@ public:
 	// DRY + Abstract class doesn't have a constructor
 	void FillMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count);
 
-	virtual void Generate(uint64_t seed) = 0;  // It's not recommended to call this function in constructor
+	/** 
+	* Generates map based on a seed.
+	* This function must not be called in constructor. It will be called in GameMap.
+	* This function must be deterministic, i.e. if Generate is called with the same seed, then the results should be the same.
+	* As the result, Generate must fill blocks_ array with blocks that will be used to generate map.
+	*/
+	virtual void Generate(uint64_t seed) = 0;
 };

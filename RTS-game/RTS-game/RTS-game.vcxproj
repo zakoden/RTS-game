@@ -181,6 +181,7 @@
     <ClCompile Include="map\surface\perlin.cpp" />
     <ClCompile Include="map\surface\surface_layer.cpp" />
     <ClCompile Include="map\time_measurer.cpp" />
+    <ClCompile Include="map\underground\underground_layer.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="player\players_info.cpp" />
     <ClCompile Include="main.cpp" />
@@ -222,6 +223,7 @@
     <ClInclude Include="map\surface\surface_map.h" />
     <ClInclude Include="map\time_measurer.h" />
     <ClInclude Include="map\triple.h" />
+    <ClInclude Include="map\underground\underground_layer.h" />
     <ClInclude Include="player\player_owner.h" />
     <ClInclude Include="units\abstract_unit_factory.h" />
     <ClInclude Include="behaviors\behavior_random.h" />
@@ -245,6 +247,7 @@
     <ClInclude Include="units\unit_type.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="pictures\bamboo.bmp" />
     <Image Include="pictures\fire_medium_poleax.bmp" />
     <Image Include="pictures\fire_medium_sword.bmp" />
     <Image Include="pictures\fire_small_lance.bmp" />
@@ -254,6 +257,9 @@
     <Image Include="pictures\map-tiles.bmp" />
     <Image Include="pictures\map_tiles.bmp" />
     <Image Include="pictures\map_tiles_fogged.bmp" />
+    <Image Include="pictures\small_gray_tower.bmp" />
+    <Image Include="pictures\small_horizontal_gray_wall.bmp" />
+    <Image Include="pictures\small_vertical_gray_wall.bmp" />
     <Image Include="pictures\testunit.bmp" />
     <Image Include="pictures\testunit1.bmp" />
     <Image Include="pictures\testunit2.bmp" />

@@ -111,6 +111,9 @@
     <ClCompile Include="map\game_map.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="map\underground\underground_layer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
@@ -216,6 +219,9 @@
     <ClInclude Include="map\game_map.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="map\underground\underground_layer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="units\unit.h">
@@ -296,6 +302,18 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="pictures\map_tiles_fogged.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\bamboo.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\small_gray_tower.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\small_horizontal_gray_wall.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\small_vertical_gray_wall.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

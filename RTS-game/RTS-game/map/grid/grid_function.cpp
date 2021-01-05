@@ -47,8 +47,7 @@ void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& b
 	std::cerr << "SmoothMap: Transformed " << transformed_cells << " cells" << std::endl;
 }
 
-void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
-	const uint32_t AREA_MIN = 80;  // Minimal area each biome should have
+void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks, uint32_t area_min) {
 	size_t height = blocks.size(), width = blocks[0].size();
 
 	// 1. Get areas for each cell
@@ -79,13 +78,13 @@ void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockT
 	std::queue<MapPoint> bfs;
 	for (uint32_t i = 0; i < height; ++i)
 		for (uint32_t j = 0; j < width; ++j)
-			if (areas[i][j] >= AREA_MIN)
+			if (areas[i][j] >= area_min)
 				bfs.push({ j, i });
 	while (!bfs.empty()) {
 		MapPoint cur = bfs.front();
 		bfs.pop();
 		for (MapPoint point : neighbors[cur]) {
-			if (areas[point] < AREA_MIN) {
+			if (areas[point] < area_min) {
 				areas[point] = areas[cur];
 				blocks[point] = blocks[cur];
 				++transformed_cells;

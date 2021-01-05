@@ -1,6 +1,7 @@
 #include "game_manager.h"
 
 #include "../map/surface/surface_layer.h"
+#include "../map/underground/underground_layer.h"
 
 GameManager::GameManager() {
 }
@@ -44,7 +45,7 @@ int GameManager::Init() {
 
 	game_map_ = new GameMap(renderer_, WIDTH, HEIGHT, PLAYERS_COUNT, {
 		new SurfaceLayer(),	// Surface
-		new SurfaceLayer()	// Underground
+		new UndergroundLayer()	// Underground
 	});
 
 	texture_manager_ = new TextureManager(renderer_);
@@ -154,8 +155,8 @@ void GameManager::Run() {
 			unit_factory_->CreateTestHunter2(1, 1500 + rand() % 10, 86 + 18 * i);
 		}
 
-		for (int i = 0; i < 70; ++i) {
-			for (int j = 0; j < 70; ++j) {
+		for (int i = 10; i < 70; ++i) {
+			for (int j = 50; j < 70; ++j) {
 				entities_.push_back(unit_factory_->CreateBamboo(500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5));
 			}
 		}
