@@ -1,10 +1,10 @@
 #include "adapter.h"
 
-#include "map/game_map.h"
+#include "map/map_layer.h"
 
 MapPoint adapter::UnitToMapCoordinates(int x, int y) {
-    return { static_cast<uint32_t>(x) / GameMap::GetBlockSize(),
-             static_cast<uint32_t>(y) / GameMap::GetBlockSize() };
+    return { static_cast<uint32_t>(x) / MapLayer::GetBlockSize(),
+             static_cast<uint32_t>(y) / MapLayer::GetBlockSize() };
 }
 
 MapPoint adapter::UnitToMapCoordinates(SDL_Point point) {
@@ -12,6 +12,6 @@ MapPoint adapter::UnitToMapCoordinates(SDL_Point point) {
 }
 
 SDL_Point adapter::MapToUnitCoordinates(MapPoint point) {
-    return { static_cast<int>(point.x * GameMap::GetBlockSize()),
-             static_cast<int>(point.y * GameMap::GetBlockSize()) };
+    return { static_cast<int>(point.x * MapLayer::GetBlockSize()),
+             static_cast<int>(point.y * MapLayer::GetBlockSize()) };
 }

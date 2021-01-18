@@ -11,4 +11,3 @@ void TimeMeasurer::PrintTime(const std::string& message) {
 		<< " s" << std::endl;
 	start_time_ = time;
 }
-

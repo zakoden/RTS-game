@@ -1,6 +1,6 @@
 #include "behavior_hunter.h"
 
-BehaviorHunter::BehaviorHunter(AbstractUnit* unit, AbstractUnitFactory* unit_factory)
+BehaviorHunter::BehaviorHunter(MovableUnit* unit, MovableUnitFactory* unit_factory)
 : unit_(unit)
 , unit_factory_(unit_factory) {
 	memset(cur_steps_, 0, sizeof cur_steps_);
@@ -13,7 +13,7 @@ BehaviorHunter::BehaviorHunter(AbstractUnit* unit, AbstractUnitFactory* unit_fac
 BehaviorHunter::~BehaviorHunter() {
 }
 
-void BehaviorHunter::SetUnit(AbstractUnit* unit) {
+void BehaviorHunter::SetUnit(MovableUnit* unit) {
 	unit_ = unit;
 }
 
@@ -40,7 +40,7 @@ void BehaviorHunter::DoAction() {
 		}
 	}
 
-	AbstractUnit* target = unit_->FindEnemyInRadius(distance_attack_);
+	AbstractImmovableUnit* target = unit_->FindEnemyInRadius(distance_attack_);
 	target_ = unit_->GetClosestUnit(target, target_);
 
 	if (target_ != NULL) {
@@ -57,7 +57,7 @@ void BehaviorHunter::DoAction() {
 	}
 }
 
-void BehaviorHunter::Attack(AbstractUnit* enemy) {
+void BehaviorHunter::Attack(AbstractImmovableUnit* enemy) {
 	if (unit_->HasEffect(Effect::ATTACKING)) {
 		return;
 	}
@@ -74,7 +74,7 @@ void BehaviorHunter::Attack(AbstractUnit* enemy) {
 }
 
 void BehaviorHunter::FindTarget() {
-	AbstractUnit* target = unit_->FindEnemyInRadius(radius_search_);
+	AbstractImmovableUnit* target = unit_->FindEnemyInRadius(radius_search_);
 	if (target != NULL) {
 		target_ = target;
 	}
@@ -82,7 +82,7 @@ void BehaviorHunter::FindTarget() {
 
 void BehaviorHunter::DeadCheck() {
 	if (target_ == NULL) return;
-	if (!target_->IsAlive()) {
+	if (!(target_->IsAlive())) {
 		target_ = NULL;
 	}
 }

@@ -1,31 +1,32 @@
 #pragma once
 
-#include "abstract_unit.h"
+#include "movable_unit.h"
+#include "building.h"
+#include "entity.h"
 
 #include "../map/map_point.h"
 
-class AbstractUnitFactory {
+class MovableUnitFactory {
 protected:
 public:
-	virtual AbstractUnit* CreateTest(size_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateTest1(size_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateTestHunter(size_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateTestHunter2(size_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateScout(size_t player, int x, int y, MapPoint target) = 0;
+	virtual MovableUnit* CreateTest(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateTest1(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateTestHunter(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateTestHunter2(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateScout(size_t player, int x, int y, MapPoint target) = 0;
 
-	virtual AbstractUnit* CreateFireSmallPoleax(size_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateFireSmallSpear(size_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateFireSmallLance(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateFireSmallPoleax(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateFireSmallSpear(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateFireSmallLance(size_t player, int x, int y) = 0;
 
-	virtual AbstractUnit* CreateFireMediumPoleax(size_t player, int x, int y) = 0;
+	virtual MovableUnit* CreateFireMediumPoleax(size_t player, int x, int y) = 0;
 
-	virtual AbstractUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) = 0;
+	virtual MovableUnit* CreateBulletFire1(size_t player, int x, int y, int x_to, int y_to) = 0;
 
-	virtual AbstractUnit* CreateBase(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateBase(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) = 0;
+	virtual Building* CreateSmallGrayTower(uint8_t player, int x, int y) = 0;
 
-	virtual AbstractUnit* CreateSmallHorizontalGrayWall(uint8_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateSmallVerticalGrayWall(uint8_t player, int x, int y) = 0;
-	virtual AbstractUnit* CreateSmallGrayTower(uint8_t player, int x, int y) = 0;
-
-	virtual AbstractUnit* CreateBamboo(uint8_t player, int x, int y) = 0;
+	virtual Entity* CreateBamboo(int x, int y) = 0;
 };

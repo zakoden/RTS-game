@@ -8,7 +8,7 @@
 
 enum TextureName {
 	testunit,
-    testunit1,
+	testunit1,
 	testunit2,
 	testunit3,
 	testunit2_1,

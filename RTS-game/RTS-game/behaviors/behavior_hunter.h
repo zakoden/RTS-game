@@ -5,7 +5,7 @@
 
 #include "behavior.h"
 
-#include "../units/abstract_unit.h"
+#include "../units/movable_unit.h"
 #include "../units/abstract_unit_factory.h"
 
 namespace behavior_hunter {
@@ -19,25 +19,25 @@ namespace behavior_hunter {
 
 class BehaviorHunter : public Behavior {
 protected:
-	AbstractUnit* unit_;
+	MovableUnit* unit_;
 	uint8_t cur_steps_[behavior_hunter::STEPS_CNT] = {};
 	uint8_t max_steps_[behavior_hunter::STEPS_CNT];
 
-	AbstractUnit* target_ = NULL;
+	AbstractImmovableUnit* target_ = NULL;
 
 	int distance_attack_ = 20;
 	int radius_search_ = 200;
 
-	AbstractUnitFactory* unit_factory_;
+	MovableUnitFactory* unit_factory_;
 public:
-	BehaviorHunter(AbstractUnit* unit, AbstractUnitFactory* unit_factory);
+	BehaviorHunter(MovableUnit* unit, MovableUnitFactory* unit_factory);
 	~BehaviorHunter();
 
-	void SetUnit(AbstractUnit* unit);
+	void SetUnit(MovableUnit* unit);
 
 	void AttackEnd() override;
-	void DoAction();
-	void Attack(AbstractUnit* enemy);
+	void DoAction() override;
+	void Attack(AbstractImmovableUnit* enemy);
 	void FindTarget();
 
 	void DeadCheck() override;

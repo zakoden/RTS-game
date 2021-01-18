@@ -4,16 +4,16 @@
 
 #include "behavior.h"
 
-#include "../units/abstract_unit.h"
+#include "../units/movable_unit.h"
 
 class BehaviorStay : public Behavior {
 protected:
-	AbstractUnit* unit_;
+	AbstractImmovableUnit* unit_;
 public:
-	BehaviorStay(AbstractUnit* unit = NULL);
+	BehaviorStay(AbstractImmovableUnit* unit = NULL);
 	~BehaviorStay();
 
-	void SetUnit(AbstractUnit* unit); 
-    // делает (-_-) действие
-	void DoAction(); 
+	void SetUnit(AbstractImmovableUnit* unit);
+	// делает (-_-) действие
+	void DoAction();
 };

@@ -4,7 +4,7 @@ class Behavior {
 protected:
 public:
 	Behavior();
-	~Behavior();
+	virtual ~Behavior();
 
 	virtual void AttackEnd();
 

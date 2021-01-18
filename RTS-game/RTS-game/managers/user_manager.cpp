@@ -2,8 +2,7 @@
 
 #include "../map/block_type.h"
 
-UserManager::UserManager(GameMap* game_map, Camera* camera) {
-	game_map_ = game_map;
+UserManager::UserManager(Camera* camera) {
 	camera_ = camera;
 }
 
@@ -12,18 +11,24 @@ UserManager::~UserManager() {
 
 Player* UserManager::GetPlayer() const { return player_; }
 
+void UserManager::SetActiveLayer(MapLayer* active_layer) {
+	active_layer_ = active_layer;
+}
+
 void UserManager::SetPlayer(Player* player) {
 	player_ = player;
 }
 
 void UserManager::Draw(SDL_Renderer* renderer, Camera* camera) {
+	/*
 	for (uint32_t i = 0; i < game_map_->GetHeight(); ++i) {
 		for (uint32_t j = 0; j < game_map_->GetWidth(); ++j) {
 			if (!game_map_->IsCellUncovered({ j, i }, 0)) {
-				game_map_->BlockDraw(renderer, camera_, j, i, UNKNOWN);
+				//game_map_->BlockDraw(renderer, camera_, j, i, UNKNOWN);
 			}
 		}
 	}
+	*/
 }
 
 void UserManager::DoAction(SDL_Renderer* renderer) {
@@ -31,16 +36,17 @@ void UserManager::DoAction(SDL_Renderer* renderer) {
 	uint32_t mouse_state = SDL_GetMouseState(&mouse_x, &mouse_y);
 	mouse_x = camera_->ToMapX(renderer, mouse_x);
 	mouse_y = camera_->ToMapY(renderer, mouse_y);
-	if (game_map_->IsPositionInMap(mouse_x, mouse_y)) {
-		int block_x = mouse_x / game_map_->GetBlockSize();
-		int block_y = mouse_y / game_map_->GetBlockSize();
+	if (active_layer_->IsPositionInMap(mouse_x, mouse_y)) {
+		int block_x = mouse_x / MapLayer::GetBlockSize();
+		int block_y = mouse_y / MapLayer::GetBlockSize();
 		if (mouse_state & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-			if (!game_map_->GetUnitsInBlock(block_x, block_y)->empty()) {
+			if (!active_layer_->GetUnitsInBlock(block_x, block_y).empty()) {
 				if (control_unit_ != NULL) {
 					control_unit_->RemoveEffect(Effect::UNDER_CONTROL);
 					control_unit_ = NULL;
 				}
-				control_unit_ = *game_map_->GetUnitsInBlock(block_x, block_y)->begin();
+				AbstractImmovableUnit* unit = *active_layer_->GetUnitsInBlock(block_x, block_y).begin();
+				control_unit_ = (MovableUnit*) unit;
 				control_unit_->AddEffect(Effect::UNDER_CONTROL);
 			}
 		}

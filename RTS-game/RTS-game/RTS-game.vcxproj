@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -72,12 +64,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)SDL;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Users\dvasilev\Desktop\RTS-game\RTS-game\SDL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;$(LibraryPath)</LibraryPath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <EnableClangTidyCodeAnalysis>true</EnableClangTidyCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -124,7 +123,13 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <AdditionalIncludeDirectories>$(SolutionDir)SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>26812;4083;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningVersion>
+      </WarningVersion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +137,10 @@
       <AdditionalLibraryDirectories>$(SolutionDir)SDL\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(SolutionDir)SDL2.lib;$(SolutionDir)SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -163,19 +172,25 @@
     <ClCompile Include="managers\game_manager.cpp" />
     <ClCompile Include="managers\user_manager.cpp" />
     <ClCompile Include="map\camera.cpp" />
-    <ClCompile Include="map\diamond_square.cpp" />
     <ClCompile Include="map\game_map.cpp" />
-    <ClCompile Include="map\game_map_generate.cpp" />
-    <ClCompile Include="map\grid_function.cpp" />
-    <ClCompile Include="map\grid_neighbors.cpp" />
-    <ClCompile Include="map\perlin.cpp" />
-    <ClCompile Include="map\point.cpp" />
+    <ClCompile Include="map\grid\grid_function.cpp" />
+    <ClCompile Include="map\grid\grid_neighbors.cpp" />
+    <ClCompile Include="map\map_layer.cpp" />
+    <ClCompile Include="map\map_point.cpp" />
+    <ClCompile Include="map\surface\diamond_square.cpp" />
+    <ClCompile Include="map\surface\perlin.cpp" />
+    <ClCompile Include="map\surface\surface_layer.cpp" />
     <ClCompile Include="map\time_measurer.cpp" />
+    <ClCompile Include="map\underground\underground_layer.cpp" />
     <ClCompile Include="player\player.cpp" />
     <ClCompile Include="player\players_info.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="managers\texture_manager.cpp" />
     <ClCompile Include="adapter.cpp" />
+    <ClCompile Include="units\building.cpp" />
+    <ClCompile Include="units\drawable_entity.cpp" />
+    <ClCompile Include="units\entity.cpp" />
+    <ClCompile Include="units\immovable_unit.cpp" />
     <ClCompile Include="units\unit.cpp" />
     <ClCompile Include="units\unit_factory.cpp">
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -185,7 +200,6 @@
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
-    <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adapter.h" />
@@ -197,15 +211,19 @@
     <ClInclude Include="managers\user_manager.h" />
     <ClInclude Include="map\block_type.h" />
     <ClInclude Include="map\camera.h" />
-    <ClInclude Include="map\diamond_square.h" />
     <ClInclude Include="map\game_map.h" />
-    <ClInclude Include="map\grid.h" />
-    <ClInclude Include="map\grid_function.h" />
-    <ClInclude Include="map\grid_neighbors.h" />
-    <ClInclude Include="map\perlin.h" />
+    <ClInclude Include="map\map_layer.h" />
+    <ClInclude Include="map\grid\grid.h" />
+    <ClInclude Include="map\grid\grid_function.h" />
+    <ClInclude Include="map\grid\grid_neighbors.h" />
     <ClInclude Include="map\map_point.h" />
+    <ClInclude Include="map\surface\diamond_square.h" />
+    <ClInclude Include="map\surface\perlin.h" />
+    <ClInclude Include="map\surface\surface_layer.h" />
+    <ClInclude Include="map\surface\surface_map.h" />
     <ClInclude Include="map\time_measurer.h" />
     <ClInclude Include="map\triple.h" />
+    <ClInclude Include="map\underground\underground_layer.h" />
     <ClInclude Include="player\player_owner.h" />
     <ClInclude Include="units\abstract_unit_factory.h" />
     <ClInclude Include="behaviors\behavior_random.h" />
@@ -217,11 +235,19 @@
     <ClInclude Include="player\players_info.h" />
     <ClInclude Include="behaviors\status_effects.h" />
     <ClInclude Include="managers\texture_manager.h" />
-    <ClInclude Include="units\abstract_unit.h" />
+    <ClInclude Include="units\drawable.h" />
+    <ClInclude Include="units\drawable_entity.h" />
+    <ClInclude Include="units\immovable_unit.h" />
+    <ClInclude Include="units\movable_unit.h" />
+    <ClInclude Include="units\building.h" />
+    <ClInclude Include="units\entity.h" />
+    <ClInclude Include="units\abstract_immovable_unit.h" />
     <ClInclude Include="units\unit.h" />
     <ClInclude Include="units\unit_factory.h" />
+    <ClInclude Include="units\unit_type.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="pictures\bamboo.bmp" />
     <Image Include="pictures\fire_medium_poleax.bmp" />
     <Image Include="pictures\fire_medium_sword.bmp" />
     <Image Include="pictures\fire_small_lance.bmp" />
@@ -229,6 +255,11 @@
     <Image Include="pictures\fire_small_spear.bmp" />
     <Image Include="pictures\map-tiles-fogged.bmp" />
     <Image Include="pictures\map-tiles.bmp" />
+    <Image Include="pictures\map_tiles.bmp" />
+    <Image Include="pictures\map_tiles_fogged.bmp" />
+    <Image Include="pictures\small_gray_tower.bmp" />
+    <Image Include="pictures\small_horizontal_gray_wall.bmp" />
+    <Image Include="pictures\small_vertical_gray_wall.bmp" />
     <Image Include="pictures\testunit.bmp" />
     <Image Include="pictures\testunit1.bmp" />
     <Image Include="pictures\testunit2.bmp" />

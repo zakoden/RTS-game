@@ -3,7 +3,7 @@
 #include <functional>
 #include <vector>
 
-#include "map_point.h"
+#include "../map_point.h"
 
 using std::vector;
 

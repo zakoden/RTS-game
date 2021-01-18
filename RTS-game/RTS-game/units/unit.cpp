@@ -3,110 +3,25 @@
 #include <algorithm>
 #include <iostream>
 
-// ----------protected-------------
-
-void Unit::InsertUnitToMap() {
-	if (type_ == UnitType::Fly) return;
-	int x, y;
-	x = floor(x_);
-	y = floor(y_);
-	int x1, x2, y1, y2;
-	x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
-
-	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
-		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			game_map_->AddUnit(this, cur_x, cur_y);
-		}
-	}
-}
-
-void Unit::DeleteUnitFromMap() {
-	if (type_ == UnitType::Fly) return;
-	int x, y;
-	x = floor(x_);
-	y = floor(y_);
-	int x1, x2, y1, y2;
-	x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
-
-	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
-		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			game_map_->DeleteUnit(this, cur_x, cur_y);
-		}
-	}
-}
-
-bool Unit::CanMoveOnBlock(uint32_t x, uint32_t y) {
-	return true;
-	//return (game_map_->GetBlock(x, y) != BlockType::WATER_SHALLOW);
-}
-
 // -----------public---------------
 
 Unit::Unit(int attack, int defense, int max_health, double speed,
-	TextureManager* texture_manager, GameMap* game_map)
-	: attack_(attack)
-	, defense_(defense)
-	, health_(max_health)
-	, max_health_(max_health)
-	, speed_(speed)
-	, texture_manager_(texture_manager)
-	, game_map_(game_map) {}
-
-Unit::~Unit() {
-	if (behavior_ != NULL) delete behavior_;
-	if (type_ == UnitType::Ground) DeleteUnitFromMap();
+	TextureManager* texture_manager, GameMap* game_map, uint8_t cur_layer_ind) {
+	attack_ = attack;
+	defense_ = defense;
+	health_ = max_health;
+	max_health_ = max_health;
+	game_map_ = game_map;
+	texture_manager_ = texture_manager;
+	speed_ = speed;
+	cur_layer_ind_ = cur_layer_ind;
 }
-
-int Unit::GetX() { return x_; }
-
-int Unit::GetY() { return y_; }
-
-int Unit::GetCenterX() { return (int)x_ + deltaX_ + width_ / 2; }
-
-int Unit::GetCenterY() { return (int)y_ + deltaY_ + height_ / 2; }
 
 int Unit::GetSpeed() { return speed_; }
-
-int Unit::GetAttack() { return attack_; }
-
-void Unit::GetHitbox(double& x1, double& y1, double& x2, double& y2) {
-	x1 = x_ + deltaX_;
-	y1 = y_ + deltaY_;
-	x2 = x1 + width_;
-	y2 = y1 + height_;
-}
-
-int Unit::GetLegsY() {
-	return y_ + texture_height_;
-}
-
-void Unit::GetCollisionbox(double& x1, double& y1, double& x2, double& y2) {
-	x1 = x_ + deltaX_;
-	y1 = y_ + deltaY_ + 0.3 * height_;
-	x2 = x1 + width_;
-	y2 = y1 + height_;
-}
 
 void Unit::GetVector(double& dx, double& dy) {
 	dx = dx_;
 	dy = dy_;
-}
-
-
-void Unit::SetPosition(int x, int y) {
-	SetPosition((double)x, (double)y);
-}
-
-void Unit::SetPosition(double x, double y) {
-	x_ = x;
-	y_ = y;
-	if (type_ == UnitType::Ground) InsertUnitToMap();
 }
 
 void Unit::SetVector(int dx, int dy) {
@@ -138,8 +53,8 @@ void Unit::VectorApplyBullet() {
 	double v_len = std::sqrt(dx_ * dx_ + dy_ * dy_);
 	dx_ = (dx_ * speed_) / v_len;
 	dy_ = (dy_ * speed_) / v_len;
-	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * game_map_->GetWidth() - width_);
-	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * game_map_->GetHeight() - height_);
+	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * GetCurrentLayer()->GetWidth() - width_);
+	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * GetCurrentLayer()->GetHeight() - height_);
 }
 
 void Unit::SetCommandPoint(int x, int y) {
@@ -154,99 +69,6 @@ void Unit::GetCommandPoint(int& x, int& y) {
 }
 
 
-void Unit::DamageApply(int damage) {
-	int total_damage = std::clamp(damage - defense_, 0, damage);
-	health_ -= total_damage;
-	if (health_ < 0) {
-		std::cout << "die, health : " << health_ << std::endl;
-		Die();
-	}
-}
-
-void Unit::UncoverNearbyCells() {
-	for (int dx = -scout_radius_; dx <= scout_radius_; dx += game_map_->GetBlockSize()) {
-		for (int dy = -scout_radius_; dy <= scout_radius_; dy += game_map_->GetBlockSize()) {
-			if (game_map_->IsPositionInMap(x_ + dx, y_ + dy) && (dx * dx + dy * dy) <= scout_radius_ * scout_radius_)
-				game_map_->UncoverCell(x_ + dx, y_ + dy, player_);
-		}
-	}
-}
-
-void Unit::AttackEnd() {
-	RemoveEffect(Effect::ATTACKING);
-	behavior_->AttackEnd();
-}
-
-void Unit::UnitCollide(AbstractUnit* unit) {
-	if (type_ == UnitType::Fly) return;
-	double x1, x2, y1, y2;
-	double cx1, cy1, cx2, cy2;
-	double dx1, dy1, dx2, dy2;
-	double width = 0.0, height = 0.0;
-
-	this->GetVector(dx1, dy1);
-	unit->GetVector(dx2, dy2);
-
-	this->GetHitbox(x1, y1, x2, y2);
-	width += x2 - x1;
-	height += y2 - y1;
-	cx1 = (x1 + x2) / 2.0;
-	cy1 = (y1 + y2) / 2.0;
-
-	unit->GetHitbox(x1, y1, x2, y2);
-	width += x2 - x1;
-	height += y2 - y1;
-	cx2 = (x1 + x2) / 2.0;
-	cy2 = (y1 + y2) / 2.0;
-
-	width /= 2.0;
-	height /= 2.0;
-	height *= 0.7;
-
-	if (abs(cx1 - cx2) < width && abs(cy1 - cy2) < height) {
-		double vx, vy;
-		vx = width - abs(cx1 - cx2);
-		vy = height - abs(cy1 - cy2);
-		if (abs(vx) < abs(vy)) {
-			double to = cx2 - cx1;
-			if (to * dx1 < 0.0) dx1 = 0.0;
-			if (to * dx2 > 0.0) dx2 = 0.0;
-			double sum_dx = dx1 + dx2;
-			sum_dx *= 0.0;
-			dx1 -= sum_dx;
-			dx2 -= sum_dx;
-			this->AddVector(-dx1, 0.0);
-			unit->AddVector(-dx2, 0.0);
-		} else {
-			double to = cy2 - cy1;
-			if (to * dy1 < 0.0) dy1 = 0.0;
-			if (to * dy2 > 0.0) dy2 = 0.0;
-			double sum_dy = dy1 + dy2;
-			sum_dy *= 0.0;
-			dy1 -= sum_dy;
-			dy2 -= sum_dy;
-			this->AddVector(0.0, -dy1);
-			unit->AddVector(0.0, -dy2);
-		}
-	}
-
-	if (abs(cx1 - cx2) < width * 0.8 && abs(cy1 - cy2) < height * 0.8) {
-		double vx, vy;
-		vx = width - abs(cx1 - cx2);
-		vy = height - abs(cy1 - cy2);
-		if (abs(vx) < abs(vy)) {
-			double to = cx2 - cx1;
-			this->AddVector(-to * 0.2, 0.0);
-			unit->AddVector(to * 0.2, 0.0);
-		} else {
-			double to = cy2 - cy1;
-			this->AddVector(0.0, -to * 0.2);
-			unit->AddVector(0.0, to * 0.2);
-		}
-		return;
-	}
-}
-
 void Unit::DoAction() {
 	RemoveEffect(Effect::MOVING);
 	if (!HasEffect(Effect::UNDER_CONTROL)) {
@@ -259,29 +81,12 @@ void Unit::DoAction() {
 		if (abs(dx_) > EPS) is_right_side = !(dx_ < 0.0);
 	}
 
-	int x = static_cast<int>(x_), y = static_cast<int>(y_);
-	x = floor(x_);
-	y = floor(y_);
-	int x1 = (x + deltaX_) / game_map_->GetBlockSize();
-	int y1 = (y + deltaY_) / game_map_->GetBlockSize();
-	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize();
-	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize();
-
-	std::unordered_set<AbstractUnit*> used_units;
-	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
-		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			auto units = game_map_->GetUnitsInBlock(cur_x, cur_y);
-			for (AbstractUnit* unit : (*units)) {
-				if (unit == this) continue;
-				if (used_units.find(unit) != used_units.end()) continue;
-				used_units.insert(unit);
-				UnitCollide(unit);
-			}
-		}
-	}
+	ImmovableUnit::DoAction();
 }
 
 void Unit::Move() {
+	MapLayer* cur_layer = GetCurrentLayer();
+
 	if (update_fog_of_war_.Ding())
 		UncoverNearbyCells();
 	update_fog_of_war_.Tick();
@@ -290,10 +95,10 @@ void Unit::Move() {
 	if (abs(dx_) < EPS && abs(dy_) < EPS) return;
 	DeleteUnitFromMap();
 	int x = static_cast<int>(x_), y = static_cast<int>(y_);
-	int x1 = (x + deltaX_) / game_map_->GetBlockSize() - 1;
-	int y1 = (y + deltaY_) / game_map_->GetBlockSize() - 1;
-	int x2 = (x + deltaX_ + width_ - 1) / game_map_->GetBlockSize() + 1;
-	int y2 = (y + deltaY_ + height_ - 1) / game_map_->GetBlockSize() + 1;
+	int x1 = (x + deltaX_) / MapLayer::GetBlockSize() - 1;
+	int y1 = (y + deltaY_) / MapLayer::GetBlockSize() - 1;
+	int x2 = (x + deltaX_ + width_ - 1) / MapLayer::GetBlockSize() + 1;
+	int y2 = (y + deltaY_ + height_ - 1) / MapLayer::GetBlockSize() + 1;
 
 	double left = x_ + deltaX_;
 	double up = y_ + deltaY_;
@@ -302,12 +107,12 @@ void Unit::Move() {
 
 	for (int cur_y = y1; cur_y <= y2; ++cur_y) {
 		for (int cur_x = x1; cur_x <= x2; ++cur_x) {
-			if (!game_map_->IsBlockInMap(cur_x, cur_y))
+			if (!cur_layer->IsBlockInMap(cur_x, cur_y))
 				continue;
 			if (CanMoveOnBlock(cur_x, cur_y))
 				continue;
 
-			SDL_Rect block = game_map_->GetBlockRect(cur_x, cur_y);
+			SDL_Rect block = cur_layer->GetBlockRect(cur_x, cur_y);
 			double inner_left = std::max(left + dx_, (double)block.x);
 			double inner_up = std::max(up + dy_, (double)block.y);
 			double inner_right = std::min(right + dx_, (double)block.x + block.w);
@@ -416,8 +221,8 @@ void Unit::Move() {
 		}
 	}
 
-	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * game_map_->GetWidth() - width_);
-	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * game_map_->GetHeight() - height_);
+	x_ = std::clamp(x_ + dx_, 0.0, 8.0 * cur_layer->GetWidth() - width_);
+	y_ = std::clamp(y_ + dy_, 0.0, 8.0 * cur_layer->GetHeight() - height_);
 	dx_ = 0.0;
 	dy_ = 0.0;
 	InsertUnitToMap();
@@ -473,7 +278,7 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 	hitbox.h = height_;
     //SDL_RenderDrawRect(renderer, &hitbox);
 
-	/*
+	
 	if (type_ == UnitType::Ground) {
 		int life_len = (hitbox.w * health_) / max_health_;
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + hitbox.w - 1, hitbox.y - 2);
@@ -481,117 +286,5 @@ void Unit::Draw(SDL_Renderer* renderer, Camera* camera) {
 		SDL_RenderDrawLine(renderer, hitbox.x, hitbox.y - 2, hitbox.x + life_len - 1, hitbox.y - 2);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 	}
-	*/
 	
 }
-
-AbstractUnit* Unit::GetClosestUnit(AbstractUnit* unit1, AbstractUnit* unit2) {
-	if (unit1 == NULL)
-		return unit2;
-	if (unit2 == NULL)
-		return unit1;
-	uint64_t dist1 = 0, dist2 = 0;
-	int64_t delt;
-	delt = GetCenterX() - unit1->GetCenterX();
-	dist1 += delt * delt;
-	delt = GetCenterY() - unit1->GetCenterY();
-	dist1 += delt * delt;
-
-	delt = GetCenterX() - unit2->GetCenterX();
-	dist2 += delt * delt;
-	delt = GetCenterY() - unit2->GetCenterY();
-	dist2 += delt * delt;
-	if (dist1 < dist2) {
-		return unit1;
-	} else {
-		return unit2;
-	}
-}
-
-// to do : change this shit
-AbstractUnit* Unit::FindEnemyInRadius(int radius) {
-	AbstractUnit* ans = NULL;
-	int cx, cy; // unit center
-	cx = x_ + deltaX_ + width_ / 2;
-	cy = y_ + deltaY_ + height_ / 2;
-	int block_size = game_map_->GetBlockSize();
-	for (int y = cy - radius; y <= (cy + radius); y += block_size) {
-		int dx = 0; 
-		int dy;
-		AbstractUnit* unit = NULL;
-		do {
-			unit = GetEnemyInPoint(cx + dx, y);
-			ans = GetClosestUnit(ans, unit);
-			unit = GetEnemyInPoint(cx - dx, y);
-			ans = GetClosestUnit(ans, unit);
-			dx += block_size;
-			dy = y - cy;
-		} while ((dx * dx) + (dy * dy) <= (radius * radius));
-	}
-	return ans;
-}
-
-AbstractUnit* Unit::GetEnemyInPoint(int x, int y) {
-	if (!game_map_->IsPositionInMap(x, y)) 
-		return NULL;
-
-	uint32_t x_block = x / game_map_->GetBlockSize();
-	uint32_t y_block = y / game_map_->GetBlockSize();
-	//game_map_->SetBlock(x_block, y_block, 1);
-	std::unordered_set<AbstractUnit*>* units_map = game_map_->GetUnitsInBlock(x_block, y_block);
-	for (AbstractUnit* unit : (*units_map)) {
-		if (players_info_->CanAttack(player_, unit->GetPlayer())) {
-			return unit;
-		}
-	}
-	return NULL;
-}
-
-void Unit::AddEffect(Effect effect) { 
-	effects_.set(effect); 
-}
-
-void Unit::RemoveEffect(Effect effect) { 
-	effects_.reset(effect); 
-}
-
-bool Unit::HasEffect(Effect effect) const { 
-	return effects_.test(effect); 
-}
-
-void Unit::SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, 
-	                  size_t texture_delay_move, size_t texture_delay_attack,
-	                  size_t deltaX, size_t deltaY, size_t width, size_t height,
-	                  size_t texture_width, size_t texture_height) {
-	texture_ind_ = texture_ind;
-	texture_move_num_ = move_cnt;
-    texture_attack_num_ = attack_cnt;
-	texture_delay_move_ = texture_delay_move;
-	texture_delay_attack_ = texture_delay_attack;
-	deltaX_ = deltaX;
-	deltaY_ = deltaY;
-	width_ = width;
-	height_ = height;
-	texture_width_ = texture_width;
-	texture_height_ = texture_height;
-}
-
-void Unit::SetType(UnitType type) { type_ = type; }
-
-void Unit::SetBehavior(Behavior* behavior) { behavior_ = behavior; }
-
-void Unit::SetPlayer(size_t player) { player_ = player; }
-
-void Unit::SetPlayersInfo(PlayersInfo* players_info) { players_info_ = players_info; }
-
-size_t Unit::GetPlayer() { return player_; }
-
-void Unit::DeadCheck() {
-	if (behavior_ != NULL) {
-		behavior_->DeadCheck();
-	}
-}
-
-bool Unit::IsAlive() { return alive_; }
-
-void Unit::Die() { alive_ = false; }

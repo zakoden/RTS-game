@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="units\unit.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -54,34 +51,13 @@
     <ClCompile Include="map\camera.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="map\game_map.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="map\grid_function.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="map\point.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="managers\user_manager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="behaviors\behavior_hunter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="map\grid_neighbors.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="map\game_map_generate.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="map\time_measurer.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="map\diamond_square.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="map\perlin.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="behaviors\behavior_around_point.cpp">
@@ -96,16 +72,54 @@
     <ClCompile Include="adapter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="units\entity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="units\building.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="units\immovable_unit.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="units\drawable_entity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\grid\grid_function.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\grid\grid_neighbors.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\surface\diamond_square.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\surface\perlin.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\map_layer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\map_point.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\surface\surface_layer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\game_map.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="map\underground\underground_layer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\SDL2.lib" />
     <Library Include="..\SDL2main.lib" />
-    <Library Include="SDL2.lib" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="units\abstract_unit.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="units\unit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -124,13 +138,7 @@
     <ClInclude Include="map\camera.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\game_map.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="map\grid.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="map\grid_function.h">
+    <ClInclude Include="map\map_layer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="managers\user_manager.h">
@@ -139,22 +147,13 @@
     <ClInclude Include="behaviors\behavior_hunter.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\grid_neighbors.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="player\player_owner.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="map\time_measurer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\diamond_square.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="map\triple.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="map\perlin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="behaviors\behavior_around_point.h">
@@ -172,11 +171,59 @@
     <ClInclude Include="map\map_point.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="units\abstract_unit.h">
+    <ClInclude Include="units\entity.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="units\unit_type.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\building.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\movable_unit.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\abstract_immovable_unit.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\drawable_entity.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\immovable_unit.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="units\drawable.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\grid\grid.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="map\grid\grid_function.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="map\grid\grid_neighbors.h">
+      <Filter>Исходные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="map\surface\diamond_square.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\surface\perlin.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\surface\surface_map.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\surface\surface_layer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\game_map.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\underground\underground_layer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="units\unit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -249,6 +296,24 @@
       <Filter>Файлы ресурсов</Filter>
     </Image>
     <Image Include="pictures\map-tiles-fogged.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\map_tiles.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\map_tiles_fogged.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\bamboo.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\small_gray_tower.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\small_horizontal_gray_wall.bmp">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+    <Image Include="pictures\small_vertical_gray_wall.bmp">
       <Filter>Файлы ресурсов</Filter>
     </Image>
   </ItemGroup>

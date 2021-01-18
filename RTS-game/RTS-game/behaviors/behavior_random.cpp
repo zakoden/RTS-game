@@ -1,15 +1,14 @@
 #include "behavior_random.h"
 
-BehaviorRandom::BehaviorRandom(AbstractUnit* unit) {
+BehaviorRandom::BehaviorRandom(MovableUnit* unit) {
 	unit_ = unit;
 	cur_steps_ = rand() % steps_to_change_;
 }
 
 BehaviorRandom::~BehaviorRandom() {
-
 }
 
-void BehaviorRandom::SetUnit(AbstractUnit* unit) {
+void BehaviorRandom::SetUnit(MovableUnit* unit) {
 	unit_ = unit;
 }
 

@@ -2,7 +2,7 @@
 
 #include "SDL.h"
 
-#include "grid.h"
+#include "../grid/grid.h"
 
 namespace perlin {
 	/* Linear interpolation between a0 and a1

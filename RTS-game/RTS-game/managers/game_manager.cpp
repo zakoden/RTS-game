@@ -1,5 +1,8 @@
 #include "game_manager.h"
 
+#include "../map/surface/surface_layer.h"
+#include "../map/underground/underground_layer.h"
+
 GameManager::GameManager() {
 }
 
@@ -7,11 +10,22 @@ GameManager::~GameManager() {
 
 }
 
+void GameManager::SetCurrentLayerIndex(uint8_t cur_layer_ind) {
+	cur_layer_ind_ = cur_layer_ind;
+	unit_factory_->SetCurrentLayerIndex(cur_layer_ind_);
+	user_manager_->SetActiveLayer(GetCurrentLayer());
+}
+
+MapLayer* GameManager::GetCurrentLayer() {
+	return game_map_->GetLayer(cur_layer_ind_);
+}
+
 int GameManager::Init() {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cout << "SDL_Init ERROR : " << SDL_GetError() << std::endl;
 		return 1;
 	}
+	SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
 	window_ = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 	if (window_ == nullptr) {
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
@@ -24,12 +38,18 @@ int GameManager::Init() {
 	}
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
+	const int HEIGHT = 200, WIDTH = 200;
 	const int PLAYERS_COUNT = 2;
 	camera_ = new Camera();
 	camera_->MoveTo(300, 200);
-	game_map_ = new GameMap(renderer_, 200, 200, PLAYERS_COUNT);
-	game_map_->Generate();
+
+	game_map_ = new GameMap(renderer_, WIDTH, HEIGHT, PLAYERS_COUNT, {
+		new SurfaceLayer(),	// Surface
+		new UndergroundLayer()	// Underground
+	});
+
 	texture_manager_ = new TextureManager(renderer_);
+
 	players_info_ = new PlayersInfo(PLAYERS_COUNT);
 	unit_factory_ = new UnitFactory();
 	unit_factory_->SetMap(game_map_);
@@ -37,13 +57,13 @@ int GameManager::Init() {
 	unit_factory_->SetPlayersInfo(players_info_);
 	for (size_t i = 0; i < PLAYERS_COUNT; ++i)
 		players_info_->SetStatus(i, i, PlayersStatus::PEACE);
-	user_manager_ = new UserManager(game_map_, camera_);
+	user_manager_ = new UserManager(camera_);
 
+	SetCurrentLayerIndex(0);
 	return 0;
 }
 
 void GameManager::Run() {
-
 	Player* player0 = new Player(0);
 	user_manager_->SetPlayer(player0);
 	Player* player1 = new Player(1);
@@ -86,7 +106,7 @@ void GameManager::Run() {
 
 	for (int i = 0; i < 7; ++i) {
 		for (int j = 0; j < 7; ++j) {
-			unit_factory_->CreateBamboo(0, 500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5);
+			entities_.push_back(unit_factory_->CreateBamboo(500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5));
 		}
 	}
 
@@ -117,6 +137,33 @@ void GameManager::Run() {
 	unit_factory_->CreateSmallGrayTower(0, castle_l + 6 + 24 + 24, castle_u + 6 + 18 * 3);
 
 
+	{  // Add some units to the underground
+		SetCurrentLayerIndex(1);
+		for (int i = 0; i < number; ++i) {
+			unit_factory_->CreateFireSmallLance(0, 95 + rand() % 10, 100 + 16 * i);
+			if (rand() % 2) {
+				unit_factory_->CreateFireSmallSpear(0, 130 + rand() % 20, 87 + 16 * i);
+			}
+			else {
+				unit_factory_->CreateFireSmallPoleax(0, 130 + rand() % 20, 87 + 16 * i);
+			}
+		}
+
+		for (int i = 0; i < number; ++i) {
+			unit_factory_->CreateTestHunter2(1, 1000 + rand() % 10, 100 + 18 * i);
+			unit_factory_->CreateTestHunter2(1, 1300 + rand() % 10, 95 + 18 * i);
+			unit_factory_->CreateTestHunter2(1, 1500 + rand() % 10, 86 + 18 * i);
+		}
+
+		for (int i = 10; i < 70; ++i) {
+			for (int j = 50; j < 70; ++j) {
+				entities_.push_back(unit_factory_->CreateBamboo(500 + j * 20 + rand() % 10, 200 + i * 10 + rand() % 5));
+			}
+		}
+		unit_factory_->CreateSmallGrayTower(0, castle_l + 6 + 24 + 24, castle_u);
+		SetCurrentLayerIndex(0);
+	}
+
 	/*
 	unit_factory_->CreateTest(1, 150, 100);
 	for (int i = 0; i < 30; ++i) {
@@ -139,6 +186,9 @@ void GameManager::Run() {
 	ground_h_ = 0.0;
 	air_h_ = 0.14;
 	camera_h_ = 1.0;
+
+	game_map_->GetLayer(0)->DrawToTexture(renderer_);
+	game_map_->GetLayer(1)->DrawToTexture(renderer_);
 	
 	int count = 0;
 	int time1, time2;
@@ -163,6 +213,8 @@ void GameManager::Run() {
 }
 
 void GameManager::RunStep() {
+	MapLayer* cur_layer = GetCurrentLayer();
+
 	// events
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
@@ -170,7 +222,7 @@ void GameManager::RunStep() {
 		case SDL_KEYDOWN: {
 			switch (event.key.keysym.sym) {
 			case SDLK_F10:
-				fog_of_war_mode_ = static_cast<FogOfWarType>((fog_of_war_mode_ + 1) % 3);
+				fog_of_war_mode_ = static_cast<FogOfWarType>((fog_of_war_mode_ + 1) % FOG_OF_WAR_TYPE_SIZE);
 				break;
 
 			case SDLK_F11:
@@ -183,6 +235,10 @@ void GameManager::RunStep() {
 
 			case SDLK_TAB:
 				user_manager_->SetPlayer(players_[1 - user_manager_->GetPlayer()->GetNum()]);
+
+			case SDLK_u:
+				SetCurrentLayerIndex((cur_layer_ind_ + 1) % game_map_->GetLayerCount());
+				break;
 			}
 			break;
 		}
@@ -216,7 +272,7 @@ void GameManager::RunStep() {
 	}
 	if (mouse_x > (window_w - mouse_move_size)) {
 		camera_->Move(coef / camera_->GetScale(), 0);
-		camera_->MoveTo(std::min(camera_->GetX(), (int32_t)(game_map_->GetWidth() * game_map_->GetBlockSize())), camera_->GetY());
+		camera_->MoveTo(std::min(camera_->GetX(), (int32_t)(cur_layer->GetWidth() * cur_layer->GetBlockSize())), camera_->GetY());
 	}
 	if (mouse_y < mouse_move_size) {
 		camera_->Move(0, -coef / camera_->GetScale());
@@ -224,7 +280,7 @@ void GameManager::RunStep() {
 	}
 	if (mouse_y > (window_h - mouse_move_size)) {
 		camera_->Move(0, coef / camera_->GetScale());
-		camera_->MoveTo(camera_->GetX(), std::min(camera_->GetY(), (int32_t)(game_map_->GetHeight() * game_map_->GetBlockSize())));
+		camera_->MoveTo(camera_->GetX(), std::min(camera_->GetY(), (int32_t)(cur_layer->GetHeight() * MapLayer::GetBlockSize())));
 	}
 
 	const Uint8* keyboard_state = SDL_GetKeyboardState(NULL);
@@ -278,29 +334,38 @@ void GameManager::RunStep() {
 		players_[i]->Move();
 	}
 
-
 	// draw
 	{
 		if (fog_of_war_mode_ == VISIBLE)
-			game_map_->Draw(renderer_, camera_);
+			cur_layer->Draw(renderer_, camera_);
 		else
-			game_map_->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
+			cur_layer->Draw(renderer_, camera_, user_manager_->GetPlayer()->GetNum());
 
-		std::vector<std::pair<int, AbstractUnit*>> units_to_draw;
+		std::vector<std::pair<int, Drawable*>> units_to_draw;
 		for (size_t i = 0; i < players_.size(); ++i) {
 			players_[i]->UnitsToDraw(units_to_draw);
 		}
 		sort(units_to_draw.begin(), units_to_draw.end());
 		for (auto& [y, unit] : units_to_draw) {
-			unit->Draw(renderer_, camera_);
+			if (unit->GetCurrentLayerIndex() == cur_layer_ind_) {
+				unit->Draw(renderer_, camera_);
+			}
+		}
+		
+		for (Entity* entity : entities_) { // FIXME bamboo creates in every layer of a map
+			if (entity->GetCurrentLayerIndex() == cur_layer_ind_) {
+				entity->Draw(renderer_, camera_);
+			}
 		}
 
 
 		// TODO optimize it
+		/*
 		if (fog_of_war_mode_ == UNITS_HIDDEN)
 			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UINT8_MAX - 1);
 		else if (fog_of_war_mode_ == MAP_HIDDEN)
 			game_map_->ApplyMask(renderer_, camera_, user_manager_->GetPlayer()->GetNum(), UNKNOWN);
+		*/
 	}
 
 
@@ -314,6 +379,8 @@ void GameManager::RunStep() {
 	}
 	std::cout << camera_->GetScale() << std::endl;
 	*/
+
+
 
 	SDL_RenderPresent(renderer_);
 }

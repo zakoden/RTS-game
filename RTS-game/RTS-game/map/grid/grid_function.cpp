@@ -5,7 +5,7 @@
 #include <iostream>
 #include <queue>
 
-#include "triple.h"
+#include "../triple.h"
 
 inline uint32_t grid_function::SquaredDistance(const MapPoint& a, const MapPoint& b) {
 	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
@@ -23,7 +23,8 @@ void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& b
 			for (MapPoint point : neighbors[i][j]) {
 				if (blocks[point] == block) {
 					++count;
-				} else {
+				}
+				else {
 					--count;
 					if (count < 0) {
 						count = 1;
@@ -46,8 +47,7 @@ void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& b
 	std::cerr << "SmoothMap: Transformed " << transformed_cells << " cells" << std::endl;
 }
 
-void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
-	const uint32_t AREA_MIN = 80;  // Minimal area each biome should have
+void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks, uint32_t area_min) {
 	size_t height = blocks.size(), width = blocks[0].size();
 
 	// 1. Get areas for each cell
@@ -78,13 +78,13 @@ void grid_function::RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockT
 	std::queue<MapPoint> bfs;
 	for (uint32_t i = 0; i < height; ++i)
 		for (uint32_t j = 0; j < width; ++j)
-			if (areas[i][j] >= AREA_MIN)
+			if (areas[i][j] >= area_min)
 				bfs.push({ j, i });
 	while (!bfs.empty()) {
 		MapPoint cur = bfs.front();
 		bfs.pop();
 		for (MapPoint point : neighbors[cur]) {
-			if (areas[point] < AREA_MIN) {
+			if (areas[point] < area_min) {
 				areas[point] = areas[cur];
 				blocks[point] = blocks[cur];
 				++transformed_cells;
@@ -106,7 +106,6 @@ vector<MapPoint> grid_function::FindClosest(const GridNeighbors& neighbors, cons
 	distance[start] = 0;
 
 	std::priority_queue<Triple> dijkstra;
-	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
 	vector<MapPoint> result;
@@ -114,7 +113,7 @@ vector<MapPoint> grid_function::FindClosest(const GridNeighbors& neighbors, cons
 		Triple pair = dijkstra.top();
 		dijkstra.pop();
 		const MapPoint& current = pair.point;
-		if (pair.distance > distance[current] || Distance(current, start) > max_distance) 
+		if (pair.distance > distance[current] || Distance(current, start) > max_distance)
 			continue;
 		if (end_points[current]) {
 			result.push_back(current);
@@ -152,7 +151,6 @@ vector<MapPoint> grid_function::FindFarthest(const GridNeighbors& neighbors, con
 	distance[start] = 0;
 
 	std::priority_queue<Triple> dijkstra;
-	const float EPS = 1e-3f;
 	dijkstra.push({ 0, start });
 
 	vector<MapPoint> result;

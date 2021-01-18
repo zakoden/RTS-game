@@ -1,14 +1,13 @@
 #include "behavior_stay.h"
 
-BehaviorStay::BehaviorStay(AbstractUnit* unit) {
+BehaviorStay::BehaviorStay(AbstractImmovableUnit* unit) {
 	unit_ = unit;
 }
 
 BehaviorStay::~BehaviorStay() {
-
 }
 
-void BehaviorStay::SetUnit(AbstractUnit* unit) {
+void BehaviorStay::SetUnit(AbstractImmovableUnit* unit) {
 	unit_ = unit;
 }
 

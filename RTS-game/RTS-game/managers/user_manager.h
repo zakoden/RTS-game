@@ -15,17 +15,18 @@
 
 class UserManager : public PlayerOwner {
 protected:
-	GameMap* game_map_ = NULL;
+	MapLayer* active_layer_ = NULL;
 	Camera* camera_ = NULL;
 	Player* player_ = NULL;
 
-	AbstractUnit* control_unit_ = NULL;
+	MovableUnit* control_unit_ = NULL;
 public:
-	UserManager(GameMap* game_map, Camera* camera);
+	UserManager(Camera* camera);
 	~UserManager();
 
 	Player* GetPlayer() const;
 
+	void SetActiveLayer(MapLayer* active_layer);
 	void SetPlayer(Player* player);
 	void Draw(SDL_Renderer* renderer, Camera* camera);
 	void DoAction(SDL_Renderer* renderer);

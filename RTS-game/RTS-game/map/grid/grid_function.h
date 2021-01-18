@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "block_type.h"
+#include "../block_type.h"
 #include "grid.h"
 #include "grid_neighbors.h"
 
@@ -17,7 +17,7 @@ namespace grid_function {
 	inline uint32_t SquaredDistance(const MapPoint& a, const MapPoint& b);
 
 	// Gets an actual distance between two points
-	inline float Distance(const MapPoint& a, const MapPoint& b);
+	float Distance(const MapPoint& a, const MapPoint& b);
 
 	// Makes map more smooth
 	// For each cell, if 5 neighbors have the same block type, transform that cell into that block type
@@ -25,7 +25,7 @@ namespace grid_function {
 
 	// Removes small areas
 	// Unites small areas with the closest non-small ones
-	void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks);
+	void RemoveSmallAreas(const GridNeighbors& neighbors, Grid<BlockType>& blocks, uint32_t area_min);
 
 	/* Finds the closest point from start if we:
 	1. Can only travel via allowed points
@@ -42,7 +42,6 @@ namespace grid_function {
 	vector<MapPoint> FindFarthest(const GridNeighbors& neighbors, const MapPoint& start,
 		const Grid<char>& allowed_points, const Grid<char>& end_points);
 };
-
 
 template<typename T, class BinaryFunction>
 Grid<T> grid_function::FromFunction(size_t height, size_t width, BinaryFunction f) {

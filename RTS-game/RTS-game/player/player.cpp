@@ -24,6 +24,41 @@ void Player::DoAction() {
 			unit->DoAction();
 		}
 	}
+	for (auto& building : buildings_) {
+		if (building->IsAlive()) {
+			building->DeadCheck();
+			building->DoAction();
+		}
+	}
+
+
+	{
+		auto it = army_.begin();
+		while (it != army_.end()) {
+			if ((*it)->IsAlive()) {
+				it++;
+			}
+			else {
+				MovableUnit* unit = *it;
+				dead_.insert(unit);
+				it = army_.erase(it);
+			}
+		}
+	}
+
+	{
+		auto it = buildings_.begin();
+		while (it != buildings_.end()) {
+			if ((*it)->IsAlive()) {
+				it++;
+			}
+			else {
+				Building* building = *it;
+				destroyed_.insert(building);
+				it = buildings_.erase(it);
+			}
+		}
+	}
 
 	// dead check
 	for (auto& unit : army_) {
@@ -31,17 +66,13 @@ void Player::DoAction() {
 			unit->DeadCheck();
 		}
 	}
-	player_owner_->DeadCheck();
-	auto it = army_.begin();
-	while (it != army_.end()) {
-		if ((*it)->IsAlive()) {
-			it++;
-		} else {
-			AbstractUnit* unit = *it;
-			it = army_.erase(it);
-			delete unit;
+	for (auto& building : buildings_) {
+		if (building->IsAlive()) {
+			building->DeadCheck();
 		}
 	}
+
+	player_owner_->DeadCheck();
 }
 
 void Player::Move() {
@@ -50,22 +81,30 @@ void Player::Move() {
 	}
 }
 
+// Deprecated
 void Player::Draw(SDL_Renderer* renderer, Camera* camera) const {
 	for (auto& unit : army_) {
 		unit->Draw(renderer, camera);
 	}
 }
 
-void Player::UnitsToDraw(std::vector<std::pair<int, AbstractUnit*>> &out) {
-	for (auto& unit : army_) {
+void Player::UnitsToDraw(std::vector<std::pair<int, Drawable*>> &out) {
+	for (MovableUnit* unit : army_) {
 		out.push_back({unit->GetLegsY(), unit});
+	}
+	for (Building* building : buildings_) {
+		out.push_back({ building->GetLegsY(), building });
 	}
 }
 
-void Player::AddUnit(AbstractUnit* unit) {
+void Player::AddUnit(MovableUnit* unit) {
 	army_.insert(unit);
 }
 
-void Player::DeleteUnit(AbstractUnit* unit) {
+void Player::AddBuilding(Building* building) {
+	buildings_.insert(building);
+}
+
+void Player::DeleteUnit(MovableUnit* unit) {
 	army_.erase(unit);
 }

@@ -1,11 +1,8 @@
 #pragma once
 
-#include "SDL.h"
-
-#include "grid.h"
+#include "../grid/grid.h"
 
 namespace diamond_square {
-
 	// Returns a number in segment [-1.0, 1.0]
 	inline float GetRandomNum();
 	inline void CorrectBlock(uint32_t x, uint32_t y, float add, Grid<float>& grid);

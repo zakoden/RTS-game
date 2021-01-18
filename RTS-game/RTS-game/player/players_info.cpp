@@ -11,7 +11,6 @@ PlayersInfo::PlayersInfo(size_t players) {
 }
 
 PlayersInfo::~PlayersInfo() {
-
 }
 
 void PlayersInfo::SetStatus(size_t player1, size_t player2, PlayersStatus status) {
