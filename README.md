@@ -1,4 +1,6 @@
 # RTS-game
+Guides:
+* [Game objects](https://github.com/zakoden/RTS-game/blob/master/game_objects.md)
 
 What can one do with the current version:
 
