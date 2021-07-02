@@ -11,28 +11,13 @@
 Перемещаются, но обработка столкновений не нужна.
 
 Basic types:
-|                  | texture dynamic | hitbox      | movable     |
-| ---------------- | --------------- | ----------- | ----------- | 
-| Drawable static  | -               | -           | -           |
-| Drawable dynamic | +               | -           | -           |
-| Building         | +               | +           | -           |
-| Unit             | +               | +           | +           |
-| Bullet           | +               | -           | +           |
+|                  | hitbox      | movable     |
+| ---------------- | ----------- | ----------- | 
+| Drawable         | -           | -           |
+| Building         | +           | -           |
+| Unit             | +           | +           |
+| Bullet           | -           | +           |
 
-Therefore:  
-Drawable -> Drawable static  
-Drawable -> Drawable dynamic -> Building -> Unit  
-Drawable -> Drawable dynamic -> Bullet   
-
-Full table:
-|                  | texture dynamic | hitbox      | movable     |
-| ---------------- | --------------- | ----------- | ----------- | 
-| Drawable static  | -               | -           | -           |
-| Drawable dynamic | +               | -           | -           |
-| Building         | -               | +           | -           |
-| Bullet           | -               | -           | +           |
-| Building         | +               | +           | -           |
-| Unit             | -               | +           | +           |
-| Bullet           | +               | -           | +           |
-| Unit             | +               | +           | +           |
-
+Therefore:    
+Drawable -> Building -> Unit  
+Drawable -> Bullet   
