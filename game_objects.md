@@ -13,11 +13,11 @@
 Basic types:
 |                  | hitbox      | movable     |
 | ---------------- | ----------- | ----------- | 
-| Drawable         | -           | -           |
+| Entity           | -           | -           |
 | Building         | +           | -           |
 | Unit             | +           | +           |
 | Bullet           | -           | +           |
 
 Therefore:    
-Drawable -> Building -> Unit  
-Drawable -> Bullet   
+Entity -> Building -> Unit  
+Entity -> Bullet   
