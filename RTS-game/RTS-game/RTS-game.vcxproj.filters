@@ -51,9 +51,6 @@
     <ClCompile Include="map\camera.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="managers\user_manager.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="behaviors\behavior_hunter.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -112,6 +109,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="map\underground\underground_layer.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="managers\user_manager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -201,9 +201,6 @@
     <ClInclude Include="map\grid\grid_function.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="map\grid\grid_neighbors.h">
-      <Filter>Исходные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="map\surface\diamond_square.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -220,6 +217,12 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="map\underground\underground_layer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="map\grid\grid_neighbors.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
