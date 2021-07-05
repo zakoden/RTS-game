@@ -19,7 +19,7 @@ void BehaviorBullet::DoAction() {
 	dy = dest_y_ - unit_->GetY();
 
 	if (dx == 0 && dy == 0) {
-		AbstractImmovableUnit* target = unit_->GetEnemyInPoint(unit_->GetCenterX(), unit_->GetCenterY());
+		WithHitbox* target = unit_->GetEnemyInPoint(unit_->GetCenterX(), unit_->GetCenterY());
 		if (target != NULL) {
 			target->DamageApply(unit_->GetAttack());
 		}

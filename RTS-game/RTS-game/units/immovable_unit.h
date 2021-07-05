@@ -63,15 +63,15 @@ public:
 	void DamageApply(int damage) override;
 	void UncoverNearbyCells();  // Every cell within scout_radius_ will be uncovered
 	void AttackEnd() override;
-	virtual void UnitCollide(AbstractImmovableUnit* unit) override;
+	virtual void UnitCollide(WithHitbox* unit) override;
 
 	void DoAction() override;
 
-	AbstractImmovableUnit* GetClosestUnit(AbstractImmovableUnit* unit1, AbstractImmovableUnit* unit2) override;
+	WithHitbox* GetClosestUnit(WithHitbox* unit1, WithHitbox* unit2) override;
 	// return first enemy unit in radius
-	AbstractImmovableUnit* FindEnemyInRadius(int radius) override;
+	WithHitbox* FindEnemyInRadius(int radius) override;
 	// return first enemy unit in block
-	AbstractImmovableUnit* GetEnemyInPoint(int x, int y) override;
+	WithHitbox* GetEnemyInPoint(int x, int y) override;
 
 	void AddEffect(Effect effect) override;
 	void RemoveEffect(Effect effect) override;

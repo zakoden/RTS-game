@@ -219,10 +219,10 @@
     <ClInclude Include="map\underground\underground_layer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="map\grid\grid_neighbors.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="map\grid\grid_neighbors.h">
+    <ClInclude Include="units\actionable.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -41,7 +41,7 @@ void ImmovableUnit::DeleteUnitFromMap() {
 	}
 }
 
-void ImmovableUnit::UnitCollide(AbstractImmovableUnit* unit) {
+void ImmovableUnit::UnitCollide(WithHitbox* unit) {
 	if (type_ == UnitType::Fly) return;
 	double x1, x2, y1, y2;
 	double cx1, cy1, cx2, cy2;
@@ -218,7 +218,7 @@ void ImmovableUnit::DoAction() {
 	}
 }
 
-AbstractImmovableUnit* ImmovableUnit::GetClosestUnit(AbstractImmovableUnit* unit1, AbstractImmovableUnit* unit2) {
+WithHitbox* ImmovableUnit::GetClosestUnit(WithHitbox* unit1, WithHitbox* unit2) {
 	if (unit1 == NULL)
 		return unit2;
 	if (unit2 == NULL)
@@ -242,8 +242,8 @@ AbstractImmovableUnit* ImmovableUnit::GetClosestUnit(AbstractImmovableUnit* unit
 }
 
 // to do : change this shit
-AbstractImmovableUnit* ImmovableUnit::FindEnemyInRadius(int radius) {
-	AbstractImmovableUnit* ans = NULL;
+WithHitbox* ImmovableUnit::FindEnemyInRadius(int radius) {
+	WithHitbox* ans = nullptr;
 	int cx, cy; // unit center
 	cx = x_ + deltaX_ + width_ / 2;
 	cy = y_ + deltaY_ + height_ / 2;
@@ -251,7 +251,7 @@ AbstractImmovableUnit* ImmovableUnit::FindEnemyInRadius(int radius) {
 	for (int y = cy - radius; y <= (cy + radius); y += block_size) {
 		int dx = 0; 
 		int dy;
-		AbstractImmovableUnit* unit = NULL;
+		WithHitbox* unit = nullptr;
 		do {
 			unit = GetEnemyInPoint(cx + dx, y);
 			ans = GetClosestUnit(ans, unit);
@@ -264,7 +264,7 @@ AbstractImmovableUnit* ImmovableUnit::FindEnemyInRadius(int radius) {
 	return ans;
 }
 
-AbstractImmovableUnit* ImmovableUnit::GetEnemyInPoint(int x, int y) {
+WithHitbox* ImmovableUnit::GetEnemyInPoint(int x, int y) {
 	MapLayer* cur_layer = GetCurrentLayer();
 	if (!cur_layer->IsPositionInMap(x, y)) 
 		return NULL;

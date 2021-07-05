@@ -23,7 +23,7 @@ protected:
 	uint8_t cur_steps_[behavior_hunter::STEPS_CNT] = {};
 	uint8_t max_steps_[behavior_hunter::STEPS_CNT];
 
-	AbstractImmovableUnit* target_ = NULL;
+	WithHitbox* target_ = NULL;
 
 	int distance_attack_ = 20;
 	int radius_search_ = 200;
@@ -37,7 +37,7 @@ public:
 
 	void AttackEnd() override;
 	void DoAction() override;
-	void Attack(AbstractImmovableUnit* enemy);
+	void Attack(WithHitbox* enemy);
 	void FindTarget();
 
 	void DeadCheck() override;

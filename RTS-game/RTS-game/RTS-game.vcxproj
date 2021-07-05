@@ -208,7 +208,6 @@
     <ClInclude Include="behaviors\behavior_hunter.h" />
     <ClInclude Include="behaviors\behavior_scout.h" />
     <ClInclude Include="clock.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="managers\user_manager.h" />
     <ClInclude Include="map\block_type.h" />
     <ClInclude Include="map\camera.h" />
@@ -236,6 +235,7 @@
     <ClInclude Include="player\players_info.h" />
     <ClInclude Include="behaviors\status_effects.h" />
     <ClInclude Include="managers\texture_manager.h" />
+    <ClInclude Include="units\actionable.h" />
     <ClInclude Include="units\drawable.h" />
     <ClInclude Include="units\drawable_entity.h" />
     <ClInclude Include="units\immovable_unit.h" />

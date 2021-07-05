@@ -34,14 +34,14 @@ void BehaviorTower::DoAction() {
 	
 }
 
-void BehaviorTower::Attack(AbstractImmovableUnit* enemy) {
+void BehaviorTower::Attack(WithHitbox* enemy) {
 	unit_factory_->CreateBulletFire1(unit_->GetPlayer(), 
 		unit_->GetCenterX(), unit_->GetCenterY(),
 		enemy->GetCenterX(), enemy->GetCenterY());
 }
 
 void BehaviorTower::FindTarget() {
-	AbstractImmovableUnit* target = unit_->FindEnemyInRadius(radius_);
+	WithHitbox* target = unit_->FindEnemyInRadius(radius_);
 	if (target != NULL) {
 		if (targets_.empty()) {
 			targets_.insert(target);
