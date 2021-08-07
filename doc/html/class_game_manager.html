@@ -1,0 +1,768 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Класс GameManager</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_game_manager.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="#pro-types">Защищенные типы</a> &#124;
+<a href="#pro-methods">Защищенные члены</a> &#124;
+<a href="#pro-attribs">Защищенные данные</a> &#124;
+<a href="class_game_manager-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс GameManager</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="game__manager_8h_source.html">game_manager.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:aa0e2424dc1a39d380e5b6605b179bf05"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#aa0e2424dc1a39d380e5b6605b179bf05">GameManager</a> ()</td></tr>
+<tr class="separator:aa0e2424dc1a39d380e5b6605b179bf05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaae63e38e358379c1fe507c5197a8435"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#aaae63e38e358379c1fe507c5197a8435">~GameManager</a> ()</td></tr>
+<tr class="separator:aaae63e38e358379c1fe507c5197a8435"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f64df38337f3a0c2da66065c42d9a3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#aa5f64df38337f3a0c2da66065c42d9a3">Init</a> ()</td></tr>
+<tr class="separator:aa5f64df38337f3a0c2da66065c42d9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0098f9338a6129374ccfaeb1c7093d1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a0098f9338a6129374ccfaeb1c7093d1b">Run</a> ()</td></tr>
+<tr class="separator:a0098f9338a6129374ccfaeb1c7093d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55532e74f832f313b588fdfc9d90757e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a55532e74f832f313b588fdfc9d90757e">RunStep</a> ()</td></tr>
+<tr class="separator:a55532e74f832f313b588fdfc9d90757e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Защищенные типы</h2></td></tr>
+<tr class="memitem:a776ebda34d4cb4f1d5bc1c55ef9d3989"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">FogOfWarType</a> { <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">VISIBLE</a>
+, <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc">UNITS_HIDDEN</a>
+, <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4">MAP_HIDDEN</a>
+, <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989aaafb41ad4caa4cb39d25e86f02f3f93b">FOG_OF_WAR_TYPE_SIZE</a>
+ }</td></tr>
+<tr class="separator:a776ebda34d4cb4f1d5bc1c55ef9d3989"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Защищенные члены</h2></td></tr>
+<tr class="memitem:a1845d64efba6273b6440d6325272924d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a1845d64efba6273b6440d6325272924d">SetCurrentLayerIndex</a> (uint8_t cur_layer_ind)</td></tr>
+<tr class="separator:a1845d64efba6273b6440d6325272924d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a384fabbfd990655eb9b94781c10fb32c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_map_layer.html">MapLayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a384fabbfd990655eb9b94781c10fb32c">GetCurrentLayer</a> ()</td></tr>
+<tr class="separator:a384fabbfd990655eb9b94781c10fb32c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Защищенные данные</h2></td></tr>
+<tr class="memitem:a7b905f32bbd4149fb8ace203c077b4ee"><td class="memItemLeft" align="right" valign="top">SDL_Window *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a7b905f32bbd4149fb8ace203c077b4ee">window_</a> = NULL</td></tr>
+<tr class="separator:a7b905f32bbd4149fb8ace203c077b4ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b70eb875fdf7e2fabb29e36b0e00f1c"><td class="memItemLeft" align="right" valign="top">SDL_Renderer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a2b70eb875fdf7e2fabb29e36b0e00f1c">renderer_</a> = NULL</td></tr>
+<tr class="separator:a2b70eb875fdf7e2fabb29e36b0e00f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1c87c4873ec13f6fa827b77078a77cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_texture_manager.html">TextureManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#ac1c87c4873ec13f6fa827b77078a77cb">texture_manager_</a> = NULL</td></tr>
+<tr class="separator:ac1c87c4873ec13f6fa827b77078a77cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59019df57ee1c91bba83202f86d4aba6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_camera.html">Camera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a59019df57ee1c91bba83202f86d4aba6">camera_</a> = NULL</td></tr>
+<tr class="separator:a59019df57ee1c91bba83202f86d4aba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a485739bc8c2598815266ea6977ecd08b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_map.html">GameMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a485739bc8c2598815266ea6977ecd08b">game_map_</a></td></tr>
+<tr class="separator:a485739bc8c2598815266ea6977ecd08b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90d7addb9f8c8547bef9e4baca81e708"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a90d7addb9f8c8547bef9e4baca81e708">cur_layer_ind_</a></td></tr>
+<tr class="separator:a90d7addb9f8c8547bef9e4baca81e708"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af05f3ff0c9169f2218995e5e49f8cbbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#af05f3ff0c9169f2218995e5e49f8cbbe">close_</a> = false</td></tr>
+<tr class="separator:af05f3ff0c9169f2218995e5e49f8cbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a4e56575f1cff123cf4e7f40c44011f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_unit_factory.html">UnitFactory</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a1a4e56575f1cff123cf4e7f40c44011f">unit_factory_</a> = NULL</td></tr>
+<tr class="separator:a1a4e56575f1cff123cf4e7f40c44011f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa839c94c1a55b4116150144959c9301e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_entity.html">Entity</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#aa839c94c1a55b4116150144959c9301e">entities_</a></td></tr>
+<tr class="separator:aa839c94c1a55b4116150144959c9301e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d0326876f822b9e5fee144e130828d8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_player.html">Player</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a4d0326876f822b9e5fee144e130828d8">players_</a></td></tr>
+<tr class="separator:a4d0326876f822b9e5fee144e130828d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2145b41633707c0a1d6581c9f00830ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_players_info.html">PlayersInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a2145b41633707c0a1d6581c9f00830ff">players_info_</a> = NULL</td></tr>
+<tr class="separator:a2145b41633707c0a1d6581c9f00830ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd90618282607a289d535cb62323124d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_user_manager.html">UserManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#afd90618282607a289d535cb62323124d">user_manager_</a> = NULL</td></tr>
+<tr class="separator:afd90618282607a289d535cb62323124d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38dd8ffca0152bed033760afe2dd3fec"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a38dd8ffca0152bed033760afe2dd3fec">is_fullscreen_</a> = false</td></tr>
+<tr class="separator:a38dd8ffca0152bed033760afe2dd3fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a332fd47736e3ebcacafbc11627019baf"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">GameManager::FogOfWarType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a332fd47736e3ebcacafbc11627019baf">fog_of_war_mode_</a> = <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">VISIBLE</a></td></tr>
+<tr class="separator:a332fd47736e3ebcacafbc11627019baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9713cb2983bfb1d14f4ec30f038909fc"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a9713cb2983bfb1d14f4ec30f038909fc">camera_h_</a> = 1.0</td></tr>
+<tr class="separator:a9713cb2983bfb1d14f4ec30f038909fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefda7a30ba2e4c8b0300103e23b289d6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#aefda7a30ba2e4c8b0300103e23b289d6">ground_h_</a> = 1.0</td></tr>
+<tr class="separator:aefda7a30ba2e4c8b0300103e23b289d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bc007d9f1ea0e98ab2c6057f098f772"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a1bc007d9f1ea0e98ab2c6057f098f772">air_h_</a> = 1.0</td></tr>
+<tr class="separator:a1bc007d9f1ea0e98ab2c6057f098f772"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04f7dfc97600c6f64031c48cf04dd09"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#aa04f7dfc97600c6f64031c48cf04dd09">screen_h_</a> = 1.0</td></tr>
+<tr class="separator:aa04f7dfc97600c6f64031c48cf04dd09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39be5dfcc2ec3cca8c43d533cae602a1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_manager.html#a39be5dfcc2ec3cca8c43d533cae602a1">scale_status_</a> = 1</td></tr>
+<tr class="separator:a39be5dfcc2ec3cca8c43d533cae602a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Перечисления</h2>
+<a id="a776ebda34d4cb4f1d5bc1c55ef9d3989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a776ebda34d4cb4f1d5bc1c55ef9d3989">&#9670;&nbsp;</a></span>FogOfWarType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">GameManager::FogOfWarType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Элементы перечислений</th></tr><tr><td class="fieldname"><a id="a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6"></a>VISIBLE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc"></a>UNITS_HIDDEN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4"></a>MAP_HIDDEN&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a776ebda34d4cb4f1d5bc1c55ef9d3989aaafb41ad4caa4cb39d25e86f02f3f93b"></a>FOG_OF_WAR_TYPE_SIZE&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Конструктор(ы)</h2>
+<a id="aa0e2424dc1a39d380e5b6605b179bf05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0e2424dc1a39d380e5b6605b179bf05">&#9670;&nbsp;</a></span>GameManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameManager::GameManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaae63e38e358379c1fe507c5197a8435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaae63e38e358379c1fe507c5197a8435">&#9670;&nbsp;</a></span>~GameManager()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">GameManager::~GameManager </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a id="a384fabbfd990655eb9b94781c10fb32c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a384fabbfd990655eb9b94781c10fb32c">&#9670;&nbsp;</a></span>GetCurrentLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_map_layer.html">MapLayer</a> * GameManager::GetCurrentLayer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa5f64df38337f3a0c2da66065c42d9a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5f64df38337f3a0c2da66065c42d9a3">&#9670;&nbsp;</a></span>Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GameManager::Init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0098f9338a6129374ccfaeb1c7093d1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0098f9338a6129374ccfaeb1c7093d1b">&#9670;&nbsp;</a></span>Run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameManager::Run </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a55532e74f832f313b588fdfc9d90757e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55532e74f832f313b588fdfc9d90757e">&#9670;&nbsp;</a></span>RunStep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameManager::RunStep </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1845d64efba6273b6440d6325272924d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1845d64efba6273b6440d6325272924d">&#9670;&nbsp;</a></span>SetCurrentLayerIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GameManager::SetCurrentLayerIndex </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>cur_layer_ind</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Данные класса</h2>
+<a id="a1bc007d9f1ea0e98ab2c6057f098f772"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bc007d9f1ea0e98ab2c6057f098f772">&#9670;&nbsp;</a></span>air_h_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double GameManager::air_h_ = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59019df57ee1c91bba83202f86d4aba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59019df57ee1c91bba83202f86d4aba6">&#9670;&nbsp;</a></span>camera_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_camera.html">Camera</a>* GameManager::camera_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9713cb2983bfb1d14f4ec30f038909fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9713cb2983bfb1d14f4ec30f038909fc">&#9670;&nbsp;</a></span>camera_h_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double GameManager::camera_h_ = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af05f3ff0c9169f2218995e5e49f8cbbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af05f3ff0c9169f2218995e5e49f8cbbe">&#9670;&nbsp;</a></span>close_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GameManager::close_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90d7addb9f8c8547bef9e4baca81e708"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90d7addb9f8c8547bef9e4baca81e708">&#9670;&nbsp;</a></span>cur_layer_ind_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t GameManager::cur_layer_ind_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa839c94c1a55b4116150144959c9301e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa839c94c1a55b4116150144959c9301e">&#9670;&nbsp;</a></span>entities_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_entity.html">Entity</a>*&gt; GameManager::entities_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a332fd47736e3ebcacafbc11627019baf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a332fd47736e3ebcacafbc11627019baf">&#9670;&nbsp;</a></span>fog_of_war_mode_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">GameManager::FogOfWarType</a> GameManager::fog_of_war_mode_ = <a class="el" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">VISIBLE</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a485739bc8c2598815266ea6977ecd08b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a485739bc8c2598815266ea6977ecd08b">&#9670;&nbsp;</a></span>game_map_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_game_map.html">GameMap</a>* GameManager::game_map_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aefda7a30ba2e4c8b0300103e23b289d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefda7a30ba2e4c8b0300103e23b289d6">&#9670;&nbsp;</a></span>ground_h_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double GameManager::ground_h_ = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a38dd8ffca0152bed033760afe2dd3fec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38dd8ffca0152bed033760afe2dd3fec">&#9670;&nbsp;</a></span>is_fullscreen_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool GameManager::is_fullscreen_ = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d0326876f822b9e5fee144e130828d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d0326876f822b9e5fee144e130828d8">&#9670;&nbsp;</a></span>players_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="class_player.html">Player</a>*&gt; GameManager::players_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2145b41633707c0a1d6581c9f00830ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2145b41633707c0a1d6581c9f00830ff">&#9670;&nbsp;</a></span>players_info_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_players_info.html">PlayersInfo</a>* GameManager::players_info_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b70eb875fdf7e2fabb29e36b0e00f1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b70eb875fdf7e2fabb29e36b0e00f1c">&#9670;&nbsp;</a></span>renderer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Renderer* GameManager::renderer_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a39be5dfcc2ec3cca8c43d533cae602a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39be5dfcc2ec3cca8c43d533cae602a1">&#9670;&nbsp;</a></span>scale_status_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int GameManager::scale_status_ = 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa04f7dfc97600c6f64031c48cf04dd09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04f7dfc97600c6f64031c48cf04dd09">&#9670;&nbsp;</a></span>screen_h_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double GameManager::screen_h_ = 1.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1c87c4873ec13f6fa827b77078a77cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1c87c4873ec13f6fa827b77078a77cb">&#9670;&nbsp;</a></span>texture_manager_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_texture_manager.html">TextureManager</a>* GameManager::texture_manager_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1a4e56575f1cff123cf4e7f40c44011f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a4e56575f1cff123cf4e7f40c44011f">&#9670;&nbsp;</a></span>unit_factory_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_unit_factory.html">UnitFactory</a>* GameManager::unit_factory_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd90618282607a289d535cb62323124d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd90618282607a289d535cb62323124d">&#9670;&nbsp;</a></span>user_manager_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_user_manager.html">UserManager</a>* GameManager::user_manager_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b905f32bbd4149fb8ace203c077b4ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b905f32bbd4149fb8ace203c077b4ee">&#9670;&nbsp;</a></span>window_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Window* GameManager::window_ = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>RTS-game/RTS-game/managers/<a class="el" href="game__manager_8h_source.html">game_manager.h</a></li>
+<li>RTS-game/RTS-game/managers/<a class="el" href="game__manager_8cpp.html">game_manager.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_game_manager.html">GameManager</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

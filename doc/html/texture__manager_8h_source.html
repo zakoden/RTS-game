@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/managers/texture_manager.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('texture__manager_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">texture_manager.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="texture__manager_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;SDL.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852ded">    9</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852ded">TextureName</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda7decbced13b14b3fda6d6a4522d00276">   10</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda7decbced13b14b3fda6d6a4522d00276">testunit</a>,</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaf12bbb6b34c0a76f50cc3f614b02118b">   11</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaf12bbb6b34c0a76f50cc3f614b02118b">testunit1</a>,</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda240b7694f73f7effc807dba97adceaa1">   12</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda240b7694f73f7effc807dba97adceaa1">testunit2</a>,</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda0656209c60fd29c41c5eeaa4d2b21f87">   13</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda0656209c60fd29c41c5eeaa4d2b21f87">testunit3</a>,</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda22a3aaef6fab69fd2815d68cb1a15051">   14</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda22a3aaef6fab69fd2815d68cb1a15051">testunit2_1</a>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda6a27deee4b4b79c44abd341b19bd8ca7">   15</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda6a27deee4b4b79c44abd341b19bd8ca7">fire_small_poleax</a>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda1b299ab14289f93d882ffd71dc518c98">   16</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda1b299ab14289f93d882ffd71dc518c98">fire_small_spear</a>,</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda7698f7b0fa80a5cbfb1df616ad67a306">   17</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda7698f7b0fa80a5cbfb1df616ad67a306">fire_small_lance</a>,</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaf4dcb958be3fc03ab917dbef85122ee1">   18</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaf4dcb958be3fc03ab917dbef85122ee1">fire_medium_poleax</a>,</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda940a914eee76109275fecb6a0453ee96">   19</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda940a914eee76109275fecb6a0453ee96">small_horizontal_gray_wall</a>,</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaee797d0ba6023326a88c008acf22fccc">   20</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaee797d0ba6023326a88c008acf22fccc">small_vertical_gray_wall</a>,</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedad2efec1c63554719c21b490911a61b6a">   21</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedad2efec1c63554719c21b490911a61b6a">small_gray_tower</a>,</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedafec4d510b1700955538fd4488e9f6ee5">   22</a></span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedafec4d510b1700955538fd4488e9f6ee5">bamboo</a>,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedae223f29ad34cadcaa46a5899d56ae5a3">texture_count</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedae223f29ad34cadcaa46a5899d56ae5a3">   24</a></span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_texture_manager.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_texture_manager.html">TextureManager</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_texture_manager.html#af86ab0f84a203a283d7251e03aa6f1b6">   28</a></span>&#160;    SDL_Renderer* <a class="code" href="class_texture_manager.html#af86ab0f84a203a283d7251e03aa6f1b6">renderer_</a> = NULL;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_texture_manager.html#aa846f57ba667daec1c7f4c0efe1d6964">   29</a></span>&#160;    std::vector&lt;SDL_Texture*&gt; <a class="code" href="class_texture_manager.html#aa846f57ba667daec1c7f4c0efe1d6964">textures_</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    SDL_Texture* <a class="code" href="class_texture_manager.html#a599a87d3d67c21216a854f446673d163">LoadTexture</a>(<span class="keyword">const</span> std::string&amp; texture_name);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_texture_manager.html#abf514bd1316766e1be57365be8295300">TextureManager</a>(SDL_Renderer* renderer);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="class_texture_manager.html#a001d6d74674961db79987e3222682576">~TextureManager</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    SDL_Texture* <a class="code" href="class_texture_manager.html#ab5ca0736f585d26ade63670e5c7e6b89">GetTexture</a>(<span class="keywordtype">size_t</span> ind);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="ttc" id="aclass_texture_manager_html"><div class="ttname"><a href="class_texture_manager.html">TextureManager</a></div><div class="ttdef"><b>Definition:</b> texture_manager.h:26</div></div>
+<div class="ttc" id="aclass_texture_manager_html_a001d6d74674961db79987e3222682576"><div class="ttname"><a href="class_texture_manager.html#a001d6d74674961db79987e3222682576">TextureManager::~TextureManager</a></div><div class="ttdeci">~TextureManager()</div><div class="ttdef"><b>Definition:</b> texture_manager.cpp:39</div></div>
+<div class="ttc" id="aclass_texture_manager_html_a599a87d3d67c21216a854f446673d163"><div class="ttname"><a href="class_texture_manager.html#a599a87d3d67c21216a854f446673d163">TextureManager::LoadTexture</a></div><div class="ttdeci">SDL_Texture * LoadTexture(const std::string &amp;texture_name)</div><div class="ttdef"><b>Definition:</b> texture_manager.cpp:7</div></div>
+<div class="ttc" id="aclass_texture_manager_html_aa846f57ba667daec1c7f4c0efe1d6964"><div class="ttname"><a href="class_texture_manager.html#aa846f57ba667daec1c7f4c0efe1d6964">TextureManager::textures_</a></div><div class="ttdeci">std::vector&lt; SDL_Texture * &gt; textures_</div><div class="ttdef"><b>Definition:</b> texture_manager.h:29</div></div>
+<div class="ttc" id="aclass_texture_manager_html_ab5ca0736f585d26ade63670e5c7e6b89"><div class="ttname"><a href="class_texture_manager.html#ab5ca0736f585d26ade63670e5c7e6b89">TextureManager::GetTexture</a></div><div class="ttdeci">SDL_Texture * GetTexture(size_t ind)</div><div class="ttdef"><b>Definition:</b> texture_manager.cpp:43</div></div>
+<div class="ttc" id="aclass_texture_manager_html_abf514bd1316766e1be57365be8295300"><div class="ttname"><a href="class_texture_manager.html#abf514bd1316766e1be57365be8295300">TextureManager::TextureManager</a></div><div class="ttdeci">TextureManager(SDL_Renderer *renderer)</div><div class="ttdef"><b>Definition:</b> texture_manager.cpp:20</div></div>
+<div class="ttc" id="aclass_texture_manager_html_af86ab0f84a203a283d7251e03aa6f1b6"><div class="ttname"><a href="class_texture_manager.html#af86ab0f84a203a283d7251e03aa6f1b6">TextureManager::renderer_</a></div><div class="ttdeci">SDL_Renderer * renderer_</div><div class="ttdef"><b>Definition:</b> texture_manager.h:28</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852ded"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852ded">TextureName</a></div><div class="ttdeci">TextureName</div><div class="ttdef"><b>Definition:</b> texture_manager.h:9</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda0656209c60fd29c41c5eeaa4d2b21f87"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda0656209c60fd29c41c5eeaa4d2b21f87">testunit3</a></div><div class="ttdeci">@ testunit3</div><div class="ttdef"><b>Definition:</b> texture_manager.h:13</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda1b299ab14289f93d882ffd71dc518c98"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda1b299ab14289f93d882ffd71dc518c98">fire_small_spear</a></div><div class="ttdeci">@ fire_small_spear</div><div class="ttdef"><b>Definition:</b> texture_manager.h:16</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda22a3aaef6fab69fd2815d68cb1a15051"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda22a3aaef6fab69fd2815d68cb1a15051">testunit2_1</a></div><div class="ttdeci">@ testunit2_1</div><div class="ttdef"><b>Definition:</b> texture_manager.h:14</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda240b7694f73f7effc807dba97adceaa1"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda240b7694f73f7effc807dba97adceaa1">testunit2</a></div><div class="ttdeci">@ testunit2</div><div class="ttdef"><b>Definition:</b> texture_manager.h:12</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda6a27deee4b4b79c44abd341b19bd8ca7"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda6a27deee4b4b79c44abd341b19bd8ca7">fire_small_poleax</a></div><div class="ttdeci">@ fire_small_poleax</div><div class="ttdef"><b>Definition:</b> texture_manager.h:15</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda7698f7b0fa80a5cbfb1df616ad67a306"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda7698f7b0fa80a5cbfb1df616ad67a306">fire_small_lance</a></div><div class="ttdeci">@ fire_small_lance</div><div class="ttdef"><b>Definition:</b> texture_manager.h:17</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda7decbced13b14b3fda6d6a4522d00276"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda7decbced13b14b3fda6d6a4522d00276">testunit</a></div><div class="ttdeci">@ testunit</div><div class="ttdef"><b>Definition:</b> texture_manager.h:10</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852deda940a914eee76109275fecb6a0453ee96"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852deda940a914eee76109275fecb6a0453ee96">small_horizontal_gray_wall</a></div><div class="ttdeci">@ small_horizontal_gray_wall</div><div class="ttdef"><b>Definition:</b> texture_manager.h:19</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852dedad2efec1c63554719c21b490911a61b6a"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedad2efec1c63554719c21b490911a61b6a">small_gray_tower</a></div><div class="ttdeci">@ small_gray_tower</div><div class="ttdef"><b>Definition:</b> texture_manager.h:21</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852dedae223f29ad34cadcaa46a5899d56ae5a3"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedae223f29ad34cadcaa46a5899d56ae5a3">texture_count</a></div><div class="ttdeci">@ texture_count</div><div class="ttdef"><b>Definition:</b> texture_manager.h:23</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852dedaee797d0ba6023326a88c008acf22fccc"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaee797d0ba6023326a88c008acf22fccc">small_vertical_gray_wall</a></div><div class="ttdeci">@ small_vertical_gray_wall</div><div class="ttdef"><b>Definition:</b> texture_manager.h:20</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852dedaf12bbb6b34c0a76f50cc3f614b02118b"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaf12bbb6b34c0a76f50cc3f614b02118b">testunit1</a></div><div class="ttdeci">@ testunit1</div><div class="ttdef"><b>Definition:</b> texture_manager.h:11</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852dedaf4dcb958be3fc03ab917dbef85122ee1"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedaf4dcb958be3fc03ab917dbef85122ee1">fire_medium_poleax</a></div><div class="ttdeci">@ fire_medium_poleax</div><div class="ttdef"><b>Definition:</b> texture_manager.h:18</div></div>
+<div class="ttc" id="atexture__manager_8h_html_adabd3ab855c1c1904d6f1b4fcd852dedafec4d510b1700955538fd4488e9f6ee5"><div class="ttname"><a href="texture__manager_8h.html#adabd3ab855c1c1904d6f1b4fcd852dedafec4d510b1700955538fd4488e9f6ee5">bamboo</a></div><div class="ttdeci">@ bamboo</div><div class="ttdef"><b>Definition:</b> texture_manager.h:22</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_95b4ba41a6e2b9ae60ef21c7b865b4f1.html">managers</a></li><li class="navelem"><a class="el" href="texture__manager_8h.html">texture_manager.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

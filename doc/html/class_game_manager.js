@@ -1,0 +1,35 @@
+var class_game_manager =
+[
+    [ "FogOfWarType", "class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989", [
+      [ "VISIBLE", "class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6", null ],
+      [ "UNITS_HIDDEN", "class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc", null ],
+      [ "MAP_HIDDEN", "class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4", null ],
+      [ "FOG_OF_WAR_TYPE_SIZE", "class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989aaafb41ad4caa4cb39d25e86f02f3f93b", null ]
+    ] ],
+    [ "GameManager", "class_game_manager.html#aa0e2424dc1a39d380e5b6605b179bf05", null ],
+    [ "~GameManager", "class_game_manager.html#aaae63e38e358379c1fe507c5197a8435", null ],
+    [ "GetCurrentLayer", "class_game_manager.html#a384fabbfd990655eb9b94781c10fb32c", null ],
+    [ "Init", "class_game_manager.html#aa5f64df38337f3a0c2da66065c42d9a3", null ],
+    [ "Run", "class_game_manager.html#a0098f9338a6129374ccfaeb1c7093d1b", null ],
+    [ "RunStep", "class_game_manager.html#a55532e74f832f313b588fdfc9d90757e", null ],
+    [ "SetCurrentLayerIndex", "class_game_manager.html#a1845d64efba6273b6440d6325272924d", null ],
+    [ "air_h_", "class_game_manager.html#a1bc007d9f1ea0e98ab2c6057f098f772", null ],
+    [ "camera_", "class_game_manager.html#a59019df57ee1c91bba83202f86d4aba6", null ],
+    [ "camera_h_", "class_game_manager.html#a9713cb2983bfb1d14f4ec30f038909fc", null ],
+    [ "close_", "class_game_manager.html#af05f3ff0c9169f2218995e5e49f8cbbe", null ],
+    [ "cur_layer_ind_", "class_game_manager.html#a90d7addb9f8c8547bef9e4baca81e708", null ],
+    [ "entities_", "class_game_manager.html#aa839c94c1a55b4116150144959c9301e", null ],
+    [ "fog_of_war_mode_", "class_game_manager.html#a332fd47736e3ebcacafbc11627019baf", null ],
+    [ "game_map_", "class_game_manager.html#a485739bc8c2598815266ea6977ecd08b", null ],
+    [ "ground_h_", "class_game_manager.html#aefda7a30ba2e4c8b0300103e23b289d6", null ],
+    [ "is_fullscreen_", "class_game_manager.html#a38dd8ffca0152bed033760afe2dd3fec", null ],
+    [ "players_", "class_game_manager.html#a4d0326876f822b9e5fee144e130828d8", null ],
+    [ "players_info_", "class_game_manager.html#a2145b41633707c0a1d6581c9f00830ff", null ],
+    [ "renderer_", "class_game_manager.html#a2b70eb875fdf7e2fabb29e36b0e00f1c", null ],
+    [ "scale_status_", "class_game_manager.html#a39be5dfcc2ec3cca8c43d533cae602a1", null ],
+    [ "screen_h_", "class_game_manager.html#aa04f7dfc97600c6f64031c48cf04dd09", null ],
+    [ "texture_manager_", "class_game_manager.html#ac1c87c4873ec13f6fa827b77078a77cb", null ],
+    [ "unit_factory_", "class_game_manager.html#a1a4e56575f1cff123cf4e7f40c44011f", null ],
+    [ "user_manager_", "class_game_manager.html#afd90618282607a289d535cb62323124d", null ],
+    [ "window_", "class_game_manager.html#a7b905f32bbd4149fb8ace203c077b4ee", null ]
+];

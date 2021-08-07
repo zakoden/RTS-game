@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/map/game_map.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('game__map_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">game_map.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="game__map_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="map__layer_8h.html">map_layer.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="class_game_map.html">    5</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_game_map.html">GameMap</a> {</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    std::vector&lt;MapLayer*&gt; layers_;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="class_game_map.html#a09ca93c5648a8d5b1cdbe3124cba27f9">GameMap</a>(SDL_Renderer* renderer, uint32_t width, uint32_t height, <span class="keywordtype">size_t</span> players_count, std::vector&lt;MapLayer*&gt; layers);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <a class="code" href="class_game_map.html#a85d51ef20c2d27f11c739ff02d5717c3">~GameMap</a>();                                     <span class="comment">// Rule of three</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_game_map.html#ab40ad0bf45143656fc7825629c28f27e">   12</a></span>&#160;    <a class="code" href="class_game_map.html#ab40ad0bf45143656fc7825629c28f27e">GameMap</a>(<span class="keyword">const</span> <a class="code" href="class_game_map.html">GameMap</a>&amp;) = <span class="keyword">delete</span>;               <span class="comment">// Rule of three</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_game_map.html#a02368c25bfef884e40c309499b417174">   13</a></span>&#160;    <a class="code" href="class_game_map.html">GameMap</a>&amp; <a class="code" href="class_game_map.html#a02368c25bfef884e40c309499b417174">operator=</a>(<span class="keyword">const</span> <a class="code" href="class_game_map.html">GameMap</a>&amp;) = <span class="keyword">delete</span>;    <span class="comment">// Rule of three</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_map_layer.html">MapLayer</a>* <a class="code" href="class_game_map.html#a2916ba08cce85e1a7c08e3c89075206f">GetLayer</a>(uint8_t layer_ind);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_game_map.html#a51524abb664e96388b0656987a86ba04">GetLayerCount</a>();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;};</div>
+<div class="ttc" id="aclass_game_map_html"><div class="ttname"><a href="class_game_map.html">GameMap</a></div><div class="ttdef"><b>Definition:</b> game_map.h:5</div></div>
+<div class="ttc" id="aclass_game_map_html_a02368c25bfef884e40c309499b417174"><div class="ttname"><a href="class_game_map.html#a02368c25bfef884e40c309499b417174">GameMap::operator=</a></div><div class="ttdeci">GameMap &amp; operator=(const GameMap &amp;)=delete</div></div>
+<div class="ttc" id="aclass_game_map_html_a09ca93c5648a8d5b1cdbe3124cba27f9"><div class="ttname"><a href="class_game_map.html#a09ca93c5648a8d5b1cdbe3124cba27f9">GameMap::GameMap</a></div><div class="ttdeci">GameMap(SDL_Renderer *renderer, uint32_t width, uint32_t height, size_t players_count, std::vector&lt; MapLayer * &gt; layers)</div><div class="ttdef"><b>Definition:</b> game_map.cpp:3</div></div>
+<div class="ttc" id="aclass_game_map_html_a2916ba08cce85e1a7c08e3c89075206f"><div class="ttname"><a href="class_game_map.html#a2916ba08cce85e1a7c08e3c89075206f">GameMap::GetLayer</a></div><div class="ttdeci">MapLayer * GetLayer(uint8_t layer_ind)</div><div class="ttdef"><b>Definition:</b> game_map.cpp:23</div></div>
+<div class="ttc" id="aclass_game_map_html_a51524abb664e96388b0656987a86ba04"><div class="ttname"><a href="class_game_map.html#a51524abb664e96388b0656987a86ba04">GameMap::GetLayerCount</a></div><div class="ttdeci">size_t GetLayerCount()</div><div class="ttdef"><b>Definition:</b> game_map.cpp:19</div></div>
+<div class="ttc" id="aclass_game_map_html_a85d51ef20c2d27f11c739ff02d5717c3"><div class="ttname"><a href="class_game_map.html#a85d51ef20c2d27f11c739ff02d5717c3">GameMap::~GameMap</a></div><div class="ttdeci">~GameMap()</div><div class="ttdef"><b>Definition:</b> game_map.cpp:13</div></div>
+<div class="ttc" id="aclass_game_map_html_ab40ad0bf45143656fc7825629c28f27e"><div class="ttname"><a href="class_game_map.html#ab40ad0bf45143656fc7825629c28f27e">GameMap::GameMap</a></div><div class="ttdeci">GameMap(const GameMap &amp;)=delete</div></div>
+<div class="ttc" id="aclass_map_layer_html"><div class="ttname"><a href="class_map_layer.html">MapLayer</a></div><div class="ttdef"><b>Definition:</b> map_layer.h:16</div></div>
+<div class="ttc" id="amap__layer_8h_html"><div class="ttname"><a href="map__layer_8h.html">map_layer.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_a6e7d02c070370f747481808e013b638.html">map</a></li><li class="navelem"><a class="el" href="game__map_8h.html">game_map.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

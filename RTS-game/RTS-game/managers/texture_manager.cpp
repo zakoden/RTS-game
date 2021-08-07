@@ -22,7 +22,7 @@ TextureManager::TextureManager(SDL_Renderer* renderer) {
 	
 	textures_.resize(texture_count);
 	textures_[testunit]				           = LoadTexture("testunit");
-	textures_[testunit1]			           = LoadTexture("testunit1");
+	textures_[testunit1]			           = LoadTexture("chest");
 	textures_[testunit2]			           = LoadTexture("testunit2");
 	textures_[testunit3]			           = LoadTexture("testunit3");
 	textures_[testunit2_1]			           = LoadTexture("testunit2_1");

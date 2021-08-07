@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/units/unit.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('unit_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">unit.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="unit_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="movable__unit_8h.html">movable_unit.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;bitset&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../managers/texture_manager.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;../clock.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;../behaviors/status_effects.h&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;../behaviors/behavior.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;../map/game_map.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;../player/players_info.h&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_unit.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_unit.html">Unit</a> : <span class="keyword">public</span> <a class="code" href="class_movable_unit.html">MovableUnit</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// --geometry--</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_unit.html#a779c7b2e5022fa712314e46c1ef8c019">   25</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_unit.html#a779c7b2e5022fa712314e46c1ef8c019">dx_</a> = 0.0, <a class="code" href="class_unit.html#a1460650bb1ea0c6e8c51a9443855cc17">dy_</a> = 0.0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_unit.html#af5e14bb8ddc298f67adf9b3c4b603a06">   26</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_unit.html#af5e14bb8ddc298f67adf9b3c4b603a06">speed_</a> = 0;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_unit.html#af6def2ad28e2cb24b81f87b58ddf648c">   27</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_unit.html#af6def2ad28e2cb24b81f87b58ddf648c">command_x_</a> = 0.0, <a class="code" href="class_unit.html#a77c5dce3513427beca7213e38ee4a4f6">command_y_</a> = 0.0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="class_unit.html#a6a8ca5b6189e0c524d935d43bcbe8633">Unit</a>(<span class="keywordtype">int</span> attack, <span class="keywordtype">int</span> defense, <span class="keywordtype">int</span> max_health, <span class="keywordtype">double</span> speed,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;         <a class="code" href="class_texture_manager.html">TextureManager</a>* texture_manager, <a class="code" href="class_game_map.html">GameMap</a>* game_map, uint8_t cur_layer_ind);</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_unit.html#a33361af029acdb5177052f40e6d4b18f">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_unit.html#a33361af029acdb5177052f40e6d4b18f">~Unit</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_unit.html#a2cd388d49248d6b24c700caaea8204f1">GetSpeed</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#acc04a52326fdaaa76e4ee11a46df0b4d">GetVector</a>(<span class="keywordtype">double</span>&amp; dx, <span class="keywordtype">double</span>&amp; dy) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a0e2e1178fdd78ddfae18b6d66be31f87">SetVector</a>(<span class="keywordtype">int</span> dx, <span class="keywordtype">int</span> dy) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a0e2e1178fdd78ddfae18b6d66be31f87">SetVector</a>(<span class="keywordtype">double</span> dx, <span class="keywordtype">double</span> dy) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#ad5f1eb98f17e2ca22e5ae9d55b9829ae">AddVector</a>(<span class="keywordtype">double</span> dx, <span class="keywordtype">double</span> dy) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a7fa17260c36acb41bf8f76c9b1e2fb3a">VectorApply</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a9e5a46d9def159f1dd4f0bec76dad543">VectorApplyBullet</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#adbe2846b63cd80ee80dfe76b76cc6020">SetCommandPoint</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a36decb6236883df59ade8343fc0d793e">GetCommandPoint</a>(<span class="keywordtype">int</span>&amp; x, <span class="keywordtype">int</span>&amp; y) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a198e3f5e5d75d86d89c1337155d12bec">DoAction</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_unit.html#adfe7c9c21ecb52e562f3c2d7e19350e9">Move</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_unit.html#a777e464bccc634dac262a2f9fdbc8ba9">Draw</a>(SDL_Renderer* renderer, <a class="code" href="class_camera.html">Camera</a>* camera) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> camera.h:7</div></div>
+<div class="ttc" id="aclass_game_map_html"><div class="ttname"><a href="class_game_map.html">GameMap</a></div><div class="ttdef"><b>Definition:</b> game_map.h:5</div></div>
+<div class="ttc" id="aclass_movable_unit_html"><div class="ttname"><a href="class_movable_unit.html">MovableUnit</a></div><div class="ttdef"><b>Definition:</b> movable_unit.h:24</div></div>
+<div class="ttc" id="aclass_texture_manager_html"><div class="ttname"><a href="class_texture_manager.html">TextureManager</a></div><div class="ttdef"><b>Definition:</b> texture_manager.h:26</div></div>
+<div class="ttc" id="aclass_unit_html"><div class="ttname"><a href="class_unit.html">Unit</a></div><div class="ttdef"><b>Definition:</b> unit.h:21</div></div>
+<div class="ttc" id="aclass_unit_html_a0e2e1178fdd78ddfae18b6d66be31f87"><div class="ttname"><a href="class_unit.html#a0e2e1178fdd78ddfae18b6d66be31f87">Unit::SetVector</a></div><div class="ttdeci">virtual void SetVector(int dx, int dy) override</div><div class="ttdef"><b>Definition:</b> unit.cpp:27</div></div>
+<div class="ttc" id="aclass_unit_html_a1460650bb1ea0c6e8c51a9443855cc17"><div class="ttname"><a href="class_unit.html#a1460650bb1ea0c6e8c51a9443855cc17">Unit::dy_</a></div><div class="ttdeci">double dy_</div><div class="ttdef"><b>Definition:</b> unit.h:25</div></div>
+<div class="ttc" id="aclass_unit_html_a198e3f5e5d75d86d89c1337155d12bec"><div class="ttname"><a href="class_unit.html#a198e3f5e5d75d86d89c1337155d12bec">Unit::DoAction</a></div><div class="ttdeci">void DoAction() override</div><div class="ttdef"><b>Definition:</b> unit.cpp:72</div></div>
+<div class="ttc" id="aclass_unit_html_a2cd388d49248d6b24c700caaea8204f1"><div class="ttname"><a href="class_unit.html#a2cd388d49248d6b24c700caaea8204f1">Unit::GetSpeed</a></div><div class="ttdeci">virtual int GetSpeed() override</div><div class="ttdef"><b>Definition:</b> unit.cpp:20</div></div>
+<div class="ttc" id="aclass_unit_html_a33361af029acdb5177052f40e6d4b18f"><div class="ttname"><a href="class_unit.html#a33361af029acdb5177052f40e6d4b18f">Unit::~Unit</a></div><div class="ttdeci">virtual ~Unit()=default</div></div>
+<div class="ttc" id="aclass_unit_html_a36decb6236883df59ade8343fc0d793e"><div class="ttname"><a href="class_unit.html#a36decb6236883df59ade8343fc0d793e">Unit::GetCommandPoint</a></div><div class="ttdeci">virtual void GetCommandPoint(int &amp;x, int &amp;y) override</div><div class="ttdef"><b>Definition:</b> unit.cpp:66</div></div>
+<div class="ttc" id="aclass_unit_html_a6a8ca5b6189e0c524d935d43bcbe8633"><div class="ttname"><a href="class_unit.html#a6a8ca5b6189e0c524d935d43bcbe8633">Unit::Unit</a></div><div class="ttdeci">Unit(int attack, int defense, int max_health, double speed, TextureManager *texture_manager, GameMap *game_map, uint8_t cur_layer_ind)</div><div class="ttdef"><b>Definition:</b> unit.cpp:8</div></div>
+<div class="ttc" id="aclass_unit_html_a777e464bccc634dac262a2f9fdbc8ba9"><div class="ttname"><a href="class_unit.html#a777e464bccc634dac262a2f9fdbc8ba9">Unit::Draw</a></div><div class="ttdeci">void Draw(SDL_Renderer *renderer, Camera *camera) override</div><div class="ttdef"><b>Definition:</b> unit.cpp:231</div></div>
+<div class="ttc" id="aclass_unit_html_a779c7b2e5022fa712314e46c1ef8c019"><div class="ttname"><a href="class_unit.html#a779c7b2e5022fa712314e46c1ef8c019">Unit::dx_</a></div><div class="ttdeci">double dx_</div><div class="ttdef"><b>Definition:</b> unit.h:25</div></div>
+<div class="ttc" id="aclass_unit_html_a77c5dce3513427beca7213e38ee4a4f6"><div class="ttname"><a href="class_unit.html#a77c5dce3513427beca7213e38ee4a4f6">Unit::command_y_</a></div><div class="ttdeci">double command_y_</div><div class="ttdef"><b>Definition:</b> unit.h:27</div></div>
+<div class="ttc" id="aclass_unit_html_a7fa17260c36acb41bf8f76c9b1e2fb3a"><div class="ttname"><a href="class_unit.html#a7fa17260c36acb41bf8f76c9b1e2fb3a">Unit::VectorApply</a></div><div class="ttdeci">virtual void VectorApply() override</div><div class="ttdef"><b>Definition:</b> unit.cpp:42</div></div>
+<div class="ttc" id="aclass_unit_html_a9e5a46d9def159f1dd4f0bec76dad543"><div class="ttname"><a href="class_unit.html#a9e5a46d9def159f1dd4f0bec76dad543">Unit::VectorApplyBullet</a></div><div class="ttdeci">virtual void VectorApplyBullet() override</div><div class="ttdef"><b>Definition:</b> unit.cpp:50</div></div>
+<div class="ttc" id="aclass_unit_html_acc04a52326fdaaa76e4ee11a46df0b4d"><div class="ttname"><a href="class_unit.html#acc04a52326fdaaa76e4ee11a46df0b4d">Unit::GetVector</a></div><div class="ttdeci">virtual void GetVector(double &amp;dx, double &amp;dy) override</div><div class="ttdef"><b>Definition:</b> unit.cpp:22</div></div>
+<div class="ttc" id="aclass_unit_html_ad5f1eb98f17e2ca22e5ae9d55b9829ae"><div class="ttname"><a href="class_unit.html#ad5f1eb98f17e2ca22e5ae9d55b9829ae">Unit::AddVector</a></div><div class="ttdeci">virtual void AddVector(double dx, double dy) override</div><div class="ttdef"><b>Definition:</b> unit.cpp:37</div></div>
+<div class="ttc" id="aclass_unit_html_adbe2846b63cd80ee80dfe76b76cc6020"><div class="ttname"><a href="class_unit.html#adbe2846b63cd80ee80dfe76b76cc6020">Unit::SetCommandPoint</a></div><div class="ttdeci">virtual void SetCommandPoint(int x, int y) override</div><div class="ttdef"><b>Definition:</b> unit.cpp:60</div></div>
+<div class="ttc" id="aclass_unit_html_adfe7c9c21ecb52e562f3c2d7e19350e9"><div class="ttname"><a href="class_unit.html#adfe7c9c21ecb52e562f3c2d7e19350e9">Unit::Move</a></div><div class="ttdeci">virtual void Move() override</div><div class="ttdef"><b>Definition:</b> unit.cpp:87</div></div>
+<div class="ttc" id="aclass_unit_html_af5e14bb8ddc298f67adf9b3c4b603a06"><div class="ttname"><a href="class_unit.html#af5e14bb8ddc298f67adf9b3c4b603a06">Unit::speed_</a></div><div class="ttdeci">double speed_</div><div class="ttdef"><b>Definition:</b> unit.h:26</div></div>
+<div class="ttc" id="aclass_unit_html_af6def2ad28e2cb24b81f87b58ddf648c"><div class="ttname"><a href="class_unit.html#af6def2ad28e2cb24b81f87b58ddf648c">Unit::command_x_</a></div><div class="ttdeci">double command_x_</div><div class="ttdef"><b>Definition:</b> unit.h:27</div></div>
+<div class="ttc" id="amovable__unit_8h_html"><div class="ttname"><a href="movable__unit_8h.html">movable_unit.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_080b1462374eca6f187dbb142655cb72.html">units</a></li><li class="navelem"><a class="el" href="unit_8h.html">unit.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

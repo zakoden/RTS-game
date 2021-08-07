@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/managers/game_manager.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('game__manager_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">game_manager.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="game__manager_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;SDL.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../clock.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../map/game_map.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;../map/camera.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="texture__manager_8h.html">texture_manager.h</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;../behaviors/behavior_random.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;../behaviors/behavior_tower.h&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;../behaviors/behavior_stay.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;../units/entity.h&quot;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;../units/unit_factory.h&quot;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;../units/unit.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#include &quot;../player/player.h&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#include &quot;../player/players_info.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="user__manager_8h.html">user_manager.h</a>&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_game_manager.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_game_manager.html">GameManager</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_game_manager.html#a7b905f32bbd4149fb8ace203c077b4ee">   30</a></span>&#160;    SDL_Window* <a class="code" href="class_game_manager.html#a7b905f32bbd4149fb8ace203c077b4ee">window_</a> = NULL;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_game_manager.html#a2b70eb875fdf7e2fabb29e36b0e00f1c">   31</a></span>&#160;    SDL_Renderer* <a class="code" href="class_game_manager.html#a2b70eb875fdf7e2fabb29e36b0e00f1c">renderer_</a> = NULL;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="class_game_manager.html#ac1c87c4873ec13f6fa827b77078a77cb">   32</a></span>&#160;    <a class="code" href="class_texture_manager.html">TextureManager</a>* <a class="code" href="class_game_manager.html#ac1c87c4873ec13f6fa827b77078a77cb">texture_manager_</a> = NULL;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_game_manager.html#a59019df57ee1c91bba83202f86d4aba6">   33</a></span>&#160;    <a class="code" href="class_camera.html">Camera</a>* <a class="code" href="class_game_manager.html#a59019df57ee1c91bba83202f86d4aba6">camera_</a> = NULL;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_game_manager.html#a485739bc8c2598815266ea6977ecd08b">   35</a></span>&#160;    <a class="code" href="class_game_map.html">GameMap</a>* <a class="code" href="class_game_manager.html#a485739bc8c2598815266ea6977ecd08b">game_map_</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_game_manager.html#a90d7addb9f8c8547bef9e4baca81e708">   36</a></span>&#160;    uint8_t <a class="code" href="class_game_manager.html#a90d7addb9f8c8547bef9e4baca81e708">cur_layer_ind_</a>;  <span class="comment">// Don&#39;t set it manually. Use method SetCurrentLayer instead.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_game_manager.html#af05f3ff0c9169f2218995e5e49f8cbbe">   38</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_game_manager.html#af05f3ff0c9169f2218995e5e49f8cbbe">close_</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_game_manager.html#a1a4e56575f1cff123cf4e7f40c44011f">   39</a></span>&#160;    <a class="code" href="class_unit_factory.html">UnitFactory</a>* <a class="code" href="class_game_manager.html#a1a4e56575f1cff123cf4e7f40c44011f">unit_factory_</a> = NULL;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="class_game_manager.html#aa839c94c1a55b4116150144959c9301e">   40</a></span>&#160;    std::vector&lt;Entity*&gt; <a class="code" href="class_game_manager.html#aa839c94c1a55b4116150144959c9301e">entities_</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_game_manager.html#a4d0326876f822b9e5fee144e130828d8">   41</a></span>&#160;    std::vector&lt;Player*&gt; <a class="code" href="class_game_manager.html#a4d0326876f822b9e5fee144e130828d8">players_</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="class_game_manager.html#a2145b41633707c0a1d6581c9f00830ff">   42</a></span>&#160;    <a class="code" href="class_players_info.html">PlayersInfo</a>* <a class="code" href="class_game_manager.html#a2145b41633707c0a1d6581c9f00830ff">players_info_</a> = NULL;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="class_game_manager.html#afd90618282607a289d535cb62323124d">   43</a></span>&#160;    <a class="code" href="class_user_manager.html">UserManager</a>* <a class="code" href="class_game_manager.html#afd90618282607a289d535cb62323124d">user_manager_</a> = NULL;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_game_manager.html#a38dd8ffca0152bed033760afe2dd3fec">   45</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_game_manager.html#a38dd8ffca0152bed033760afe2dd3fec">is_fullscreen_</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">   47</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">FogOfWarType</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">   48</a></span>&#160;        <a class="code" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">VISIBLE</a>,</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc">   49</a></span>&#160;        <a class="code" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc">UNITS_HIDDEN</a>,</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4">   50</a></span>&#160;        <a class="code" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4">MAP_HIDDEN</a>,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989aaafb41ad4caa4cb39d25e86f02f3f93b">FOG_OF_WAR_TYPE_SIZE</a></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="class_game_manager.html#a332fd47736e3ebcacafbc11627019baf">   52</a></span>&#160;    } <a class="code" href="class_game_manager.html#a332fd47736e3ebcacafbc11627019baf">fog_of_war_mode_</a> = <a class="code" href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">VISIBLE</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="class_game_manager.html#a9713cb2983bfb1d14f4ec30f038909fc">   54</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_game_manager.html#a9713cb2983bfb1d14f4ec30f038909fc">camera_h_</a> = 1.0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="class_game_manager.html#a1bc007d9f1ea0e98ab2c6057f098f772">   55</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_game_manager.html#aefda7a30ba2e4c8b0300103e23b289d6">ground_h_</a> = 1.0, <a class="code" href="class_game_manager.html#a1bc007d9f1ea0e98ab2c6057f098f772">air_h_</a> = 1.0;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="class_game_manager.html#aa04f7dfc97600c6f64031c48cf04dd09">   56</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_game_manager.html#aa04f7dfc97600c6f64031c48cf04dd09">screen_h_</a> = 1.0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_game_manager.html#a39be5dfcc2ec3cca8c43d533cae602a1">   57</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_game_manager.html#a39be5dfcc2ec3cca8c43d533cae602a1">scale_status_</a> = 1;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_manager.html#a1845d64efba6273b6440d6325272924d">SetCurrentLayerIndex</a>(uint8_t cur_layer_ind);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="class_map_layer.html">MapLayer</a>* <a class="code" href="class_game_manager.html#a384fabbfd990655eb9b94781c10fb32c">GetCurrentLayer</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="class_game_manager.html#aa0e2424dc1a39d380e5b6605b179bf05">GameManager</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="class_game_manager.html#aaae63e38e358379c1fe507c5197a8435">~GameManager</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_game_manager.html#aa5f64df38337f3a0c2da66065c42d9a3">Init</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_manager.html#a0098f9338a6129374ccfaeb1c7093d1b">Run</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_game_manager.html#a55532e74f832f313b588fdfc9d90757e">RunStep</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> camera.h:7</div></div>
+<div class="ttc" id="aclass_game_manager_html"><div class="ttname"><a href="class_game_manager.html">GameManager</a></div><div class="ttdef"><b>Definition:</b> game_manager.h:28</div></div>
+<div class="ttc" id="aclass_game_manager_html_a0098f9338a6129374ccfaeb1c7093d1b"><div class="ttname"><a href="class_game_manager.html#a0098f9338a6129374ccfaeb1c7093d1b">GameManager::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:66</div></div>
+<div class="ttc" id="aclass_game_manager_html_a1845d64efba6273b6440d6325272924d"><div class="ttname"><a href="class_game_manager.html#a1845d64efba6273b6440d6325272924d">GameManager::SetCurrentLayerIndex</a></div><div class="ttdeci">void SetCurrentLayerIndex(uint8_t cur_layer_ind)</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:13</div></div>
+<div class="ttc" id="aclass_game_manager_html_a1a4e56575f1cff123cf4e7f40c44011f"><div class="ttname"><a href="class_game_manager.html#a1a4e56575f1cff123cf4e7f40c44011f">GameManager::unit_factory_</a></div><div class="ttdeci">UnitFactory * unit_factory_</div><div class="ttdef"><b>Definition:</b> game_manager.h:39</div></div>
+<div class="ttc" id="aclass_game_manager_html_a1bc007d9f1ea0e98ab2c6057f098f772"><div class="ttname"><a href="class_game_manager.html#a1bc007d9f1ea0e98ab2c6057f098f772">GameManager::air_h_</a></div><div class="ttdeci">double air_h_</div><div class="ttdef"><b>Definition:</b> game_manager.h:55</div></div>
+<div class="ttc" id="aclass_game_manager_html_a2145b41633707c0a1d6581c9f00830ff"><div class="ttname"><a href="class_game_manager.html#a2145b41633707c0a1d6581c9f00830ff">GameManager::players_info_</a></div><div class="ttdeci">PlayersInfo * players_info_</div><div class="ttdef"><b>Definition:</b> game_manager.h:42</div></div>
+<div class="ttc" id="aclass_game_manager_html_a2b70eb875fdf7e2fabb29e36b0e00f1c"><div class="ttname"><a href="class_game_manager.html#a2b70eb875fdf7e2fabb29e36b0e00f1c">GameManager::renderer_</a></div><div class="ttdeci">SDL_Renderer * renderer_</div><div class="ttdef"><b>Definition:</b> game_manager.h:31</div></div>
+<div class="ttc" id="aclass_game_manager_html_a332fd47736e3ebcacafbc11627019baf"><div class="ttname"><a href="class_game_manager.html#a332fd47736e3ebcacafbc11627019baf">GameManager::fog_of_war_mode_</a></div><div class="ttdeci">enum GameManager::FogOfWarType fog_of_war_mode_</div></div>
+<div class="ttc" id="aclass_game_manager_html_a384fabbfd990655eb9b94781c10fb32c"><div class="ttname"><a href="class_game_manager.html#a384fabbfd990655eb9b94781c10fb32c">GameManager::GetCurrentLayer</a></div><div class="ttdeci">MapLayer * GetCurrentLayer()</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:19</div></div>
+<div class="ttc" id="aclass_game_manager_html_a38dd8ffca0152bed033760afe2dd3fec"><div class="ttname"><a href="class_game_manager.html#a38dd8ffca0152bed033760afe2dd3fec">GameManager::is_fullscreen_</a></div><div class="ttdeci">bool is_fullscreen_</div><div class="ttdef"><b>Definition:</b> game_manager.h:45</div></div>
+<div class="ttc" id="aclass_game_manager_html_a39be5dfcc2ec3cca8c43d533cae602a1"><div class="ttname"><a href="class_game_manager.html#a39be5dfcc2ec3cca8c43d533cae602a1">GameManager::scale_status_</a></div><div class="ttdeci">int scale_status_</div><div class="ttdef"><b>Definition:</b> game_manager.h:57</div></div>
+<div class="ttc" id="aclass_game_manager_html_a485739bc8c2598815266ea6977ecd08b"><div class="ttname"><a href="class_game_manager.html#a485739bc8c2598815266ea6977ecd08b">GameManager::game_map_</a></div><div class="ttdeci">GameMap * game_map_</div><div class="ttdef"><b>Definition:</b> game_manager.h:35</div></div>
+<div class="ttc" id="aclass_game_manager_html_a4d0326876f822b9e5fee144e130828d8"><div class="ttname"><a href="class_game_manager.html#a4d0326876f822b9e5fee144e130828d8">GameManager::players_</a></div><div class="ttdeci">std::vector&lt; Player * &gt; players_</div><div class="ttdef"><b>Definition:</b> game_manager.h:41</div></div>
+<div class="ttc" id="aclass_game_manager_html_a55532e74f832f313b588fdfc9d90757e"><div class="ttname"><a href="class_game_manager.html#a55532e74f832f313b588fdfc9d90757e">GameManager::RunStep</a></div><div class="ttdeci">void RunStep()</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:215</div></div>
+<div class="ttc" id="aclass_game_manager_html_a59019df57ee1c91bba83202f86d4aba6"><div class="ttname"><a href="class_game_manager.html#a59019df57ee1c91bba83202f86d4aba6">GameManager::camera_</a></div><div class="ttdeci">Camera * camera_</div><div class="ttdef"><b>Definition:</b> game_manager.h:33</div></div>
+<div class="ttc" id="aclass_game_manager_html_a776ebda34d4cb4f1d5bc1c55ef9d3989"><div class="ttname"><a href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989">GameManager::FogOfWarType</a></div><div class="ttdeci">FogOfWarType</div><div class="ttdef"><b>Definition:</b> game_manager.h:47</div></div>
+<div class="ttc" id="aclass_game_manager_html_a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc"><div class="ttname"><a href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a6c7ff469996ac3f15bc4b5bfcf83c2dc">GameManager::UNITS_HIDDEN</a></div><div class="ttdeci">@ UNITS_HIDDEN</div><div class="ttdef"><b>Definition:</b> game_manager.h:49</div></div>
+<div class="ttc" id="aclass_game_manager_html_a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4"><div class="ttname"><a href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989a9b0f2e3c3a41e35bd41f9c23085edaf4">GameManager::MAP_HIDDEN</a></div><div class="ttdeci">@ MAP_HIDDEN</div><div class="ttdef"><b>Definition:</b> game_manager.h:50</div></div>
+<div class="ttc" id="aclass_game_manager_html_a776ebda34d4cb4f1d5bc1c55ef9d3989aaafb41ad4caa4cb39d25e86f02f3f93b"><div class="ttname"><a href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989aaafb41ad4caa4cb39d25e86f02f3f93b">GameManager::FOG_OF_WAR_TYPE_SIZE</a></div><div class="ttdeci">@ FOG_OF_WAR_TYPE_SIZE</div><div class="ttdef"><b>Definition:</b> game_manager.h:51</div></div>
+<div class="ttc" id="aclass_game_manager_html_a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6"><div class="ttname"><a href="class_game_manager.html#a776ebda34d4cb4f1d5bc1c55ef9d3989ab89fa2a05cc7b9dd1c73d79f10d472c6">GameManager::VISIBLE</a></div><div class="ttdeci">@ VISIBLE</div><div class="ttdef"><b>Definition:</b> game_manager.h:48</div></div>
+<div class="ttc" id="aclass_game_manager_html_a7b905f32bbd4149fb8ace203c077b4ee"><div class="ttname"><a href="class_game_manager.html#a7b905f32bbd4149fb8ace203c077b4ee">GameManager::window_</a></div><div class="ttdeci">SDL_Window * window_</div><div class="ttdef"><b>Definition:</b> game_manager.h:30</div></div>
+<div class="ttc" id="aclass_game_manager_html_a90d7addb9f8c8547bef9e4baca81e708"><div class="ttname"><a href="class_game_manager.html#a90d7addb9f8c8547bef9e4baca81e708">GameManager::cur_layer_ind_</a></div><div class="ttdeci">uint8_t cur_layer_ind_</div><div class="ttdef"><b>Definition:</b> game_manager.h:36</div></div>
+<div class="ttc" id="aclass_game_manager_html_a9713cb2983bfb1d14f4ec30f038909fc"><div class="ttname"><a href="class_game_manager.html#a9713cb2983bfb1d14f4ec30f038909fc">GameManager::camera_h_</a></div><div class="ttdeci">double camera_h_</div><div class="ttdef"><b>Definition:</b> game_manager.h:54</div></div>
+<div class="ttc" id="aclass_game_manager_html_aa04f7dfc97600c6f64031c48cf04dd09"><div class="ttname"><a href="class_game_manager.html#aa04f7dfc97600c6f64031c48cf04dd09">GameManager::screen_h_</a></div><div class="ttdeci">double screen_h_</div><div class="ttdef"><b>Definition:</b> game_manager.h:56</div></div>
+<div class="ttc" id="aclass_game_manager_html_aa0e2424dc1a39d380e5b6605b179bf05"><div class="ttname"><a href="class_game_manager.html#aa0e2424dc1a39d380e5b6605b179bf05">GameManager::GameManager</a></div><div class="ttdeci">GameManager()</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:6</div></div>
+<div class="ttc" id="aclass_game_manager_html_aa5f64df38337f3a0c2da66065c42d9a3"><div class="ttname"><a href="class_game_manager.html#aa5f64df38337f3a0c2da66065c42d9a3">GameManager::Init</a></div><div class="ttdeci">int Init()</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:23</div></div>
+<div class="ttc" id="aclass_game_manager_html_aa839c94c1a55b4116150144959c9301e"><div class="ttname"><a href="class_game_manager.html#aa839c94c1a55b4116150144959c9301e">GameManager::entities_</a></div><div class="ttdeci">std::vector&lt; Entity * &gt; entities_</div><div class="ttdef"><b>Definition:</b> game_manager.h:40</div></div>
+<div class="ttc" id="aclass_game_manager_html_aaae63e38e358379c1fe507c5197a8435"><div class="ttname"><a href="class_game_manager.html#aaae63e38e358379c1fe507c5197a8435">GameManager::~GameManager</a></div><div class="ttdeci">~GameManager()</div><div class="ttdef"><b>Definition:</b> game_manager.cpp:9</div></div>
+<div class="ttc" id="aclass_game_manager_html_ac1c87c4873ec13f6fa827b77078a77cb"><div class="ttname"><a href="class_game_manager.html#ac1c87c4873ec13f6fa827b77078a77cb">GameManager::texture_manager_</a></div><div class="ttdeci">TextureManager * texture_manager_</div><div class="ttdef"><b>Definition:</b> game_manager.h:32</div></div>
+<div class="ttc" id="aclass_game_manager_html_aefda7a30ba2e4c8b0300103e23b289d6"><div class="ttname"><a href="class_game_manager.html#aefda7a30ba2e4c8b0300103e23b289d6">GameManager::ground_h_</a></div><div class="ttdeci">double ground_h_</div><div class="ttdef"><b>Definition:</b> game_manager.h:55</div></div>
+<div class="ttc" id="aclass_game_manager_html_af05f3ff0c9169f2218995e5e49f8cbbe"><div class="ttname"><a href="class_game_manager.html#af05f3ff0c9169f2218995e5e49f8cbbe">GameManager::close_</a></div><div class="ttdeci">bool close_</div><div class="ttdef"><b>Definition:</b> game_manager.h:38</div></div>
+<div class="ttc" id="aclass_game_manager_html_afd90618282607a289d535cb62323124d"><div class="ttname"><a href="class_game_manager.html#afd90618282607a289d535cb62323124d">GameManager::user_manager_</a></div><div class="ttdeci">UserManager * user_manager_</div><div class="ttdef"><b>Definition:</b> game_manager.h:43</div></div>
+<div class="ttc" id="aclass_game_map_html"><div class="ttname"><a href="class_game_map.html">GameMap</a></div><div class="ttdef"><b>Definition:</b> game_map.h:5</div></div>
+<div class="ttc" id="aclass_map_layer_html"><div class="ttname"><a href="class_map_layer.html">MapLayer</a></div><div class="ttdef"><b>Definition:</b> map_layer.h:16</div></div>
+<div class="ttc" id="aclass_players_info_html"><div class="ttname"><a href="class_players_info.html">PlayersInfo</a></div><div class="ttdef"><b>Definition:</b> players_info.h:10</div></div>
+<div class="ttc" id="aclass_texture_manager_html"><div class="ttname"><a href="class_texture_manager.html">TextureManager</a></div><div class="ttdef"><b>Definition:</b> texture_manager.h:26</div></div>
+<div class="ttc" id="aclass_unit_factory_html"><div class="ttname"><a href="class_unit_factory.html">UnitFactory</a></div><div class="ttdef"><b>Definition:</b> unit_factory.h:16</div></div>
+<div class="ttc" id="aclass_user_manager_html"><div class="ttname"><a href="class_user_manager.html">UserManager</a></div><div class="ttdef"><b>Definition:</b> user_manager.h:16</div></div>
+<div class="ttc" id="atexture__manager_8h_html"><div class="ttname"><a href="texture__manager_8h.html">texture_manager.h</a></div></div>
+<div class="ttc" id="auser__manager_8h_html"><div class="ttname"><a href="user__manager_8h.html">user_manager.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_95b4ba41a6e2b9ae60ef21c7b865b4f1.html">managers</a></li><li class="navelem"><a class="el" href="game__manager_8h.html">game_manager.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

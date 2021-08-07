@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/player/player.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('player_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">player.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="player_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../units/movable_unit.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../units/abstract_unit_factory.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../map/grid/grid.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="player__owner_8h.html">player_owner.h</a>&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_player.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_player.html">Player</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_player.html#af4ce4c57347abac4e96929bb83262bc6">   13</a></span>&#160;    <a class="code" href="class_player_owner.html">PlayerOwner</a>* <a class="code" href="class_player.html#af4ce4c57347abac4e96929bb83262bc6">player_owner_</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_player.html#a4d5b2699e0ee14008b06f12ba870dabc">   14</a></span>&#160;    uint8_t <a class="code" href="class_player.html#a4d5b2699e0ee14008b06f12ba870dabc">num_</a> = 0;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_player.html#ad800911e23531f569772b8c64baf4bd6">   16</a></span>&#160;    std::unordered_set&lt;MovableUnit*&gt; <a class="code" href="class_player.html#ad800911e23531f569772b8c64baf4bd6">army_</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_player.html#a53112f3369c666589a8e694011fab8ee">   17</a></span>&#160;    std::unordered_set&lt;MovableUnit*&gt; <a class="code" href="class_player.html#a53112f3369c666589a8e694011fab8ee">dead_</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_player.html#af7f8fb79f6e34631f04e88ba8fd4bcc5">   19</a></span>&#160;    std::unordered_set&lt;Building*&gt; <a class="code" href="class_player.html#af7f8fb79f6e34631f04e88ba8fd4bcc5">buildings_</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_player.html#a34e995976dd1450fed9abe30e3069e9a">   20</a></span>&#160;    std::unordered_set&lt;Building*&gt; <a class="code" href="class_player.html#a34e995976dd1450fed9abe30e3069e9a">destroyed_</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// For scout behavior, score rewarded is based on</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// Distance from a base, the less distance, the better</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_player.html#a2cdbaf42d444ea5adeed6874d1a279da">   24</a></span>&#160;    <a class="code" href="class_grid.html">Grid&lt;float&gt;</a> <a class="code" href="class_player.html#a2cdbaf42d444ea5adeed6874d1a279da">score_from_base_</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8">Player</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8">Player</a>(uint8_t num);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="class_player.html#a749d2c00e1fe0f5c2746f7505a58c062">~Player</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    uint8_t <a class="code" href="class_player.html#ab1255179838ab9cbf4b097a1d6bd9cbb">GetNum</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#ae43e06a1fcfebc5e9db87316f0c4743a">SetOwner</a>(<a class="code" href="class_player_owner.html">PlayerOwner</a>* owner);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#ac0d7792ef3ddd2b394bb9a7e23c46345">DoAction</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a8746f750b36da18dff7a34da2e04b2eb">Move</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#ae2d3775623bf0c0e7b72f1fb85d84021">Draw</a>(SDL_Renderer* renderer, <a class="code" href="class_camera.html">Camera</a>* camera) <span class="keyword">const</span>; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a5c1fd897be0a33390a74fbd358f4e423">UnitsToDraw</a>(std::vector&lt;std::pair&lt;int, Drawable*&gt;&gt; &amp;out);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#acde0ef62b2e263466fc1e4b50abbcea0">AddUnit</a>(<a class="code" href="class_movable_unit.html">MovableUnit</a>* unit);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a636ba08b7592da53abebf958271069ed">AddBuilding</a>(<a class="code" href="class_building.html">Building</a>* building);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_player.html#a59afea90cbb9fc79048f42a09972433c">DeleteUnit</a>(<a class="code" href="class_movable_unit.html">MovableUnit</a>* unit);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="ttc" id="aclass_building_html"><div class="ttname"><a href="class_building.html">Building</a></div><div class="ttdef"><b>Definition:</b> building.h:5</div></div>
+<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> camera.h:7</div></div>
+<div class="ttc" id="aclass_grid_html"><div class="ttname"><a href="class_grid.html">Grid&lt; float &gt;</a></div></div>
+<div class="ttc" id="aclass_movable_unit_html"><div class="ttname"><a href="class_movable_unit.html">MovableUnit</a></div><div class="ttdef"><b>Definition:</b> movable_unit.h:24</div></div>
+<div class="ttc" id="aclass_player_html"><div class="ttname"><a href="class_player.html">Player</a></div><div class="ttdef"><b>Definition:</b> player.h:11</div></div>
+<div class="ttc" id="aclass_player_html_a2cdbaf42d444ea5adeed6874d1a279da"><div class="ttname"><a href="class_player.html#a2cdbaf42d444ea5adeed6874d1a279da">Player::score_from_base_</a></div><div class="ttdeci">Grid&lt; float &gt; score_from_base_</div><div class="ttdef"><b>Definition:</b> player.h:24</div></div>
+<div class="ttc" id="aclass_player_html_a34e995976dd1450fed9abe30e3069e9a"><div class="ttname"><a href="class_player.html#a34e995976dd1450fed9abe30e3069e9a">Player::destroyed_</a></div><div class="ttdeci">std::unordered_set&lt; Building * &gt; destroyed_</div><div class="ttdef"><b>Definition:</b> player.h:20</div></div>
+<div class="ttc" id="aclass_player_html_a4d5b2699e0ee14008b06f12ba870dabc"><div class="ttname"><a href="class_player.html#a4d5b2699e0ee14008b06f12ba870dabc">Player::num_</a></div><div class="ttdeci">uint8_t num_</div><div class="ttdef"><b>Definition:</b> player.h:14</div></div>
+<div class="ttc" id="aclass_player_html_a53112f3369c666589a8e694011fab8ee"><div class="ttname"><a href="class_player.html#a53112f3369c666589a8e694011fab8ee">Player::dead_</a></div><div class="ttdeci">std::unordered_set&lt; MovableUnit * &gt; dead_</div><div class="ttdef"><b>Definition:</b> player.h:17</div></div>
+<div class="ttc" id="aclass_player_html_a59afea90cbb9fc79048f42a09972433c"><div class="ttname"><a href="class_player.html#a59afea90cbb9fc79048f42a09972433c">Player::DeleteUnit</a></div><div class="ttdeci">void DeleteUnit(MovableUnit *unit)</div><div class="ttdef"><b>Definition:</b> player.cpp:108</div></div>
+<div class="ttc" id="aclass_player_html_a5c1fd897be0a33390a74fbd358f4e423"><div class="ttname"><a href="class_player.html#a5c1fd897be0a33390a74fbd358f4e423">Player::UnitsToDraw</a></div><div class="ttdeci">void UnitsToDraw(std::vector&lt; std::pair&lt; int, Drawable * &gt;&gt; &amp;out)</div><div class="ttdef"><b>Definition:</b> player.cpp:91</div></div>
+<div class="ttc" id="aclass_player_html_a636ba08b7592da53abebf958271069ed"><div class="ttname"><a href="class_player.html#a636ba08b7592da53abebf958271069ed">Player::AddBuilding</a></div><div class="ttdeci">void AddBuilding(Building *building)</div><div class="ttdef"><b>Definition:</b> player.cpp:104</div></div>
+<div class="ttc" id="aclass_player_html_a749d2c00e1fe0f5c2746f7505a58c062"><div class="ttname"><a href="class_player.html#a749d2c00e1fe0f5c2746f7505a58c062">Player::~Player</a></div><div class="ttdeci">~Player()</div><div class="ttdef"><b>Definition:</b> player.cpp:11</div></div>
+<div class="ttc" id="aclass_player_html_a8746f750b36da18dff7a34da2e04b2eb"><div class="ttname"><a href="class_player.html#a8746f750b36da18dff7a34da2e04b2eb">Player::Move</a></div><div class="ttdeci">void Move()</div><div class="ttdef"><b>Definition:</b> player.cpp:78</div></div>
+<div class="ttc" id="aclass_player_html_ab1255179838ab9cbf4b097a1d6bd9cbb"><div class="ttname"><a href="class_player.html#ab1255179838ab9cbf4b097a1d6bd9cbb">Player::GetNum</a></div><div class="ttdeci">uint8_t GetNum() const</div><div class="ttdef"><b>Definition:</b> player.cpp:14</div></div>
+<div class="ttc" id="aclass_player_html_ac0d7792ef3ddd2b394bb9a7e23c46345"><div class="ttname"><a href="class_player.html#ac0d7792ef3ddd2b394bb9a7e23c46345">Player::DoAction</a></div><div class="ttdeci">void DoAction()</div><div class="ttdef"><b>Definition:</b> player.cpp:20</div></div>
+<div class="ttc" id="aclass_player_html_acde0ef62b2e263466fc1e4b50abbcea0"><div class="ttname"><a href="class_player.html#acde0ef62b2e263466fc1e4b50abbcea0">Player::AddUnit</a></div><div class="ttdeci">void AddUnit(MovableUnit *unit)</div><div class="ttdef"><b>Definition:</b> player.cpp:100</div></div>
+<div class="ttc" id="aclass_player_html_ad800911e23531f569772b8c64baf4bd6"><div class="ttname"><a href="class_player.html#ad800911e23531f569772b8c64baf4bd6">Player::army_</a></div><div class="ttdeci">std::unordered_set&lt; MovableUnit * &gt; army_</div><div class="ttdef"><b>Definition:</b> player.h:16</div></div>
+<div class="ttc" id="aclass_player_html_ae2d3775623bf0c0e7b72f1fb85d84021"><div class="ttname"><a href="class_player.html#ae2d3775623bf0c0e7b72f1fb85d84021">Player::Draw</a></div><div class="ttdeci">void Draw(SDL_Renderer *renderer, Camera *camera) const</div><div class="ttdef"><b>Definition:</b> player.cpp:85</div></div>
+<div class="ttc" id="aclass_player_html_ae43e06a1fcfebc5e9db87316f0c4743a"><div class="ttname"><a href="class_player.html#ae43e06a1fcfebc5e9db87316f0c4743a">Player::SetOwner</a></div><div class="ttdeci">void SetOwner(PlayerOwner *owner)</div><div class="ttdef"><b>Definition:</b> player.cpp:16</div></div>
+<div class="ttc" id="aclass_player_html_af4ce4c57347abac4e96929bb83262bc6"><div class="ttname"><a href="class_player.html#af4ce4c57347abac4e96929bb83262bc6">Player::player_owner_</a></div><div class="ttdeci">PlayerOwner * player_owner_</div><div class="ttdef"><b>Definition:</b> player.h:13</div></div>
+<div class="ttc" id="aclass_player_html_af7f8fb79f6e34631f04e88ba8fd4bcc5"><div class="ttname"><a href="class_player.html#af7f8fb79f6e34631f04e88ba8fd4bcc5">Player::buildings_</a></div><div class="ttdeci">std::unordered_set&lt; Building * &gt; buildings_</div><div class="ttdef"><b>Definition:</b> player.h:19</div></div>
+<div class="ttc" id="aclass_player_html_affe0cc3cb714f6deb4e62f0c0d3f1fd8"><div class="ttname"><a href="class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8">Player::Player</a></div><div class="ttdeci">Player()</div><div class="ttdef"><b>Definition:</b> player.cpp:3</div></div>
+<div class="ttc" id="aclass_player_owner_html"><div class="ttname"><a href="class_player_owner.html">PlayerOwner</a></div><div class="ttdef"><b>Definition:</b> player_owner.h:3</div></div>
+<div class="ttc" id="aplayer__owner_8h_html"><div class="ttname"><a href="player__owner_8h.html">player_owner.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_5e884809e1e573a571138d0434c204c2.html">player</a></li><li class="navelem"><a class="el" href="player_8h.html">player.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

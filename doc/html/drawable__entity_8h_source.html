@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/units/drawable_entity.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('drawable__entity_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">drawable_entity.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="drawable__entity_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="drawable_8h.html">drawable.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../clock.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../managers/texture_manager.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;../map/camera.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_drawable_entity.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_drawable_entity.html">DrawableEntity</a> : <span class="keyword">public</span> <a class="code" href="class_drawable.html">Drawable</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// --cosmetic--</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#aa5e24007983e552d893da0f40f47f61b">   17</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_drawable_entity.html#aa5e24007983e552d893da0f40f47f61b">is_right_side</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a18b7ca634844c5ea029ea01aca8cf0b5">   18</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#a18b7ca634844c5ea029ea01aca8cf0b5">texture_ind_</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a81981002b9eecf071308a0fba178b891">   19</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#a81981002b9eecf071308a0fba178b891">texture_move_num_</a> = 0;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a5e697cd7c00cfb024ecccf3490bea005">   20</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#a5e697cd7c00cfb024ecccf3490bea005">texture_attack_num_</a> = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a3303b4a48ca4d303d712eeb5c6e8062d">   21</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#a3303b4a48ca4d303d712eeb5c6e8062d">texture_pos_</a> = 0;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#aa197f11217159b018fff23d49fe4eb15">   22</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#aa197f11217159b018fff23d49fe4eb15">texture_cur_delay_</a> = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a6cebe543fbe8db408b52e62a44e4abc6">   23</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#a6cebe543fbe8db408b52e62a44e4abc6">texture_delay_move_</a> = 1;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#aa09230d11b775a8041dc201aa504f198">   24</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_drawable_entity.html#aa09230d11b775a8041dc201aa504f198">texture_delay_attack_</a> = 1;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a54af422cc86d5f2c22c11cc860535ece">   25</a></span>&#160;    <a class="code" href="class_texture_manager.html">TextureManager</a>* <a class="code" href="class_drawable_entity.html#a54af422cc86d5f2c22c11cc860535ece">texture_manager_</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#aa20a282c812fe0054c44d5e5b6e07b33">   26</a></span>&#160;    std::string <a class="code" href="class_drawable_entity.html#aa20a282c812fe0054c44d5e5b6e07b33">name_</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a469034ee52e3c6cf7882c6ec9ab873e2">   28</a></span>&#160;    uint8_t <a class="code" href="class_drawable_entity.html#a469034ee52e3c6cf7882c6ec9ab873e2">cur_layer_ind_</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">// --geometry--</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#abca497f2aea8926bc6890c731ba9c387">   31</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_drawable_entity.html#abca497f2aea8926bc6890c731ba9c387">x_</a> = 110.0, <a class="code" href="class_drawable_entity.html#a5c2216a80aa618c97500119210e57ea9">y_</a> = 110.0;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// hitbox delta</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#a2f6bee3b52387c0f7147bbc0f796a29d">   33</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_drawable_entity.html#a2f6bee3b52387c0f7147bbc0f796a29d">deltaX_</a> = 0, <a class="code" href="class_drawable_entity.html#a1759112bc8acbe148cc0877eb713665c">deltaY_</a> = 0;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// hitbox size</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#aa498de22d476a05c9f9a938b30c9094b">   35</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_drawable_entity.html#ac190ae25e6cc10d8fe6200878bf64bcd">width_</a> = 16, <a class="code" href="class_drawable_entity.html#aa498de22d476a05c9f9a938b30c9094b">height_</a> = 16;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="comment">// texture size</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_drawable_entity.html#acaa8ef646cbbf285982d64eb3466205b">   37</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_drawable_entity.html#abb86ba387101f30d57dadfabdf4bf375">texture_width_</a> = 24, <a class="code" href="class_drawable_entity.html#acaa8ef646cbbf285982d64eb3466205b">texture_height_</a> = 24;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">/*</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">    texture</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">    -----------------------</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">    |     /|\             |</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">    |      | deltaY       |</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">    |     \|/             |</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">    |      --------       |</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">    |deltaX|hitbox|       |</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">    |&lt;----&gt;|      |       |</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">    |      --------       |</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">    -----------------------</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_drawable_entity.html#aabfd6c02b9a91df41e54f8522de24980">SetTexture</a>(<span class="keywordtype">size_t</span> texture_ind, <span class="keywordtype">size_t</span> move_cnt, <span class="keywordtype">size_t</span> attack_cnt,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordtype">size_t</span> texture_delay_move, <span class="keywordtype">size_t</span> texture_delay_attack,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">size_t</span> deltaX, <span class="keywordtype">size_t</span> deltaY, <span class="keywordtype">size_t</span> width, <span class="keywordtype">size_t</span> height,</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordtype">size_t</span> texture_width, <span class="keywordtype">size_t</span> texture_height) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_drawable_entity.html#a694bc95b2c87ef82260164acb3615cf9">SetName</a>(std::string name);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> uint8_t <a class="code" href="class_drawable_entity.html#ae345feb7107420ae58317dd5b2fe4d32">GetCurrentLayerIndex</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="ttc" id="aclass_drawable_entity_html"><div class="ttname"><a href="class_drawable_entity.html">DrawableEntity</a></div><div class="ttdef"><b>Definition:</b> drawable_entity.h:13</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a1759112bc8acbe148cc0877eb713665c"><div class="ttname"><a href="class_drawable_entity.html#a1759112bc8acbe148cc0877eb713665c">DrawableEntity::deltaY_</a></div><div class="ttdeci">int deltaY_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:33</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a18b7ca634844c5ea029ea01aca8cf0b5"><div class="ttname"><a href="class_drawable_entity.html#a18b7ca634844c5ea029ea01aca8cf0b5">DrawableEntity::texture_ind_</a></div><div class="ttdeci">size_t texture_ind_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:18</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a2f6bee3b52387c0f7147bbc0f796a29d"><div class="ttname"><a href="class_drawable_entity.html#a2f6bee3b52387c0f7147bbc0f796a29d">DrawableEntity::deltaX_</a></div><div class="ttdeci">int deltaX_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:33</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a3303b4a48ca4d303d712eeb5c6e8062d"><div class="ttname"><a href="class_drawable_entity.html#a3303b4a48ca4d303d712eeb5c6e8062d">DrawableEntity::texture_pos_</a></div><div class="ttdeci">size_t texture_pos_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:21</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a469034ee52e3c6cf7882c6ec9ab873e2"><div class="ttname"><a href="class_drawable_entity.html#a469034ee52e3c6cf7882c6ec9ab873e2">DrawableEntity::cur_layer_ind_</a></div><div class="ttdeci">uint8_t cur_layer_ind_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:28</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a54af422cc86d5f2c22c11cc860535ece"><div class="ttname"><a href="class_drawable_entity.html#a54af422cc86d5f2c22c11cc860535ece">DrawableEntity::texture_manager_</a></div><div class="ttdeci">TextureManager * texture_manager_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:25</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a5c2216a80aa618c97500119210e57ea9"><div class="ttname"><a href="class_drawable_entity.html#a5c2216a80aa618c97500119210e57ea9">DrawableEntity::y_</a></div><div class="ttdeci">double y_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:31</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a5e697cd7c00cfb024ecccf3490bea005"><div class="ttname"><a href="class_drawable_entity.html#a5e697cd7c00cfb024ecccf3490bea005">DrawableEntity::texture_attack_num_</a></div><div class="ttdeci">size_t texture_attack_num_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:20</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a694bc95b2c87ef82260164acb3615cf9"><div class="ttname"><a href="class_drawable_entity.html#a694bc95b2c87ef82260164acb3615cf9">DrawableEntity::SetName</a></div><div class="ttdeci">virtual void SetName(std::string name)</div><div class="ttdef"><b>Definition:</b> drawable_entity.cpp:20</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a6cebe543fbe8db408b52e62a44e4abc6"><div class="ttname"><a href="class_drawable_entity.html#a6cebe543fbe8db408b52e62a44e4abc6">DrawableEntity::texture_delay_move_</a></div><div class="ttdeci">size_t texture_delay_move_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:23</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_a81981002b9eecf071308a0fba178b891"><div class="ttname"><a href="class_drawable_entity.html#a81981002b9eecf071308a0fba178b891">DrawableEntity::texture_move_num_</a></div><div class="ttdeci">size_t texture_move_num_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:19</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_aa09230d11b775a8041dc201aa504f198"><div class="ttname"><a href="class_drawable_entity.html#aa09230d11b775a8041dc201aa504f198">DrawableEntity::texture_delay_attack_</a></div><div class="ttdeci">size_t texture_delay_attack_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:24</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_aa197f11217159b018fff23d49fe4eb15"><div class="ttname"><a href="class_drawable_entity.html#aa197f11217159b018fff23d49fe4eb15">DrawableEntity::texture_cur_delay_</a></div><div class="ttdeci">size_t texture_cur_delay_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:22</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_aa20a282c812fe0054c44d5e5b6e07b33"><div class="ttname"><a href="class_drawable_entity.html#aa20a282c812fe0054c44d5e5b6e07b33">DrawableEntity::name_</a></div><div class="ttdeci">std::string name_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:26</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_aa498de22d476a05c9f9a938b30c9094b"><div class="ttname"><a href="class_drawable_entity.html#aa498de22d476a05c9f9a938b30c9094b">DrawableEntity::height_</a></div><div class="ttdeci">int height_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:35</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_aa5e24007983e552d893da0f40f47f61b"><div class="ttname"><a href="class_drawable_entity.html#aa5e24007983e552d893da0f40f47f61b">DrawableEntity::is_right_side</a></div><div class="ttdeci">bool is_right_side</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:17</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_aabfd6c02b9a91df41e54f8522de24980"><div class="ttname"><a href="class_drawable_entity.html#aabfd6c02b9a91df41e54f8522de24980">DrawableEntity::SetTexture</a></div><div class="ttdeci">virtual void SetTexture(size_t texture_ind, size_t move_cnt, size_t attack_cnt, size_t texture_delay_move, size_t texture_delay_attack, size_t deltaX, size_t deltaY, size_t width, size_t height, size_t texture_width, size_t texture_height) override</div><div class="ttdef"><b>Definition:</b> drawable_entity.cpp:3</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_abb86ba387101f30d57dadfabdf4bf375"><div class="ttname"><a href="class_drawable_entity.html#abb86ba387101f30d57dadfabdf4bf375">DrawableEntity::texture_width_</a></div><div class="ttdeci">int texture_width_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:37</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_abca497f2aea8926bc6890c731ba9c387"><div class="ttname"><a href="class_drawable_entity.html#abca497f2aea8926bc6890c731ba9c387">DrawableEntity::x_</a></div><div class="ttdeci">double x_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:31</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_ac190ae25e6cc10d8fe6200878bf64bcd"><div class="ttname"><a href="class_drawable_entity.html#ac190ae25e6cc10d8fe6200878bf64bcd">DrawableEntity::width_</a></div><div class="ttdeci">int width_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:35</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_acaa8ef646cbbf285982d64eb3466205b"><div class="ttname"><a href="class_drawable_entity.html#acaa8ef646cbbf285982d64eb3466205b">DrawableEntity::texture_height_</a></div><div class="ttdeci">int texture_height_</div><div class="ttdef"><b>Definition:</b> drawable_entity.h:37</div></div>
+<div class="ttc" id="aclass_drawable_entity_html_ae345feb7107420ae58317dd5b2fe4d32"><div class="ttname"><a href="class_drawable_entity.html#ae345feb7107420ae58317dd5b2fe4d32">DrawableEntity::GetCurrentLayerIndex</a></div><div class="ttdeci">virtual uint8_t GetCurrentLayerIndex() override</div><div class="ttdef"><b>Definition:</b> drawable_entity.cpp:22</div></div>
+<div class="ttc" id="aclass_drawable_html"><div class="ttname"><a href="class_drawable.html">Drawable</a></div><div class="ttdef"><b>Definition:</b> drawable.h:9</div></div>
+<div class="ttc" id="aclass_texture_manager_html"><div class="ttname"><a href="class_texture_manager.html">TextureManager</a></div><div class="ttdef"><b>Definition:</b> texture_manager.h:26</div></div>
+<div class="ttc" id="adrawable_8h_html"><div class="ttname"><a href="drawable_8h.html">drawable.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_080b1462374eca6f187dbb142655cb72.html">units</a></li><li class="navelem"><a class="el" href="drawable__entity_8h.html">drawable_entity.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/map/grid/grid_function.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('grid__function_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">grid_function.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="grid__function_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../block_type.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grid_8h.html">grid.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grid__neighbors_8h.html">grid_neighbors.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> std::vector;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespacegrid__function.html">   11</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacegrid__function.html">grid_function</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="comment">// Builds grid from function, grid[i][j] = f(i, j)</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">class</span> BinaryFunction&gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="class_grid.html">Grid&lt;T&gt;</a> <a class="code" href="namespacegrid__function.html#a2713093eaa2ba1fa5045de3df515c246">FromFunction</a>(<span class="keywordtype">size_t</span> height, <span class="keywordtype">size_t</span> width, BinaryFunction f);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="comment">// Gets square of a distance between two points</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">inline</span> uint32_t <a class="code" href="namespacegrid__function.html#a5d8a3a69bc0bdfbb46d5739b7677de66">SquaredDistance</a>(<span class="keyword">const</span> <a class="code" href="struct_map_point.html">MapPoint</a>&amp; a, <span class="keyword">const</span> <a class="code" href="struct_map_point.html">MapPoint</a>&amp; b);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// Gets an actual distance between two points</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="namespacegrid__function.html#ad69f36378abcf4063c29afadd433ef9c">Distance</a>(<span class="keyword">const</span> <a class="code" href="struct_map_point.html">MapPoint</a>&amp; a, <span class="keyword">const</span> <a class="code" href="struct_map_point.html">MapPoint</a>&amp; b);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// Makes map more smooth</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="comment">// For each cell, if 5 neighbors have the same block type, transform that cell into that block type</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacegrid__function.html#a40923a3c662c53f3ea20ebcf71718f4b">SmoothMap</a>(<span class="keyword">const</span> <a class="code" href="class_grid_neighbors.html">GridNeighbors</a>&amp; neighbors, <a class="code" href="class_grid.html">Grid&lt;BlockType&gt;</a>&amp; blocks);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// Removes small areas</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// Unites small areas with the closest non-small ones</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacegrid__function.html#af6f58e4ed2e78c3591dcfb6bf44c02c8">RemoveSmallAreas</a>(<span class="keyword">const</span> <a class="code" href="class_grid_neighbors.html">GridNeighbors</a>&amp; neighbors, <a class="code" href="class_grid.html">Grid&lt;BlockType&gt;</a>&amp; blocks, uint32_t area_min);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="comment">/* Finds the closest point from start if we:</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">    1. Can only travel via allowed points</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">    2. Must end at end point</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">    3. Have distance at least min_distance</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    vector&lt;MapPoint&gt; <a class="code" href="namespacegrid__function.html#a61f12df0b171ce771c54e34b1cbee06f">FindClosest</a>(<span class="keyword">const</span> <a class="code" href="class_grid_neighbors.html">GridNeighbors</a>&amp; neighbors, <span class="keyword">const</span> <a class="code" href="struct_map_point.html">MapPoint</a>&amp; start,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">const</span> <a class="code" href="class_grid.html">Grid&lt;char&gt;</a>&amp; allowed_points, <span class="keyword">const</span> <a class="code" href="class_grid.html">Grid&lt;char&gt;</a>&amp; end_points, <span class="keywordtype">float</span> max_distance = 0);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="comment">/* Finds the farthest point from start if we:</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">    1. Can only travel via allowed points</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">    2. Must end at end point</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">    */</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    vector&lt;MapPoint&gt; <a class="code" href="namespacegrid__function.html#a7a0f4901346fd8959eb0cb0e06da098a">FindFarthest</a>(<span class="keyword">const</span> <a class="code" href="class_grid_neighbors.html">GridNeighbors</a>&amp; neighbors, <span class="keyword">const</span> <a class="code" href="struct_map_point.html">MapPoint</a>&amp; start,</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">const</span> <a class="code" href="class_grid.html">Grid&lt;char&gt;</a>&amp; allowed_points, <span class="keyword">const</span> <a class="code" href="class_grid.html">Grid&lt;char&gt;</a>&amp; end_points);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">class</span> BinaryFunction&gt;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="namespacegrid__function.html#a2713093eaa2ba1fa5045de3df515c246">   47</a></span>&#160;<a class="code" href="class_grid.html">Grid&lt;T&gt;</a> <a class="code" href="namespacegrid__function.html#a2713093eaa2ba1fa5045de3df515c246">grid_function::FromFunction</a>(<span class="keywordtype">size_t</span> height, <span class="keywordtype">size_t</span> width, BinaryFunction f) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_grid.html">Grid&lt;T&gt;</a> result(height, width);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; height; ++i)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> (uint32_t j = 0; j &lt; width; ++j)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            result[i][j] = f(i, j);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="ttc" id="aclass_grid_html"><div class="ttname"><a href="class_grid.html">Grid</a></div><div class="ttdef"><b>Definition:</b> grid.h:11</div></div>
+<div class="ttc" id="aclass_grid_neighbors_html"><div class="ttname"><a href="class_grid_neighbors.html">GridNeighbors</a></div><div class="ttdef"><b>Definition:</b> grid_neighbors.h:5</div></div>
+<div class="ttc" id="agrid_8h_html"><div class="ttname"><a href="grid_8h.html">grid.h</a></div></div>
+<div class="ttc" id="agrid__neighbors_8h_html"><div class="ttname"><a href="grid__neighbors_8h.html">grid_neighbors.h</a></div></div>
+<div class="ttc" id="anamespacegrid__function_html"><div class="ttname"><a href="namespacegrid__function.html">grid_function</a></div><div class="ttdef"><b>Definition:</b> grid_function.h:11</div></div>
+<div class="ttc" id="anamespacegrid__function_html_a2713093eaa2ba1fa5045de3df515c246"><div class="ttname"><a href="namespacegrid__function.html#a2713093eaa2ba1fa5045de3df515c246">grid_function::FromFunction</a></div><div class="ttdeci">Grid&lt; T &gt; FromFunction(size_t height, size_t width, BinaryFunction f)</div><div class="ttdef"><b>Definition:</b> grid_function.h:47</div></div>
+<div class="ttc" id="anamespacegrid__function_html_a40923a3c662c53f3ea20ebcf71718f4b"><div class="ttname"><a href="namespacegrid__function.html#a40923a3c662c53f3ea20ebcf71718f4b">grid_function::SmoothMap</a></div><div class="ttdeci">void SmoothMap(const GridNeighbors &amp;neighbors, Grid&lt; BlockType &gt; &amp;blocks)</div><div class="ttdef"><b>Definition:</b> grid_function.cpp:18</div></div>
+<div class="ttc" id="anamespacegrid__function_html_a5d8a3a69bc0bdfbb46d5739b7677de66"><div class="ttname"><a href="namespacegrid__function.html#a5d8a3a69bc0bdfbb46d5739b7677de66">grid_function::SquaredDistance</a></div><div class="ttdeci">uint32_t SquaredDistance(const MapPoint &amp;a, const MapPoint &amp;b)</div><div class="ttdef"><b>Definition:</b> grid_function.cpp:10</div></div>
+<div class="ttc" id="anamespacegrid__function_html_a61f12df0b171ce771c54e34b1cbee06f"><div class="ttname"><a href="namespacegrid__function.html#a61f12df0b171ce771c54e34b1cbee06f">grid_function::FindClosest</a></div><div class="ttdeci">vector&lt; MapPoint &gt; FindClosest(const GridNeighbors &amp;neighbors, const MapPoint &amp;start, const Grid&lt; char &gt; &amp;allowed_points, const Grid&lt; char &gt; &amp;end_points, float max_distance=0)</div><div class="ttdef"><b>Definition:</b> grid_function.cpp:99</div></div>
+<div class="ttc" id="anamespacegrid__function_html_a7a0f4901346fd8959eb0cb0e06da098a"><div class="ttname"><a href="namespacegrid__function.html#a7a0f4901346fd8959eb0cb0e06da098a">grid_function::FindFarthest</a></div><div class="ttdeci">vector&lt; MapPoint &gt; FindFarthest(const GridNeighbors &amp;neighbors, const MapPoint &amp;start, const Grid&lt; char &gt; &amp;allowed_points, const Grid&lt; char &gt; &amp;end_points)</div><div class="ttdef"><b>Definition:</b> grid_function.cpp:144</div></div>
+<div class="ttc" id="anamespacegrid__function_html_ad69f36378abcf4063c29afadd433ef9c"><div class="ttname"><a href="namespacegrid__function.html#ad69f36378abcf4063c29afadd433ef9c">grid_function::Distance</a></div><div class="ttdeci">float Distance(const MapPoint &amp;a, const MapPoint &amp;b)</div><div class="ttdef"><b>Definition:</b> grid_function.cpp:14</div></div>
+<div class="ttc" id="anamespacegrid__function_html_af6f58e4ed2e78c3591dcfb6bf44c02c8"><div class="ttname"><a href="namespacegrid__function.html#af6f58e4ed2e78c3591dcfb6bf44c02c8">grid_function::RemoveSmallAreas</a></div><div class="ttdeci">void RemoveSmallAreas(const GridNeighbors &amp;neighbors, Grid&lt; BlockType &gt; &amp;blocks, uint32_t area_min)</div><div class="ttdef"><b>Definition:</b> grid_function.cpp:50</div></div>
+<div class="ttc" id="astruct_map_point_html"><div class="ttname"><a href="struct_map_point.html">MapPoint</a></div><div class="ttdef"><b>Definition:</b> map_point.h:5</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_a6e7d02c070370f747481808e013b638.html">map</a></li><li class="navelem"><a class="el" href="dir_4e523d48e520d44fb4f2e240fdfe8668.html">grid</a></li><li class="navelem"><a class="el" href="grid__function_8h.html">grid_function.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/units/movable.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('movable_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">movable.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="movable_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="class_movable.html">    3</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_movable.html">Movable</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="class_movable.html#ac59cee66f987c996f164f7aa870788c6">    5</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_movable.html#ac59cee66f987c996f164f7aa870788c6">GetSpeed</a>() = 0;</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_movable.html#a8074b0ea01932cf4edfeb5535d0ab767">    7</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#a8074b0ea01932cf4edfeb5535d0ab767">SetVector</a>(<span class="keywordtype">int</span> dx, <span class="keywordtype">int</span> dy) = 0;</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_movable.html#af33f1562ce9739d0d166cbab722816d4">    8</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#af33f1562ce9739d0d166cbab722816d4">SetVector</a>(<span class="keywordtype">double</span> dx, <span class="keywordtype">double</span> dy) = 0;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_movable.html#ae2489b89f1afa95941043571fb5969c3">    9</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#ae2489b89f1afa95941043571fb5969c3">AddVector</a>(<span class="keywordtype">double</span> dx, <span class="keywordtype">double</span> dy) = 0;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_movable.html#a6dd95ecafdcffb7de84bec758e9ec804">   10</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#a6dd95ecafdcffb7de84bec758e9ec804">VectorApply</a>() = 0;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_movable.html#af4b6dd5d90e488680ca5b244484d6de3">   11</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#af4b6dd5d90e488680ca5b244484d6de3">VectorApplyBullet</a>() = 0;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_movable.html#ab81111abaffea99acf65901aa2010692">   12</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#ab81111abaffea99acf65901aa2010692">SetCommandPoint</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) = 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_movable.html#a5e475625d25388e3a45c12073c6726ee">   13</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#a5e475625d25388e3a45c12073c6726ee">GetCommandPoint</a>(<span class="keywordtype">int</span>&amp; x, <span class="keywordtype">int</span>&amp; y) = 0;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_movable.html#afeeae7f277aea075e74a4ff15a4bb24e">   15</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_movable.html#afeeae7f277aea075e74a4ff15a4bb24e">Move</a>() = 0;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;};</div>
+<div class="ttc" id="aclass_movable_html"><div class="ttname"><a href="class_movable.html">Movable</a></div><div class="ttdef"><b>Definition:</b> movable.h:3</div></div>
+<div class="ttc" id="aclass_movable_html_a5e475625d25388e3a45c12073c6726ee"><div class="ttname"><a href="class_movable.html#a5e475625d25388e3a45c12073c6726ee">Movable::GetCommandPoint</a></div><div class="ttdeci">virtual void GetCommandPoint(int &amp;x, int &amp;y)=0</div></div>
+<div class="ttc" id="aclass_movable_html_a6dd95ecafdcffb7de84bec758e9ec804"><div class="ttname"><a href="class_movable.html#a6dd95ecafdcffb7de84bec758e9ec804">Movable::VectorApply</a></div><div class="ttdeci">virtual void VectorApply()=0</div></div>
+<div class="ttc" id="aclass_movable_html_a8074b0ea01932cf4edfeb5535d0ab767"><div class="ttname"><a href="class_movable.html#a8074b0ea01932cf4edfeb5535d0ab767">Movable::SetVector</a></div><div class="ttdeci">virtual void SetVector(int dx, int dy)=0</div></div>
+<div class="ttc" id="aclass_movable_html_ab81111abaffea99acf65901aa2010692"><div class="ttname"><a href="class_movable.html#ab81111abaffea99acf65901aa2010692">Movable::SetCommandPoint</a></div><div class="ttdeci">virtual void SetCommandPoint(int x, int y)=0</div></div>
+<div class="ttc" id="aclass_movable_html_ac59cee66f987c996f164f7aa870788c6"><div class="ttname"><a href="class_movable.html#ac59cee66f987c996f164f7aa870788c6">Movable::GetSpeed</a></div><div class="ttdeci">virtual int GetSpeed()=0</div></div>
+<div class="ttc" id="aclass_movable_html_ae2489b89f1afa95941043571fb5969c3"><div class="ttname"><a href="class_movable.html#ae2489b89f1afa95941043571fb5969c3">Movable::AddVector</a></div><div class="ttdeci">virtual void AddVector(double dx, double dy)=0</div></div>
+<div class="ttc" id="aclass_movable_html_af33f1562ce9739d0d166cbab722816d4"><div class="ttname"><a href="class_movable.html#af33f1562ce9739d0d166cbab722816d4">Movable::SetVector</a></div><div class="ttdeci">virtual void SetVector(double dx, double dy)=0</div></div>
+<div class="ttc" id="aclass_movable_html_af4b6dd5d90e488680ca5b244484d6de3"><div class="ttname"><a href="class_movable.html#af4b6dd5d90e488680ca5b244484d6de3">Movable::VectorApplyBullet</a></div><div class="ttdeci">virtual void VectorApplyBullet()=0</div></div>
+<div class="ttc" id="aclass_movable_html_afeeae7f277aea075e74a4ff15a4bb24e"><div class="ttname"><a href="class_movable.html#afeeae7f277aea075e74a4ff15a4bb24e">Movable::Move</a></div><div class="ttdeci">virtual void Move()=0</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_080b1462374eca6f187dbb142655cb72.html">units</a></li><li class="navelem"><a class="el" href="movable_8h.html">movable.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

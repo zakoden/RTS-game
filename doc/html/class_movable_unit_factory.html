@@ -1,0 +1,823 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Класс MovableUnitFactory</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_movable_unit_factory.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="class_movable_unit_factory-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс MovableUnitFactory<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="abstract__unit__factory_8h_source.html">abstract_unit_factory.h</a>&gt;</code></p>
+<div class="dynheader">
+Граф наследования:MovableUnitFactory:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_movable_unit_factory.png" usemap="#MovableUnitFactory_map" alt=""/>
+  <map id="MovableUnitFactory_map" name="MovableUnitFactory_map">
+<area href="class_unit_factory.html" alt="UnitFactory" shape="rect" coords="0,56,126,80"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:aa36ccf042e74d95adc4b6daf010d8971"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#aa36ccf042e74d95adc4b6daf010d8971">CreateTest</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:aa36ccf042e74d95adc4b6daf010d8971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7ec9e2127a6495fb409e6df8f12f903"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#aa7ec9e2127a6495fb409e6df8f12f903">CreateTest1</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:aa7ec9e2127a6495fb409e6df8f12f903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ac3bc0aabbf48a5c705d455e5ea21bf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a0ac3bc0aabbf48a5c705d455e5ea21bf">CreateTestHunter</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:a0ac3bc0aabbf48a5c705d455e5ea21bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d4a3b183abe2933f369092fce26e849"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a3d4a3b183abe2933f369092fce26e849">CreateTestHunter2</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:a3d4a3b183abe2933f369092fce26e849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce61c6caa6f517842a26b66ce37079f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a6ce61c6caa6f517842a26b66ce37079f">CreateScout</a> (size_t player, int x, int y, <a class="el" href="struct_map_point.html">MapPoint</a> target)=0</td></tr>
+<tr class="separator:a6ce61c6caa6f517842a26b66ce37079f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09d243ed3aa5cff630c5813b375728ad"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a09d243ed3aa5cff630c5813b375728ad">CreateFireSmallPoleax</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:a09d243ed3aa5cff630c5813b375728ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb1651bf8f8182012968fc16a068322"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#aacb1651bf8f8182012968fc16a068322">CreateFireSmallSpear</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:aacb1651bf8f8182012968fc16a068322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9149b62073835067e0423a8a613afa1c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a9149b62073835067e0423a8a613afa1c">CreateFireSmallLance</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:a9149b62073835067e0423a8a613afa1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c582f397e6c0b1f2d46c6396eb51baa"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a3c582f397e6c0b1f2d46c6396eb51baa">CreateFireMediumPoleax</a> (size_t player, int x, int y)=0</td></tr>
+<tr class="separator:a3c582f397e6c0b1f2d46c6396eb51baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6ddf6c8aed52c3fc5a2d10e72f8b520"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#aa6ddf6c8aed52c3fc5a2d10e72f8b520">CreateBulletFire1</a> (size_t player, int x, int y, int x_to, int y_to)=0</td></tr>
+<tr class="separator:aa6ddf6c8aed52c3fc5a2d10e72f8b520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f85a030601aca64d89ebe6a3498205a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_building.html">Building</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a7f85a030601aca64d89ebe6a3498205a">CreateBase</a> (uint8_t player, int x, int y)=0</td></tr>
+<tr class="separator:a7f85a030601aca64d89ebe6a3498205a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a745f125de2297d416918d4df348de027"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_building.html">Building</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a745f125de2297d416918d4df348de027">CreateSmallHorizontalGrayWall</a> (uint8_t player, int x, int y)=0</td></tr>
+<tr class="separator:a745f125de2297d416918d4df348de027"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a567773611c4fbc74592263a8785c066c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_building.html">Building</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a567773611c4fbc74592263a8785c066c">CreateSmallVerticalGrayWall</a> (uint8_t player, int x, int y)=0</td></tr>
+<tr class="separator:a567773611c4fbc74592263a8785c066c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb1593d48dec22020e381bc5982cf7ff"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_building.html">Building</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#adb1593d48dec22020e381bc5982cf7ff">CreateSmallGrayTower</a> (uint8_t player, int x, int y)=0</td></tr>
+<tr class="separator:adb1593d48dec22020e381bc5982cf7ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50933d6ffcf498173482f37d9f7c59c2"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable_unit_factory.html#a50933d6ffcf498173482f37d9f7c59c2">CreateBamboo</a> (int x, int y)=0</td></tr>
+<tr class="separator:a50933d6ffcf498173482f37d9f7c59c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Методы</h2>
+<a id="a50933d6ffcf498173482f37d9f7c59c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50933d6ffcf498173482f37d9f7c59c2">&#9670;&nbsp;</a></span>CreateBamboo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_entity.html">Entity</a>* MovableUnitFactory::CreateBamboo </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#af0677531774d95cb9678cc7186ea92a2">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a7f85a030601aca64d89ebe6a3498205a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f85a030601aca64d89ebe6a3498205a">&#9670;&nbsp;</a></span>CreateBase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_building.html">Building</a>* MovableUnitFactory::CreateBase </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a9b1193e8d07051bf0a9181e016ae5619">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="aa6ddf6c8aed52c3fc5a2d10e72f8b520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6ddf6c8aed52c3fc5a2d10e72f8b520">&#9670;&nbsp;</a></span>CreateBulletFire1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateBulletFire1 </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x_to</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y_to</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#af5a156407879ac483efcffd76c810a5c">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a3c582f397e6c0b1f2d46c6396eb51baa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c582f397e6c0b1f2d46c6396eb51baa">&#9670;&nbsp;</a></span>CreateFireMediumPoleax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateFireMediumPoleax </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a07a153616e50400203a54385221d3197">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a9149b62073835067e0423a8a613afa1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9149b62073835067e0423a8a613afa1c">&#9670;&nbsp;</a></span>CreateFireSmallLance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateFireSmallLance </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#afc53d584ae5635154b86baa2eaa47013">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a09d243ed3aa5cff630c5813b375728ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09d243ed3aa5cff630c5813b375728ad">&#9670;&nbsp;</a></span>CreateFireSmallPoleax()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateFireSmallPoleax </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a69d025bb658bff84821cb7066b7d5085">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="aacb1651bf8f8182012968fc16a068322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb1651bf8f8182012968fc16a068322">&#9670;&nbsp;</a></span>CreateFireSmallSpear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateFireSmallSpear </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a7db3aac2f31a319c8b50415a7d33c02d">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a6ce61c6caa6f517842a26b66ce37079f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ce61c6caa6f517842a26b66ce37079f">&#9670;&nbsp;</a></span>CreateScout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateScout </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_map_point.html">MapPoint</a>&#160;</td>
+          <td class="paramname"><em>target</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#adc308093feabdd1fa2d1a0e3ac866303">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="adb1593d48dec22020e381bc5982cf7ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb1593d48dec22020e381bc5982cf7ff">&#9670;&nbsp;</a></span>CreateSmallGrayTower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_building.html">Building</a>* MovableUnitFactory::CreateSmallGrayTower </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#ac01166e1afc40c981d95af203f565633">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a745f125de2297d416918d4df348de027"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a745f125de2297d416918d4df348de027">&#9670;&nbsp;</a></span>CreateSmallHorizontalGrayWall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_building.html">Building</a>* MovableUnitFactory::CreateSmallHorizontalGrayWall </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a6d4ff94fc31ca1d1f0f822443b9054ed">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a567773611c4fbc74592263a8785c066c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a567773611c4fbc74592263a8785c066c">&#9670;&nbsp;</a></span>CreateSmallVerticalGrayWall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_building.html">Building</a>* MovableUnitFactory::CreateSmallVerticalGrayWall </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#abcbf7b32e4d273f322e37be018d39e7a">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="aa36ccf042e74d95adc4b6daf010d8971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa36ccf042e74d95adc4b6daf010d8971">&#9670;&nbsp;</a></span>CreateTest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateTest </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#ad284155a8fc2302e9e6fa0ec9ac09283">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="aa7ec9e2127a6495fb409e6df8f12f903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7ec9e2127a6495fb409e6df8f12f903">&#9670;&nbsp;</a></span>CreateTest1()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateTest1 </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#aec6599c755f5b2a645dc88de782d5cb9">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a0ac3bc0aabbf48a5c705d455e5ea21bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ac3bc0aabbf48a5c705d455e5ea21bf">&#9670;&nbsp;</a></span>CreateTestHunter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateTestHunter </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a2fa1958b80e799e849f6b76346b445c6">UnitFactory</a>.</p>
+
+</div>
+</div>
+<a id="a3d4a3b183abe2933f369092fce26e849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d4a3b183abe2933f369092fce26e849">&#9670;&nbsp;</a></span>CreateTestHunter2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="class_movable_unit.html">MovableUnit</a>* MovableUnitFactory::CreateTestHunter2 </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>player</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещается в <a class="el" href="class_unit_factory.html#a3f115b543c9a99e97ed709dc5dd16519">UnitFactory</a>.</p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов класса находятся в файле:<ul>
+<li>RTS-game/RTS-game/units/<a class="el" href="abstract__unit__factory_8h_source.html">abstract_unit_factory.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_movable_unit_factory.html">MovableUnitFactory</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

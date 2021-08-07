@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/behaviors/behavior_random.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('behavior__random_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">behavior_random.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="behavior__random_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;iostream&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="behavior_8h.html">behavior.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../units/movable_unit.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_behavior_random.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_behavior_random.html">BehaviorRandom</a> : <span class="keyword">public</span> <a class="code" href="class_behavior.html">Behavior</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_behavior_random.html#a2cb17736ccee2168d426ed6f913e99d6">   11</a></span>&#160;    <a class="code" href="class_movable_unit.html">MovableUnit</a>* <a class="code" href="class_behavior_random.html#a2cb17736ccee2168d426ed6f913e99d6">unit_</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_behavior_random.html#a0e46b6a0a3205a5b1f40640defb91109">   12</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_behavior_random.html#a0e46b6a0a3205a5b1f40640defb91109">cur_steps_</a> = 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="class_behavior_random.html#a0820eebbb135f5e03d567ed46423f3f2">   13</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_behavior_random.html#a0820eebbb135f5e03d567ed46423f3f2">steps_to_change_</a> = 50;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_behavior_random.html#ab85b1f81c1878d7bde433c8735d3bbdf">   14</a></span>&#160;    <span class="keywordtype">double</span> <a class="code" href="class_behavior_random.html#ab85b1f81c1878d7bde433c8735d3bbdf">dx_</a> = 0.0, <a class="code" href="class_behavior_random.html#a8e6eceff71a96b87455e1c7019b51acf">dy_</a> = 0.0;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_behavior_random.html#ac7cb569afb8233eabcb043c98373b24b">BehaviorRandom</a>(<a class="code" href="class_movable_unit.html">MovableUnit</a>* unit = NULL);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="class_behavior_random.html#a3b7fcc3dafb855c806674d4ddc292e3f">~BehaviorRandom</a>();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_random.html#ad6c45d4b4de33a31f209fe0aa6eb5490">SetUnit</a>(<a class="code" href="class_movable_unit.html">MovableUnit</a>* unit);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="comment">// ������ (-_-) ��������</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_random.html#add71cc0de6ff47dcdbdea1ff7e37b6dc">DoAction</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="ttc" id="abehavior_8h_html"><div class="ttname"><a href="behavior_8h.html">behavior.h</a></div></div>
+<div class="ttc" id="aclass_behavior_html"><div class="ttname"><a href="class_behavior.html">Behavior</a></div><div class="ttdef"><b>Definition:</b> behavior.h:6</div></div>
+<div class="ttc" id="aclass_behavior_random_html"><div class="ttname"><a href="class_behavior_random.html">BehaviorRandom</a></div><div class="ttdef"><b>Definition:</b> behavior_random.h:9</div></div>
+<div class="ttc" id="aclass_behavior_random_html_a0820eebbb135f5e03d567ed46423f3f2"><div class="ttname"><a href="class_behavior_random.html#a0820eebbb135f5e03d567ed46423f3f2">BehaviorRandom::steps_to_change_</a></div><div class="ttdeci">int steps_to_change_</div><div class="ttdef"><b>Definition:</b> behavior_random.h:13</div></div>
+<div class="ttc" id="aclass_behavior_random_html_a0e46b6a0a3205a5b1f40640defb91109"><div class="ttname"><a href="class_behavior_random.html#a0e46b6a0a3205a5b1f40640defb91109">BehaviorRandom::cur_steps_</a></div><div class="ttdeci">int cur_steps_</div><div class="ttdef"><b>Definition:</b> behavior_random.h:12</div></div>
+<div class="ttc" id="aclass_behavior_random_html_a2cb17736ccee2168d426ed6f913e99d6"><div class="ttname"><a href="class_behavior_random.html#a2cb17736ccee2168d426ed6f913e99d6">BehaviorRandom::unit_</a></div><div class="ttdeci">MovableUnit * unit_</div><div class="ttdef"><b>Definition:</b> behavior_random.h:11</div></div>
+<div class="ttc" id="aclass_behavior_random_html_a3b7fcc3dafb855c806674d4ddc292e3f"><div class="ttname"><a href="class_behavior_random.html#a3b7fcc3dafb855c806674d4ddc292e3f">BehaviorRandom::~BehaviorRandom</a></div><div class="ttdeci">~BehaviorRandom()</div><div class="ttdef"><b>Definition:</b> behavior_random.cpp:8</div></div>
+<div class="ttc" id="aclass_behavior_random_html_a8e6eceff71a96b87455e1c7019b51acf"><div class="ttname"><a href="class_behavior_random.html#a8e6eceff71a96b87455e1c7019b51acf">BehaviorRandom::dy_</a></div><div class="ttdeci">double dy_</div><div class="ttdef"><b>Definition:</b> behavior_random.h:14</div></div>
+<div class="ttc" id="aclass_behavior_random_html_ab85b1f81c1878d7bde433c8735d3bbdf"><div class="ttname"><a href="class_behavior_random.html#ab85b1f81c1878d7bde433c8735d3bbdf">BehaviorRandom::dx_</a></div><div class="ttdeci">double dx_</div><div class="ttdef"><b>Definition:</b> behavior_random.h:14</div></div>
+<div class="ttc" id="aclass_behavior_random_html_ac7cb569afb8233eabcb043c98373b24b"><div class="ttname"><a href="class_behavior_random.html#ac7cb569afb8233eabcb043c98373b24b">BehaviorRandom::BehaviorRandom</a></div><div class="ttdeci">BehaviorRandom(MovableUnit *unit=NULL)</div><div class="ttdef"><b>Definition:</b> behavior_random.cpp:3</div></div>
+<div class="ttc" id="aclass_behavior_random_html_ad6c45d4b4de33a31f209fe0aa6eb5490"><div class="ttname"><a href="class_behavior_random.html#ad6c45d4b4de33a31f209fe0aa6eb5490">BehaviorRandom::SetUnit</a></div><div class="ttdeci">void SetUnit(MovableUnit *unit)</div><div class="ttdef"><b>Definition:</b> behavior_random.cpp:11</div></div>
+<div class="ttc" id="aclass_behavior_random_html_add71cc0de6ff47dcdbdea1ff7e37b6dc"><div class="ttname"><a href="class_behavior_random.html#add71cc0de6ff47dcdbdea1ff7e37b6dc">BehaviorRandom::DoAction</a></div><div class="ttdeci">void DoAction()</div><div class="ttdef"><b>Definition:</b> behavior_random.cpp:15</div></div>
+<div class="ttc" id="aclass_movable_unit_html"><div class="ttname"><a href="class_movable_unit.html">MovableUnit</a></div><div class="ttdef"><b>Definition:</b> movable_unit.h:24</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_748cd2bca1b01b2e8a0323728b26392f.html">behaviors</a></li><li class="navelem"><a class="el" href="behavior__random_8h.html">behavior_random.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

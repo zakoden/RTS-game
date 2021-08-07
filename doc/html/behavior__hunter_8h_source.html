@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/behaviors/behavior_hunter.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('behavior__hunter_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">behavior_hunter.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="behavior__hunter_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="behavior_8h.html">behavior.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../units/movable_unit.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;../units/abstract_unit_factory.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="namespacebehavior__hunter.html">   11</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacebehavior__hunter.html">behavior_hunter</a> {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723">   12</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723">Steps</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a96b823764835e366e2a2a8a49a90cd7f">   13</a></span>&#160;        <a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a96b823764835e366e2a2a8a49a90cd7f">COMMAND_UPDATE</a>,</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723ab60cffcab1dbcc90215fe57176472575">   14</a></span>&#160;        <a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723ab60cffcab1dbcc90215fe57176472575">RELOAD</a>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723ae5aebc91f25540aa85a81046570d5e75">   15</a></span>&#160;        <a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723ae5aebc91f25540aa85a81046570d5e75">FIND</a>,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a1cb10203143a4100abcd8b6736ef8052">STEPS_CNT</a></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a1cb10203143a4100abcd8b6736ef8052">   17</a></span>&#160;    };</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_behavior_hunter.html">BehaviorHunter</a> : <span class="keyword">public</span> <a class="code" href="class_behavior.html">Behavior</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#ab4e7b41431e86276ce6f488d6406719b">   22</a></span>&#160;    <a class="code" href="class_movable_unit.html">MovableUnit</a>* <a class="code" href="class_behavior_hunter.html#ab4e7b41431e86276ce6f488d6406719b">unit_</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#a2cf70e910b5fd8c0b0f0ab5586c623ee">   23</a></span>&#160;    uint8_t <a class="code" href="class_behavior_hunter.html#a2cf70e910b5fd8c0b0f0ab5586c623ee">cur_steps_</a>[<a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a1cb10203143a4100abcd8b6736ef8052">behavior_hunter::STEPS_CNT</a>] = {};</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#a8d2e1a1c64f4ae33bb7930f2a48d28ea">   24</a></span>&#160;    uint8_t <a class="code" href="class_behavior_hunter.html#a8d2e1a1c64f4ae33bb7930f2a48d28ea">max_steps_</a>[<a class="code" href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a1cb10203143a4100abcd8b6736ef8052">behavior_hunter::STEPS_CNT</a>];</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#a493d518291622a0bb3f896fbf4c6b6d4">   26</a></span>&#160;    <a class="code" href="class_with_hitbox.html">WithHitbox</a>* <a class="code" href="class_behavior_hunter.html#a493d518291622a0bb3f896fbf4c6b6d4">target_</a> = NULL;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#adbd26f8527973e25d25bdd6ae761c882">   28</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_behavior_hunter.html#adbd26f8527973e25d25bdd6ae761c882">distance_attack_</a> = 20;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#af46bbf5e7186f3f8d05037a3496cbe6d">   29</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_behavior_hunter.html#af46bbf5e7186f3f8d05037a3496cbe6d">radius_search_</a> = 200;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_behavior_hunter.html#a1729fc196fdbb8943022bf2412f43a33">   31</a></span>&#160;    <a class="code" href="class_movable_unit_factory.html">MovableUnitFactory</a>* <a class="code" href="class_behavior_hunter.html#a1729fc196fdbb8943022bf2412f43a33">unit_factory_</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="class_behavior_hunter.html#a9288dd69abe3b3deaa75ced945ebf49b">BehaviorHunter</a>(<a class="code" href="class_movable_unit.html">MovableUnit</a>* unit, <a class="code" href="class_movable_unit_factory.html">MovableUnitFactory</a>* unit_factory);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="class_behavior_hunter.html#af56dfa3b774bdfcf9934d4cb7e2d509a">~BehaviorHunter</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_hunter.html#adf4d7297b52951e9d2976e05299d9f72">SetUnit</a>(<a class="code" href="class_movable_unit.html">MovableUnit</a>* unit);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_hunter.html#a73e70672733e9a5e3a85f1a143956a81">AttackEnd</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_hunter.html#add5fb057c5fcb8208f3dffb338e17f09">DoAction</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_hunter.html#a16270add239aba86f7927c3d0ffbfc05">Attack</a>(<a class="code" href="class_with_hitbox.html">WithHitbox</a>* enemy);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_hunter.html#aecdf5a250fcb032aa10c20d46e6cf684">FindTarget</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_behavior_hunter.html#ad72752b99529e3fdce20f760430ef26c">DeadCheck</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="ttc" id="abehavior_8h_html"><div class="ttname"><a href="behavior_8h.html">behavior.h</a></div></div>
+<div class="ttc" id="aclass_behavior_html"><div class="ttname"><a href="class_behavior.html">Behavior</a></div><div class="ttdef"><b>Definition:</b> behavior.h:6</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html"><div class="ttname"><a href="class_behavior_hunter.html">BehaviorHunter</a></div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:20</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a16270add239aba86f7927c3d0ffbfc05"><div class="ttname"><a href="class_behavior_hunter.html#a16270add239aba86f7927c3d0ffbfc05">BehaviorHunter::Attack</a></div><div class="ttdeci">void Attack(WithHitbox *enemy)</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:60</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a1729fc196fdbb8943022bf2412f43a33"><div class="ttname"><a href="class_behavior_hunter.html#a1729fc196fdbb8943022bf2412f43a33">BehaviorHunter::unit_factory_</a></div><div class="ttdeci">MovableUnitFactory * unit_factory_</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:31</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a2cf70e910b5fd8c0b0f0ab5586c623ee"><div class="ttname"><a href="class_behavior_hunter.html#a2cf70e910b5fd8c0b0f0ab5586c623ee">BehaviorHunter::cur_steps_</a></div><div class="ttdeci">uint8_t cur_steps_[behavior_hunter::STEPS_CNT]</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:23</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a493d518291622a0bb3f896fbf4c6b6d4"><div class="ttname"><a href="class_behavior_hunter.html#a493d518291622a0bb3f896fbf4c6b6d4">BehaviorHunter::target_</a></div><div class="ttdeci">WithHitbox * target_</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:26</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a73e70672733e9a5e3a85f1a143956a81"><div class="ttname"><a href="class_behavior_hunter.html#a73e70672733e9a5e3a85f1a143956a81">BehaviorHunter::AttackEnd</a></div><div class="ttdeci">void AttackEnd() override</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:20</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a8d2e1a1c64f4ae33bb7930f2a48d28ea"><div class="ttname"><a href="class_behavior_hunter.html#a8d2e1a1c64f4ae33bb7930f2a48d28ea">BehaviorHunter::max_steps_</a></div><div class="ttdeci">uint8_t max_steps_[behavior_hunter::STEPS_CNT]</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:24</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_a9288dd69abe3b3deaa75ced945ebf49b"><div class="ttname"><a href="class_behavior_hunter.html#a9288dd69abe3b3deaa75ced945ebf49b">BehaviorHunter::BehaviorHunter</a></div><div class="ttdeci">BehaviorHunter(MovableUnit *unit, MovableUnitFactory *unit_factory)</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:3</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_ab4e7b41431e86276ce6f488d6406719b"><div class="ttname"><a href="class_behavior_hunter.html#ab4e7b41431e86276ce6f488d6406719b">BehaviorHunter::unit_</a></div><div class="ttdeci">MovableUnit * unit_</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:22</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_ad72752b99529e3fdce20f760430ef26c"><div class="ttname"><a href="class_behavior_hunter.html#ad72752b99529e3fdce20f760430ef26c">BehaviorHunter::DeadCheck</a></div><div class="ttdeci">void DeadCheck() override</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:83</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_adbd26f8527973e25d25bdd6ae761c882"><div class="ttname"><a href="class_behavior_hunter.html#adbd26f8527973e25d25bdd6ae761c882">BehaviorHunter::distance_attack_</a></div><div class="ttdeci">int distance_attack_</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:28</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_add5fb057c5fcb8208f3dffb338e17f09"><div class="ttname"><a href="class_behavior_hunter.html#add5fb057c5fcb8208f3dffb338e17f09">BehaviorHunter::DoAction</a></div><div class="ttdeci">void DoAction() override</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:24</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_adf4d7297b52951e9d2976e05299d9f72"><div class="ttname"><a href="class_behavior_hunter.html#adf4d7297b52951e9d2976e05299d9f72">BehaviorHunter::SetUnit</a></div><div class="ttdeci">void SetUnit(MovableUnit *unit)</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:16</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_aecdf5a250fcb032aa10c20d46e6cf684"><div class="ttname"><a href="class_behavior_hunter.html#aecdf5a250fcb032aa10c20d46e6cf684">BehaviorHunter::FindTarget</a></div><div class="ttdeci">void FindTarget()</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:76</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_af46bbf5e7186f3f8d05037a3496cbe6d"><div class="ttname"><a href="class_behavior_hunter.html#af46bbf5e7186f3f8d05037a3496cbe6d">BehaviorHunter::radius_search_</a></div><div class="ttdeci">int radius_search_</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:29</div></div>
+<div class="ttc" id="aclass_behavior_hunter_html_af56dfa3b774bdfcf9934d4cb7e2d509a"><div class="ttname"><a href="class_behavior_hunter.html#af56dfa3b774bdfcf9934d4cb7e2d509a">BehaviorHunter::~BehaviorHunter</a></div><div class="ttdeci">~BehaviorHunter()</div><div class="ttdef"><b>Definition:</b> behavior_hunter.cpp:13</div></div>
+<div class="ttc" id="aclass_movable_unit_factory_html"><div class="ttname"><a href="class_movable_unit_factory.html">MovableUnitFactory</a></div><div class="ttdef"><b>Definition:</b> abstract_unit_factory.h:9</div></div>
+<div class="ttc" id="aclass_movable_unit_html"><div class="ttname"><a href="class_movable_unit.html">MovableUnit</a></div><div class="ttdef"><b>Definition:</b> movable_unit.h:24</div></div>
+<div class="ttc" id="aclass_with_hitbox_html"><div class="ttname"><a href="class_with_hitbox.html">WithHitbox</a></div><div class="ttdef"><b>Definition:</b> with_hitbox.h:3</div></div>
+<div class="ttc" id="anamespacebehavior__hunter_html"><div class="ttname"><a href="namespacebehavior__hunter.html">behavior_hunter</a></div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:11</div></div>
+<div class="ttc" id="anamespacebehavior__hunter_html_ae7f7f8485a6aba6ab5da334dc49a1723"><div class="ttname"><a href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723">behavior_hunter::Steps</a></div><div class="ttdeci">Steps</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:12</div></div>
+<div class="ttc" id="anamespacebehavior__hunter_html_ae7f7f8485a6aba6ab5da334dc49a1723a1cb10203143a4100abcd8b6736ef8052"><div class="ttname"><a href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a1cb10203143a4100abcd8b6736ef8052">behavior_hunter::STEPS_CNT</a></div><div class="ttdeci">@ STEPS_CNT</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:16</div></div>
+<div class="ttc" id="anamespacebehavior__hunter_html_ae7f7f8485a6aba6ab5da334dc49a1723a96b823764835e366e2a2a8a49a90cd7f"><div class="ttname"><a href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723a96b823764835e366e2a2a8a49a90cd7f">behavior_hunter::COMMAND_UPDATE</a></div><div class="ttdeci">@ COMMAND_UPDATE</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:13</div></div>
+<div class="ttc" id="anamespacebehavior__hunter_html_ae7f7f8485a6aba6ab5da334dc49a1723ab60cffcab1dbcc90215fe57176472575"><div class="ttname"><a href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723ab60cffcab1dbcc90215fe57176472575">behavior_hunter::RELOAD</a></div><div class="ttdeci">@ RELOAD</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:14</div></div>
+<div class="ttc" id="anamespacebehavior__hunter_html_ae7f7f8485a6aba6ab5da334dc49a1723ae5aebc91f25540aa85a81046570d5e75"><div class="ttname"><a href="namespacebehavior__hunter.html#ae7f7f8485a6aba6ab5da334dc49a1723ae5aebc91f25540aa85a81046570d5e75">behavior_hunter::FIND</a></div><div class="ttdeci">@ FIND</div><div class="ttdef"><b>Definition:</b> behavior_hunter.h:15</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_748cd2bca1b01b2e8a0323728b26392f.html">behaviors</a></li><li class="navelem"><a class="el" href="behavior__hunter_8h.html">behavior_hunter.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

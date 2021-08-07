@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Класс Building</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('class_building.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Открытые члены</a> &#124;
+<a href="class_building-members.html">Полный список членов класса</a>  </div>
+  <div class="headertitle">
+<div class="title">Класс Building</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="building_8h_source.html">building.h</a>&gt;</code></p>
+<div class="dynheader">
+Граф наследования:Building:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="class_building.png" usemap="#Building_map" alt=""/>
+  <map id="Building_map" name="Building_map">
+<area href="class_immovable_unit.html" alt="ImmovableUnit" shape="rect" coords="223,168,362,192"/>
+<area href="class_abstract_immovable_unit.html" alt="AbstractImmovableUnit" shape="rect" coords="223,112,362,136"/>
+<area href="class_drawable_entity.html" alt="DrawableEntity" shape="rect" coords="0,56,139,80"/>
+<area href="class_actionable.html" alt="Actionable" shape="rect" coords="149,56,288,80"/>
+<area href="class_with_hitbox.html" alt="WithHitbox" shape="rect" coords="298,56,437,80"/>
+<area href="class_with_player.html" alt="WithPlayer" shape="rect" coords="447,56,586,80"/>
+<area href="class_drawable.html" alt="Drawable" shape="rect" coords="0,0,139,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Открытые члены</h2></td></tr>
+<tr class="memitem:a04a8ca9602a1bec57349b417ede070ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_building.html#a04a8ca9602a1bec57349b417ede070ab">Building</a> (int attack, int defense, int max_health, <a class="el" href="class_texture_manager.html">TextureManager</a> *texture_manager, <a class="el" href="class_game_map.html">GameMap</a> *game_map, uint8_t cur_layer_ind)</td></tr>
+<tr class="separator:a04a8ca9602a1bec57349b417ede070ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49ebe775dc77b10ea05cba9fbade5a86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_building.html#a49ebe775dc77b10ea05cba9fbade5a86">Draw</a> (SDL_Renderer *renderer, <a class="el" href="class_camera.html">Camera</a> *camera) override</td></tr>
+<tr class="separator:a49ebe775dc77b10ea05cba9fbade5a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_immovable_unit"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_immovable_unit')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_immovable_unit.html">ImmovableUnit</a></td></tr>
+<tr class="memitem:a18f8c9aa5074bf372cb09dfdf84205a3 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a18f8c9aa5074bf372cb09dfdf84205a3">~ImmovableUnit</a> ()</td></tr>
+<tr class="separator:a18f8c9aa5074bf372cb09dfdf84205a3 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2d88629786be3b4e63c7ecff24128f5 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#aa2d88629786be3b4e63c7ecff24128f5">GetX</a> () override</td></tr>
+<tr class="separator:aa2d88629786be3b4e63c7ecff24128f5 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5ef3849bbf26a14592ab1cd7a9d0720 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#ac5ef3849bbf26a14592ab1cd7a9d0720">GetY</a> () override</td></tr>
+<tr class="separator:ac5ef3849bbf26a14592ab1cd7a9d0720 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ea2aef2d83f0d31d7cd0004698ce1db inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a6ea2aef2d83f0d31d7cd0004698ce1db">GetCenterX</a> () override</td></tr>
+<tr class="separator:a6ea2aef2d83f0d31d7cd0004698ce1db inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fb50fe2d9579b74c241fb74c48d1064 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a0fb50fe2d9579b74c241fb74c48d1064">GetCenterY</a> () override</td></tr>
+<tr class="separator:a0fb50fe2d9579b74c241fb74c48d1064 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a521738f21c941ff3110292a79e4ba2c8 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a521738f21c941ff3110292a79e4ba2c8">GetAttack</a> () override</td></tr>
+<tr class="separator:a521738f21c941ff3110292a79e4ba2c8 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b88ae164d821b6129063ae9305e8db inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a41b88ae164d821b6129063ae9305e8db">GetHitbox</a> (double &amp;x1, double &amp;y1, double &amp;x2, double &amp;y2) override</td></tr>
+<tr class="separator:a41b88ae164d821b6129063ae9305e8db inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbb0a43f1e477b17fa1a4937d524cb1a inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#abbb0a43f1e477b17fa1a4937d524cb1a">GetLegsY</a> () override</td></tr>
+<tr class="separator:abbb0a43f1e477b17fa1a4937d524cb1a inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a748a5f28d996c6bce11dbcf5837ed4 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a4a748a5f28d996c6bce11dbcf5837ed4">GetCollisionbox</a> (double &amp;x1, double &amp;y1, double &amp;x2, double &amp;y2) override</td></tr>
+<tr class="separator:a4a748a5f28d996c6bce11dbcf5837ed4 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d672f7a900f390769011951ef0ebc1b inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a5d672f7a900f390769011951ef0ebc1b">GetVector</a> (double &amp;dx, double &amp;dy) override</td></tr>
+<tr class="separator:a5d672f7a900f390769011951ef0ebc1b inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6482575f2de384a3fcff688ba8edc38a inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a6482575f2de384a3fcff688ba8edc38a">AddVector</a> (double dx, double dy) override</td></tr>
+<tr class="separator:a6482575f2de384a3fcff688ba8edc38a inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23988dd090d6eb3ca12e78cd29acb23e inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a23988dd090d6eb3ca12e78cd29acb23e">SetPosition</a> (int x, int y) override</td></tr>
+<tr class="separator:a23988dd090d6eb3ca12e78cd29acb23e inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dedc8cf5a5a86dc3fa6ee429a371223 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a9dedc8cf5a5a86dc3fa6ee429a371223">SetPosition</a> (double x, double y) override</td></tr>
+<tr class="separator:a9dedc8cf5a5a86dc3fa6ee429a371223 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9ed01c21520c1ae64030c3e3f001bec inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#ac9ed01c21520c1ae64030c3e3f001bec">DamageApply</a> (int damage) override</td></tr>
+<tr class="separator:ac9ed01c21520c1ae64030c3e3f001bec inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad972612e5ef196c5a8f4649ea4c4903a inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#ad972612e5ef196c5a8f4649ea4c4903a">UncoverNearbyCells</a> ()</td></tr>
+<tr class="separator:ad972612e5ef196c5a8f4649ea4c4903a inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10955fb5d1c2aa318bf862f9d2a54eed inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a10955fb5d1c2aa318bf862f9d2a54eed">AttackEnd</a> () override</td></tr>
+<tr class="separator:a10955fb5d1c2aa318bf862f9d2a54eed inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae7bc96198df8ba69b5b8aee26ff01b inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a9ae7bc96198df8ba69b5b8aee26ff01b">UnitCollide</a> (<a class="el" href="class_with_hitbox.html">WithHitbox</a> *unit) override</td></tr>
+<tr class="separator:a9ae7bc96198df8ba69b5b8aee26ff01b inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f91c0b28b63fe144c182ff401297ad2 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a0f91c0b28b63fe144c182ff401297ad2">DoAction</a> () override</td></tr>
+<tr class="separator:a0f91c0b28b63fe144c182ff401297ad2 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a136bc817ed1f7f1f432a464825e78996 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_with_hitbox.html">WithHitbox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a136bc817ed1f7f1f432a464825e78996">GetClosestUnit</a> (<a class="el" href="class_with_hitbox.html">WithHitbox</a> *unit1, <a class="el" href="class_with_hitbox.html">WithHitbox</a> *unit2) override</td></tr>
+<tr class="separator:a136bc817ed1f7f1f432a464825e78996 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d748fd92434c5c35519f209d02837bb inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_with_hitbox.html">WithHitbox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a9d748fd92434c5c35519f209d02837bb">FindEnemyInRadius</a> (int radius) override</td></tr>
+<tr class="separator:a9d748fd92434c5c35519f209d02837bb inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49d6900526bf4ae80b562813036855cb inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_with_hitbox.html">WithHitbox</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a49d6900526bf4ae80b562813036855cb">GetEnemyInPoint</a> (int x, int y) override</td></tr>
+<tr class="separator:a49d6900526bf4ae80b562813036855cb inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11312bd67294aabe676816aa9101fc9c inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a11312bd67294aabe676816aa9101fc9c">AddEffect</a> (<a class="el" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a> effect) override</td></tr>
+<tr class="separator:a11312bd67294aabe676816aa9101fc9c inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54e556edc4caa743e67475e603776f21 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a54e556edc4caa743e67475e603776f21">RemoveEffect</a> (<a class="el" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a> effect) override</td></tr>
+<tr class="separator:a54e556edc4caa743e67475e603776f21 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11f87ea329cea2da8e75bcf1e68fec77 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a11f87ea329cea2da8e75bcf1e68fec77">HasEffect</a> (<a class="el" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a> effect) const override</td></tr>
+<tr class="separator:a11f87ea329cea2da8e75bcf1e68fec77 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38fabcebe5b72bfe0ce97443e9614bd1 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a38fabcebe5b72bfe0ce97443e9614bd1">SetType</a> (<a class="el" href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214">UnitType</a> type) override</td></tr>
+<tr class="separator:a38fabcebe5b72bfe0ce97443e9614bd1 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa145765a86c4f45c29fd74cfa20cd7bb inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#aa145765a86c4f45c29fd74cfa20cd7bb">SetBehavior</a> (<a class="el" href="class_behavior.html">Behavior</a> *behavior) override</td></tr>
+<tr class="separator:aa145765a86c4f45c29fd74cfa20cd7bb inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a3a73de6de1f8508b84c3162ad989d3 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a2a3a73de6de1f8508b84c3162ad989d3">SetPlayer</a> (size_t player) override</td></tr>
+<tr class="separator:a2a3a73de6de1f8508b84c3162ad989d3 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105b2736982dc6d5a9d0bc4f79e9510a inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a105b2736982dc6d5a9d0bc4f79e9510a">SetPlayersInfo</a> (<a class="el" href="class_players_info.html">PlayersInfo</a> *players_info) override</td></tr>
+<tr class="separator:a105b2736982dc6d5a9d0bc4f79e9510a inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc66a7fd21b2cd46a74a53d0e8ce5341 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#abc66a7fd21b2cd46a74a53d0e8ce5341">GetPlayer</a> () override</td></tr>
+<tr class="separator:abc66a7fd21b2cd46a74a53d0e8ce5341 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afebaf9caa4dc34033397460507827af7 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#afebaf9caa4dc34033397460507827af7">DeadCheck</a> () override</td></tr>
+<tr class="separator:afebaf9caa4dc34033397460507827af7 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa42a3de14823351049bb1961cdbd9cfa inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#aa42a3de14823351049bb1961cdbd9cfa">IsAlive</a> () override</td></tr>
+<tr class="separator:aa42a3de14823351049bb1961cdbd9cfa inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa88fbe2e8f0d18b598f258661211b2e inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#afa88fbe2e8f0d18b598f258661211b2e">Die</a> () override</td></tr>
+<tr class="separator:afa88fbe2e8f0d18b598f258661211b2e inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa970924e27262e3568cd2c9f25fca514 inherit pub_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_map_layer.html">MapLayer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#aa970924e27262e3568cd2c9f25fca514">GetCurrentLayer</a> ()</td></tr>
+<tr class="separator:aa970924e27262e3568cd2c9f25fca514 inherit pub_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_abstract_immovable_unit"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_abstract_immovable_unit')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_abstract_immovable_unit.html">AbstractImmovableUnit</a></td></tr>
+<tr class="memitem:a0ff46135cfc5685a025638b410e2a9f6 inherit pub_methods_class_abstract_immovable_unit"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_abstract_immovable_unit.html#a0ff46135cfc5685a025638b410e2a9f6">~AbstractImmovableUnit</a> ()=default</td></tr>
+<tr class="separator:a0ff46135cfc5685a025638b410e2a9f6 inherit pub_methods_class_abstract_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_drawable_entity"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_drawable_entity')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_drawable_entity.html">DrawableEntity</a></td></tr>
+<tr class="memitem:aabfd6c02b9a91df41e54f8522de24980 inherit pub_methods_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#aabfd6c02b9a91df41e54f8522de24980">SetTexture</a> (size_t texture_ind, size_t move_cnt, size_t attack_cnt, size_t texture_delay_move, size_t texture_delay_attack, size_t deltaX, size_t deltaY, size_t width, size_t height, size_t texture_width, size_t texture_height) override</td></tr>
+<tr class="separator:aabfd6c02b9a91df41e54f8522de24980 inherit pub_methods_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694bc95b2c87ef82260164acb3615cf9 inherit pub_methods_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a694bc95b2c87ef82260164acb3615cf9">SetName</a> (std::string name)</td></tr>
+<tr class="separator:a694bc95b2c87ef82260164acb3615cf9 inherit pub_methods_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae345feb7107420ae58317dd5b2fe4d32 inherit pub_methods_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#ae345feb7107420ae58317dd5b2fe4d32">GetCurrentLayerIndex</a> () override</td></tr>
+<tr class="separator:ae345feb7107420ae58317dd5b2fe4d32 inherit pub_methods_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_actionable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_actionable')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_actionable.html">Actionable</a></td></tr>
+<tr class="memitem:aa497f920654278c94445e0d5866e8a04 inherit pub_methods_class_actionable"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_actionable.html#aa497f920654278c94445e0d5866e8a04">~Actionable</a> ()=default</td></tr>
+<tr class="separator:aa497f920654278c94445e0d5866e8a04 inherit pub_methods_class_actionable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_with_hitbox"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_with_hitbox')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_with_hitbox.html">WithHitbox</a></td></tr>
+<tr class="memitem:a2d989d50a8f3b04eb85e9c4c11c67ef7 inherit pub_methods_class_with_hitbox"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_with_hitbox.html#a2d989d50a8f3b04eb85e9c4c11c67ef7">~WithHitbox</a> ()=default</td></tr>
+<tr class="separator:a2d989d50a8f3b04eb85e9c4c11c67ef7 inherit pub_methods_class_with_hitbox"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_with_player"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_with_player')"><img src="closed.png" alt="-"/>&#160;Открытые члены унаследованные от <a class="el" href="class_with_player.html">WithPlayer</a></td></tr>
+<tr class="memitem:a2ade482538072aa2cc31666096dc379c inherit pub_methods_class_with_player"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_with_player.html#a2ade482538072aa2cc31666096dc379c">~WithPlayer</a> ()=default</td></tr>
+<tr class="separator:a2ade482538072aa2cc31666096dc379c inherit pub_methods_class_with_player"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Дополнительные унаследованные члены</h2></td></tr>
+<tr class="inherit_header pro_methods_class_immovable_unit"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_immovable_unit')"><img src="closed.png" alt="-"/>&#160;Защищенные члены унаследованные от <a class="el" href="class_immovable_unit.html">ImmovableUnit</a></td></tr>
+<tr class="memitem:aef7d69060ce2712af295d8a3f57b8af3 inherit pro_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#aef7d69060ce2712af295d8a3f57b8af3">InsertUnitToMap</a> ()</td></tr>
+<tr class="separator:aef7d69060ce2712af295d8a3f57b8af3 inherit pro_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5699dafbdbd59af21189ae243af05207 inherit pro_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a5699dafbdbd59af21189ae243af05207">DeleteUnitFromMap</a> ()</td></tr>
+<tr class="separator:a5699dafbdbd59af21189ae243af05207 inherit pro_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc0ada13973caadc8b3d7cbaa6d1843c inherit pro_methods_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#abc0ada13973caadc8b3d7cbaa6d1843c">CanMoveOnBlock</a> (uint32_t x, uint32_t y)</td></tr>
+<tr class="separator:abc0ada13973caadc8b3d7cbaa6d1843c inherit pro_methods_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_immovable_unit"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_immovable_unit')"><img src="closed.png" alt="-"/>&#160;Защищенные данные унаследованные от <a class="el" href="class_immovable_unit.html">ImmovableUnit</a></td></tr>
+<tr class="memitem:a09b9a62e510e4d673f1538e0d8001acd inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a09b9a62e510e4d673f1538e0d8001acd">alive_</a> = true</td></tr>
+<tr class="separator:a09b9a62e510e4d673f1538e0d8001acd inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57aaa312d64d18452ef10c3e97ccf6dc inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214">UnitType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a57aaa312d64d18452ef10c3e97ccf6dc">type_</a> = <a class="el" href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214ac8fab01c5f48deec3b1f239950ca66a0">UnitType::Ground</a></td></tr>
+<tr class="separator:a57aaa312d64d18452ef10c3e97ccf6dc inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50c84368b8a41d6ce7204d2934e5c080 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a50c84368b8a41d6ce7204d2934e5c080">attack_</a> = 0</td></tr>
+<tr class="separator:a50c84368b8a41d6ce7204d2934e5c080 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab506eb6741a7cbfa77f7e62e0810023e inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#ab506eb6741a7cbfa77f7e62e0810023e">defense_</a> = 0</td></tr>
+<tr class="separator:ab506eb6741a7cbfa77f7e62e0810023e inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f424826ca51fbdf142a4a36eabd03b2 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a2f424826ca51fbdf142a4a36eabd03b2">health_</a> = 0</td></tr>
+<tr class="separator:a2f424826ca51fbdf142a4a36eabd03b2 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a557422b42dfef4101cb7652214f0f905 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a557422b42dfef4101cb7652214f0f905">max_health_</a> = 0</td></tr>
+<tr class="separator:a557422b42dfef4101cb7652214f0f905 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab1e6013e9df1beb1e86e3663ec1a134 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">std::bitset&lt; <a class="el" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720ca32e7e349d9d70de17d0737ae0b89720f">EFFECT_SIZE</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#aab1e6013e9df1beb1e86e3663ec1a134">effects_</a></td></tr>
+<tr class="separator:aab1e6013e9df1beb1e86e3663ec1a134 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b7c9b8c595b685812866a424cee96fa inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_behavior.html">Behavior</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a5b7c9b8c595b685812866a424cee96fa">behavior_</a> = NULL</td></tr>
+<tr class="separator:a5b7c9b8c595b685812866a424cee96fa inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d5987304777f4595902a9601a004d74 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a9d5987304777f4595902a9601a004d74">player_</a> = 0</td></tr>
+<tr class="separator:a9d5987304777f4595902a9601a004d74 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c2e8a20f444382fc0f09f9e5dc3f2a7 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_players_info.html">PlayersInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a7c2e8a20f444382fc0f09f9e5dc3f2a7">players_info_</a> = NULL</td></tr>
+<tr class="separator:a7c2e8a20f444382fc0f09f9e5dc3f2a7 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a7d69b0e6a274498e45d8cf5078f35 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_game_map.html">GameMap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a51a7d69b0e6a274498e45d8cf5078f35">game_map_</a> = NULL</td></tr>
+<tr class="separator:a51a7d69b0e6a274498e45d8cf5078f35 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a04847cef3cf80148d12ef66031f2f9 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_clock.html">Clock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#a4a04847cef3cf80148d12ef66031f2f9">update_fog_of_war_</a> { <a class="el" href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">MapLayer::GetBlockSize</a>() }</td></tr>
+<tr class="separator:a4a04847cef3cf80148d12ef66031f2f9 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe945916204920f8ad8c5c7b61041fb4 inherit pro_attribs_class_immovable_unit"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_immovable_unit.html#afe945916204920f8ad8c5c7b61041fb4">scout_radius_</a> = 10 * <a class="el" href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">MapLayer::GetBlockSize</a>()</td></tr>
+<tr class="separator:afe945916204920f8ad8c5c7b61041fb4 inherit pro_attribs_class_immovable_unit"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_drawable_entity"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_drawable_entity')"><img src="closed.png" alt="-"/>&#160;Защищенные данные унаследованные от <a class="el" href="class_drawable_entity.html">DrawableEntity</a></td></tr>
+<tr class="memitem:aa5e24007983e552d893da0f40f47f61b inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#aa5e24007983e552d893da0f40f47f61b">is_right_side</a> = true</td></tr>
+<tr class="separator:aa5e24007983e552d893da0f40f47f61b inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18b7ca634844c5ea029ea01aca8cf0b5 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a18b7ca634844c5ea029ea01aca8cf0b5">texture_ind_</a></td></tr>
+<tr class="separator:a18b7ca634844c5ea029ea01aca8cf0b5 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81981002b9eecf071308a0fba178b891 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a81981002b9eecf071308a0fba178b891">texture_move_num_</a> = 0</td></tr>
+<tr class="separator:a81981002b9eecf071308a0fba178b891 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e697cd7c00cfb024ecccf3490bea005 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a5e697cd7c00cfb024ecccf3490bea005">texture_attack_num_</a> = 0</td></tr>
+<tr class="separator:a5e697cd7c00cfb024ecccf3490bea005 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3303b4a48ca4d303d712eeb5c6e8062d inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a3303b4a48ca4d303d712eeb5c6e8062d">texture_pos_</a> = 0</td></tr>
+<tr class="separator:a3303b4a48ca4d303d712eeb5c6e8062d inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa197f11217159b018fff23d49fe4eb15 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#aa197f11217159b018fff23d49fe4eb15">texture_cur_delay_</a> = 0</td></tr>
+<tr class="separator:aa197f11217159b018fff23d49fe4eb15 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cebe543fbe8db408b52e62a44e4abc6 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a6cebe543fbe8db408b52e62a44e4abc6">texture_delay_move_</a> = 1</td></tr>
+<tr class="separator:a6cebe543fbe8db408b52e62a44e4abc6 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa09230d11b775a8041dc201aa504f198 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#aa09230d11b775a8041dc201aa504f198">texture_delay_attack_</a> = 1</td></tr>
+<tr class="separator:aa09230d11b775a8041dc201aa504f198 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54af422cc86d5f2c22c11cc860535ece inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_texture_manager.html">TextureManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a54af422cc86d5f2c22c11cc860535ece">texture_manager_</a></td></tr>
+<tr class="separator:a54af422cc86d5f2c22c11cc860535ece inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa20a282c812fe0054c44d5e5b6e07b33 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#aa20a282c812fe0054c44d5e5b6e07b33">name_</a></td></tr>
+<tr class="separator:aa20a282c812fe0054c44d5e5b6e07b33 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a469034ee52e3c6cf7882c6ec9ab873e2 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a469034ee52e3c6cf7882c6ec9ab873e2">cur_layer_ind_</a></td></tr>
+<tr class="separator:a469034ee52e3c6cf7882c6ec9ab873e2 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abca497f2aea8926bc6890c731ba9c387 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#abca497f2aea8926bc6890c731ba9c387">x_</a> = 110.0</td></tr>
+<tr class="separator:abca497f2aea8926bc6890c731ba9c387 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c2216a80aa618c97500119210e57ea9 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a5c2216a80aa618c97500119210e57ea9">y_</a> = 110.0</td></tr>
+<tr class="separator:a5c2216a80aa618c97500119210e57ea9 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f6bee3b52387c0f7147bbc0f796a29d inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a2f6bee3b52387c0f7147bbc0f796a29d">deltaX_</a> = 0</td></tr>
+<tr class="separator:a2f6bee3b52387c0f7147bbc0f796a29d inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1759112bc8acbe148cc0877eb713665c inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#a1759112bc8acbe148cc0877eb713665c">deltaY_</a> = 0</td></tr>
+<tr class="separator:a1759112bc8acbe148cc0877eb713665c inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac190ae25e6cc10d8fe6200878bf64bcd inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#ac190ae25e6cc10d8fe6200878bf64bcd">width_</a> = 16</td></tr>
+<tr class="separator:ac190ae25e6cc10d8fe6200878bf64bcd inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa498de22d476a05c9f9a938b30c9094b inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#aa498de22d476a05c9f9a938b30c9094b">height_</a> = 16</td></tr>
+<tr class="separator:aa498de22d476a05c9f9a938b30c9094b inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb86ba387101f30d57dadfabdf4bf375 inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#abb86ba387101f30d57dadfabdf4bf375">texture_width_</a> = 24</td></tr>
+<tr class="separator:abb86ba387101f30d57dadfabdf4bf375 inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaa8ef646cbbf285982d64eb3466205b inherit pro_attribs_class_drawable_entity"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_drawable_entity.html#acaa8ef646cbbf285982d64eb3466205b">texture_height_</a> = 24</td></tr>
+<tr class="separator:acaa8ef646cbbf285982d64eb3466205b inherit pro_attribs_class_drawable_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">Конструктор(ы)</h2>
+<a id="a04a8ca9602a1bec57349b417ede070ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04a8ca9602a1bec57349b417ede070ab">&#9670;&nbsp;</a></span>Building()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Building::Building </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>attack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>defense</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_health</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_texture_manager.html">TextureManager</a> *&#160;</td>
+          <td class="paramname"><em>texture_manager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_game_map.html">GameMap</a> *&#160;</td>
+          <td class="paramname"><em>game_map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>cur_layer_ind</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Методы</h2>
+<a id="a49ebe775dc77b10ea05cba9fbade5a86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49ebe775dc77b10ea05cba9fbade5a86">&#9670;&nbsp;</a></span>Draw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Building::Draw </td>
+          <td>(</td>
+          <td class="paramtype">SDL_Renderer *&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_camera.html">Camera</a> *&#160;</td>
+          <td class="paramname"><em>camera</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Замещает <a class="el" href="class_drawable.html#ae162be253774a183d9c31b10134ee38f">Drawable</a>.</p>
+
+</div>
+</div>
+<hr/>Объявления и описания членов классов находятся в файлах:<ul>
+<li>RTS-game/RTS-game/units/<a class="el" href="building_8h_source.html">building.h</a></li>
+<li>RTS-game/RTS-game/units/<a class="el" href="building_8cpp.html">building.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="class_building.html">Building</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

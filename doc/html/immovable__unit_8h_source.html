@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/units/immovable_unit.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('immovable__unit_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">immovable_unit.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="immovable__unit_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="abstract__immovable__unit_8h.html">abstract_immovable_unit.h</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../map/game_map.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../managers/texture_manager.h&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;bitset&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;../clock.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;../behaviors/status_effects.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;../behaviors/behavior.h&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;../player/players_info.h&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">/* Represents an immovable unit on the map</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">* Unlike AbstractImmovableUnit, it&#39;s an abstract class that implements some methods</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_immovable_unit.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_immovable_unit.html">ImmovableUnit</a> : <span class="keyword">public</span> <a class="code" href="class_abstract_immovable_unit.html">AbstractImmovableUnit</a> {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="comment">// --base parameters--</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a09b9a62e510e4d673f1538e0d8001acd">   25</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_immovable_unit.html#a09b9a62e510e4d673f1538e0d8001acd">alive_</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a57aaa312d64d18452ef10c3e97ccf6dc">   26</a></span>&#160;    <a class="code" href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214">UnitType</a> <a class="code" href="class_immovable_unit.html#a57aaa312d64d18452ef10c3e97ccf6dc">type_</a> = <a class="code" href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214ac8fab01c5f48deec3b1f239950ca66a0">UnitType::Ground</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a50c84368b8a41d6ce7204d2934e5c080">   27</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#a50c84368b8a41d6ce7204d2934e5c080">attack_</a> = 0, <a class="code" href="class_immovable_unit.html#ab506eb6741a7cbfa77f7e62e0810023e">defense_</a> = 0, <a class="code" href="class_immovable_unit.html#a2f424826ca51fbdf142a4a36eabd03b2">health_</a> = 0, <a class="code" href="class_immovable_unit.html#a557422b42dfef4101cb7652214f0f905">max_health_</a> = 0;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#aab1e6013e9df1beb1e86e3663ec1a134">   28</a></span>&#160;    std::bitset&lt;EFFECT_SIZE&gt; <a class="code" href="class_immovable_unit.html#aab1e6013e9df1beb1e86e3663ec1a134">effects_</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a5b7c9b8c595b685812866a424cee96fa">   29</a></span>&#160;    <a class="code" href="class_behavior.html">Behavior</a>* <a class="code" href="class_immovable_unit.html#a5b7c9b8c595b685812866a424cee96fa">behavior_</a> = NULL;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a9d5987304777f4595902a9601a004d74">   30</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_immovable_unit.html#a9d5987304777f4595902a9601a004d74">player_</a> = 0; <span class="comment">// player number    </span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a7c2e8a20f444382fc0f09f9e5dc3f2a7">   31</a></span>&#160;    <a class="code" href="class_players_info.html">PlayersInfo</a>* <a class="code" href="class_immovable_unit.html#a7c2e8a20f444382fc0f09f9e5dc3f2a7">players_info_</a> = NULL;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a51a7d69b0e6a274498e45d8cf5078f35">   33</a></span>&#160;    <a class="code" href="class_game_map.html">GameMap</a>* <a class="code" href="class_immovable_unit.html#a51a7d69b0e6a274498e45d8cf5078f35">game_map_</a> = NULL;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#a4a04847cef3cf80148d12ef66031f2f9">   35</a></span>&#160;    <a class="code" href="class_clock.html">Clock</a> <a class="code" href="class_immovable_unit.html#a4a04847cef3cf80148d12ef66031f2f9">update_fog_of_war_</a>{ <a class="code" href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">MapLayer::GetBlockSize</a>() };</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="comment">// All cells within that radius will be uncovered</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_immovable_unit.html#afe945916204920f8ad8c5c7b61041fb4">   38</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#afe945916204920f8ad8c5c7b61041fb4">scout_radius_</a> = 10 * <a class="code" href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">MapLayer::GetBlockSize</a>();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#aef7d69060ce2712af295d8a3f57b8af3">InsertUnitToMap</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a5699dafbdbd59af21189ae243af05207">DeleteUnitFromMap</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_immovable_unit.html#abc0ada13973caadc8b3d7cbaa6d1843c">CanMoveOnBlock</a>(uint32_t x, uint32_t y);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">//void MapCollisionCheck();</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_immovable_unit.html#a18f8c9aa5074bf372cb09dfdf84205a3">~ImmovableUnit</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#aa2d88629786be3b4e63c7ecff24128f5">GetX</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#ac5ef3849bbf26a14592ab1cd7a9d0720">GetY</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#a6ea2aef2d83f0d31d7cd0004698ce1db">GetCenterX</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#a0fb50fe2d9579b74c241fb74c48d1064">GetCenterY</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#a521738f21c941ff3110292a79e4ba2c8">GetAttack</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a41b88ae164d821b6129063ae9305e8db">GetHitbox</a>(<span class="keywordtype">double</span>&amp; x1, <span class="keywordtype">double</span>&amp; y1, <span class="keywordtype">double</span>&amp; x2, <span class="keywordtype">double</span>&amp; y2) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_immovable_unit.html#abbb0a43f1e477b17fa1a4937d524cb1a">GetLegsY</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a4a748a5f28d996c6bce11dbcf5837ed4">GetCollisionbox</a>(<span class="keywordtype">double</span>&amp; x1, <span class="keywordtype">double</span>&amp; y1, <span class="keywordtype">double</span>&amp; x2, <span class="keywordtype">double</span>&amp; y2) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a5d672f7a900f390769011951ef0ebc1b">GetVector</a>(<span class="keywordtype">double</span>&amp; dx, <span class="keywordtype">double</span>&amp; dy) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a6482575f2de384a3fcff688ba8edc38a">AddVector</a>(<span class="keywordtype">double</span> dx, <span class="keywordtype">double</span> dy) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a23988dd090d6eb3ca12e78cd29acb23e">SetPosition</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a23988dd090d6eb3ca12e78cd29acb23e">SetPosition</a>(<span class="keywordtype">double</span> x, <span class="keywordtype">double</span> y) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#ac9ed01c21520c1ae64030c3e3f001bec">DamageApply</a>(<span class="keywordtype">int</span> damage) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#ad972612e5ef196c5a8f4649ea4c4903a">UncoverNearbyCells</a>();  <span class="comment">// Every cell within scout_radius_ will be uncovered</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a10955fb5d1c2aa318bf862f9d2a54eed">AttackEnd</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a9ae7bc96198df8ba69b5b8aee26ff01b">UnitCollide</a>(<a class="code" href="class_with_hitbox.html">WithHitbox</a>* unit) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a0f91c0b28b63fe144c182ff401297ad2">DoAction</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="class_with_hitbox.html">WithHitbox</a>* <a class="code" href="class_immovable_unit.html#a136bc817ed1f7f1f432a464825e78996">GetClosestUnit</a>(<a class="code" href="class_with_hitbox.html">WithHitbox</a>* unit1, <a class="code" href="class_with_hitbox.html">WithHitbox</a>* unit2) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// return first enemy unit in radius</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="class_with_hitbox.html">WithHitbox</a>* <a class="code" href="class_immovable_unit.html#a9d748fd92434c5c35519f209d02837bb">FindEnemyInRadius</a>(<span class="keywordtype">int</span> radius) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// return first enemy unit in block</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_with_hitbox.html">WithHitbox</a>* <a class="code" href="class_immovable_unit.html#a49d6900526bf4ae80b562813036855cb">GetEnemyInPoint</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a11312bd67294aabe676816aa9101fc9c">AddEffect</a>(<a class="code" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a> effect) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a54e556edc4caa743e67475e603776f21">RemoveEffect</a>(<a class="code" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a> effect) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_immovable_unit.html#a11f87ea329cea2da8e75bcf1e68fec77">HasEffect</a>(<a class="code" href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a> effect) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a38fabcebe5b72bfe0ce97443e9614bd1">SetType</a>(<a class="code" href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214">UnitType</a> type) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#aa145765a86c4f45c29fd74cfa20cd7bb">SetBehavior</a>(<a class="code" href="class_behavior.html">Behavior</a>* behavior) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a2a3a73de6de1f8508b84c3162ad989d3">SetPlayer</a>(<span class="keywordtype">size_t</span> player) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#a105b2736982dc6d5a9d0bc4f79e9510a">SetPlayersInfo</a>(<a class="code" href="class_players_info.html">PlayersInfo</a>* players_info) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_immovable_unit.html#abc66a7fd21b2cd46a74a53d0e8ce5341">GetPlayer</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="comment">// check for dead units</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#afebaf9caa4dc34033397460507827af7">DeadCheck</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_immovable_unit.html#aa42a3de14823351049bb1961cdbd9cfa">IsAlive</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_immovable_unit.html#afa88fbe2e8f0d18b598f258661211b2e">Die</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="class_map_layer.html">MapLayer</a>* <a class="code" href="class_immovable_unit.html#aa970924e27262e3568cd2c9f25fca514">GetCurrentLayer</a>();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="ttc" id="aabstract__immovable__unit_8h_html"><div class="ttname"><a href="abstract__immovable__unit_8h.html">abstract_immovable_unit.h</a></div></div>
+<div class="ttc" id="aclass_abstract_immovable_unit_html"><div class="ttname"><a href="class_abstract_immovable_unit.html">AbstractImmovableUnit</a></div><div class="ttdef"><b>Definition:</b> abstract_immovable_unit.h:17</div></div>
+<div class="ttc" id="aclass_behavior_html"><div class="ttname"><a href="class_behavior.html">Behavior</a></div><div class="ttdef"><b>Definition:</b> behavior.h:6</div></div>
+<div class="ttc" id="aclass_clock_html"><div class="ttname"><a href="class_clock.html">Clock</a></div><div class="ttdef"><b>Definition:</b> clock.h:3</div></div>
+<div class="ttc" id="aclass_game_map_html"><div class="ttname"><a href="class_game_map.html">GameMap</a></div><div class="ttdef"><b>Definition:</b> game_map.h:5</div></div>
+<div class="ttc" id="aclass_immovable_unit_html"><div class="ttname"><a href="class_immovable_unit.html">ImmovableUnit</a></div><div class="ttdef"><b>Definition:</b> immovable_unit.h:22</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a09b9a62e510e4d673f1538e0d8001acd"><div class="ttname"><a href="class_immovable_unit.html#a09b9a62e510e4d673f1538e0d8001acd">ImmovableUnit::alive_</a></div><div class="ttdeci">bool alive_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:25</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a0f91c0b28b63fe144c182ff401297ad2"><div class="ttname"><a href="class_immovable_unit.html#a0f91c0b28b63fe144c182ff401297ad2">ImmovableUnit::DoAction</a></div><div class="ttdeci">void DoAction() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:200</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a0fb50fe2d9579b74c241fb74c48d1064"><div class="ttname"><a href="class_immovable_unit.html#a0fb50fe2d9579b74c241fb74c48d1064">ImmovableUnit::GetCenterY</a></div><div class="ttdeci">int GetCenterY() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:137</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a105b2736982dc6d5a9d0bc4f79e9510a"><div class="ttname"><a href="class_immovable_unit.html#a105b2736982dc6d5a9d0bc4f79e9510a">ImmovableUnit::SetPlayersInfo</a></div><div class="ttdeci">void SetPlayersInfo(PlayersInfo *players_info) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:301</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a10955fb5d1c2aa318bf862f9d2a54eed"><div class="ttname"><a href="class_immovable_unit.html#a10955fb5d1c2aa318bf862f9d2a54eed">ImmovableUnit::AttackEnd</a></div><div class="ttdeci">void AttackEnd() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:195</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a11312bd67294aabe676816aa9101fc9c"><div class="ttname"><a href="class_immovable_unit.html#a11312bd67294aabe676816aa9101fc9c">ImmovableUnit::AddEffect</a></div><div class="ttdeci">void AddEffect(Effect effect) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:283</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a11f87ea329cea2da8e75bcf1e68fec77"><div class="ttname"><a href="class_immovable_unit.html#a11f87ea329cea2da8e75bcf1e68fec77">ImmovableUnit::HasEffect</a></div><div class="ttdeci">bool HasEffect(Effect effect) const override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:291</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a136bc817ed1f7f1f432a464825e78996"><div class="ttname"><a href="class_immovable_unit.html#a136bc817ed1f7f1f432a464825e78996">ImmovableUnit::GetClosestUnit</a></div><div class="ttdeci">WithHitbox * GetClosestUnit(WithHitbox *unit1, WithHitbox *unit2) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:221</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a18f8c9aa5074bf372cb09dfdf84205a3"><div class="ttname"><a href="class_immovable_unit.html#a18f8c9aa5074bf372cb09dfdf84205a3">ImmovableUnit::~ImmovableUnit</a></div><div class="ttdeci">virtual ~ImmovableUnit()</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:127</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a23988dd090d6eb3ca12e78cd29acb23e"><div class="ttname"><a href="class_immovable_unit.html#a23988dd090d6eb3ca12e78cd29acb23e">ImmovableUnit::SetPosition</a></div><div class="ttdeci">virtual void SetPosition(int x, int y) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:161</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a2a3a73de6de1f8508b84c3162ad989d3"><div class="ttname"><a href="class_immovable_unit.html#a2a3a73de6de1f8508b84c3162ad989d3">ImmovableUnit::SetPlayer</a></div><div class="ttdeci">void SetPlayer(size_t player) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:299</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a2f424826ca51fbdf142a4a36eabd03b2"><div class="ttname"><a href="class_immovable_unit.html#a2f424826ca51fbdf142a4a36eabd03b2">ImmovableUnit::health_</a></div><div class="ttdeci">int health_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:27</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a38fabcebe5b72bfe0ce97443e9614bd1"><div class="ttname"><a href="class_immovable_unit.html#a38fabcebe5b72bfe0ce97443e9614bd1">ImmovableUnit::SetType</a></div><div class="ttdeci">void SetType(UnitType type) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:295</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a41b88ae164d821b6129063ae9305e8db"><div class="ttname"><a href="class_immovable_unit.html#a41b88ae164d821b6129063ae9305e8db">ImmovableUnit::GetHitbox</a></div><div class="ttdeci">void GetHitbox(double &amp;x1, double &amp;y1, double &amp;x2, double &amp;y2) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:141</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a49d6900526bf4ae80b562813036855cb"><div class="ttname"><a href="class_immovable_unit.html#a49d6900526bf4ae80b562813036855cb">ImmovableUnit::GetEnemyInPoint</a></div><div class="ttdeci">WithHitbox * GetEnemyInPoint(int x, int y) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:267</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a4a04847cef3cf80148d12ef66031f2f9"><div class="ttname"><a href="class_immovable_unit.html#a4a04847cef3cf80148d12ef66031f2f9">ImmovableUnit::update_fog_of_war_</a></div><div class="ttdeci">Clock update_fog_of_war_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:35</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a4a748a5f28d996c6bce11dbcf5837ed4"><div class="ttname"><a href="class_immovable_unit.html#a4a748a5f28d996c6bce11dbcf5837ed4">ImmovableUnit::GetCollisionbox</a></div><div class="ttdeci">void GetCollisionbox(double &amp;x1, double &amp;y1, double &amp;x2, double &amp;y2) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:152</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a50c84368b8a41d6ce7204d2934e5c080"><div class="ttname"><a href="class_immovable_unit.html#a50c84368b8a41d6ce7204d2934e5c080">ImmovableUnit::attack_</a></div><div class="ttdeci">int attack_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:27</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a51a7d69b0e6a274498e45d8cf5078f35"><div class="ttname"><a href="class_immovable_unit.html#a51a7d69b0e6a274498e45d8cf5078f35">ImmovableUnit::game_map_</a></div><div class="ttdeci">GameMap * game_map_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:33</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a521738f21c941ff3110292a79e4ba2c8"><div class="ttname"><a href="class_immovable_unit.html#a521738f21c941ff3110292a79e4ba2c8">ImmovableUnit::GetAttack</a></div><div class="ttdeci">int GetAttack() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:139</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a54e556edc4caa743e67475e603776f21"><div class="ttname"><a href="class_immovable_unit.html#a54e556edc4caa743e67475e603776f21">ImmovableUnit::RemoveEffect</a></div><div class="ttdeci">void RemoveEffect(Effect effect) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:287</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a557422b42dfef4101cb7652214f0f905"><div class="ttname"><a href="class_immovable_unit.html#a557422b42dfef4101cb7652214f0f905">ImmovableUnit::max_health_</a></div><div class="ttdeci">int max_health_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:27</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a5699dafbdbd59af21189ae243af05207"><div class="ttname"><a href="class_immovable_unit.html#a5699dafbdbd59af21189ae243af05207">ImmovableUnit::DeleteUnitFromMap</a></div><div class="ttdeci">void DeleteUnitFromMap()</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:26</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a57aaa312d64d18452ef10c3e97ccf6dc"><div class="ttname"><a href="class_immovable_unit.html#a57aaa312d64d18452ef10c3e97ccf6dc">ImmovableUnit::type_</a></div><div class="ttdeci">UnitType type_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:26</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a5b7c9b8c595b685812866a424cee96fa"><div class="ttname"><a href="class_immovable_unit.html#a5b7c9b8c595b685812866a424cee96fa">ImmovableUnit::behavior_</a></div><div class="ttdeci">Behavior * behavior_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:29</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a5d672f7a900f390769011951ef0ebc1b"><div class="ttname"><a href="class_immovable_unit.html#a5d672f7a900f390769011951ef0ebc1b">ImmovableUnit::GetVector</a></div><div class="ttdeci">virtual void GetVector(double &amp;dx, double &amp;dy) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:171</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a6482575f2de384a3fcff688ba8edc38a"><div class="ttname"><a href="class_immovable_unit.html#a6482575f2de384a3fcff688ba8edc38a">ImmovableUnit::AddVector</a></div><div class="ttdeci">virtual void AddVector(double dx, double dy) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:159</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a6ea2aef2d83f0d31d7cd0004698ce1db"><div class="ttname"><a href="class_immovable_unit.html#a6ea2aef2d83f0d31d7cd0004698ce1db">ImmovableUnit::GetCenterX</a></div><div class="ttdeci">int GetCenterX() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:135</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a7c2e8a20f444382fc0f09f9e5dc3f2a7"><div class="ttname"><a href="class_immovable_unit.html#a7c2e8a20f444382fc0f09f9e5dc3f2a7">ImmovableUnit::players_info_</a></div><div class="ttdeci">PlayersInfo * players_info_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:31</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a9ae7bc96198df8ba69b5b8aee26ff01b"><div class="ttname"><a href="class_immovable_unit.html#a9ae7bc96198df8ba69b5b8aee26ff01b">ImmovableUnit::UnitCollide</a></div><div class="ttdeci">virtual void UnitCollide(WithHitbox *unit) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:44</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a9d5987304777f4595902a9601a004d74"><div class="ttname"><a href="class_immovable_unit.html#a9d5987304777f4595902a9601a004d74">ImmovableUnit::player_</a></div><div class="ttdeci">size_t player_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:30</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_a9d748fd92434c5c35519f209d02837bb"><div class="ttname"><a href="class_immovable_unit.html#a9d748fd92434c5c35519f209d02837bb">ImmovableUnit::FindEnemyInRadius</a></div><div class="ttdeci">WithHitbox * FindEnemyInRadius(int radius) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:245</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_aa145765a86c4f45c29fd74cfa20cd7bb"><div class="ttname"><a href="class_immovable_unit.html#aa145765a86c4f45c29fd74cfa20cd7bb">ImmovableUnit::SetBehavior</a></div><div class="ttdeci">void SetBehavior(Behavior *behavior) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:297</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_aa2d88629786be3b4e63c7ecff24128f5"><div class="ttname"><a href="class_immovable_unit.html#aa2d88629786be3b4e63c7ecff24128f5">ImmovableUnit::GetX</a></div><div class="ttdeci">virtual int GetX() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:131</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_aa42a3de14823351049bb1961cdbd9cfa"><div class="ttname"><a href="class_immovable_unit.html#aa42a3de14823351049bb1961cdbd9cfa">ImmovableUnit::IsAlive</a></div><div class="ttdeci">bool IsAlive() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:311</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_aa970924e27262e3568cd2c9f25fca514"><div class="ttname"><a href="class_immovable_unit.html#aa970924e27262e3568cd2c9f25fca514">ImmovableUnit::GetCurrentLayer</a></div><div class="ttdeci">MapLayer * GetCurrentLayer()</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:121</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_aab1e6013e9df1beb1e86e3663ec1a134"><div class="ttname"><a href="class_immovable_unit.html#aab1e6013e9df1beb1e86e3663ec1a134">ImmovableUnit::effects_</a></div><div class="ttdeci">std::bitset&lt; EFFECT_SIZE &gt; effects_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:28</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_ab506eb6741a7cbfa77f7e62e0810023e"><div class="ttname"><a href="class_immovable_unit.html#ab506eb6741a7cbfa77f7e62e0810023e">ImmovableUnit::defense_</a></div><div class="ttdeci">int defense_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:27</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_abbb0a43f1e477b17fa1a4937d524cb1a"><div class="ttname"><a href="class_immovable_unit.html#abbb0a43f1e477b17fa1a4937d524cb1a">ImmovableUnit::GetLegsY</a></div><div class="ttdeci">int GetLegsY() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:148</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_abc0ada13973caadc8b3d7cbaa6d1843c"><div class="ttname"><a href="class_immovable_unit.html#abc0ada13973caadc8b3d7cbaa6d1843c">ImmovableUnit::CanMoveOnBlock</a></div><div class="ttdeci">bool CanMoveOnBlock(uint32_t x, uint32_t y)</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:116</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_abc66a7fd21b2cd46a74a53d0e8ce5341"><div class="ttname"><a href="class_immovable_unit.html#abc66a7fd21b2cd46a74a53d0e8ce5341">ImmovableUnit::GetPlayer</a></div><div class="ttdeci">size_t GetPlayer() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:303</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_ac5ef3849bbf26a14592ab1cd7a9d0720"><div class="ttname"><a href="class_immovable_unit.html#ac5ef3849bbf26a14592ab1cd7a9d0720">ImmovableUnit::GetY</a></div><div class="ttdeci">virtual int GetY() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:133</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_ac9ed01c21520c1ae64030c3e3f001bec"><div class="ttname"><a href="class_immovable_unit.html#ac9ed01c21520c1ae64030c3e3f001bec">ImmovableUnit::DamageApply</a></div><div class="ttdeci">void DamageApply(int damage) override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:176</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_ad972612e5ef196c5a8f4649ea4c4903a"><div class="ttname"><a href="class_immovable_unit.html#ad972612e5ef196c5a8f4649ea4c4903a">ImmovableUnit::UncoverNearbyCells</a></div><div class="ttdeci">void UncoverNearbyCells()</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:185</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_aef7d69060ce2712af295d8a3f57b8af3"><div class="ttname"><a href="class_immovable_unit.html#aef7d69060ce2712af295d8a3f57b8af3">ImmovableUnit::InsertUnitToMap</a></div><div class="ttdeci">void InsertUnitToMap()</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:8</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_afa88fbe2e8f0d18b598f258661211b2e"><div class="ttname"><a href="class_immovable_unit.html#afa88fbe2e8f0d18b598f258661211b2e">ImmovableUnit::Die</a></div><div class="ttdeci">void Die() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:313</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_afe945916204920f8ad8c5c7b61041fb4"><div class="ttname"><a href="class_immovable_unit.html#afe945916204920f8ad8c5c7b61041fb4">ImmovableUnit::scout_radius_</a></div><div class="ttdeci">int scout_radius_</div><div class="ttdef"><b>Definition:</b> immovable_unit.h:38</div></div>
+<div class="ttc" id="aclass_immovable_unit_html_afebaf9caa4dc34033397460507827af7"><div class="ttname"><a href="class_immovable_unit.html#afebaf9caa4dc34033397460507827af7">ImmovableUnit::DeadCheck</a></div><div class="ttdeci">void DeadCheck() override</div><div class="ttdef"><b>Definition:</b> immovable_unit.cpp:305</div></div>
+<div class="ttc" id="aclass_map_layer_html"><div class="ttname"><a href="class_map_layer.html">MapLayer</a></div><div class="ttdef"><b>Definition:</b> map_layer.h:16</div></div>
+<div class="ttc" id="aclass_map_layer_html_a2a8e0b0734a35f4e7dbbb94e7e964137"><div class="ttname"><a href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">MapLayer::GetBlockSize</a></div><div class="ttdeci">static uint32_t GetBlockSize()</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:24</div></div>
+<div class="ttc" id="aclass_players_info_html"><div class="ttname"><a href="class_players_info.html">PlayersInfo</a></div><div class="ttdef"><b>Definition:</b> players_info.h:10</div></div>
+<div class="ttc" id="aclass_with_hitbox_html"><div class="ttname"><a href="class_with_hitbox.html">WithHitbox</a></div><div class="ttdef"><b>Definition:</b> with_hitbox.h:3</div></div>
+<div class="ttc" id="astatus__effects_8h_html_acd9c2a1cf576f0fd9da232d337d9720c"><div class="ttname"><a href="status__effects_8h.html#acd9c2a1cf576f0fd9da232d337d9720c">Effect</a></div><div class="ttdeci">Effect</div><div class="ttdef"><b>Definition:</b> status_effects.h:3</div></div>
+<div class="ttc" id="aunit__type_8h_html_a31cf478374cb056e841f841a3ba0f214"><div class="ttname"><a href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214">UnitType</a></div><div class="ttdeci">UnitType</div><div class="ttdef"><b>Definition:</b> unit_type.h:3</div></div>
+<div class="ttc" id="aunit__type_8h_html_a31cf478374cb056e841f841a3ba0f214ac8fab01c5f48deec3b1f239950ca66a0"><div class="ttname"><a href="unit__type_8h.html#a31cf478374cb056e841f841a3ba0f214ac8fab01c5f48deec3b1f239950ca66a0">Ground</a></div><div class="ttdeci">@ Ground</div><div class="ttdef"><b>Definition:</b> unit_type.h:4</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_080b1462374eca6f187dbb142655cb72.html">units</a></li><li class="navelem"><a class="el" href="immovable__unit_8h.html">immovable_unit.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

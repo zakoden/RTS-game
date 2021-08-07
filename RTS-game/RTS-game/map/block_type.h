@@ -1,5 +1,8 @@
 #pragma once
 
+/**
+* ѕредставл€ет собой виды клеток на карте.
+*/
 enum BlockType {
 	WATER_DEEP = 0,
 	WATER = 10,

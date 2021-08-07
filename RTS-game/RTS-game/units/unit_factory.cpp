@@ -140,7 +140,7 @@ MovableUnit* UnitFactory::CreateBulletFire1(size_t player, int x, int y, int x_t
 
 Building* UnitFactory::CreateBase(uint8_t player, int x, int y) {
 	Building* building = new Building(10, 10, 100, texture_manager_, game_map_, cur_layer_ind_);
-	building->SetTexture(1, 0, 0, 1, 1, 0, 0, 16, 16, 16, 16);
+	building->SetTexture(1, 0, 0, 1, 1, 0, 0, 10, 8, 10, 8);
 	FillUnit(building, UnitType::Ground, player, new BehaviorStay(building), x, y, "base");
 
 	players_[player]->AddBuilding(building);

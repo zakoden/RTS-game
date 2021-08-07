@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RTS-game: Исходный файл RTS-game/RTS-game/map/map_layer.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">RTS-game
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Поиск','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Поиск');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('map__layer_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">map_layer.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="map__layer_8h.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;SDL.h&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="block__type_8h.html">block_type.h</a>&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="camera_8h.html">camera.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="grid_8h.html">grid/grid.h</a>&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="map__point_8h.html">map_point.h</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;../units/abstract_immovable_unit.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_map_layer.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_map_layer.html">MapLayer</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_map_layer.html#a8e992d2f8e32664e1d3eeac5ce4803c0">   18</a></span>&#160;    <span class="keyword">const</span> <span class="keyword">static</span> uint32_t <a class="code" href="class_map_layer.html#a8e992d2f8e32664e1d3eeac5ce4803c0">BLOCK_SIZE</a> = 8; <span class="comment">// ðàçìåð áëîêà</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_map_layer.html#a63d04dc81b9a8bc03bdc9052e3a41827">   19</a></span>&#160;    <span class="keyword">const</span> uint32_t <a class="code" href="class_map_layer.html#a63d04dc81b9a8bc03bdc9052e3a41827">BLOCKS_IN_LINE</a> = 10; <span class="comment">// êîëè÷åñòâî áëîêîâ â ôàéëå ñ òåêñòóðîé</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="class_map_layer.html#ab84f2aa362c336916f977382c6b70c5d">   21</a></span>&#160;    uint32_t <a class="code" href="class_map_layer.html#a4ec798d089fdeaf87bb89598d486995b">width_</a>, <a class="code" href="class_map_layer.html#ab84f2aa362c336916f977382c6b70c5d">height_</a>; <span class="comment">// øèðèíà, âûñîòà êàðòû</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_map_layer.html#a998b7c23f243e65fd83aaedd545969a9">   22</a></span>&#160;    std::vector&lt;uint8_t&gt; <a class="code" href="class_map_layer.html#a998b7c23f243e65fd83aaedd545969a9">blocks_</a>; <span class="comment">// áëîêè êàðòû</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_map_layer.html#a4e0b501897fc967accec06f89e54889a">   24</a></span>&#160;    std::vector&lt;std::unordered_set&lt;AbstractImmovableUnit*&gt;&gt; <a class="code" href="class_map_layer.html#a4e0b501897fc967accec06f89e54889a">units_in_block_</a>; <span class="comment">// þíèòû íà êàðòå</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_map_layer.html#a69070d1afeb4d7798a872a759d697394">   25</a></span>&#160;    SDL_Texture* <a class="code" href="class_map_layer.html#a69070d1afeb4d7798a872a759d697394">tiles_</a> = <span class="keyword">nullptr</span>; <span class="comment">// òåêñòóðà ñî âñåìè áëîêàìè</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_map_layer.html#a2479bc8c60921282d64e7366ed80e621">   26</a></span>&#160;    SDL_Texture* <a class="code" href="class_map_layer.html#a2479bc8c60921282d64e7366ed80e621">fogged_tiles_</a> = <span class="keyword">nullptr</span>; <span class="comment">// Tiles in test-bw.bmp</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="comment">// Objects that refer to players, x[number] = object x for player #number</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_map_layer.html#a5dc189133b55dc48b3ebac41e5f80cc2">   29</a></span>&#160;    vector&lt;Grid&lt;char&gt;&gt; <a class="code" href="class_map_layer.html#a5dc189133b55dc48b3ebac41e5f80cc2">fog_of_war_</a>;  <span class="comment">// [y][x] = 1 if this cell is uncovered, 0 otherwise</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_map_layer.html#aa2edefe0cb34bb5c77f25baba8bfb16f">   30</a></span>&#160;    vector&lt;Grid&lt;float&gt;&gt; <a class="code" href="class_map_layer.html#aa2edefe0cb34bb5c77f25baba8bfb16f">distance_to_base_</a>;  <span class="comment">// [y][x] = distance to the nearest base</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// To reduce computation of rectangles</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="class_map_layer.html#a3164afc674e239ae8a2d211eb9b345fa">   33</a></span>&#160;    std::vector&lt;SDL_Rect&gt; <a class="code" href="class_map_layer.html#a3164afc674e239ae8a2d211eb9b345fa">rectangle_blocks_</a> = vector&lt;SDL_Rect&gt;(256, { -1, -1, -1, -1 });</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_map_layer.html#a669b9bea3c62a2e9247639139b91f998">   35</a></span>&#160;    SDL_Texture* <a class="code" href="class_map_layer.html#a669b9bea3c62a2e9247639139b91f998">texture_save_</a> = NULL;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="class_map_layer.html#a973c9e7676870e728a0b32afe0e38f03">   36</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_map_layer.html#a7d4acf02878acedbb1ec6517de25b987">texture_width_</a> = 0, <a class="code" href="class_map_layer.html#a973c9e7676870e728a0b32afe0e38f03">texture_height_</a> = 0;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_map_layer.html#ac13cfdcfdf47522d2652daa93cc7fbab">GetInd</a>(uint32_t x, uint32_t y) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="class_map_layer.html#a94609aba07cd4a3afb940d6256e3f366">~MapLayer</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    uint32_t <a class="code" href="class_map_layer.html#aeb94b10db3cab594d14010d71742b562">GetHeight</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    uint32_t <a class="code" href="class_map_layer.html#aea813e3811be44cfade0069e54705552">GetWidth</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> uint32_t <a class="code" href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">GetBlockSize</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">const</span> std::unordered_set&lt;AbstractImmovableUnit*&gt;&amp; <a class="code" href="class_map_layer.html#a41403adff42165fb9048a3015c526966">GetUnitsInBlock</a>(uint32_t x, uint32_t y) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="class_grid.html">Grid&lt;float&gt;</a>&amp; <a class="code" href="class_map_layer.html#a0f1adfb5bd830f6fbb8d0fad6b8e1d11">GetDistanceToBase</a>(uint8_t player_num);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_map_layer.html#a6b7abf13e2f979499562fb33e7dd81c6">IsBlockInMap</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_map_layer.html#aa89e2bbcca187d2ec22f3c271dc3b886">IsPositionInMap</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="comment">// Returns fog_of_war_[player_num][y][x]</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_map_layer.html#a3beba0e3c0e35e8a1e661b8eaceaf98b">IsCellUncovered</a>(<a class="code" href="struct_map_point.html">MapPoint</a> point, <span class="keywordtype">size_t</span> player_num) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    SDL_Rect <a class="code" href="class_map_layer.html#a15507d15c526f505928d4098655b37ce">GetBlockRect</a>(uint32_t x, uint32_t y);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a988ece11f7cdb27912c5b8bb098bbdf4">AddUnit</a>(<a class="code" href="class_abstract_immovable_unit.html">AbstractImmovableUnit</a>* unit, uint32_t x, uint32_t y);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a1593dcb516df89c04f2dd06a432b50e3">DeleteUnit</a>(<a class="code" href="class_abstract_immovable_unit.html">AbstractImmovableUnit</a>* unit, uint32_t x, uint32_t y);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// Gets a block in (x, y), UNKNOWN if player player_num doesn&#39;t know it yet</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    uint8_t <a class="code" href="class_map_layer.html#a40cd74deb24066d308bacd70a861c464">GetBlock</a>(uint32_t x, uint32_t y, <span class="keywordtype">size_t</span> player_num) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// Uncovers cell in (x, y) (unit cell) for player player_num</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#ae58947991b834a43e7e2a4a50b3a28a8">UncoverCell</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">size_t</span> player_num);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a7c3296ad1e3977d648add3e5b54f9c2c">SetBlock</a>(uint32_t x, uint32_t y, uint8_t value);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a96db58eceed8c774c2d0e1e6366ad2ff">DrawToTexture</a>(SDL_Renderer* renderer);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a2d427a45391527d827eec42c3e66bf6e">BlockDraw</a>(SDL_Renderer* renderer, uint32_t x, uint32_t y, uint8_t block = UINT8_MAX);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a51d4638a1f6f07f80ea171987846b3ed">Draw</a>(SDL_Renderer* renderer, <a class="code" href="class_camera.html">Camera</a>* camera, uint8_t player_num = UINT8_MAX);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// For user_manager, covers all covered cells with block_num</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#ac4eddeee93246c2b388fdca6b4659769">ApplyMask</a>(SDL_Renderer* renderer, <a class="code" href="class_camera.html">Camera</a>* camera, <span class="keywordtype">int</span> player_num, uint8_t block_num);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a30f5ef70af8843b4deedf40017ca01b6">AddBase</a>(SDL_Point location, uint8_t player_num);  <span class="comment">// Processes the event that new base was added</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// DRY + Abstract class doesn&#39;t have a constructor</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a2cc27091703a31473370fc5c87b42f20">FillMap</a>(SDL_Renderer* renderer, uint32_t width, uint32_t height, <span class="keywordtype">size_t</span> players_count);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_map_layer.html#a9935306469e930e382951234e3ab49ee">   84</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_map_layer.html#a9935306469e930e382951234e3ab49ee">Generate</a>(uint64_t seed) = 0;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
+<div class="ttc" id="ablock__type_8h_html"><div class="ttname"><a href="block__type_8h.html">block_type.h</a></div></div>
+<div class="ttc" id="acamera_8h_html"><div class="ttname"><a href="camera_8h.html">camera.h</a></div></div>
+<div class="ttc" id="aclass_abstract_immovable_unit_html"><div class="ttname"><a href="class_abstract_immovable_unit.html">AbstractImmovableUnit</a></div><div class="ttdef"><b>Definition:</b> abstract_immovable_unit.h:17</div></div>
+<div class="ttc" id="aclass_camera_html"><div class="ttname"><a href="class_camera.html">Camera</a></div><div class="ttdef"><b>Definition:</b> camera.h:7</div></div>
+<div class="ttc" id="aclass_grid_html"><div class="ttname"><a href="class_grid.html">Grid&lt; float &gt;</a></div></div>
+<div class="ttc" id="aclass_map_layer_html"><div class="ttname"><a href="class_map_layer.html">MapLayer</a></div><div class="ttdef"><b>Definition:</b> map_layer.h:16</div></div>
+<div class="ttc" id="aclass_map_layer_html_a0f1adfb5bd830f6fbb8d0fad6b8e1d11"><div class="ttname"><a href="class_map_layer.html#a0f1adfb5bd830f6fbb8d0fad6b8e1d11">MapLayer::GetDistanceToBase</a></div><div class="ttdeci">Grid&lt; float &gt; &amp; GetDistanceToBase(uint8_t player_num)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:32</div></div>
+<div class="ttc" id="aclass_map_layer_html_a15507d15c526f505928d4098655b37ce"><div class="ttname"><a href="class_map_layer.html#a15507d15c526f505928d4098655b37ce">MapLayer::GetBlockRect</a></div><div class="ttdeci">SDL_Rect GetBlockRect(uint32_t x, uint32_t y)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:52</div></div>
+<div class="ttc" id="aclass_map_layer_html_a1593dcb516df89c04f2dd06a432b50e3"><div class="ttname"><a href="class_map_layer.html#a1593dcb516df89c04f2dd06a432b50e3">MapLayer::DeleteUnit</a></div><div class="ttdeci">void DeleteUnit(AbstractImmovableUnit *unit, uint32_t x, uint32_t y)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:65</div></div>
+<div class="ttc" id="aclass_map_layer_html_a2479bc8c60921282d64e7366ed80e621"><div class="ttname"><a href="class_map_layer.html#a2479bc8c60921282d64e7366ed80e621">MapLayer::fogged_tiles_</a></div><div class="ttdeci">SDL_Texture * fogged_tiles_</div><div class="ttdef"><b>Definition:</b> map_layer.h:26</div></div>
+<div class="ttc" id="aclass_map_layer_html_a2a8e0b0734a35f4e7dbbb94e7e964137"><div class="ttname"><a href="class_map_layer.html#a2a8e0b0734a35f4e7dbbb94e7e964137">MapLayer::GetBlockSize</a></div><div class="ttdeci">static uint32_t GetBlockSize()</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:24</div></div>
+<div class="ttc" id="aclass_map_layer_html_a2cc27091703a31473370fc5c87b42f20"><div class="ttname"><a href="class_map_layer.html#a2cc27091703a31473370fc5c87b42f20">MapLayer::FillMap</a></div><div class="ttdeci">void FillMap(SDL_Renderer *renderer, uint32_t width, uint32_t height, size_t players_count)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:150</div></div>
+<div class="ttc" id="aclass_map_layer_html_a2d427a45391527d827eec42c3e66bf6e"><div class="ttname"><a href="class_map_layer.html#a2d427a45391527d827eec42c3e66bf6e">MapLayer::BlockDraw</a></div><div class="ttdeci">void BlockDraw(SDL_Renderer *renderer, uint32_t x, uint32_t y, uint8_t block=UINT8_MAX)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:93</div></div>
+<div class="ttc" id="aclass_map_layer_html_a30f5ef70af8843b4deedf40017ca01b6"><div class="ttname"><a href="class_map_layer.html#a30f5ef70af8843b4deedf40017ca01b6">MapLayer::AddBase</a></div><div class="ttdeci">void AddBase(SDL_Point location, uint8_t player_num)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:140</div></div>
+<div class="ttc" id="aclass_map_layer_html_a3164afc674e239ae8a2d211eb9b345fa"><div class="ttname"><a href="class_map_layer.html#a3164afc674e239ae8a2d211eb9b345fa">MapLayer::rectangle_blocks_</a></div><div class="ttdeci">std::vector&lt; SDL_Rect &gt; rectangle_blocks_</div><div class="ttdef"><b>Definition:</b> map_layer.h:33</div></div>
+<div class="ttc" id="aclass_map_layer_html_a3beba0e3c0e35e8a1e661b8eaceaf98b"><div class="ttname"><a href="class_map_layer.html#a3beba0e3c0e35e8a1e661b8eaceaf98b">MapLayer::IsCellUncovered</a></div><div class="ttdeci">bool IsCellUncovered(MapPoint point, size_t player_num) const</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:48</div></div>
+<div class="ttc" id="aclass_map_layer_html_a40cd74deb24066d308bacd70a861c464"><div class="ttname"><a href="class_map_layer.html#a40cd74deb24066d308bacd70a861c464">MapLayer::GetBlock</a></div><div class="ttdeci">uint8_t GetBlock(uint32_t x, uint32_t y, size_t player_num) const</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:71</div></div>
+<div class="ttc" id="aclass_map_layer_html_a41403adff42165fb9048a3015c526966"><div class="ttname"><a href="class_map_layer.html#a41403adff42165fb9048a3015c526966">MapLayer::GetUnitsInBlock</a></div><div class="ttdeci">const std::unordered_set&lt; AbstractImmovableUnit * &gt; &amp; GetUnitsInBlock(uint32_t x, uint32_t y) const</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:28</div></div>
+<div class="ttc" id="aclass_map_layer_html_a4e0b501897fc967accec06f89e54889a"><div class="ttname"><a href="class_map_layer.html#a4e0b501897fc967accec06f89e54889a">MapLayer::units_in_block_</a></div><div class="ttdeci">std::vector&lt; std::unordered_set&lt; AbstractImmovableUnit * &gt; &gt; units_in_block_</div><div class="ttdef"><b>Definition:</b> map_layer.h:24</div></div>
+<div class="ttc" id="aclass_map_layer_html_a4ec798d089fdeaf87bb89598d486995b"><div class="ttname"><a href="class_map_layer.html#a4ec798d089fdeaf87bb89598d486995b">MapLayer::width_</a></div><div class="ttdeci">uint32_t width_</div><div class="ttdef"><b>Definition:</b> map_layer.h:21</div></div>
+<div class="ttc" id="aclass_map_layer_html_a51d4638a1f6f07f80ea171987846b3ed"><div class="ttname"><a href="class_map_layer.html#a51d4638a1f6f07f80ea171987846b3ed">MapLayer::Draw</a></div><div class="ttdeci">void Draw(SDL_Renderer *renderer, Camera *camera, uint8_t player_num=UINT8_MAX)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:114</div></div>
+<div class="ttc" id="aclass_map_layer_html_a5dc189133b55dc48b3ebac41e5f80cc2"><div class="ttname"><a href="class_map_layer.html#a5dc189133b55dc48b3ebac41e5f80cc2">MapLayer::fog_of_war_</a></div><div class="ttdeci">vector&lt; Grid&lt; char &gt; &gt; fog_of_war_</div><div class="ttdef"><b>Definition:</b> map_layer.h:29</div></div>
+<div class="ttc" id="aclass_map_layer_html_a63d04dc81b9a8bc03bdc9052e3a41827"><div class="ttname"><a href="class_map_layer.html#a63d04dc81b9a8bc03bdc9052e3a41827">MapLayer::BLOCKS_IN_LINE</a></div><div class="ttdeci">const uint32_t BLOCKS_IN_LINE</div><div class="ttdef"><b>Definition:</b> map_layer.h:19</div></div>
+<div class="ttc" id="aclass_map_layer_html_a669b9bea3c62a2e9247639139b91f998"><div class="ttname"><a href="class_map_layer.html#a669b9bea3c62a2e9247639139b91f998">MapLayer::texture_save_</a></div><div class="ttdeci">SDL_Texture * texture_save_</div><div class="ttdef"><b>Definition:</b> map_layer.h:35</div></div>
+<div class="ttc" id="aclass_map_layer_html_a69070d1afeb4d7798a872a759d697394"><div class="ttname"><a href="class_map_layer.html#a69070d1afeb4d7798a872a759d697394">MapLayer::tiles_</a></div><div class="ttdeci">SDL_Texture * tiles_</div><div class="ttdef"><b>Definition:</b> map_layer.h:25</div></div>
+<div class="ttc" id="aclass_map_layer_html_a6b7abf13e2f979499562fb33e7dd81c6"><div class="ttname"><a href="class_map_layer.html#a6b7abf13e2f979499562fb33e7dd81c6">MapLayer::IsBlockInMap</a></div><div class="ttdeci">bool IsBlockInMap(int x, int y)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:36</div></div>
+<div class="ttc" id="aclass_map_layer_html_a7c3296ad1e3977d648add3e5b54f9c2c"><div class="ttname"><a href="class_map_layer.html#a7c3296ad1e3977d648add3e5b54f9c2c">MapLayer::SetBlock</a></div><div class="ttdeci">void SetBlock(uint32_t x, uint32_t y, uint8_t value)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:79</div></div>
+<div class="ttc" id="aclass_map_layer_html_a7d4acf02878acedbb1ec6517de25b987"><div class="ttname"><a href="class_map_layer.html#a7d4acf02878acedbb1ec6517de25b987">MapLayer::texture_width_</a></div><div class="ttdeci">int texture_width_</div><div class="ttdef"><b>Definition:</b> map_layer.h:36</div></div>
+<div class="ttc" id="aclass_map_layer_html_a8e992d2f8e32664e1d3eeac5ce4803c0"><div class="ttname"><a href="class_map_layer.html#a8e992d2f8e32664e1d3eeac5ce4803c0">MapLayer::BLOCK_SIZE</a></div><div class="ttdeci">static const uint32_t BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> map_layer.h:18</div></div>
+<div class="ttc" id="aclass_map_layer_html_a94609aba07cd4a3afb940d6256e3f366"><div class="ttname"><a href="class_map_layer.html#a94609aba07cd4a3afb940d6256e3f366">MapLayer::~MapLayer</a></div><div class="ttdeci">virtual ~MapLayer()</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:12</div></div>
+<div class="ttc" id="aclass_map_layer_html_a96db58eceed8c774c2d0e1e6366ad2ff"><div class="ttname"><a href="class_map_layer.html#a96db58eceed8c774c2d0e1e6366ad2ff">MapLayer::DrawToTexture</a></div><div class="ttdeci">void DrawToTexture(SDL_Renderer *renderer)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:83</div></div>
+<div class="ttc" id="aclass_map_layer_html_a973c9e7676870e728a0b32afe0e38f03"><div class="ttname"><a href="class_map_layer.html#a973c9e7676870e728a0b32afe0e38f03">MapLayer::texture_height_</a></div><div class="ttdeci">int texture_height_</div><div class="ttdef"><b>Definition:</b> map_layer.h:36</div></div>
+<div class="ttc" id="aclass_map_layer_html_a988ece11f7cdb27912c5b8bb098bbdf4"><div class="ttname"><a href="class_map_layer.html#a988ece11f7cdb27912c5b8bb098bbdf4">MapLayer::AddUnit</a></div><div class="ttdeci">void AddUnit(AbstractImmovableUnit *unit, uint32_t x, uint32_t y)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:61</div></div>
+<div class="ttc" id="aclass_map_layer_html_a9935306469e930e382951234e3ab49ee"><div class="ttname"><a href="class_map_layer.html#a9935306469e930e382951234e3ab49ee">MapLayer::Generate</a></div><div class="ttdeci">virtual void Generate(uint64_t seed)=0</div></div>
+<div class="ttc" id="aclass_map_layer_html_a998b7c23f243e65fd83aaedd545969a9"><div class="ttname"><a href="class_map_layer.html#a998b7c23f243e65fd83aaedd545969a9">MapLayer::blocks_</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; blocks_</div><div class="ttdef"><b>Definition:</b> map_layer.h:22</div></div>
+<div class="ttc" id="aclass_map_layer_html_aa2edefe0cb34bb5c77f25baba8bfb16f"><div class="ttname"><a href="class_map_layer.html#aa2edefe0cb34bb5c77f25baba8bfb16f">MapLayer::distance_to_base_</a></div><div class="ttdeci">vector&lt; Grid&lt; float &gt; &gt; distance_to_base_</div><div class="ttdef"><b>Definition:</b> map_layer.h:30</div></div>
+<div class="ttc" id="aclass_map_layer_html_aa89e2bbcca187d2ec22f3c271dc3b886"><div class="ttname"><a href="class_map_layer.html#aa89e2bbcca187d2ec22f3c271dc3b886">MapLayer::IsPositionInMap</a></div><div class="ttdeci">bool IsPositionInMap(int x, int y)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:42</div></div>
+<div class="ttc" id="aclass_map_layer_html_ab84f2aa362c336916f977382c6b70c5d"><div class="ttname"><a href="class_map_layer.html#ab84f2aa362c336916f977382c6b70c5d">MapLayer::height_</a></div><div class="ttdeci">uint32_t height_</div><div class="ttdef"><b>Definition:</b> map_layer.h:21</div></div>
+<div class="ttc" id="aclass_map_layer_html_ac13cfdcfdf47522d2652daa93cc7fbab"><div class="ttname"><a href="class_map_layer.html#ac13cfdcfdf47522d2652daa93cc7fbab">MapLayer::GetInd</a></div><div class="ttdeci">size_t GetInd(uint32_t x, uint32_t y) const</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:8</div></div>
+<div class="ttc" id="aclass_map_layer_html_ac4eddeee93246c2b388fdca6b4659769"><div class="ttname"><a href="class_map_layer.html#ac4eddeee93246c2b388fdca6b4659769">MapLayer::ApplyMask</a></div><div class="ttdeci">void ApplyMask(SDL_Renderer *renderer, Camera *camera, int player_num, uint8_t block_num)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:128</div></div>
+<div class="ttc" id="aclass_map_layer_html_ae58947991b834a43e7e2a4a50b3a28a8"><div class="ttname"><a href="class_map_layer.html#ae58947991b834a43e7e2a4a50b3a28a8">MapLayer::UncoverCell</a></div><div class="ttdeci">void UncoverCell(int x, int y, size_t player_num)</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:75</div></div>
+<div class="ttc" id="aclass_map_layer_html_aea813e3811be44cfade0069e54705552"><div class="ttname"><a href="class_map_layer.html#aea813e3811be44cfade0069e54705552">MapLayer::GetWidth</a></div><div class="ttdeci">uint32_t GetWidth()</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:20</div></div>
+<div class="ttc" id="aclass_map_layer_html_aeb94b10db3cab594d14010d71742b562"><div class="ttname"><a href="class_map_layer.html#aeb94b10db3cab594d14010d71742b562">MapLayer::GetHeight</a></div><div class="ttdeci">uint32_t GetHeight()</div><div class="ttdef"><b>Definition:</b> map_layer.cpp:16</div></div>
+<div class="ttc" id="agrid_8h_html"><div class="ttname"><a href="grid_8h.html">grid.h</a></div></div>
+<div class="ttc" id="amap__point_8h_html"><div class="ttname"><a href="map__point_8h.html">map_point.h</a></div></div>
+<div class="ttc" id="astruct_map_point_html"><div class="ttname"><a href="struct_map_point.html">MapPoint</a></div><div class="ttdef"><b>Definition:</b> map_point.h:5</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_786c9d1c35457415a253963865d54a7d.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_46f0660a92e7afd4ee230c1f32619f79.html">RTS-game</a></li><li class="navelem"><a class="el" href="dir_a6e7d02c070370f747481808e013b638.html">map</a></li><li class="navelem"><a class="el" href="map__layer_8h.html">map_layer.h</a></li>
+    <li class="footer">Создано системой <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>
