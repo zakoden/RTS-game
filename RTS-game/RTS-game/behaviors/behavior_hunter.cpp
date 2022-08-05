@@ -1,5 +1,7 @@
 #include "behavior_hunter.h"
 
+#include <cstring>
+
 BehaviorHunter::BehaviorHunter(MovableUnit* unit, MovableUnitFactory* unit_factory)
 : unit_(unit)
 , unit_factory_(unit_factory) {

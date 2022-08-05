@@ -3,7 +3,7 @@
 #include <iostream>
 #include <vector>
 
-#include "SDL.h"
+#include <SDL.h>
 
 #include "../clock.h"
 

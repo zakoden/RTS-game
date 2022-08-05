@@ -1,5 +1,7 @@
 #include "game_map.h"
 
+#include <time.h>
+
 GameMap::GameMap(SDL_Renderer* renderer, uint32_t width, uint32_t height, size_t players_count, std::vector<MapLayer*> layers) 
 	: layers_(layers)
 {

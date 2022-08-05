@@ -3,6 +3,7 @@
 #include <cassert>
 
 #include <iostream>
+#include <math.h>
 #include <queue>
 
 #include "../triple.h"
