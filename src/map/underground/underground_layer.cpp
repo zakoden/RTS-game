@@ -3,7 +3,7 @@
 #include "../grid/grid_neighbors.h"
 #include "../grid/grid_function.h"
 
-#include "../time_measurer.h"
+#include "../../utils/time_measurer.h"
 
 #include <random>
 

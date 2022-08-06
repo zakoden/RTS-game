@@ -1,20 +1,12 @@
 #include "grid_function.h"
 
 #include <cassert>
+#include <cmath>
 
 #include <iostream>
-#include <math.h>
 #include <queue>
 
 #include "../triple.h"
-
-inline uint32_t grid_function::SquaredDistance(const MapPoint& a, const MapPoint& b) {
-	return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
-}
-
-inline float grid_function::Distance(const MapPoint& a, const MapPoint& b) {
-	return sqrtf(static_cast<float>(SquaredDistance(a, b)));
-}
 
 void grid_function::SmoothMap(const GridNeighbors& neighbors, Grid<BlockType>& blocks) {
 	uint32_t transformed_cells = 0;

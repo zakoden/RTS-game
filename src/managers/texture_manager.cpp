@@ -7,7 +7,7 @@ inline std::string GetFileName(const std::string& texture_name) {
 SDL_Texture* TextureManager::LoadTexture(const std::string& texture_name) {
 	SDL_Surface* surface = SDL_LoadBMP(GetFileName(texture_name).c_str());
 	if (surface == NULL) {
-		std::cerr << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
+		std::cerr << "SDL_LoadBMP Error for texture " << texture_name << ": " << SDL_GetError() << std::endl;
 	}
 
 	SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));

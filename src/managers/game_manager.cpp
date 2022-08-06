@@ -3,6 +3,8 @@
 #include "../map/surface/surface_layer.h"
 #include "../map/underground/underground_layer.h"
 
+#include <SDL.h>
+
 GameManager::GameManager() {
 }
 

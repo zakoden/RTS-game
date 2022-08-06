@@ -1,8 +1,9 @@
 #pragma once
 
+#include <cmath>
 #include <vector>
 
-#include "../block_type.h"
+#include "../map/block_type.h"
 #include "grid.h"
 #include "grid_neighbors.h"
 
@@ -14,10 +15,14 @@ namespace grid_function {
 	Grid<T> FromFunction(size_t height, size_t width, BinaryFunction f);
 
 	// Gets square of a distance between two points
-	inline uint32_t SquaredDistance(const MapPoint& a, const MapPoint& b);
+	inline uint32_t SquaredDistance(const MapPoint& a, const MapPoint& b) {
+          return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+        }
 
 	// Gets an actual distance between two points
-	float Distance(const MapPoint& a, const MapPoint& b);
+        inline float Distance(const MapPoint& a, const MapPoint& b) {
+          return sqrtf(static_cast<float>(SquaredDistance(a, b)));
+        }
 
 	// Makes map more smooth
 	// For each cell, if 5 neighbors have the same block type, transform that cell into that block type

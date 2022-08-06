@@ -11,9 +11,9 @@
 #include "diamond_square.h"
 #include "perlin.h"
 
+#include "../../utils/time_measurer.h"
 #include "../grid/grid_function.h"
 #include "../grid/grid_neighbors.h"
-#include "../time_measurer.h"
 #include "../triple.h"
 
 using grid_function::FromFunction;

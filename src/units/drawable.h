@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "SDL.h"
+#include <SDL.h>
 
 #include "../map/camera.h"
 
