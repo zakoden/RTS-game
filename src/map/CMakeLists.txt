@@ -11,4 +11,4 @@ set(SOURCES
         surface/surface_layer.cpp
         underground/underground_layer.cpp
         )
-create_library(${LIBRARY_NAME} "${SOURCES}")
+add_library(${LIBRARY_NAME} "${SOURCES}")

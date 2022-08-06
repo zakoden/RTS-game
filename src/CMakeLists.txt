@@ -4,17 +4,6 @@ project(rts-game)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# Helper function to create subdirectories
-function(create_library lib_name sources)
-    add_library(${lib_name} ${sources})
-
-    # Link libraries to solve errors like "undefined reference to `SDL_Init'"
-    link_directories(${PROJECT_SOURCE_DIR}/SDL2/lib)
-    # Include .h files in SDL to allow include <SDL.h>
-    include_directories(SDL2 ${PROJECT_SOURCE_DIR}/SDL2/include/SDL2)
-    link_libraries(${lib_name} SDL2 SDL2main)
-endfunction()
-
 # Include .h files in SDL to allow include <SDL.h>
 include_directories(SDL2 ${PROJECT_SOURCE_DIR}/SDL2/include/SDL2)
 # Link libraries to solve errors like "undefined reference to `SDL_Init'"
@@ -51,6 +40,7 @@ set(PICTURES
         pictures/testunit2.bmp
         pictures/testunit2_1.bmp
         pictures/testunit3.bmp)
+
 foreach(pic IN ITEMS ${PICTURES})
     message("Adding picture ${pic}")
     configure_file(${pic} ${pic} COPYONLY)

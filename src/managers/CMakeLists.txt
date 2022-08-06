@@ -4,5 +4,4 @@ set(SOURCES
         texture_manager.cpp
         user_manager.cpp
         )
-
-add_library(${LIBRARY_NAME} ${SOURCES})
+add_library(${LIBRARY_NAME} "${SOURCES}")

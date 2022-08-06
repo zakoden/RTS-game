@@ -9,4 +9,4 @@ set(SOURCES
         behavior_tower.cpp
         behavior_scout.cpp
         )
-create_library(${LIBRARY_NAME} "${SOURCES}")
+add_library(${LIBRARY_NAME} "${SOURCES}")
